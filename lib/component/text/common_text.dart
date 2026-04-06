@@ -47,10 +47,11 @@ class CommonText extends StatelessWidget {
         text,
         maxLines: maxLines,
         overflow: overflow,
-        style: GoogleFonts.roboto(
+        style: TextStyle(
           fontSize: fontSize.sp,
           fontWeight: fontWeight,
           color: color,
+          fontFamily: 'SFPro', // Must match the family name in pubspec
         ),
       ),
     );
