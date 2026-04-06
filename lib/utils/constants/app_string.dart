@@ -76,5 +76,6 @@ class AppString {
 
   // home screen added by ajijul
   static const String transfers = "TRANSFERS";
-
+  static const String home = "HOME";
+  static const String watchEngLive = "WATCH ENG TV LIVE";
 }
