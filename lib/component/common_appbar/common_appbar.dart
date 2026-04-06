@@ -14,7 +14,8 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-
+      toolbarHeight: 80.h,
+      bottom: null,
       backgroundColor: AppColors.primaryColor,
       title: Row(
         mainAxisAlignment: .spaceBetween,
@@ -22,7 +23,7 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
           Image.asset(AppImages.appLogo, width: 91.w),
           Spacer(),
           CommonText(
-            text: AppString.transfers,
+            text: AppString.community,
             color: AppColors.white,
             fontSize: 21.sp,
           ),

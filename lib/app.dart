@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/features/navbar/screen/navbar_screen.dart';
+import 'package:untitled/utils/constants/app_colors.dart';
 
 import 'config/core/app_wrapper.dart';
 import 'config/route/app_routes.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
 
         builder: (context, child) {
           return GetMaterialApp(
+            color: AppColors.background,
             debugShowCheckedModeBanner: false,
             scrollBehavior: const AppScrollBehavior(),
             navigatorKey: Get.key,
