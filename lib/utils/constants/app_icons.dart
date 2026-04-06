@@ -20,4 +20,5 @@ class AppIcons {
   // added by ajijul
   static const String notification = '$baseurl/notification_inactive.svg';
   static const String menu = '$baseurl/menu.svg';
+
 }

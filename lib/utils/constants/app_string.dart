@@ -73,4 +73,8 @@ class AppString {
   static const String thePasswordDoesNotMatch = 'The password does not match';
   static const String startServer = 'Please, start the Server';
   static const String unknownError = 'Unknown Error';
+
+  // home screen added by ajijul
+  static const String transfers = "TRANSFERS";
+
 }

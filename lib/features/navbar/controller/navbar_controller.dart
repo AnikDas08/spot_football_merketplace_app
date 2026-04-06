@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:untitled/features/home/presentation/screens/home_screen.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 import '../../../utils/constants/app_images.dart';
 import '../../profile/presentation/screen/profile_screen.dart';
@@ -16,7 +17,7 @@ class NavBarController extends GetxController {
   }
 
   final List<Widget> screens = [
-    ProfileScreen(),
+    HomeScreen(),
     ProfileScreen(),
     ProfileScreen(),
     ProfileScreen(),
