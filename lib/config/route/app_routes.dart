@@ -8,6 +8,7 @@ import '../../features/auth/sign up/presentation/screen/sign_up_screen.dart';
 import '../../features/auth/sign up/presentation/screen/verify_user.dart';
 import '../../features/message/presentation/screen/chat_screen.dart';
 import '../../features/message/presentation/screen/message_screen.dart';
+import '../../features/navbar/screen/navbar_screen.dart';
 import '../../features/notifications/presentation/screen/notifications_screen.dart';
 import '../../features/onboarding_screen/onboarding_screen.dart';
 import '../../features/profile/presentation/screen/edit_profile.dart';
@@ -16,8 +17,17 @@ import '../../features/setting/presentation/screen/privacy_policy_screen.dart';
 import '../../features/setting/presentation/screen/setting_screen.dart';
 import '../../features/setting/presentation/screen/terms_of_services_screen.dart';
 import '../../features/splash/splash_screen.dart';
+import '../../features/transferms/presentation/screen/transferm_form_screen.dart';
 
 class AppRoutes {
+  static const String transferFormScreen = '/transferFormScreen.dart';
+  static const String  navBarScreen = '/ navBarScreen.dart';
+
+
+
+
+
+
   static const String test = '/test_screen.dart';
   static const String splash = '/';
   static const String onboarding = '/onboarding_screen.dart';
@@ -55,5 +65,8 @@ class AppRoutes {
     GetPage(name: privacyPolicy, page: () => const PrivacyPolicyScreen()),
     GetPage(name: termsOfServices, page: () => const TermsOfServicesScreen()),
     GetPage(name: setting, page: () => const SettingScreen()),
+    //added by Arif
+    GetPage(name: transferFormScreen, page: () => const TransferFormScreen()),
+    GetPage(name:  navBarScreen, page: () =>   NavBarScreen()),
   ];
 }
