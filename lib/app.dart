@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/features/home/presentation/screens/home_screen.dart';
 
 import 'config/core/app_wrapper.dart';
 import 'config/route/app_routes.dart';
@@ -26,8 +27,9 @@ class MyApp extends StatelessWidget {
             theme: themeData,
             defaultTransition: Transition.fadeIn,
             transitionDuration: const Duration(milliseconds: 200),
-            getPages: AppRoutes.routes,
-            initialRoute: AppRoutes.splash,
+            // getPages: AppRoutes.routes,
+            // initialRoute: AppRoutes.splash,
+            home: HomeScreen(),
           );
         },
       ),
