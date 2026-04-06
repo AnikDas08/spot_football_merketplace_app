@@ -75,7 +75,8 @@ class AppString {
   static const String unknownError = 'Unknown Error';
 
   // home screen added by ajijul
-  static const String transfers = "TRANSFERS";
+  static const String community = "COMMUNITY";
   static const String home = "HOME";
   static const String watchEngLive = "WATCH ENG TV LIVE";
+  static const String latestNews = "latest News";
 }
