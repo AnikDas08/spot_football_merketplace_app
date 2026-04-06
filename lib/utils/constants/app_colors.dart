@@ -22,4 +22,10 @@ class AppColors {
   static const Color filledColor = Color(0xFFe7e7e7);
   static const Color textFiledColor = Color(0xFF979797);
   static const blueLight = Color(0xffe8e8f5);
+
+  //Add by Arif#
+  static const yellow = Color(0xffEABB00);
+  static const green = Color(0xff19CA77);
+  static const color6B6B6B = Color(0xff6B6B6B);
+
 }
