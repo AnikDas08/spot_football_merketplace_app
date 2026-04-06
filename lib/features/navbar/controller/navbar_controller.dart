@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:untitled/features/home/presentation/screens/home_screen.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
-
-import '../../../utils/constants/app_colors.dart';
 import '../../../utils/constants/app_images.dart';
 import '../../profile/presentation/screen/profile_screen.dart';
 
@@ -35,17 +33,18 @@ class NavBarController extends GetxController {
   ];
 
   final List<String> activeIcons = [
-
-  AppIcons.homeActive,
-    AppImages.profile,
-    AppImages.profile,
-    AppImages.profile,
-    AppImages.profile,  ];
-
-  final List<String> inActiveIcons = [
     AppIcons.homeActive,
     AppImages.profile,
     AppImages.profile,
     AppImages.profile,
-    AppImages.profile,  ];
+    AppImages.profile,
+  ];
+
+  final List<String> inActiveIcons = [
+    AppIcons.homeInActive,
+    AppIcons.fixturesInActive,
+    AppIcons.transfersInActive,
+    AppIcons.engTvInActive,
+    AppIcons.statsInactive,
+  ];
 }
