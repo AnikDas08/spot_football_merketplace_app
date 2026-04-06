@@ -38,7 +38,7 @@ class AppRoutes {
   static const String setting = '/setting_screen.dart';
 
   static List<GetPage<String>> routes = [
-    /*GetPage(name: splash, page: () => const SplashScreen()),
+    GetPage(name: splash, page: () => const SplashScreen()),
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => SignUpScreen()),
     GetPage(name: verifyUser, page: () => const VerifyUser()),
@@ -54,6 +54,6 @@ class AppRoutes {
     GetPage(name: editProfile, page: () => EditProfile()),
     GetPage(name: privacyPolicy, page: () => const PrivacyPolicyScreen()),
     GetPage(name: termsOfServices, page: () => const TermsOfServicesScreen()),
-    GetPage(name: setting, page: () => const SettingScreen()),*/
+    GetPage(name: setting, page: () => const SettingScreen()),
   ];
 }
