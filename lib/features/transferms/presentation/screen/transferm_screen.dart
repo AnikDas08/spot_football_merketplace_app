@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/component/common_appbar/common_appbar.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
 
-import '../../../../component/appbar_widget/appbar_widget.dart';
 import '../../../../component/text/common_text.dart';
 import '../widget/player_card.dart';
 import '../widget/trial_offer_card.dart';
@@ -14,7 +14,7 @@ class TransferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppbarWidget(),
+      appBar: const CommonAppbar(),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 28.h),
