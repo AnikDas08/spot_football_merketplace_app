@@ -9,5 +9,4 @@ class AppImages {
 
   // added by ajijul
   static const String appLogo = '$baseurl/app_logo.png';
-
 }
