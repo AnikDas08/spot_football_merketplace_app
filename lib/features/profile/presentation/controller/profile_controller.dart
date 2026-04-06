@@ -91,8 +91,6 @@ class ProfileController extends GetxController {
   /// Dispose controllers
   @override
   void onClose() {
-    nameController.dispose();
-    numberController.dispose();
     super.onClose();
   }
 }
