@@ -109,3 +109,15 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+  fonts:
+    - family: SFPro  # This is the nickname you'll use in code
+      fonts:
+        - asset: assets/fonts/sf_pro/SFPRODISPLAYREGULAR.OTF
+        - asset: assets/fonts/sf_pro/SFPRODISPLAYBOLD.OTF
+          weight: 700
+        - asset: assets/fonts/sf_pro/SFPRODISPLAYMEDIUM.OTF
+          weight: 500
+        - asset: assets/fonts/sf_pro/SFPRODISPLAYLIGHTITALIC.OTF
+          style: italic
+          weight: 300
