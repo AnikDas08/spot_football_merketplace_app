@@ -8,12 +8,13 @@ import '../../utils/constants/app_icons.dart';
 import '../../utils/constants/app_images.dart';
 import '../../utils/constants/app_string.dart';
 
-class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppbarWidget({super.key});
+class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
+  const CommonAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+
       backgroundColor: AppColors.primaryColor,
       title: Row(
         mainAxisAlignment: .spaceBetween,
@@ -46,5 +47,5 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(80.h);
 }
