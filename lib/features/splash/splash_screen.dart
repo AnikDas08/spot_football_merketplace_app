@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //   Get.offAllNamed(AppRoutes.onboarding);
     // }
 
-    Get.offAllNamed(AppRoutes.onboarding);
+    Get.toNamed(AppRoutes.navBarScreen);
   }
 
   @override

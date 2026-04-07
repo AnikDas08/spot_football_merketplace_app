@@ -7,11 +7,13 @@ import '../../features/auth/sign up/presentation/controller/sign_up_controller.d
 import '../../features/home/presentation/controllers/banner_controller.dart';
 import '../../features/message/presentation/controller/chat_controller.dart';
 import '../../features/message/presentation/controller/message_controller.dart';
+import '../../features/navbar/controller/navbar_controller.dart';
 import '../../features/notifications/presentation/controller/notifications_controller.dart';
 import '../../features/profile/presentation/controller/profile_controller.dart';
 import '../../features/setting/presentation/controller/privacy_policy_controller.dart';
 import '../../features/setting/presentation/controller/setting_controller.dart';
 import '../../features/setting/presentation/controller/terms_of_services_controller.dart';
+import '../../features/transferms/presentation/controller/transfer_form_controller.dart';
 
 class DependencyInjection extends Bindings {
   @override
@@ -28,5 +30,9 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => PrivacyPolicyController(), fenix: true);
     Get.lazyPut(() => TermsOfServicesController(), fenix: true);
     Get.lazyPut(() => BannerController(), fenix: true);
+    Get.lazyPut(() => NavBarController(), fenix: true);
+    Get.lazyPut(() => TransferFormController(), fenix: true);
+
+
   }
 }

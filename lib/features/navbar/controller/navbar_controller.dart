@@ -19,10 +19,10 @@ class NavBarController extends GetxController {
 
   final List<Widget> screens = [
     HomeScreen(),
-    ProfileScreen(),
     TransferScreen(),
-    ProfileScreen(),
-    ProfileScreen(),
+    TransferScreen(),
+    TransferScreen(),
+    TransferScreen(),
   ];
 
   final List<String> labels = const [

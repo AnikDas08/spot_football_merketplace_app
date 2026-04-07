@@ -8,7 +8,6 @@ import 'config/core/app_wrapper.dart';
 import 'config/route/app_routes.dart';
 import 'config/scroll_behavior/scroll_behavior.dart';
 import 'config/theme/light_theme.dart';
-import 'features/navbar/screen/navbar_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -31,9 +30,9 @@ class MyApp extends StatelessWidget {
             defaultTransition: Transition.fadeIn,
             initialBinding: DependencyInjection(),
             transitionDuration: const Duration(milliseconds: 200),
-            // getPages: AppRoutes.routes,
-            // initialRoute: AppRoutes.navBarScreen,
-            home:  NavBarScreen(),
+            getPages: AppRoutes.routes,
+            initialRoute: AppRoutes.splash,
+            // home:  NavBarScreen(),
           );
         },
       ),

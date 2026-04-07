@@ -17,11 +17,13 @@ import '../../features/setting/presentation/screen/privacy_policy_screen.dart';
 import '../../features/setting/presentation/screen/setting_screen.dart';
 import '../../features/setting/presentation/screen/terms_of_services_screen.dart';
 import '../../features/splash/splash_screen.dart';
-import '../../features/transferms/presentation/screen/transferm_form_screen.dart';
+import '../../features/transferms/presentation/screen/tranasfer_pending_approval.dart';
+import '../../features/transferms/presentation/screen/transfer_form_screen.dart';
 
 class AppRoutes {
   static const String transferFormScreen = '/transferFormScreen.dart';
-  static const String  navBarScreen = '/ navBarScreen.dart';
+  static const String transferPendingApproval = '/transferPendingApproval.dart';
+  static const String  navBarScreen = '/navBarScreen.dart';
 
 
 
@@ -66,7 +68,8 @@ class AppRoutes {
     GetPage(name: termsOfServices, page: () => const TermsOfServicesScreen()),
     GetPage(name: setting, page: () => const SettingScreen()),
     //added by Arif
-    GetPage(name: transferFormScreen, page: () => const TransferFormScreen()),
+    GetPage(name: transferFormScreen, page: () =>  TransferFormScreen()),
     GetPage(name:  navBarScreen, page: () =>   NavBarScreen()),
+    GetPage(name:  transferPendingApproval, page: () =>   TransferPendingApproval()),
   ];
 }

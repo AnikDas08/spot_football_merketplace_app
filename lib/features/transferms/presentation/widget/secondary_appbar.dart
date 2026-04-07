@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart'; // Or use Navigator.pop(context)
+import 'package:get/get.dart';
+import 'package:untitled/utils/constants/app_colors.dart';
 
 class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -31,7 +32,7 @@ class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(8.r),
                 border: Border.all(
-                  color: const Color(0xFF333333), // Grey border
+                  color: AppColors.color2A2A2A , // Grey border
                   width: 1,
                 ),
               ),
@@ -48,7 +49,7 @@ class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                     'Back',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 14.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -66,9 +67,9 @@ class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                   title.toUpperCase(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.2,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ),
