@@ -42,19 +42,30 @@ class TrialOfferCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. Player Image
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.r),
                 child: Image.asset(
                   playerImageUrl,
                   width: 72.w,
                   height: 72.w,
-                  fit: BoxFit.cover,
+
+                  fit: BoxFit.fill,
+
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: 72.w,
+                      height: 72.w,
+                      color: Colors.grey[300],
+                      child: Icon(Icons.person, color: Colors.grey[600]),
+                    );
+                  },
                 ),
-              ),
+              )
+
+
+              ,
               SizedBox(width: 12.w),
 
-              // 2. Details Column
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

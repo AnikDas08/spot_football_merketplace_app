@@ -9,9 +9,9 @@ import '../controller/navbar_controller.dart';
 
 
 class NavBarScreen extends StatelessWidget {
-  NavBarScreen({super.key}) {
-    Get.put(NavBarController());
-  }
+  const NavBarScreen({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +56,15 @@ class NavBarScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            // Logic to switch between Active and Inactive SVG paths
                             isActive
-                                ? controller.activeIcons[index]
+                                ? controller.inActiveIcons[index]
                                 : controller.inActiveIcons[index],
                             height: 20.h,
                             width: 20.w,
                             colorFilter: ColorFilter.mode(
                               isActive
                                   ? AppColors.primaryColor
-                                  : AppColors.textSecondaryColor,// White70 looks better on Grey
+                                  : AppColors.textSecondaryColor,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -75,7 +74,7 @@ class NavBarScreen extends StatelessWidget {
                                 ? controller.labels[index]
                                 : '',
                             style: TextStyle(
-                              fontFamily: 'SFPro', // Using your SF Pro font
+                              fontFamily: 'SFPro',
                               fontWeight: isActive
                                   ? FontWeight.w600
                                   : FontWeight.w500,

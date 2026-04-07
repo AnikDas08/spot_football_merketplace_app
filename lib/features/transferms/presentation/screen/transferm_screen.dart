@@ -6,6 +6,7 @@ import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
 
 import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/temp_image.dart';
 import '../widget/player_card.dart';
 import '../widget/trial_offer_card.dart';
 import 'package:get/get.dart';
@@ -40,7 +41,7 @@ class TransferScreen extends StatelessWidget {
                     return Padding(
                       padding: EdgeInsets.only(right: 12.w),
                       child: PlayerCard(
-                        imageUrl: AppImages.tempImage,
+                        imageUrl:TempImage.player,
                         status: 'Live Stadium',
                         position: 'Striker',
                         age: 9,
@@ -73,13 +74,13 @@ class TransferScreen extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.h),
                     child: TrialOfferCard(
-                      playerImageUrl: AppImages.tempImage,
+                       playerImageUrl:TempImage.playerProfile,
+                      // playerImageUrl: TempImage.tempImage,
                       title: 'Amateur',
                       matchPercentage: '92%',
                       description:
                           'Personal terms agreed. Medical scheduled for Friday.',
                       onOfferTap: () {
-                        print("hdfygfiuef...............");
                         Get.toNamed(AppRoutes.transferFormScreen);
                       },
                     ),

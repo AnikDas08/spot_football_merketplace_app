@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,9 +37,18 @@ class CommonTextField extends StatelessWidget {
     this.isDense,
     this.suffixIcon,
     this.maxLines,
+    this.titleColor,
+    this.fontSize,
+    this.fontWeight,
+    this.title,
   });
 
   final String? hintText;
+  final String? title;
+  final Color? titleColor;
+  final FontWeight? fontWeight;
+  final double? fontSize;
+
   final String? labelText;
   final String? prefixText;
   final Widget? prefixIcon;
@@ -67,48 +78,64 @@ class CommonTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => TextFormField(
-        autovalidateMode: .onUnfocus,
-        keyboardType: keyboardType,
-        controller: controller,
-        obscureText: isPassword ? !obscureText.value : obscureText.value,
-        textInputAction: textInputAction,
-        maxLength: mexLength,
-        onChanged: onChanged,
-        inputFormatters: inputFormatters,
-        style: TextStyle(fontSize: 14, color: textColor),
-        onFieldSubmitted: onSubmitted,
-        onTap: onTap,
-        validator: validator,
-        maxLines: isPassword ? 1 : maxLines,
-        decoration: InputDecoration(
-          errorMaxLines: 2,
-          isDense: isDense,
-          filled: true,
-          prefixIconConstraints: const BoxConstraints(
-            maxWidth: 30,
-            maxHeight: 30,
+      () => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CommonText(
+            text: title ?? "",
+            fontWeight: fontWeight ?? FontWeight.w500,
+            fontSize: fontSize ?? 16,
+            color: titleColor ?? AppColors.primaryColor,
           ),
-          prefixIcon: prefixIcon,
-          fillColor: fillColor,
+          SizedBox(height: 12.h,),
 
-          counterText: '',
-          contentPadding: .symmetric(
-            horizontal: paddingHorizontal.w,
-            vertical: paddingVertical.h,
+          TextFormField(
+            autovalidateMode: .onUnfocus,
+            keyboardType: keyboardType,
+            controller: controller,
+            obscureText: isPassword ? !obscureText.value : obscureText.value,
+            textInputAction: textInputAction,
+            maxLength: mexLength,
+            onChanged: onChanged,
+            inputFormatters: inputFormatters,
+            style: TextStyle(fontSize: 14, color: textColor),
+            onFieldSubmitted: onSubmitted,
+            onTap: onTap,
+            validator: validator,
+            maxLines: isPassword ? 1 : maxLines,
+            decoration: InputDecoration(
+              errorMaxLines: 2,
+              isDense: isDense,
+              filled: true,
+              prefixIconConstraints: const BoxConstraints(
+                maxWidth: 30,
+                maxHeight: 30,
+              ),
+              prefixIcon: prefixIcon,
+              fillColor: fillColor,
+
+              counterText: '',
+              contentPadding: .symmetric(
+                horizontal: paddingHorizontal.w,
+                vertical: paddingVertical.h,
+              ),
+              border: _buildBorder(),
+              enabledBorder: _buildBorder(),
+              focusedBorder: _buildBorder(),
+              disabledBorder: _buildBorder(),
+              errorBorder: _buildBorder(),
+              hintText: hintText,
+              labelText: labelText,
+              hintStyle: GoogleFonts.roboto(fontSize: 14, color: hintTextColor),
+              labelStyle: GoogleFonts.roboto(
+                fontSize: 14,
+                color: labelTextColor,
+              ),
+              prefix: CommonText(text: prefixText ?? '', fontWeight: .w400),
+              suffixIcon: isPassword ? _buildPasswordSuffixIcon() : suffixIcon,
+            ),
           ),
-          border: _buildBorder(),
-          enabledBorder: _buildBorder(),
-          focusedBorder: _buildBorder(),
-          disabledBorder: _buildBorder(),
-          errorBorder: _buildBorder(),
-          hintText: hintText,
-          labelText: labelText,
-          hintStyle: GoogleFonts.roboto(fontSize: 14, color: hintTextColor),
-          labelStyle: GoogleFonts.roboto(fontSize: 14, color: labelTextColor),
-          prefix: CommonText(text: prefixText ?? '', fontWeight: .w400),
-          suffixIcon: isPassword ? _buildPasswordSuffixIcon() : suffixIcon,
-        ),
+        ],
       ),
     );
   }
