@@ -107,7 +107,7 @@ class UpcomingFixtureCard extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: (){},
+              onTap: () {},
               child: Container(
                 margin: .symmetric(horizontal: 16),
                 padding: .all(8),
@@ -117,7 +117,11 @@ class UpcomingFixtureCard extends StatelessWidget {
                   borderRadius: .circular(4.r),
                   color: AppColors.primaryColor,
                 ),
-                child: SvgPicture.asset(AppIcons.ticket),
+                child: SvgPicture.asset(
+                  AppIcons.ticket,
+                  width: 13.33.w,
+                  height: 10.67.h,
+                ),
               ),
             ),
           ],
