@@ -7,10 +7,7 @@ class TransferPendingApproval extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-appBar: CommonAppbar(
-  titleText: "df",
 
-),
 
     );
   }
