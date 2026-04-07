@@ -12,6 +12,9 @@ class AppIcons {
   static const String statsInactive = '$baseurl/stats_inactive.svg';
   static const String homeInActive= '$baseurl/home_in_active.svg';
   static const String transfersInActive= '$baseurl/transfers_in_astive.svg';
+  static const String checkMark= '$baseurl/check_mark.svg';
+  static const String check2= '$baseurl/check2.svg';
+  static const String calendar= '$baseurl/calendar.png';
 
 
 
