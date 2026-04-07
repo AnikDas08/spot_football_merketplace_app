@@ -18,11 +18,17 @@ import '../../features/setting/presentation/screen/privacy_policy_screen.dart';
 import '../../features/setting/presentation/screen/setting_screen.dart';
 import '../../features/setting/presentation/screen/terms_of_services_screen.dart';
 import '../../features/splash/splash_screen.dart';
+import '../../features/stats_flow/presentation/screen/add_player_screen.dart';
+import '../../features/stats_flow/presentation/screen/player_comparison_screen.dart';
+import '../../features/stats_flow/presentation/screen/season_stats_screen.dart';
 import '../../features/transferms/presentation/screen/tranasfer_pending_approval.dart';
 import '../../features/transferms/presentation/screen/transfer_form_screen.dart';
 
 class AppRoutes {
   static const String transferFormScreen = '/transferFormScreen.dart';
+  static const String seasonStatsScreen = '/seasonStatsScreen.dart';
+  static const String addPlayerScreen = '/addPlayerScreen.dart';
+  static const String playerComparisonScreen = '/playerComparisonScreen.dart';
   static const String transferPendingApproval = '/transferPendingApproval.dart';
   static const String navBarScreen = '/navBarScreen.dart';
 
@@ -74,5 +80,11 @@ class AppRoutes {
       page: () => TransferPendingApproval(),
     ),
     GetPage(name: matchInfo, page: () => MatchInfoScreen()),
+    GetPage(name: transferFormScreen, page: () =>  TransferFormScreen()),
+    GetPage(name:  navBarScreen, page: () =>   NavBarScreen()),
+    GetPage(name:  transferPendingApproval, page: () =>   TransferPendingApproval()),
+    GetPage(name:  seasonStatsScreen, page: () =>   SeasonStatsScreen()),
+    GetPage(name:  playerComparisonScreen, page: () =>   PlayerComparisonScreen()),
+    GetPage(name:  addPlayerScreen, page: () =>   AddPlayerScreen()),
   ];
 }

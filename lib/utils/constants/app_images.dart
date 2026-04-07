@@ -9,6 +9,7 @@ class AppImages {
   //Added by arif
 
   static const String tempImage = '$baseurl/temp_image.png';
+  static const String playerSeason = '$baseurl/player_season.png';
 
   // added by ajijul
   static const String appLogo = '$baseurl/app_logo.png';
