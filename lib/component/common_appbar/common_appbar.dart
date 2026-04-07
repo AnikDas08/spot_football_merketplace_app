@@ -11,7 +11,8 @@ import '../../utils/constants/app_images.dart';
 import '../../utils/constants/app_string.dart';
 
 class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const CommonAppbar({super.key});
+  final String title;
+  const CommonAppbar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: AppColors.primaryColor,
       title: CommonText(
-        text: AppString.community,
+        text: title.toUpperCase(),
         color: AppColors.white,
         fontSize: 21.sp,
       ),

@@ -93,4 +93,5 @@ class AppString {
   static const String engCommunityAcademyStarOfTheWeek =
       "ENG Community Academy Star of the Week-Name:Leo";
   static const String feature = "Feature";
+  static const String transfer = "TRANSFER";
 }

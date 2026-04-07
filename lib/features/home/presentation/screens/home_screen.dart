@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppbar(),
+      appBar: CommonAppbar(title: AppString.community,),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
