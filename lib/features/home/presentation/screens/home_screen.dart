@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
 
 
 import '../../../../component/text/common_text.dart';
@@ -35,7 +36,9 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 12.h),
               LatestNews(),
               SizedBox(height: 20.h),
-              RecentResult()
+              RecentResult(),
+              SizedBox(height: 20.h),
+              UpcomingFixtures()
             ],
           ),
         ),

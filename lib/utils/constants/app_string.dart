@@ -80,4 +80,8 @@ class AppString {
   static const String watchEngLive = "WATCH ENG TV LIVE";
   static const String latestNews = "latest News";
   static const String recentResult = "Recent Results";
+  static const String upcomingFixtures = "Upcoming Fixtures";
+  static const String vs = "VS";
+  static const String titansSc = "Titans SC";
+  static const String vortexFc = "Vortex FC";
 }
