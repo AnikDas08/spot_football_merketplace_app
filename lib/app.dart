@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
             theme: themeData,
             defaultTransition: Transition.fadeIn,
             transitionDuration: const Duration(milliseconds: 200),
-            // getPages: AppRoutes.routes,
-            // initialRoute: AppRoutes.splash,
-            home:  NavBarScreen(),
+            getPages: AppRoutes.routes,
+            initialRoute: AppRoutes.splash,
+            // home:  NavBarScreen(),
           );
         },
       ),

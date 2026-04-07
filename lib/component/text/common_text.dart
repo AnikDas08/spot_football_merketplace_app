@@ -51,7 +51,7 @@ class CommonText extends StatelessWidget {
           fontSize: fontSize.sp,
           fontWeight: fontWeight,
           color: color,
-          fontFamily: 'SFPro', // Must match the family name in pubspec
+          fontFamily: 'SFPro',
         ),
       ),
     );

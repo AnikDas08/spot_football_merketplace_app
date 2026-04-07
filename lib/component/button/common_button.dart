@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../utils/constants/app_colors.dart';
+import '../../utils/constants/app_colors.dart'; // Adjust path
+import '../text/common_text.dart'; // Adjust path
 
 class CommonButton extends StatelessWidget {
   final VoidCallback? onTap;
@@ -13,8 +14,9 @@ class CommonButton extends StatelessWidget {
   final FontWeight titleWeight;
   final double buttonRadius;
   final double buttonHeight;
-  final double? buttonWidth;
+  final double? buttonWidth; // Nullable for auto-sizing
   final bool isLoading;
+  final EdgeInsetsGeometry? padding;
 
   const CommonButton({
     super.key,
@@ -22,7 +24,7 @@ class CommonButton extends StatelessWidget {
     required this.titleText,
     this.titleColor = Colors.white,
     this.buttonColor,
-    this.titleSize = 16,
+    this.titleSize = 14,
     this.buttonRadius = 10,
     this.titleWeight = FontWeight.w700,
     this.buttonHeight = 48,
@@ -30,40 +32,42 @@ class CommonButton extends StatelessWidget {
     this.isLoading = false,
     this.buttonWidth,
     this.borderColor,
+    this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: buttonWidth ?? double.infinity,
+      width: buttonWidth,
       height: buttonHeight.h,
       child: ElevatedButton(
         onPressed: isLoading ? null : onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColor,
+          backgroundColor: buttonColor ?? AppColors.primaryColor,
           foregroundColor: titleColor,
           elevation: 0,
+          padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(buttonRadius.r),
             side: borderColor != null
                 ? BorderSide(color: borderColor!, width: borderWidth)
                 : BorderSide.none,
           ),
-
         ),
         child: isLoading
             ? SizedBox(
-            height: 20.h,
-            width: 20.h,
-            child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 2)
-        )
-            : Text(
-          titleText,
-          style: TextStyle(
-            color: titleColor,
-            fontSize: titleSize.sp,
-            fontWeight: titleWeight,
+          height: 20.h,
+          width: 20.h,
+          child: const CircularProgressIndicator(
+            color: Colors.white,
+            strokeWidth: 2,
           ),
+        )
+            : CommonText(
+          text: titleText,
+          color: titleColor,
+          fontSize: titleSize,
+          fontWeight: titleWeight,
         ),
       ),
     );

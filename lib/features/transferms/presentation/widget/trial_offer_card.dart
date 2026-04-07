@@ -23,7 +23,7 @@ class TrialOfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 16, left: 16),
+      margin: EdgeInsets.only(right: 16),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFF),
@@ -60,20 +60,20 @@ class TrialOfferCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: CommonText(
-                            text:  title.toUpperCase(),
+                            text: title.toUpperCase(),
 
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xFF000000),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.primaryColor,
                             maxLines: 2,
                             textAlign: TextAlign.start,
                           ),
                         ),
+
                         // Match Badge
                         Container(
                           padding: EdgeInsets.symmetric(
@@ -81,32 +81,31 @@ class TrialOfferCard extends StatelessWidget {
                             vertical: 4.h,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFD4F7E6),
+                            color: AppColors.lightGreenOpacity,
                             // Light green background
                             borderRadius: BorderRadius.circular(20.r),
                           ),
-                          child: Text(
-                            '$matchPercentage MATCH',
-                            style: TextStyle(
-                              color: const Color(0xFF13C371),
-                              // Darker green text
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          child: CommonText(
+                            text: '$matchPercentage MATCH',
+
+                            color: AppColors.green,
+
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 8.h),
-                    CommonText(text:
-                      description,
+                    CommonText(
+                      text: description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
 
-                        fontSize: 13.sp,
-                        color: AppColors.color6B6B6B,
-                       textAlign: TextAlign.start,
-
+                      fontSize: 16.sp,
+                      color: AppColors.color6B6B6B,
+                      fontWeight: FontWeight.w400,
+                      textAlign: TextAlign.start,
                     ),
                   ],
                 ),
@@ -114,18 +113,26 @@ class TrialOfferCard extends StatelessWidget {
             ],
           ),
 
-          // Divider line
-          Padding(padding: EdgeInsets.symmetric(vertical: 16.h)),
-
-          // 3. Offer Trial Button
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.h),
+            child: Container(
+              height: 1,
+              width: double.infinity,
+              color: const Color(0xFFF2F2F7),
+            ),
+          ),
           SizedBox(
             width: double.infinity,
             height: 48.h,
-            child: CommonButton(titleText: 'OFFER TRIAL',
-              borderColor: AppColors.primaryColor,
+            child: CommonButton(
+              titleText: 'OFFER TRIAL',
               buttonColor: AppColors.primaryColor,
               onTap: onOfferTap,
+              buttonHeight: 35,
 
+              titleSize: 15,
+              titleWeight: FontWeight.w500,
+              padding: EdgeInsets.zero,
             ),
           ),
         ],
