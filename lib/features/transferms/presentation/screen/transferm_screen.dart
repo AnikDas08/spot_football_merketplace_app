@@ -4,6 +4,7 @@ import 'package:untitled/component/common_appbar/common_appbar.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
+import 'package:untitled/utils/constants/app_string.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/temp_image.dart';
@@ -17,7 +18,7 @@ class TransferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CommonAppbar(),
+      appBar: CommonAppbar(title: AppString.transfer.toUpperCase()),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(top: 28.h, left: 16.h, bottom: 28.h),
@@ -41,7 +42,7 @@ class TransferScreen extends StatelessWidget {
                     return Padding(
                       padding: EdgeInsets.only(right: 12.w),
                       child: PlayerCard(
-                        imageUrl:TempImage.player,
+                        imageUrl: TempImage.player,
                         status: 'Live Stadium',
                         position: 'Striker',
                         age: 9,
@@ -74,7 +75,7 @@ class TransferScreen extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.h),
                     child: TrialOfferCard(
-                       playerImageUrl:TempImage.playerProfile,
+                      playerImageUrl: TempImage.playerProfile,
                       // playerImageUrl: TempImage.tempImage,
                       title: 'Amateur',
                       matchPercentage: '92%',

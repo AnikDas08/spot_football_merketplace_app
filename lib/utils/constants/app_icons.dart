@@ -19,9 +19,13 @@ class AppIcons {
 
 
 
+  static const String homeInActive = '$baseurl/home_in_active.svg';
+  static const String transfersInActive = '$baseurl/transfers_in_astive.svg';
 
   // added by ajijul
   static const String notification = '$baseurl/notification_inactive.svg';
   static const String menu = '$baseurl/menu.svg';
-
+  static const String ticket = '$baseurl/ticket.svg';
+  static const String arrowRight = '$baseurl/arrow_right.svg';
+  static const String arrowRightPng = '$baseurl/arrow_right.png';
 }
