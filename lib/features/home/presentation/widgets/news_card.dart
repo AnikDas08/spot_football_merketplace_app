@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/utils/constants/app_string.dart';
+import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
@@ -19,7 +20,7 @@ class NewsCard extends StatelessWidget {
           crossAxisAlignment: .start,
           spacing: 10,
           children: [
-            Image.asset(AppImages.news),
+            Image.asset(TempImage.news),
             Expanded(
               child: Column(
                 crossAxisAlignment: .start,

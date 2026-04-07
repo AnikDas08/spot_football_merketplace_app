@@ -4,6 +4,7 @@ import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/features/home/data/slider_model.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_string.dart';
+import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../utils/constants/app_images.dart';
 
@@ -26,9 +27,10 @@ class BannerCard extends StatelessWidget {
           children: [
             // Background image
             Image.asset(
-              AppImages.banner,
+              TempImage.banner,
               fit: BoxFit.cover,
-              errorBuilder: (_, _, _) => Container(color: AppColors.colorCCCCCC),
+              errorBuilder: (_, _, _) =>
+                  Container(color: AppColors.colorCCCCCC),
             ),
 
             // Dark gradient overlay
