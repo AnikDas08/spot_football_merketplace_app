@@ -14,7 +14,7 @@ class BannerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 0),
+      margin: EdgeInsets.only(left: 10, right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: AppColors.colorEABB00, width: 2.5.w),
@@ -28,7 +28,7 @@ class BannerCard extends StatelessWidget {
             Image.asset(
               AppImages.banner,
               fit: BoxFit.cover,
-              errorBuilder: (_, _, _) => Container(color: Colors.grey[900]),
+              errorBuilder: (_, _, _) => Container(color: AppColors.colorCCCCCC),
             ),
 
             // Dark gradient overlay
@@ -38,9 +38,9 @@ class BannerCard extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.transparent,
-                    Colors.black.withOpacity(0.3),
-                    Colors.black.withOpacity(0.75),
+                    AppColors.transparent,
+                    AppColors.black.withAlpha(76),
+                    AppColors.black.withAlpha(191),
                   ],
                   stops: [0.0, 0.4, 1.0],
                 ),
@@ -80,17 +80,17 @@ class BannerCard extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.15),
+                      color: AppColors.white.withAlpha(38),
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(
-                        color: Colors.white.withOpacity(0.6),
+                        color: AppColors.white.withAlpha(153),
                         width: 1.2,
                       ),
                     ),
 
                     child: CommonText(
                       text: AppString.watchEngLive,
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w700,
                     ),
