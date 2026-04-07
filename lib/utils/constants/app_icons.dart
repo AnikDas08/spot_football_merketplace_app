@@ -31,4 +31,8 @@ class AppIcons {
   static const String ticket = '$baseurl/ticket.svg';
   static const String arrowRight = '$baseurl/arrow_right.svg';
   static const String arrowRightPng = '$baseurl/arrow_right.png';
+  static const String iconReload = '$baseurl/icon_reload.svg';
+  static const String iconPeople = '$baseurl/icon_people.svg';
+  static const String arenaIcon = "$baseurl/arena_icon.png";
+
 }
