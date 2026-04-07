@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_images.dart';
 import 'package:untitled/utils/constants/app_string.dart';
+import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
@@ -54,7 +55,7 @@ class LeaguePreview extends StatelessWidget {
                     (index) => LeaguePreviewModel(
                       position: index + 1,
                       clubName: AppString.arsenal,
-                      clubLogoUrl: AppImages.arsenalFlag,
+                      clubLogoUrl: TempImage.arsenalFlag,
                       played: 20,
                       goalDifference: 25,
                       points: 45,
