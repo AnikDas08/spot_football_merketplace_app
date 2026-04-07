@@ -84,4 +84,8 @@ class AppString {
   static const String vs = "VS";
   static const String titansSc = "Titans SC";
   static const String vortexFc = "Vortex FC";
+  static const String leaguePreview = "League Preview";
+  static const String viewAll = "View All";
+  static const String arsenal = "Arsenal";
+
 }
