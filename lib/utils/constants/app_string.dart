@@ -79,6 +79,33 @@ class AppString {
   static const String home = "HOME";
   static const String watchEngLive = "WATCH ENG TV LIVE";
   static const String latestNews = "latest News";
+
+
+
+
+
+
+
+
+  // added by arif
+
+  static const String strAppBarTitle = "pending approval";
+  static String strOfferStatus = "Offer Submitted";
+  static String strOfferDesc = "Your transfer offer for Marcus Vancore is pending admin approval and team response.";
+  static String strBtnBack = "Back to Transfers";
+  static String lblTransferFee = "TRANSFER FEE";
+  static String lblContractDuration = "CONTRACT DURATION";
+  static const String strBtnPermanent = "Permanent";
+  static const String strLblTransferFee = "Transfer Fee (ENG Coins)";
+  static const String strHintTransferFee = "ENG Coins 0.00";
+  static const String strLblContractDuration = "Contract Duration";
+  static const String strHintContractDuration = "Select Season";
+
+
+
+
+
+
   static const String recentResult = "Recent Results";
   static const String upcomingFixtures = "Upcoming Fixtures";
   static const String vs = "VS";
