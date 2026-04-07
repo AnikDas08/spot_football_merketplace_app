@@ -94,4 +94,9 @@ class AppString {
       "ENG Community Academy Star of the Week-Name:Leo";
   static const String feature = "Feature";
   static const String transfer = "TRANSFER";
+  static const String twoMinutesAgo = "2 min ago";
+  static const String neonUnitedAddsNewMidfielder =
+      "Neon United adds new midfielder";
+  static const String grealishOfficialjoinsTheStartingXIforSunday =
+      "S. Grealish officially joins the starting XI for Sunday.";
 }

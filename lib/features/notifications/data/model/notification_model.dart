@@ -1,8 +1,9 @@
 class NotificationModel {
   final String id;
-  final String message;
+  final String alertType;
+  final String title;
+  final String subtitle;
   final String linkId;
-  final String type;
   final String role;
   final String receiver;
   final int v;
@@ -11,9 +12,10 @@ class NotificationModel {
 
   const NotificationModel({
     required this.id,
-    required this.message,
+    required this.alertType,
+    required this.title,
+    required this.subtitle,
     required this.linkId,
-    required this.type,
     required this.role,
     required this.receiver,
     required this.v,
@@ -24,9 +26,10 @@ class NotificationModel {
   factory NotificationModel.fromJson(Map<String, dynamic>? json) {
     return NotificationModel(
       id: json?['_id'] ?? '',
-      message: json?['message'] ?? '',
+      alertType: json?['type'] ?? '',
+      title: json?['title'] ?? '',
+      subtitle: json?['subtitle'] ?? '',
       linkId: json?['linkId'] ?? '',
-      type: json?['type'] ?? '',
       role: json?['role'] ?? '',
       receiver: json?['receiver'] ?? '',
       v: json?['__v'] ?? 0,
@@ -37,5 +40,13 @@ class NotificationModel {
           DateTime.tryParse(json?['updatedAt'] ?? '') ??
           DateTime.fromMillisecondsSinceEpoch(0),
     );
+  }
+
+  String get timeAgo {
+    final diff = DateTime.now().difference(createdAt);
+    if (diff.inSeconds < 60) return '${diff.inSeconds} SEC AGO';
+    if (diff.inMinutes < 60) return '${diff.inMinutes} MIN AGO';
+    if (diff.inHours < 24) return '${diff.inHours} HR AGO';
+    return '${diff.inDays} DAYS AGO';
   }
 }
