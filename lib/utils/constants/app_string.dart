@@ -79,4 +79,5 @@ class AppString {
   static const String home = "HOME";
   static const String watchEngLive = "WATCH ENG TV LIVE";
   static const String latestNews = "latest News";
+  static const String recentResult = "Recent Results";
 }

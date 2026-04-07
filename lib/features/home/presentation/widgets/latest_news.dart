@@ -27,12 +27,7 @@ class LatestNews extends StatelessWidget {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           padding: .symmetric(horizontal: 16),
-          children: [
-            NewsCard(),
-            NewsCard(),
-            NewsCard(),
-            NewsCard(),
-          ],
+          children: [NewsCard(), NewsCard(), NewsCard(), NewsCard()],
         ),
       ],
     );

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/features/home/presentation/widgets/banner_slider.dart';
-import 'package:untitled/features/home/presentation/widgets/latest_news.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+
+
+import '../../../../component/text/common_text.dart';
+import '../widgets/banner_slider.dart';
+import '../widgets/latest_news.dart';
+import '../widgets/recent_result.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../../component/common_appbar/common_appbar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -31,7 +33,9 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 20.h),
               BannerSlider(),
               SizedBox(height: 12.h),
-              LatestNews()
+              LatestNews(),
+              SizedBox(height: 20.h),
+              RecentResult()
             ],
           ),
         ),
