@@ -63,6 +63,7 @@ class RecentResultCard extends StatelessWidget {
             // Home team name
             Expanded(
               child: CommonText(
+                maxLines: 2,
                 text: homeTeam.toUpperCase(),
                 fontSize: 14.sp,
                 fontWeight: FontWeight(590),
@@ -93,6 +94,7 @@ class RecentResultCard extends StatelessWidget {
             // Away team name
             Expanded(
               child: CommonText(
+                maxLines: 2,
                 text: awayTeam.toUpperCase(),
                 fontSize: 14.sp,
                 fontWeight: FontWeight(590),

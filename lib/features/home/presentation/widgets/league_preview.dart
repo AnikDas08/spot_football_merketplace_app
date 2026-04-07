@@ -50,7 +50,7 @@ class LeaguePreview extends StatelessWidget {
               _StandingsTable(
                 standings: [
                   ...List.generate(
-                    10,
+                    5,
                     (index) => LeaguePreviewModel(
                       position: index + 1,
                       clubName: AppString.arsenal,

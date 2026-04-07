@@ -87,5 +87,10 @@ class AppString {
   static const String leaguePreview = "League Preview";
   static const String viewAll = "View All";
   static const String arsenal = "Arsenal";
-
+  static const String latestVideos = "latest Videos";
+  static const String thingsYouMayHaveMissedFromMatchweek20 =
+      "Things you may have missed from Matchweek 20";
+  static const String engCommunityAcademyStarOfTheWeek =
+      "ENG Community Academy Star of the Week-Name:Leo";
+  static const String feature = "Feature";
 }

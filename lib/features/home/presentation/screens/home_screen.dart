@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
 import 'package:untitled/features/home/presentation/widgets/league_preview.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
 
@@ -41,7 +42,9 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 20.h),
               UpcomingFixtures(),
               SizedBox(height: 20.h),
-              LeaguePreview()
+              LeaguePreview(),
+              SizedBox(height: 20.h),
+              LatestVideos(),
             ],
           ),
         ),
