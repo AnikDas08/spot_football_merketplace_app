@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/utils/constants/app_string.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
@@ -25,7 +26,7 @@ class NewsCard extends StatelessWidget {
                 mainAxisAlignment: .start,
                 children: [
                   CommonText(
-                    text: "Feature",
+                    text: AppString.feature,
                     fontSize: 16.sp,
                     fontWeight: FontWeight(590),
                   ),
@@ -33,7 +34,7 @@ class NewsCard extends StatelessWidget {
                     textAlign: .start,
                     maxLines: 2,
                     text:
-                    "ENG Community Academy Star of the Week-Name:Leo",
+                    AppString.engCommunityAcademyStarOfTheWeek,
                     fontSize: 16.sp,
                     fontWeight: FontWeight(510),
                   ),

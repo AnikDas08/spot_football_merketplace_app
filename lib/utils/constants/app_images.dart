@@ -10,10 +10,10 @@ class AppImages {
 
   static const String tempImage = '$baseurl/temp_image.png';
 
-
   // added by ajijul
   static const String appLogo = '$baseurl/app_logo.png';
   static const String banner = '$baseurl/temporary/banner.png';
   static const String news = '$baseurl/temporary/latest_news.png';
-
+  static const String arsenalFlag = '$baseurl/temporary/arsenal_flag.png';
+  static const String videoThumbnail = '$baseurl/temporary/dummy_video_thumbnail.png';
 }
