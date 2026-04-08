@@ -43,7 +43,7 @@ class AppDrawer extends StatelessWidget {
               _buildMenuItem(
                 icon: AppIcons.transferHistory,
                 label: AppString.myTransfersHistory,
-                onTap: () => Get.toNamed(AppRoutes.transferFormScreen),
+                onTap: () => Get.toNamed(AppRoutes.transferHistoryScreen),
               ),
               _buildMenuItem(
                 icon: AppIcons.lockPassword,

@@ -25,8 +25,11 @@ import '../../features/stats_flow/presentation/screen/player_comparison_screen.d
 import '../../features/stats_flow/presentation/screen/season_stats_screen.dart';
 import '../../features/transferms/presentation/screen/tranasfer_pending_approval.dart';
 import '../../features/transferms/presentation/screen/transfer_form_screen.dart';
+import '../../features/transferms_history/presentation/screens/transfers_history_screen.dart';
 
 class AppRoutes {
+  AppRoutes._();
+
   static const String transferFormScreen = '/transferFormScreen.dart';
   static const String seasonStatsScreen = '/seasonStatsScreen.dart';
   static const String addPlayerScreen = '/addPlayerScreen.dart';
@@ -38,6 +41,7 @@ class AppRoutes {
   static const String matchInfo = "/matchInfo";
   static const String newsDetails = "/newsDetails";
   static const String playerProfile = "/playerProfile";
+  static const String transferHistoryScreen = '/transfer_history_screen.dart';
 
   static const String test = '/test_screen.dart';
   static const String splash = '/';
@@ -84,13 +88,20 @@ class AppRoutes {
       page: () => TransferPendingApproval(),
     ),
     GetPage(name: matchInfo, page: () => MatchInfoScreen()),
-    GetPage(name: transferFormScreen, page: () =>  TransferFormScreen()),
-    GetPage(name:  navBarScreen, page: () =>   NavBarScreen()),
-    GetPage(name:  transferPendingApproval, page: () =>   TransferPendingApproval()),
-    GetPage(name:  seasonStatsScreen, page: () =>   SeasonStatsScreen()),
-    GetPage(name:  playerComparisonScreen, page: () =>   PlayerComparisonScreen()),
-    GetPage(name:  addPlayerScreen, page: () =>   AddPlayerScreen()),
-    GetPage(name: newsDetails, page: () =>  NewsDetailsScreen()),
-    GetPage(name: playerProfile, page: () => PlayerProfileScreen(),)
+    GetPage(name: transferFormScreen, page: () => TransferFormScreen()),
+    GetPage(name: navBarScreen, page: () => NavBarScreen()),
+    GetPage(
+      name: transferPendingApproval,
+      page: () => TransferPendingApproval(),
+    ),
+    GetPage(name: seasonStatsScreen, page: () => SeasonStatsScreen()),
+    GetPage(name: playerComparisonScreen, page: () => PlayerComparisonScreen()),
+    GetPage(name: addPlayerScreen, page: () => AddPlayerScreen()),
+    GetPage(name: newsDetails, page: () => NewsDetailsScreen()),
+    GetPage(name: playerProfile, page: () => PlayerProfileScreen()),
+    GetPage(
+      name: transferHistoryScreen,
+      page: () => const TransfersHistoryScreen(),
+    ),
   ];
 }

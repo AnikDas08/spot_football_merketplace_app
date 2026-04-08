@@ -177,4 +177,5 @@ class AppString {
 
   static const String updateCredentials  = "UPDATE YOUR CREDENTIALS";
   static const String ensureYourPerformanceData = "Ensure your performance data remains secure with a high-entropy password.";
+  static const String marcus = "Marcus Vane";
 }
