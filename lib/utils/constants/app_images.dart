@@ -14,4 +14,9 @@ class AppImages {
   // added by ajijul
   static const String appLogo = '$baseurl/app_logo.png';
   static const String newsDetailsBg = '$baseurl/news_details_bg.png';
+  static const String approved = '$baseurl/approved.png';
+  static const String goal = '$baseurl/goal.svg';
+  static const String assist = '$baseurl/assist.svg';
+  static const String rating = '$baseurl/rating.svg';
+  static const String matches = '$baseurl/matches.svg';
 }

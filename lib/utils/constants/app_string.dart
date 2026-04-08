@@ -154,4 +154,11 @@ class AppString {
   keepUpTheAmazingWorkLeoYourHardWorkIsPayingOffWeExcitedToSeeYourContinuedProgress =
       "Keep up the amazing work, Leo — your hard work is paying off, and we’re excited to see your continued progress!";
   static const String related = "RELATED";
+  static const String playerProfile = "PLAYER PROFILE";
+  static const String engRecord = "ENG RECORD";
+  static const String recentPerformance = "Recent Performance";
+  static const String oct12 = "OCT 24";
+  static const String vsRangerUnited = "vs Rangers United";
+  static const String premierLeagueAway = "Premier League • Away";
+  static const String twoGoal = "2 Goals";
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../../features/player_profile/presentation/controllers/player_profile_controller.dart';
 
 import '../../features/auth/change_password/presentation/controller/change_password_controller.dart';
 import '../../features/auth/forgot password/presentation/controller/forget_password_controller.dart';
@@ -36,7 +37,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => TransferFormController(), fenix: true);
     Get.lazyPut(() => TabsController(), fenix: true);
     Get.lazyPut(() => AddPlayerController(), fenix: true);
-
-
+    Get.lazyPut(() => PlayerProfileController(), fenix: true);
   }
 }
