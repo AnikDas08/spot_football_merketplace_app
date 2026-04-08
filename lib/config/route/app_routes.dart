@@ -9,6 +9,7 @@ import '../../features/auth/forgot password/presentation/screen/verify_screen.da
 import '../../features/auth/sign in/presentation/screen/sign_in_screen.dart';
 import '../../features/auth/sign up/presentation/screen/sign_up_screen.dart';
 import '../../features/auth/sign up/presentation/screen/verify_user.dart';
+import '../../features/features/my_subscription/presentation/screens/my_subscription_screen.dart';
 import '../../features/message/presentation/screen/chat_screen.dart';
 import '../../features/message/presentation/screen/message_screen.dart';
 import '../../features/navbar/screen/navbar_screen.dart';
@@ -19,6 +20,7 @@ import '../../features/profile/presentation/screen/profile_screen.dart';
 import '../../features/setting/presentation/screen/privacy_policy_screen.dart';
 import '../../features/setting/presentation/screen/setting_screen.dart';
 import '../../features/setting/presentation/screen/terms_of_services_screen.dart';
+import '../../features/shop/presentation/screens/shop_screen.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/stats_flow/presentation/screen/add_player_screen.dart';
 import '../../features/stats_flow/presentation/screen/player_comparison_screen.dart';
@@ -42,6 +44,9 @@ class AppRoutes {
   static const String newsDetails = "/newsDetails";
   static const String playerProfile = "/playerProfile";
   static const String transferHistoryScreen = '/transfer_history_screen.dart';
+  static const String shopScreen = '/shop_screen.dart';
+  static const String mySubscription = '/subscription_screen.dart';
+
 
   static const String test = '/test_screen.dart';
   static const String splash = '/';
@@ -61,6 +66,7 @@ class AppRoutes {
   static const String privacyPolicy = '/privacy_policy_screen.dart';
   static const String termsOfServices = '/terms_of_services_screen.dart';
   static const String setting = '/setting_screen.dart';
+
 
   static List<GetPage<String>> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -103,5 +109,8 @@ class AppRoutes {
       name: transferHistoryScreen,
       page: () => const TransfersHistoryScreen(),
     ),
+    GetPage(name: shopScreen, page: () => const ShopScreen()),
+    GetPage(name: mySubscription, page: () => const MySubscriptionScreen()),
+
   ];
 }

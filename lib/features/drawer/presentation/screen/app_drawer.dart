@@ -33,12 +33,12 @@ class AppDrawer extends StatelessWidget {
               _buildMenuItem(
                 icon: AppIcons.rewards,
                 label: AppString.rewardsRedemption,
-                onTap: () => Get.toNamed(AppRoutes.editProfile),
+                onTap: () => Get.toNamed(AppRoutes.shopScreen),
               ),
               _buildMenuItem(
                 icon: AppIcons.subscription,
                 label: AppString.mySubscriptions,
-                onTap: () => Get.toNamed(AppRoutes.editProfile),
+                onTap: () => Get.toNamed(AppRoutes.mySubscription),
               ),
               _buildMenuItem(
                 icon: AppIcons.transferHistory,

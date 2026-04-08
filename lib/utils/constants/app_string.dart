@@ -179,4 +179,14 @@ class AppString {
   static const String ensureYourPerformanceData = "Ensure your performance data remains secure with a high-entropy password.";
   static const String marcus = "Marcus Vane";
   static const String updateAvatar = "Update Avatar";
+  static const String prizeRedemptionFeed = "PRIZE REDEMPTION FEED";
+
+  static const semiPro = 'SEMI PRO';
+  static const enhancedTeamRegistration = 'Enhanced Team Registration';
+  static const detailedPlayerStats = 'Detailed Player Stats';
+  static const noEngCoins = 'No ENG Coins';
+  static const semiProPrice = '£9.95';
+  static const perSeason = '/Season';
+  static const changeSubscriptionPlan = 'Change Your Subscriptions Plan';
+  static const subcriptionDetails = "Subscription Details";
 }

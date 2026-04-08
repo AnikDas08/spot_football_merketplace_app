@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:untitled/features/shop/presentation/controllers/shop_controller.dart';
 import 'package:untitled/features/transferms_history/presentation/controllers/tab_controller.dart';
 import '../../features/player_profile/presentation/controllers/player_profile_controller.dart';
 
@@ -40,6 +41,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => AddPlayerController(), fenix: true);
     Get.lazyPut(() => PlayerProfileController(), fenix: true);
     Get.lazyPut(() => TabController(), fenix: true);
+    Get.lazyPut(() => ShopController(), fenix: true);
 
   }
 }
