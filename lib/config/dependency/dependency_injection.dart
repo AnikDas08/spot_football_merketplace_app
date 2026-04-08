@@ -5,6 +5,7 @@ import '../../features/auth/forgot password/presentation/controller/forget_passw
 import '../../features/auth/sign in/presentation/controller/sign_in_controller.dart';
 import '../../features/auth/sign up/presentation/controller/sign_up_controller.dart';
 import '../../features/home/presentation/controllers/banner_controller.dart';
+import '../../features/match_info/presentation/controllers/tabs_controller.dart';
 import '../../features/message/presentation/controller/chat_controller.dart';
 import '../../features/message/presentation/controller/message_controller.dart';
 import '../../features/navbar/controller/navbar_controller.dart';
@@ -33,6 +34,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => BannerController(), fenix: true);
     Get.lazyPut(() => NavBarController(), fenix: true);
     Get.lazyPut(() => TransferFormController(), fenix: true);
+    Get.lazyPut(() => TabsController(), fenix: true);
     Get.lazyPut(() => AddPlayerController(), fenix: true);
 
 

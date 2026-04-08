@@ -19,33 +19,38 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppbar(title: AppString.community,),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: CommonText(
-                  text: AppString.home,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight(590),
+      body: RefreshIndicator(
+        onRefresh: ()async {
+
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: CommonText(
+                    text: AppString.home,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight(590),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20.h),
-              BannerSlider(),
-              SizedBox(height: 12.h),
-              LatestNews(),
-              SizedBox(height: 20.h),
-              RecentResult(),
-              SizedBox(height: 20.h),
-              UpcomingFixtures(),
-              SizedBox(height: 20.h),
-              LeaguePreview(),
-              SizedBox(height: 20.h),
-              LatestVideos(),
-            ],
+                SizedBox(height: 20.h),
+                BannerSlider(),
+                SizedBox(height: 12.h),
+                LatestNews(),
+                SizedBox(height: 20.h),
+                RecentResult(),
+                SizedBox(height: 20.h),
+                UpcomingFixtures(),
+                SizedBox(height: 20.h),
+                LeaguePreview(),
+                SizedBox(height: 20.h),
+                LatestVideos(),
+              ],
+            ),
           ),
         ),
       ),

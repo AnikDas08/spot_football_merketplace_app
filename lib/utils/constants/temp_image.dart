@@ -20,4 +20,8 @@ class TempImage {
   static const String news = '$baseurl/latest_news.png';
   static const String arsenalFlag = '$baseurl/arsenal_flag.png';
   static const String videoThumbnail = '$baseurl/dummy_video_thumbnail.png';
+  static const String titanFlag = '$baseurl/titan_flag.png';
+  static const String phoenixFlag = '$baseurl/phoneix_flag.png';
+  static const String football = '$baseurl/football.png';
+  static const String football1 = '$baseurl/football_1.png';
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:untitled/features/match_info/presentation/screens/match_info_screen.dart';
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
@@ -29,12 +30,10 @@ class AppRoutes {
   static const String addPlayerScreen = '/addPlayerScreen.dart';
   static const String playerComparisonScreen = '/playerComparisonScreen.dart';
   static const String transferPendingApproval = '/transferPendingApproval.dart';
-  static const String  navBarScreen = '/navBarScreen.dart';
+  static const String navBarScreen = '/navBarScreen.dart';
 
-
-
-
-
+  // added by ajijul
+  static const String matchInfo = "/matchInfo";
 
   static const String test = '/test_screen.dart';
   static const String splash = '/';
@@ -74,6 +73,13 @@ class AppRoutes {
     GetPage(name: termsOfServices, page: () => const TermsOfServicesScreen()),
     GetPage(name: setting, page: () => const SettingScreen()),
     //added by Arif
+    GetPage(name: transferFormScreen, page: () => TransferFormScreen()),
+    GetPage(name: navBarScreen, page: () => NavBarScreen()),
+    GetPage(
+      name: transferPendingApproval,
+      page: () => TransferPendingApproval(),
+    ),
+    GetPage(name: matchInfo, page: () => MatchInfoScreen()),
     GetPage(name: transferFormScreen, page: () =>  TransferFormScreen()),
     GetPage(name:  navBarScreen, page: () =>   NavBarScreen()),
     GetPage(name:  transferPendingApproval, page: () =>   TransferPendingApproval()),

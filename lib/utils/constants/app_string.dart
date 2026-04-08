@@ -80,18 +80,12 @@ class AppString {
   static const String watchEngLive = "WATCH ENG TV LIVE";
   static const String latestNews = "latest News";
 
-
-
-
-
-
-
-
   // added by arif
 
   static const String strAppBarTitle = "pending approval";
   static String strOfferStatus = "Offer Submitted";
-  static String strOfferDesc = "Your transfer offer for Marcus Vancore is pending admin approval and team response.";
+  static String strOfferDesc =
+      "Your transfer offer for Marcus Vancore is pending admin approval and team response.";
   static String strBtnBack = "Back to Transfers";
   static String lblTransferFee = "TRANSFER FEE";
   static String lblContractDuration = "CONTRACT DURATION";
@@ -100,11 +94,6 @@ class AppString {
   static const String strHintTransferFee = "ENG Coins 0.00";
   static const String strLblContractDuration = "Contract Duration";
   static const String strHintContractDuration = "Select Season";
-
-
-
-
-
 
   static const String recentResult = "Recent Results";
   static const String upcomingFixtures = "Upcoming Fixtures";
@@ -121,4 +110,27 @@ class AppString {
       "ENG Community Academy Star of the Week-Name:Leo";
   static const String feature = "Feature";
   static const String transfer = "TRANSFER";
+  static const String twoMinutesAgo = "2 min ago";
+  static const String neonUnitedAddsNewMidfielder =
+      "Neon United adds new midfielder";
+  static const String grealishOfficialjoinsTheStartingXIforSunday =
+      "S. Grealish officially joins the starting XI for Sunday.";
+  static const String theApexArenaVancouver = "The Apex Arena, Vancouver";
+  static const String matchInfo = "MATCH INFO";
+  static const String attendance = "ATT. 42,500";
+  static String seeMore = "See more";
+  static const String moreNews = "More News";
+
+  // match info added by ajijul
+
+  static const String clinialFinishFromTheBox = "Clinical finish from the box";
+  static const String keyEvents = "Key Events";
+  static const String mVane = "M. Vane";
+  static const String kTanaka = "K. Tanaka";
+  static const String tacticalFoulInMidfield = "Tactical foul in midfield";
+  static const String matchSummary = "Match Summary";
+  static const String theTitans =
+      '"The Titans have dominated the central thirds, utilizing a high-press system that caught Phoenix off guard early in the second half. Vane\'s strike at 62\' has shifted the momentum entirely."';
+  static const String expertInsight = "Expert Insight";
+  static const String expectedGoals = 'Expected Goals (xG): Titans 1.84 vs Phoenix 0.92';
 }

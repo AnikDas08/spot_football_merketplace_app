@@ -6,7 +6,9 @@ class AppColors {
   static const Color primaryColor = Color(0xFF080808);
   static const Color secondary = Color(0xff454545);
   static const Color background = Color(0xFFF3F3F3);
-
+  // added by ajijul
+  static const Color colorB6A0FF = Color(0xFFB6A0FF);
+  static const Color color19CA77 = Color(0xff19CA77);
   static const Color color3F3F3 = Color(0xFFF3F3F3);
   static const Color color373737 = Color(0xFF373737);
   static const Color colorCCCCCC = Color(0xFFCCCCCC);
@@ -14,8 +16,7 @@ class AppColors {
 
   static const Color transparent = Colors.transparent;
   static const Color textSecondaryColor = Color(0xFF6B6B6B);
-  
-  
+
   static const Color white = Colors.white;
   static const Color black = Colors.black;
   static const Color red = Colors.red;
@@ -29,5 +30,4 @@ class AppColors {
   static const color6B6B6B = Color(0xff6B6B6B);
   static const color2A2A2A = Color(0xFF2A2A2A);
   static const Color lightGreenOpacity = Color(0x3D19CA77);
-
 }
