@@ -56,9 +56,10 @@ class SeasonStatsScreen extends StatelessWidget {
                 ],
                 onViewFullList: () {},
               ),
-          
-          
-          
+
+              SizedBox(height: 28.h),
+
+
               CommonText(
                 text: "Most Assists".toUpperCase(),
                 fontSize: 20.sp,

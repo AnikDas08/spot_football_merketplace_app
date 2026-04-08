@@ -20,6 +20,9 @@ class AppIcons {
   static const String calendar= '$baseurl/calendar.png';
   static const String addButton= '$baseurl/add_button.svg';
   static const String question= '$baseurl/question.svg';
+  static const String rectangle= '$baseurl/rectangle.svg';
+  static const String play= '$baseurl/play.svg';
+  static const String notificationM= '$baseurl/notification_m.svg';
 
 
 

@@ -12,6 +12,8 @@ class TempImage {
   static const String stats2 = '$baseurl/stats2.png';
   static const String stats3 = '$baseurl/stats3.png';
   static const String stats4 = '$baseurl/stats4.png';
+  static const String thumbnail = '$baseurl/thumbnail.png';
+  static const String player2 = '$baseurl/player2.png';
 
   // added by ajijul
   static const String banner = '$baseurl/banner.png';

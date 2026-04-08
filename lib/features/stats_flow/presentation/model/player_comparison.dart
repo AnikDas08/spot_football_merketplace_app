@@ -1,10 +1,8 @@
-class PlayerModel {
-  final String id;
+class PlayerComparison {
+  final String image;
   final String name;
   final String position;
-  final String image;
 
-  // Stats fields
   final int appearances;
   final int goals;
   final int assists;
@@ -13,11 +11,10 @@ class PlayerModel {
   final int yellowCards;
   final int redCards;
 
-  PlayerModel({
-    required this.id,
+  PlayerComparison({
+    required this.image,
     required this.name,
     required this.position,
-    required this.image,
     this.appearances = 0,
     this.goals = 0,
     this.assists = 0,
