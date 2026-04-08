@@ -14,6 +14,7 @@ import '../../features/profile/presentation/controller/profile_controller.dart';
 import '../../features/setting/presentation/controller/privacy_policy_controller.dart';
 import '../../features/setting/presentation/controller/setting_controller.dart';
 import '../../features/setting/presentation/controller/terms_of_services_controller.dart';
+import '../../features/stats_flow/presentation/controller/add_player_controller.dart';
 import '../../features/transferms/presentation/controller/transfer_form_controller.dart';
 
 class DependencyInjection extends Bindings {
@@ -34,5 +35,8 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => NavBarController(), fenix: true);
     Get.lazyPut(() => TransferFormController(), fenix: true);
     Get.lazyPut(() => TabsController(), fenix: true);
+    Get.lazyPut(() => AddPlayerController(), fenix: true);
+
+
   }
 }

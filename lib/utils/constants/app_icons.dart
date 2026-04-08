@@ -6,6 +6,9 @@ class AppIcons {
   static const String burger = '$baseurl/burger.svg';
   //Add by arif
   static const String homeActive = '$baseurl/home_active.svg';
+  static const String arrowR = '$baseurl/arrow_r.svg';
+  static const String topArrow = '$baseurl/top_arrow.svg';
+  static const String bottomArrow = '$baseurl/bottom_arrow.svg';
 
   static const String engTvInActive = '$baseurl/eng_tv_in_active.svg';
   static const String fixturesInActive = '$baseurl/fixtures_in_active.svg';
@@ -15,6 +18,9 @@ class AppIcons {
   static const String checkMark= '$baseurl/check_mark.svg';
   static const String check2= '$baseurl/check2.svg';
   static const String calendar= '$baseurl/calendar.png';
+  static const String addButton= '$baseurl/add_button.svg';
+  static const String question= '$baseurl/question.svg';
+
 
 
 
