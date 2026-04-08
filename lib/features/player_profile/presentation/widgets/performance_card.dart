@@ -28,9 +28,7 @@ class PerformanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Get.toNamed(AppRoutes.matchInfo);
-      },
+      onTap: () {},
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.white,

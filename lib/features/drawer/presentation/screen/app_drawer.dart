@@ -31,6 +31,16 @@ class AppDrawer extends StatelessWidget {
                 onTap: () => Get.toNamed(AppRoutes.editProfile),
               ),
               _buildMenuItem(
+                icon: AppIcons.rewards,
+                label: AppString.rewardsRedemption,
+                onTap: () => Get.toNamed(AppRoutes.editProfile),
+              ),
+              _buildMenuItem(
+                icon: AppIcons.subscription,
+                label: AppString.mySubscriptions,
+                onTap: () => Get.toNamed(AppRoutes.editProfile),
+              ),
+              _buildMenuItem(
                 icon: AppIcons.transferHistory,
                 label: AppString.myTransfersHistory,
                 onTap: () => Get.toNamed(AppRoutes.transferFormScreen),

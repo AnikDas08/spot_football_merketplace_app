@@ -161,4 +161,6 @@ class AppString {
   static const String vsRangerUnited = "vs Rangers United";
   static const String premierLeagueAway = "Premier League • Away";
   static const String twoGoal = "2 Goals";
+  static const String rewardsRedemption = "Rewards / Redemption";
+  static const String mySubscriptions = "My Subscriptions";
 }
