@@ -43,7 +43,9 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
         IconButton.filled(
           style: IconButton.styleFrom(backgroundColor: AppColors.color373737),
           color: AppColors.white,
-          onPressed: () {},
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
           icon: SvgPicture.asset(AppIcons.menu),
         ),
       ],

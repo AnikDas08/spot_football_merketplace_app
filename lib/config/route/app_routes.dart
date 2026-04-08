@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:untitled/features/match_info/presentation/screens/match_info_screen.dart';
+import 'package:untitled/features/news_details/presentation/screens/news_details_screen.dart';
+import 'package:untitled/features/player_profile/presentation/screens/player_profile_screen.dart';
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
@@ -34,6 +36,8 @@ class AppRoutes {
 
   // added by ajijul
   static const String matchInfo = "/matchInfo";
+  static const String newsDetails = "/newsDetails";
+  static const String playerProfile = "/playerProfile";
 
   static const String test = '/test_screen.dart';
   static const String splash = '/';
@@ -86,5 +90,7 @@ class AppRoutes {
     GetPage(name:  seasonStatsScreen, page: () =>   SeasonStatsScreen()),
     GetPage(name:  playerComparisonScreen, page: () =>   PlayerComparisonScreen()),
     GetPage(name:  addPlayerScreen, page: () =>   AddPlayerScreen()),
+    GetPage(name: newsDetails, page: () =>  NewsDetailsScreen()),
+    GetPage(name: playerProfile, page: () => PlayerProfileScreen(),)
   ];
 }

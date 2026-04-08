@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
 import 'package:untitled/features/home/presentation/widgets/league_preview.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: CommonAppbar(title: AppString.community,),
       body: RefreshIndicator(
         onRefresh: ()async {
