@@ -22,12 +22,8 @@ class EditProfileAllFiled extends StatelessWidget {
     return Column(
       crossAxisAlignment: .start,
       children: [
-        /// Full name
-        const CommonText(text: AppString.fullName, fontWeight: .w600),
-
-        120.height,
-
         CommonTextField(
+          title: AppString.fullName,
           controller: controller.nameController,
           validator: AppValidation.required,
           hintText: AppString.fullName,
@@ -38,13 +34,21 @@ class EditProfileAllFiled extends StatelessWidget {
         20.height,
 
         /// Phone number
-        const CommonText(text: AppString.contact, fontWeight: .w600),
+        const CommonText(text: AppString.phoneNumber, fontWeight: .w600),
 
         12.height,
 
         CommonPhoneNumberTextFiled(
           controller: controller.numberController,
           countryChange: (Country value) {}, // if supported
+        ),
+        CommonTextField(
+          title: AppString.email,
+          controller: controller.nameController,
+          validator: AppValidation.required,
+          hintText: AppString.fullName,
+          borderColor: AppColors.black,
+          fillColor: AppColors.transparent,
         ),
       ],
     );

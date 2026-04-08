@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import '../../../../../../../config/route/app_routes.dart';
 import '../../../../../../../utils/extensions/extension.dart';
 import '../../../../../component/button/common_button.dart';
@@ -19,14 +20,7 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const CommonText(
-          text: AppString.changePassword,
-          fontSize: 20,
-          fontWeight: .w600,
-        ),
-      ),
+      appBar: SecondaryAppBar(title: AppString.changePassword),
       body: GetBuilder<ChangePasswordController>(
         builder: (controller) {
           return SingleChildScrollView(
@@ -34,39 +28,44 @@ class ChangePasswordScreen extends StatelessWidget {
             child: Form(
               key: _formKey,
               child: Column(
+                spacing: 10,
                 crossAxisAlignment: .start,
                 children: [
-                  70.height,
+                  30.height,
+                  CommonText(
+                    text: AppString.updateCredentials,
+                    fontSize: 32.sp,
+                    fontWeight: FontWeight(700),
+                    maxLines: 2,
+                  ),
+                  CommonText(
+                    text: AppString.ensureYourPerformanceData,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight(400),
+                    maxLines: 2,
+                  ),
+
+                  40.height,
 
                   /// current Password section
-                  const CommonText(text: AppString.currentPassword, bottom: 8),
                   CommonTextField(
+                    title: AppString.currentPassword,
                     controller: controller.currentPasswordController,
                     hintText: AppString.currentPassword,
                     validator: AppValidation.password,
                     isPassword: true,
                   ),
 
-                  /// New Password section
-                  const CommonText(
-                    text: AppString.newPassword,
-                    bottom: 8,
-                    top: 16,
-                  ),
                   CommonTextField(
+                    title: AppString.newPassword,
                     controller: controller.newPasswordController,
                     hintText: AppString.newPassword,
                     validator: AppValidation.password,
                     isPassword: true,
                   ),
 
-                  /// confirm Password section
-                  const CommonText(
-                    text: AppString.confirmPassword,
-                    bottom: 8,
-                    top: 16,
-                  ),
                   CommonTextField(
+                    title: AppString.confirmPassword,
                     controller: controller.confirmPasswordController,
                     hintText: AppString.confirmPassword,
                     validator: (value) => AppValidation.confirmPassword(

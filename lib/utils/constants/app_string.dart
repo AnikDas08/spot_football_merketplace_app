@@ -161,4 +161,47 @@ class AppString {
   static const String vsRangerUnited = "vs Rangers United";
   static const String premierLeagueAway = "Premier League • Away";
   static const String twoGoal = "2 Goals";
+  static const String rewardsRedemption = "Rewards / Redemption";
+  static const String mySubscriptions = "My Subscriptions";
+  static const String legalProtoCol = "LEGAL PROTOCOL";
+  static const String lastUpdatedOctober2024 = "LAST UPDATED: OCTOBER 2024";
+  static const String updateYourCredentials = "1.UPDATE YOUR CREDENTIALS";
+  static const String usageRight = "2.USAGE RIGHTS";
+  static const String atVoltageAthletic =
+      "At Voltage Athletic, we gather specific high- performance metrics to optimize your digital arena experience. This includes biometric data synchronized from wearable devices, location tracking for outdoor circuit mapping, and competitive interaction logs.";
+  static const String informationCollection =
+      "Information is collected through direct input, automated sensor telemetry, and third-party athletic platform integrations. We prioritize the integrity of your performance identity above all else.";
+  static const String voltageAthletic =
+      "Voltage Athletic retains the right to utilize anonymized performance data to calibrate global leaderboards and refine our algorithmic training models. Your individual identifiable data remains shielded within our encrypted";
+
+
+  static const String updateCredentials  = "UPDATE YOUR CREDENTIALS";
+  static const String ensureYourPerformanceData = "Ensure your performance data remains secure with a high-entropy password.";
+  static const String marcus = "Marcus Vane";
+  static const String updateAvatar = "Update Avatar";
+  static const String prizeRedemptionFeed = "PRIZE REDEMPTION FEED";
+
+  static const semiPro = 'SEMI PRO';
+  static const enhancedTeamRegistration = 'Enhanced Team Registration';
+  static const detailedPlayerStats = 'Detailed Player Stats';
+  static const noEngCoins = 'No ENG Coins';
+  static const semiProPrice = '£9.95';
+  static const perSeason = '/Season';
+  static const changeSubscriptionPlan = 'Change Your Subscriptions Plan';
+  static const subcriptionDetails = "Subscription Details";
+  static const String fixture = "Fixture";
+  static const String allTeam = "All Team";
+  static const String specific = "Specific";
+  static const String selectATeam = "Select a Team";
+  static const String reset = "Reset";
+  static const String team = "Team";
+  static const String filter = "Filter";
+  static const String dateRange = "Date Range";
+  static const String today = "Today";
+  static const String thisWeek = "This Week";
+  static const String thisMonth = "This Month";
+  static const applyFilters = "applyFilters";
+  static const matchesFound = 'Matches Found';
+  static const noMatchesFound = 'No Matches Found';
+  static const filterByLeague = 'Filter by League';
 }

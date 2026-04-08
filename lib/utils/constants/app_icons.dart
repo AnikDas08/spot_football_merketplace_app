@@ -45,5 +45,8 @@ class AppIcons {
   static const String logoutIcon = '$baseurl/logout_icon.svg';
   static const String editPencil = '$baseurl/edit_pencil.png';
   static const String chevronRight = '$baseurl/chevron_right.svg';
+  static const String subscription = '$baseurl/subscription.svg';
+  static const String rewards = '$baseurl/rewards_icon.svg';
+  static const startFourPoint = "$baseurl/star_four_point.svg";
 
 }
