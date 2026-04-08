@@ -132,5 +132,11 @@ class AppString {
   static const String theTitans =
       '"The Titans have dominated the central thirds, utilizing a high-press system that caught Phoenix off guard early in the second half. Vane\'s strike at 62\' has shifted the momentum entirely."';
   static const String expertInsight = "Expert Insight";
-  static const String expectedGoals = 'Expected Goals (xG): Titans 1.84 vs Phoenix 0.92';
+  static const String expectedGoals =
+      'Expected Goals (xG): Titans 1.84 vs Phoenix 0.92';
+
+  //drawer added by ajijul
+
+  static const String myTransfersHistory = 'My Transfers History';
+  static const String logout = 'Logout';
 }

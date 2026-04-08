@@ -29,4 +29,12 @@ class AppIcons {
   static const String iconPeople = '$baseurl/icon_people.svg';
   static const String arenaIcon = "$baseurl/arena_icon.png";
 
+  static const String editProfile = '$baseurl/edit_profile.svg';
+  static const String transferHistory = '$baseurl/transfer_history.svg';
+  static const String lockPassword = '$baseurl/lock_password.svg';
+  static const String infoPolicy = '$baseurl/privacy_info.svg';
+  static const String logoutIcon = '$baseurl/logout_icon.svg';
+  static const String editPencil = '$baseurl/edit_pencil.png';
+  static const String chevronRight = '$baseurl/chevron_right.svg';
+
 }
