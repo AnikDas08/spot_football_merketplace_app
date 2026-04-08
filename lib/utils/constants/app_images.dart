@@ -13,4 +13,5 @@ class AppImages {
 
   // added by ajijul
   static const String appLogo = '$baseurl/app_logo.png';
+  static const String newsDetailsBg = '$baseurl/news_details_bg.png';
 }

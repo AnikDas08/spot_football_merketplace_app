@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:untitled/component/text/common_text.dart';
+import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
@@ -228,65 +230,70 @@ class _PlayerRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-      child: Row(
-        children: [
-          // Jersey number
-          SizedBox(
-            width: 28.w,
-            child: CommonText(
-              text: '${player.number}',
-              fontSize: 14.sp,
-              fontWeight: FontWeight(590),
+    return InkWell(
+      onTap: (){
+        Get.toNamed(AppRoutes.playerProfile);
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+        child: Row(
+          children: [
+            // Jersey number
+            SizedBox(
+              width: 28.w,
+              child: CommonText(
+                text: '${player.number}',
+                fontSize: 14.sp,
+                fontWeight: FontWeight(590),
+                color: AppColors.primaryColor,
+              ),
+            ),
+
+            SizedBox(width: 8.w),
+
+            // Player image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.r),
+              child: Image.asset(
+                player.imageUrl,
+                width: 52.w,
+                height: 52.h,
+                fit: BoxFit.cover,
+              ),
+            ),
+
+            SizedBox(width: 12.w),
+
+            // Name + nationality
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 3,
+                children: [
+                  CommonText(
+                    text: player.name,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight(590),
+                    color: AppColors.primaryColor,
+                  ),
+                  CommonText(
+                    text: player.nationality,
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.colorCCCCCC,
+                  ),
+                ],
+              ),
+            ),
+
+            // Arrow
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 16.sp,
               color: AppColors.primaryColor,
             ),
-          ),
-
-          SizedBox(width: 8.w),
-
-          // Player image
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8.r),
-            child: Image.asset(
-              player.imageUrl,
-              width: 52.w,
-              height: 52.h,
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          SizedBox(width: 12.w),
-
-          // Name + nationality
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 3,
-              children: [
-                CommonText(
-                  text: player.name,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight(590),
-                  color: AppColors.primaryColor,
-                ),
-                CommonText(
-                  text: player.nationality,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.colorCCCCCC,
-                ),
-              ],
-            ),
-          ),
-
-          // Arrow
-          Icon(
-            Icons.arrow_forward_ios_rounded,
-            size: 16.sp,
-            color: AppColors.primaryColor,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

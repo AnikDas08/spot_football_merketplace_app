@@ -23,5 +23,6 @@ class TempImage {
   static const String football = '$baseurl/football.png';
   static const String football1 = '$baseurl/football_1.png';
   static const String profile = '$baseurl/profile.png';
+  static const String newsDetails = '$baseurl/news_details.png';
 
 }

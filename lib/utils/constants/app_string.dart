@@ -139,4 +139,19 @@ class AppString {
 
   static const String myTransfersHistory = 'My Transfers History';
   static const String logout = 'Logout';
+
+  // news details page added by ajijul
+
+  static const String newsDetails = 'News Details';
+  static const String thisWeekWereProudToCelebrateLeoAsOurStarOfTheWeek =
+      "This week, we’re proud to celebrate Leo as our Star of the Week!";
+  static const String
+  leoHasShownOutstandingDedicationEffortAndAFantasticAttitudeBothOnAndOffTheField =
+      "Leo has shown outstanding dedication, effort, and a fantastic attitude both on and off the field. His commitment to improving his skills, supporting his teammates, and always giving 100% makes him a true role model within the academy.";
+  static const String whetherItsHisEnergyDuring =
+      "Whether it’s his energy during training, his positive mindset, or his willingness to learn and grow, Leo continues to impress coaches and teammates alike.";
+  static const String
+  keepUpTheAmazingWorkLeoYourHardWorkIsPayingOffWeExcitedToSeeYourContinuedProgress =
+      "Keep up the amazing work, Leo — your hard work is paying off, and we’re excited to see your continued progress!";
+  static const String related = "RELATED";
 }
