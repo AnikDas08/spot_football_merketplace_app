@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/utils/constants/app_colors.dart';
 
 import '../../../../component/text/common_text.dart';
 
@@ -17,47 +18,46 @@ class FilterSelectorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CommonText(
-                    text: label,
-                    fontSize: 12.sp,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  SizedBox(height: 2.h),
-                  CommonText(
-                    text: value,
-                    fontSize: 14.sp,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ],
-              ),
-              // Up and Down Arrow Icons
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.keyboard_arrow_up, size: 14.sp, color: Colors.black54),
-                  Icon(Icons.keyboard_arrow_down, size: 14.sp, color: Colors.black54),
-                ],
-              ),
-            ],
-          ),
+    // Ekhane Expanded soriye Container/GestureDetector diye shuru korun
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(color: Colors.grey.shade200), // Ektu border dile dekhte bhalo lage
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CommonText(
+                  text: label,
+                  fontSize: 12.sp,
+                  color: AppColors.primaryColor,
+                  fontWeight: FontWeight.w400,
+                ),
+                SizedBox(height: 2.h),
+                CommonText(
+                  text: value,
+                  fontSize: 13.sp,
+                  color: AppColors.primaryColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.keyboard_arrow_up, size: 14.sp, color: Colors.black54),
+                Icon(Icons.keyboard_arrow_down, size: 14.sp, color: Colors.black54),
+              ],
+            ),
+          ],
         ),
       ),
     );

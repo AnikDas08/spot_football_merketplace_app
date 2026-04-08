@@ -4,13 +4,19 @@ import 'package:get/get.dart';
 import 'package:untitled/config/route/app_routes.dart';
 
 import '../../../../component/common_appbar/secondary_appbar.dart';
+
 import '../../../../component/text/common_text.dart';
-import '../../../../utils/constants/app_colors.dart';
+import '../controller/player_comparison_controlller.dart';
 import '../widget/add_player_placeholder.dart';
 import '../widget/compareInfo_card.dart';
+import '../widget/comparison_stats_table.dart';
+import '../widget/filter_selector_card.dart';
+import '../widget/selected_player_card.dart';
 
 class PlayerComparisonScreen extends StatelessWidget {
-  const PlayerComparisonScreen({super.key});
+  PlayerComparisonScreen({super.key});
+
+  final controller = Get.put(PlayerComparisonController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,50 +25,90 @@ class PlayerComparisonScreen extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 28.h),
 
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: CommonText(
-                    text: "Select two players to compare their stats"
-                        .toUpperCase(),
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.primaryColor,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                  ),
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: CommonText(
+                  text: "SELECT TWO PLAYERS TO COMPARE THEIR STATS",
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
                 ),
               ),
 
               SizedBox(height: 24.h),
 
-              Row(
-                children: [
-                  Expanded(child: AddPlayerPlaceholder(onTap: () {
-                    Get.toNamed(AppRoutes.addPlayerScreen);
-
-                  })),
-                  SizedBox(width: 16.h),
-
-                  Expanded(child: AddPlayerPlaceholder(onTap: () {
-                    Get.toNamed(AppRoutes.addPlayerScreen);
-
-                  })),
-                ],
+              Obx(
+                () => Row(
+                  children: [
+                    Expanded(
+                      child: controller.player1.value == null
+                          ? AddPlayerPlaceholder(
+                              onTap: () => Get.toNamed(
+                                AppRoutes.addPlayerScreen,
+                                arguments: 1,
+                              ),
+                            )
+                          : SelectedPlayerCard(
+                              player: controller.player1.value!,
+                            ),
+                    ),
+                    SizedBox(width: 16.h),
+                    Expanded(
+                      child: controller.player2.value == null
+                          ? AddPlayerPlaceholder(
+                              onTap: () => Get.toNamed(
+                                AppRoutes.addPlayerScreen,
+                                arguments: 2,
+                              ),
+                            )
+                          : SelectedPlayerCard(
+                              player: controller.player2.value!,
+                            ),
+                    ),
+                  ],
+                ),
               ),
 
               SizedBox(height: 24.w),
 
-              CompareInfoCard(
-
-              ),
+              Obx(() {
+                if (controller.player1.value != null) {
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FilterSelectorCard(
+                              label: "Season",
+                              value: "2024/25",
+                              onTap: () {},
+                            ),
+                          ),
+                          SizedBox(width: 8.w),
+                          Expanded(
+                            child: FilterSelectorCard(
+                              label: "Season",
+                              value: "2024/25",
+                              onTap: () {},
+                            ),
+                          ),
+                        ],
+                      ),
+                      ComparisonStatsTable(
+                        player1: controller.player1.value,
+                        player2: controller.player2.value,
+                      ),
+                    ],
+                  );
+                } else {
+                  return const CompareInfoCard();
+                }
+              }),
             ],
           ),
         ),
