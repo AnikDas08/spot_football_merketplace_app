@@ -171,5 +171,10 @@ class AppString {
       "At Voltage Athletic, we gather specific high- performance metrics to optimize your digital arena experience. This includes biometric data synchronized from wearable devices, location tracking for outdoor circuit mapping, and competitive interaction logs.";
   static const String informationCollection =
       "Information is collected through direct input, automated sensor telemetry, and third-party athletic platform integrations. We prioritize the integrity of your performance identity above all else.";
-  static const String voltageAthletic = "Voltage Athletic retains the right to utilize anonymized performance data to calibrate global leaderboards and refine our algorithmic training models. Your individual identifiable data remains shielded within our encrypted";
+  static const String voltageAthletic =
+      "Voltage Athletic retains the right to utilize anonymized performance data to calibrate global leaderboards and refine our algorithmic training models. Your individual identifiable data remains shielded within our encrypted";
+
+
+  static const String updateCredentials  = "UPDATE YOUR CREDENTIALS";
+  static const String ensureYourPerformanceData = "Ensure your performance data remains secure with a high-entropy password.";
 }
