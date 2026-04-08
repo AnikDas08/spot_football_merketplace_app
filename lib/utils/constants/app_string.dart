@@ -189,4 +189,19 @@ class AppString {
   static const perSeason = '/Season';
   static const changeSubscriptionPlan = 'Change Your Subscriptions Plan';
   static const subcriptionDetails = "Subscription Details";
+  static const String fixture = "Fixture";
+  static const String allTeam = "All Team";
+  static const String specific = "Specific";
+  static const String selectATeam = "Select a Team";
+  static const String reset = "Reset";
+  static const String team = "Team";
+  static const String filter = "Filter";
+  static const String dateRange = "Date Range";
+  static const String today = "Today";
+  static const String thisWeek = "This Week";
+  static const String thisMonth = "This Month";
+  static const applyFilters = "applyFilters";
+  static const matchesFound = 'Matches Found';
+  static const noMatchesFound = 'No Matches Found';
+  static const filterByLeague = 'Filter by League';
 }
