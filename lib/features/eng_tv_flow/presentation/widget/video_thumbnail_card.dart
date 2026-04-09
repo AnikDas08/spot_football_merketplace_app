@@ -4,13 +4,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:untitled/component/button/common_button.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
-import '../../../../component/text/common_text.dart'; // Apnar common text component
+import '../../../../component/text/common_text.dart';
 
 class VideoThumbnailCard extends StatelessWidget {
   final String thumbnail;
   final String title;
   final String duration;
   final VoidCallback onWatchNow;
+
+  // Hard-coded strings converted to constant variables
+  static const String labelVideo = "Video";
+  static const String labelWatchNow = "Watch Now";
 
   const VideoThumbnailCard({
     super.key,
@@ -27,17 +31,21 @@ class VideoThumbnailCard extends StatelessWidget {
       height: 250.h,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(thumbnail), fit: BoxFit.cover),
+        image: DecorationImage(
+          image: AssetImage(thumbnail),
+          fit: BoxFit.cover,
+        ),
       ),
       child: Stack(
         children: [
+          // Gradient Overlay
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  stops: [0.3, 1.0],
+                  stops: const [0.3, 1.0],
                   colors: [
                     Colors.transparent,
                     Colors.white.withValues(alpha: 0.7),
@@ -53,8 +61,7 @@ class VideoThumbnailCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CommonText(
-                  text: title,
-
+                  text: title, // From API
                   fontSize: 28.sp,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
@@ -64,7 +71,7 @@ class VideoThumbnailCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CommonText(
-                      text: "Video",
+                      text: labelVideo, // Static Variable
                       fontSize: 16.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
@@ -73,7 +80,7 @@ class VideoThumbnailCard extends StatelessWidget {
                     Icon(Icons.circle, size: 8.sp, color: AppColors.yellow),
                     SizedBox(width: 8.w),
                     CommonText(
-                      text: duration,
+                      text: duration, // From API
                       fontSize: 16.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
@@ -84,7 +91,7 @@ class VideoThumbnailCard extends StatelessWidget {
 
                 CommonButton(
                   onTap: onWatchNow,
-                  titleText: "Watch Now",
+                  titleText: labelWatchNow, // Static Variable
                   titleWeight: FontWeight.w500,
                   titleSize: 18,
                   buttonHeight: 48,
@@ -97,7 +104,11 @@ class VideoThumbnailCard extends StatelessWidget {
           Positioned(
             top: 12.h,
             left: 12.w,
-            child: SvgPicture.asset(AppIcons.play, height: 40.sp, width: 40.w),
+            child: SvgPicture.asset(
+              AppIcons.play,
+              height: 40.sp,
+              width: 40.w,
+            ),
           ),
         ],
       ),
