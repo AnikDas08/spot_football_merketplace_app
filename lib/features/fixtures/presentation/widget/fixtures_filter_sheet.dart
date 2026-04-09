@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 
 import '../../../../component/button/common_button.dart';
 import '../../../../component/common_dropdown_field/common_dropdown_field.dart';
@@ -22,137 +23,177 @@ void showFilterSheet(BuildContext context, FixturesController c) {
       borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
     ),
     builder: (_) => GetBuilder<FixturesController>(
-      builder: (c) => Padding(
-        padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 24.h),
+      builder: (c) => SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 12.h),
             // Header
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () => Get.back(),
-                  child: Container(
-                    padding: EdgeInsets.all(8.r),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: Icon(Icons.close, size: 18.r),
-                  ),
-                ),
-                CommonText(
-                  text: AppString.filter,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-                GestureDetector(
-                  onTap: c.resetFilters,
-                  child: CommonText(
-                    text: AppString.reset,
-                    fontSize: 14.sp,
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20.h),
-
-            // TEAM label
-            CommonText(
-              text: AppString.team,
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textSecondaryColor,
-            ),
-            SizedBox(height: 8.h),
-
-            // All Teams / Specific toggle
             Container(
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(30.r),
+              color: Colors.black,
+              padding: EdgeInsets.only(
+                top: 60,
+                left: 16,
+                right: 16,
+                bottom: 16,
               ),
               child: Row(
+                mainAxisAlignment: .spaceBetween,
                 children: [
-                  _SheetTab(
-                    label: AppString.allTeam,
-                    selected: c.teamTab == 0,
-                    onTap: () => c.selectTeamTab(0),
+                  // 1. Custom Back Button
+                  GestureDetector(
+                    onTap: () => Get.back(),
+                    child: Container(
+                      width: 48.w,
+                      height: 36.h,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 8.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(
+                          color: AppColors.color2A2A2A, // Grey border
+                          width: 1,
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 14.sp,
+                      ),
+                    ),
                   ),
-                  _SheetTab(
-                    label: AppString.specific,
-                    selected: c.teamTab == 1,
-                    onTap: () => c.selectTeamTab(1),
+
+                  // 2. Centered Title
+                  Center(
+                    child: Text(
+                      AppString.filter.toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      c.resetFilters();
+                    },
+                    child: CommonText(
+                      text: AppString.reset,
+                      color: AppColors.yellow,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight(500),
+                    ),
                   ),
                 ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: .start,
+                children: [
 
-            if (c.teamTab == 1) ...[
-              SizedBox(height: 10.h),
-              CommonDropdownField<String>(
-                hintText: AppString.selectATeam,
-                value: c.selectedTeam,
-                items: c.teams
-                    .map(
-                      (t) => DropdownMenuItem(
-                        value: t,
-                        child: CommonText(text: t, fontSize: 14.sp),
+                  // TEAM label
+                  CommonText(
+                    text: AppString.team.toUpperCase(),
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight(650),
+                    color: AppColors.primaryColor,
+                  ),
+                  SizedBox(height: 12.h),
+
+                  // All Teams / Specific toggle
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(30.r),
+                    ),
+                    child: Row(
+                      spacing: 16,
+                      children: [
+                        _SheetTab(
+                          label: AppString.allTeam,
+                          selected: c.teamTab == 0,
+                          onTap: () => c.selectTeamTab(0),
+                        ),
+                        SizedBox(width: 10.w),
+                        _SheetTab(
+                          label: AppString.specific,
+                          selected: c.teamTab == 1,
+                          onTap: () => c.selectTeamTab(1),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  if (c.teamTab == 1) ...[
+                    SizedBox(height: 10.h),
+                    CommonDropdownField<String>(
+                      hintText: AppString.selectATeam,
+                      value: c.selectedTeam,
+                      items: c.teams
+                          .map(
+                            (t) => DropdownMenuItem(
+                              value: t,
+                              child: CommonText(text: t, fontSize: 14.sp),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: c.selectTeam,
+                    ),
+                  ],
+
+                  SizedBox(height: 20.h),
+                  CommonText(
+                    text: AppString.dateRange,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight(650),
+                    color: AppColors.primaryColor,
+                  ),
+                  SizedBox(height: 8.h),
+
+                  // Date range chips
+                  Row(
+                    children: [
+                      _DateChip(
+                        label: AppString.today,
+                        selected: c.dateRangeTab == 0,
+                        onTap: () => c.selectDateRangeTab(0),
                       ),
-                    )
-                    .toList(),
-                onChanged: c.selectTeam,
+                      SizedBox(width: 8.w),
+                      _DateChip(
+                        label: AppString.thisWeek,
+                        selected: c.dateRangeTab == 1,
+                        onTap: () => c.selectDateRangeTab(1),
+                      ),
+                      SizedBox(width: 8.w),
+                      _DateChip(
+                        label: AppString.thisMonth,
+                        selected: c.dateRangeTab == 2,
+                        onTap: () => c.selectDateRangeTab(2),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12.h),
+
+                  // Calendar
+                  _CalendarWidget(c: c),
+
+                  SizedBox(height: 20.h),
+                  CommonButton(
+                    titleText: AppString.applyFilters,
+                    onTap: c.applyFilters,
+                    buttonWidth: double.infinity,
+                    buttonColor: AppColors.primaryColor,
+                    titleColor: AppColors.white,
+                  ),
+                ],
               ),
-            ],
-
-            SizedBox(height: 20.h),
-            CommonText(
-              text: AppString.dateRange,
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textSecondaryColor,
-            ),
-            SizedBox(height: 8.h),
-
-            // Date range chips
-            Row(
-              children: [
-                _DateChip(
-                  label: AppString.today,
-                  selected: c.dateRangeTab == 0,
-                  onTap: () => c.selectDateRangeTab(0),
-                ),
-                SizedBox(width: 8.w),
-                _DateChip(
-                  label: AppString.thisWeek,
-                  selected: c.dateRangeTab == 1,
-                  onTap: () => c.selectDateRangeTab(1),
-                ),
-                SizedBox(width: 8.w),
-                _DateChip(
-                  label: AppString.thisMonth,
-                  selected: c.dateRangeTab == 2,
-                  onTap: () => c.selectDateRangeTab(2),
-                ),
-              ],
-            ),
-            SizedBox(height: 12.h),
-
-            // Calendar
-            _CalendarWidget(c: c),
-
-            SizedBox(height: 20.h),
-            CommonButton(
-              titleText: AppString.applyFilters,
-              onTap: c.applyFilters,
-              buttonWidth: double.infinity,
-              buttonColor: AppColors.primaryColor,
-              titleColor: AppColors.white,
             ),
           ],
         ),
@@ -177,16 +218,16 @@ class _SheetTab extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10.h),
+          padding: EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             color: selected ? AppColors.primaryColor : Colors.transparent,
-            borderRadius: BorderRadius.circular(30.r),
+            borderRadius: BorderRadius.circular(12.r),
           ),
           alignment: Alignment.center,
           child: CommonText(
             text: label,
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w600,
+            fontSize: 16.sp,
+            fontWeight: FontWeight(590),
             color: selected ? AppColors.white : AppColors.primaryColor,
           ),
         ),
@@ -210,18 +251,18 @@ class _DateChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: selected ? AppColors.primaryColor : AppColors.white,
-          borderRadius: BorderRadius.circular(20.r),
+          borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
             color: selected ? AppColors.primaryColor : AppColors.background,
           ),
         ),
         child: CommonText(
           text: label,
-          fontSize: 12.sp,
-          fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
+          fontSize: 16.sp,
+          fontWeight: selected ? FontWeight.w700 : FontWeight(590),
           color: selected ? AppColors.white : AppColors.primaryColor,
         ),
       ),
@@ -255,31 +296,30 @@ class _CalendarWidget extends StatelessWidget {
         children: [
           // Month/Year header
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: .spaceBetween,
             children: [
               CommonText(
                 text: monthName,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
+                fontSize: 25.sp,
+                fontWeight: FontWeight(510),
+              ),
+              CommonText(
+                text: '${c.focusedMonth.year}',
+                fontSize: 25.sp,
+                fontWeight: FontWeight(510),
               ),
               Row(
                 children: [
-                  CommonText(
-                    text: '${c.focusedMonth.year}',
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  SizedBox(width: 8.w),
                   GestureDetector(
                     onTap: c.previousMonth,
-                    child: Icon(Icons.chevron_left, size: 20.r),
+                    child: Icon(Icons.chevron_left, size: 30.r),
                   ),
                   GestureDetector(
                     onTap: c.nextMonth,
-                    child: Icon(Icons.chevron_right, size: 20.r),
+                    child: Icon(Icons.chevron_right, size: 30.r),
                   ),
                 ],
-              ),
+              )
             ],
           ),
           SizedBox(height: 8.h),
@@ -397,7 +437,7 @@ class _DayCell extends StatelessWidget {
     Color textColor = isCurrentMonth
         ? AppColors.primaryColor
         : AppColors.background;
-    FontWeight fw = FontWeight.w400;
+    FontWeight fw = FontWeight(510);
 
     if (isSelected) {
       bg = AppColors.primaryColor;
@@ -415,7 +455,7 @@ class _DayCell extends StatelessWidget {
         alignment: Alignment.center,
         child: CommonText(
           text: '$day',
-          fontSize: 12.sp,
+          fontSize: 15.sp,
           color: textColor,
           fontWeight: fw,
         ),

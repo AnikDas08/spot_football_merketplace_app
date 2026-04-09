@@ -200,7 +200,7 @@ class AppString {
   static const String today = "Today";
   static const String thisWeek = "This Week";
   static const String thisMonth = "This Month";
-  static const applyFilters = "applyFilters";
+  static const applyFilters = "Apply Filters";
   static const matchesFound = 'Matches Found';
   static const noMatchesFound = 'No Matches Found';
   static const filterByLeague = 'Filter by League';
