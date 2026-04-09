@@ -60,7 +60,6 @@ class VideoNewsCard extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-
                     Container(
                       margin: EdgeInsets.all(4.r),
                       height: 14.h,
