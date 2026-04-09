@@ -24,6 +24,7 @@ class NavBarController extends GetxController {
     HomeScreen(),
     FixturesScreen(),
     TransferScreen(),
+    TransferScreen(),
     EngTvScreen(),
     StatsScreen(),
   ];

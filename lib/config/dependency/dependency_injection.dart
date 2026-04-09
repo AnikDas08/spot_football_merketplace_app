@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
+import 'package:untitled/features/fixtures/presentation/controller/fixtures_controller.dart';
+import 'package:untitled/features/shop/presentation/controllers/shop_controller.dart';
+import 'package:untitled/features/transferms_history/presentation/controllers/tab_controller.dart';
+import '../../features/player_profile/presentation/controllers/player_profile_controller.dart';
 
 import '../../features/auth/change_password/presentation/controller/change_password_controller.dart';
 import '../../features/auth/forgot password/presentation/controller/forget_password_controller.dart';
 import '../../features/auth/sign in/presentation/controller/sign_in_controller.dart';
 import '../../features/auth/sign up/presentation/controller/sign_up_controller.dart';
+import '../../features/eng_tv_flow/presentation/controller/video_streem_controller.dart';
 import '../../features/home/presentation/controllers/banner_controller.dart';
 import '../../features/match_info/presentation/controllers/tabs_controller.dart';
 import '../../features/message/presentation/controller/chat_controller.dart';
@@ -36,7 +41,12 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => TransferFormController(), fenix: true);
     Get.lazyPut(() => TabsController(), fenix: true);
     Get.lazyPut(() => AddPlayerController(), fenix: true);
+    Get.lazyPut(() => VideoStreamController(), fenix: true);
 
+    Get.lazyPut(() => PlayerProfileController(), fenix: true);
+    Get.lazyPut(() => TabController(), fenix: true);
+    Get.lazyPut(() => ShopController(), fenix: true);
+    Get.lazyPut(() => FixturesController(), fenix: true);
 
   }
 }
