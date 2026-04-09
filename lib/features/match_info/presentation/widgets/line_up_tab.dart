@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
+
+import '../../../../utils/constants/app_icons.dart';
 
 class LineupPlayerModel {
   final int number;
@@ -48,7 +51,7 @@ class _LineupsTabState extends State<LineupsTab> {
           number: 13,
           name: 'Guglielmo Vicario',
           nationality: 'Italy',
-          imageUrl: TempImage.player,
+          imageUrl: TempImage.playerWithFootball,
         ),
       ],
     ),
@@ -59,25 +62,25 @@ class _LineupsTabState extends State<LineupsTab> {
           number: 12,
           name: 'Emerson Royal',
           nationality: 'Italy',
-          imageUrl: TempImage.player,
+          imageUrl: TempImage.playerWithFootball,
         ),
         LineupPlayerModel(
           number: 23,
           name: 'Pedro Porro',
           nationality: 'Italy',
-          imageUrl: TempImage.player,
+          imageUrl: TempImage.playerWithFootball,
         ),
         LineupPlayerModel(
           number: 33,
           name: 'Ben Davies',
           nationality: 'Italy',
-          imageUrl: TempImage.player,
+          imageUrl: TempImage.playerWithFootball,
         ),
         LineupPlayerModel(
           number: 38,
           name: 'Destiny Udogie',
           nationality: 'Italy',
-          imageUrl: TempImage.player,
+          imageUrl: TempImage.playerWithFootball,
         ),
       ],
     ),
@@ -88,13 +91,13 @@ class _LineupsTabState extends State<LineupsTab> {
           number: 8,
           name: 'Yves Bissouma',
           nationality: 'Mali',
-          imageUrl: TempImage.player,
+          imageUrl: TempImage.playerWithFootball,
         ),
         LineupPlayerModel(
           number: 17,
           name: 'Rodrigo Bentancur',
           nationality: 'Uruguay',
-          imageUrl: TempImage.player,
+          imageUrl: TempImage.playerWithFootball,
         ),
       ],
     ),
@@ -105,13 +108,13 @@ class _LineupsTabState extends State<LineupsTab> {
           number: 7,
           name: 'Son Heung-min',
           nationality: 'South Korea',
-          imageUrl: TempImage.player,
+          imageUrl: TempImage.playerWithFootball,
         ),
         LineupPlayerModel(
           number: 10,
           name: 'James Maddison',
           nationality: 'England',
-          imageUrl: TempImage.player,
+          imageUrl: TempImage.playerWithFootball,
         ),
       ],
     ),
@@ -185,7 +188,6 @@ class _LineupsTabState extends State<LineupsTab> {
                   ),
                   SizedBox(height: 8.h),
                   Container(
-                    height: 92.h,
                     decoration: BoxDecoration(
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(12.r),
@@ -244,7 +246,7 @@ class _PlayerRow extends StatelessWidget {
               width: 28.w,
               child: CommonText(
                 text: '${player.number}',
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 fontWeight: FontWeight(590),
                 color: AppColors.primaryColor,
               ),
@@ -259,7 +261,7 @@ class _PlayerRow extends StatelessWidget {
                 player.imageUrl,
                 width: 52.w,
                 height: 52.h,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
 
@@ -268,6 +270,7 @@ class _PlayerRow extends StatelessWidget {
             // Name + nationality
             Expanded(
               child: Column(
+                mainAxisAlignment: .center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 3,
                 children: [
@@ -279,19 +282,21 @@ class _PlayerRow extends StatelessWidget {
                   ),
                   CommonText(
                     text: player.nationality,
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.colorCCCCCC,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight(510),
+                    color: AppColors.color6B6B6B,
                   ),
                 ],
               ),
             ),
 
             // Arrow
-            Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 16.sp,
-              color: AppColors.primaryColor,
+            SvgPicture.asset(
+              AppIcons.arrowRight,
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryColor,
+                BlendMode.dstIn,
+              ),
             ),
           ],
         ),
