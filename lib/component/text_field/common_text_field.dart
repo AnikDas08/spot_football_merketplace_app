@@ -38,7 +38,7 @@ class CommonTextField extends StatelessWidget {
     this.suffixIcon,
     this.maxLines,
     this.titleColor,
-    this.fontSize,
+    this.fontSize=14,
     this.fontWeight,
     this.title,
   });
@@ -126,7 +126,7 @@ class CommonTextField extends StatelessWidget {
               errorBorder: _buildBorder(),
               hintText: hintText,
               labelText: labelText,
-              hintStyle: GoogleFonts.roboto(fontSize: 14, color: hintTextColor),
+              hintStyle: GoogleFonts.roboto(fontSize: 12, color: hintTextColor),
               labelStyle: GoogleFonts.roboto(
                 fontSize: 14,
                 color: labelTextColor,
