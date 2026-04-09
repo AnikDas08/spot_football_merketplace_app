@@ -1,11 +1,13 @@
-// features/fixtures/presentation/screen/fixtures_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
+import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixture_card.dart';
+import 'package:untitled/features/navbar/controller/navbar_controller.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 
 import '../../../../component/common_appbar/common_appbar.dart';
@@ -21,20 +23,28 @@ class FixturesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NavBarController navBarController = Get.find<NavBarController>();
     return GetBuilder<FixturesController>(
       builder: (c) => Scaffold(
         backgroundColor: AppColors.background,
-        appBar: SecondaryAppBar(title: AppString.fixture),
-        body: Column(
-          spacing: 5,
-          children: [
-            SizedBox(height: 20.h),
-            _TabRow(c: c),
-            SizedBox(height: 12.h),
-            _FilterBar(c: c),
-            SizedBox(height: 8.h),
-            Expanded(child: _FixtureList(c: c)),
-          ],
+        appBar: CommonAppbar(title: AppString.fixture),
+        drawer: AppDrawer(),
+        body: PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) {
+            navBarController.selectedIndex.value = 0;
+          },
+          child: Column(
+            spacing: 5,
+            children: [
+              SizedBox(height: 20.h),
+              _TabRow(c: c),
+              SizedBox(height: 12.h),
+              _FilterBar(c: c),
+              SizedBox(height: 8.h),
+              Expanded(child: _FixtureList(c: c)),
+            ],
+          ),
         ),
       ),
     );
