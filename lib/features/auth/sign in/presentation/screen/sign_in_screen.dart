@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
 import '../../../../../../../config/route/app_routes.dart';
 import '../../../../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +23,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       /// App Bar Sections Starts here
-      appBar: AppBar(),
+      appBar: SignupAppbar(),
 
       /// Body Sections Starts here
       body: GetBuilder<SignInController>(
