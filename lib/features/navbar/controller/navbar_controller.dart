@@ -24,6 +24,7 @@ class NavBarController extends GetxController {
     HomeScreen(),
     FixturesScreen(),
     TransferScreen(),
+    TransferScreen(),
     EngTvScreen(),
     StatsScreen(),
   ];
@@ -37,11 +38,11 @@ class NavBarController extends GetxController {
   ];
 
   final List<String> activeIcons = [
-    AppIcons.homeActive,
-    AppImages.profile,
-    AppImages.profile,
-    AppImages.profile,
-    AppImages.profile,
+    AppIcons.homeInActive,
+    AppIcons.fixturesInActive,
+    AppIcons.transfersInActive,
+    AppIcons.engTvInActive,
+    AppIcons.statsInactive,
   ];
 
   final List<String> inActiveIcons = [
