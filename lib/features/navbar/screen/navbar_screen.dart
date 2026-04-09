@@ -14,20 +14,38 @@ import 'package:get/get.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../controller/navbar_controller.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+
+import '../../../utils/constants/app_colors.dart';
+import '../controller/navbar_controller.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+
+import '../../../utils/constants/app_colors.dart';
+import '../controller/navbar_controller.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class NavBarScreen extends StatelessWidget {
   const NavBarScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<NavBarController>();
-    return Scaffold(
-      drawer: Drawer(),
-      body: GetX<NavBarController>(
-        builder: (controller) => controller.screens[controller.currentIndex],
-      ),
 
     return Scaffold(
+      drawer: const Drawer(),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
+
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -59,7 +77,7 @@ class NavBarScreen extends StatelessWidget {
                         duration: const Duration(milliseconds: 350),
                         curve: Curves.easeInOutSine,
                         top: 0,
-                        left: (itemWidth * currentIndex) + (itemWidth * 0.33),
+                        left: (itemWidth * currentIndex) + (itemWidth / 2) - (12.5.w),
                         child: Container(
                           width: 25.w,
                           height: 3.h,
@@ -103,7 +121,6 @@ class NavBarScreen extends StatelessWidget {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontFamily: 'SFPro',
                                       fontWeight: isActive
                                           ? FontWeight.w600
                                           : FontWeight.w500,
