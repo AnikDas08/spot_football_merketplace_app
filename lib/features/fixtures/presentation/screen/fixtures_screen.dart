@@ -108,7 +108,10 @@ class _FilterBar extends StatelessWidget {
                 Container(
                   width: 44.w,
                   height: 44.w,
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.w),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 12.w,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.circular(8.r),

@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
         },
         child: SafeArea(
           child: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
