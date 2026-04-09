@@ -20,6 +20,11 @@ class NavBarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<NavBarController>();
+    return Scaffold(
+      drawer: Drawer(),
+      body: GetX<NavBarController>(
+        builder: (controller) => controller.screens[controller.currentIndex],
+      ),
 
     return Scaffold(
       body: Obx(() => controller.screens[controller.selectedIndex.value]),

@@ -27,11 +27,9 @@ class UpcomingFixtures extends StatelessWidget {
               ...List.generate(
                 10,
                 (index) => UpcomingFixtureCard(
-                  date: "OCT 24",
+                  date: AppString.oct12,
                   homeTeam: AppString.titansSc,
                   awayTeam: AppString.vortexFc,
-                  homeScore: 3,
-                  awayScore: 1,
                   time: "20:00 PM",
                 ),
               ),

@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
+import 'package:untitled/features/fixtures/presentation/screen/fixtures_screen.dart';
 import 'package:untitled/features/match_info/presentation/screens/match_info_screen.dart';
+import 'package:untitled/features/news_details/presentation/screens/news_details_screen.dart';
+import 'package:untitled/features/player_profile/presentation/screens/player_profile_screen.dart';
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
@@ -10,6 +13,7 @@ import '../../features/auth/sign up/presentation/screen/verify_user.dart';
 import '../../features/eng_tv_flow/presentation/screen/video_streem_screen.dart';
 import '../../features/message/presentation/screen/chat_screen.dart';
 import '../../features/message/presentation/screen/message_screen.dart';
+import '../../features/my_subscription/presentation/screens/my_subscription_screen.dart';
 import '../../features/navbar/screen/navbar_screen.dart';
 import '../../features/notifications/presentation/screen/notifications_screen.dart';
 import '../../features/onboarding_screen/onboarding_screen.dart';
@@ -18,14 +22,18 @@ import '../../features/profile/presentation/screen/profile_screen.dart';
 import '../../features/setting/presentation/screen/privacy_policy_screen.dart';
 import '../../features/setting/presentation/screen/setting_screen.dart';
 import '../../features/setting/presentation/screen/terms_of_services_screen.dart';
+import '../../features/shop/presentation/screens/shop_screen.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/stats_flow/presentation/screen/add_player_screen.dart';
 import '../../features/stats_flow/presentation/screen/player_comparison_screen.dart';
 import '../../features/stats_flow/presentation/screen/season_stats_screen.dart';
 import '../../features/transferms/presentation/screen/tranasfer_pending_approval.dart';
 import '../../features/transferms/presentation/screen/transfer_form_screen.dart';
+import '../../features/transferms_history/presentation/screens/transfers_history_screen.dart';
 
 class AppRoutes {
+  AppRoutes._();
+
   static const String transferFormScreen = '/transferFormScreen.dart';
   static const String seasonStatsScreen = '/seasonStatsScreen.dart';
   static const String addPlayerScreen = '/addPlayerScreen.dart';
@@ -36,6 +44,12 @@ class AppRoutes {
 
   // added by ajijul
   static const String matchInfo = "/matchInfo";
+  static const String newsDetails = "/newsDetails";
+  static const String playerProfile = "/playerProfile";
+  static const String transferHistoryScreen = '/transfer_history_screen.dart';
+  static const String shopScreen = '/shop_screen.dart';
+  static const String mySubscription = '/subscription_screen.dart';
+  static const String fixtures = '/fixtures_screen.dart';
 
   static const String test = '/test_screen.dart';
   static const String splash = '/';
@@ -89,5 +103,23 @@ class AppRoutes {
     GetPage(name:  playerComparisonScreen, page: () =>   PlayerComparisonScreen()),
     GetPage(name:  addPlayerScreen, page: () =>   AddPlayerScreen()),
     GetPage(name:  videoStreamScreen, page: () =>   VideoStreamScreen()),
+    GetPage(name: transferFormScreen, page: () => TransferFormScreen()),
+    GetPage(name: navBarScreen, page: () => NavBarScreen()),
+    GetPage(
+      name: transferPendingApproval,
+      page: () => TransferPendingApproval(),
+    ),
+    GetPage(name: seasonStatsScreen, page: () => SeasonStatsScreen()),
+    GetPage(name: playerComparisonScreen, page: () => PlayerComparisonScreen()),
+    GetPage(name: addPlayerScreen, page: () => AddPlayerScreen()),
+    GetPage(name: newsDetails, page: () => NewsDetailsScreen()),
+    GetPage(name: playerProfile, page: () => PlayerProfileScreen()),
+    GetPage(
+      name: transferHistoryScreen,
+      page: () => const TransfersHistoryScreen(),
+    ),
+    GetPage(name: shopScreen, page: () => const ShopScreen()),
+    GetPage(name: mySubscription, page: () => const MySubscriptionScreen()),
+    GetPage(name: fixtures, page: () => FixturesScreen()),
   ];
 }
