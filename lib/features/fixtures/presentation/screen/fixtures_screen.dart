@@ -1,10 +1,14 @@
-// features/fixtures/presentation/screen/fixtures_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-
+import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
+import 'package:untitled/features/home/presentation/widgets/upcoming_fixture_card.dart';
+import 'package:untitled/features/navbar/controller/navbar_controller.dart';
+import 'package:untitled/utils/constants/app_icons.dart';
 
 import '../../../../component/common_appbar/common_appbar.dart';
 import '../../../../component/text/common_text.dart';
@@ -19,19 +23,28 @@ class FixturesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NavBarController navBarController = Get.find<NavBarController>();
     return GetBuilder<FixturesController>(
       builder: (c) => Scaffold(
         backgroundColor: AppColors.background,
-        appBar: SecondaryAppBar(title: AppString.fixture),
-        body: Column(
-          children: [
-            SizedBox(height: 12.h),
-            _TabRow(c: c),
-            SizedBox(height: 12.h),
-            _FilterBar(c: c),
-            SizedBox(height: 8.h),
-            Expanded(child: _FixtureList(c: c)),
-          ],
+        appBar: CommonAppbar(title: AppString.fixture),
+        drawer: AppDrawer(),
+        body: PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) {
+            navBarController.selectedIndex.value = 0;
+          },
+          child: Column(
+            spacing: 5,
+            children: [
+              SizedBox(height: 20.h),
+              _TabRow(c: c),
+              SizedBox(height: 12.h),
+              _FilterBar(c: c),
+              SizedBox(height: 8.h),
+              Expanded(child: _FixtureList(c: c)),
+            ],
+          ),
         ),
       ),
     );
@@ -56,7 +69,7 @@ class _TabRow extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 8.h),
               decoration: BoxDecoration(
                 color: selected ? AppColors.primaryColor : AppColors.white,
-                borderRadius: BorderRadius.circular(20.r),
+                borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
                   color: selected
                       ? AppColors.primaryColor
@@ -65,8 +78,8 @@ class _TabRow extends StatelessWidget {
               ),
               child: CommonText(
                 text: c.tabs[i],
-                fontSize: 13.sp,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
+                fontSize: 16.sp,
+                fontWeight: selected ? FontWeight.w700 : FontWeight(590),
                 color: selected ? AppColors.white : AppColors.primaryColor,
               ),
             ),
@@ -89,31 +102,34 @@ class _FilterBar extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => showFilterSheet(context, c),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-              decoration: BoxDecoration(
-                color: AppColors.primaryColor,
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.tune, color: AppColors.white, size: 16.r),
-                  SizedBox(width: 6.w),
-                  CommonText(
-                    text: AppString.filterByLeague,
-                    fontSize: 13.sp,
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w600,
+            child: Row(
+              spacing: 8,
+              children: [
+                Container(
+                  width: 44.w,
+                  height: 44.w,
+                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.w),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
-                ],
-              ),
+                  child: SvgPicture.asset(AppIcons.filterSvg),
+                ),
+                CommonText(
+                  text: AppString.filterByLeague,
+                  fontSize: 15.sp,
+                  color: AppColors.primaryColor,
+                  fontWeight: FontWeight(590),
+                ),
+              ],
             ),
           ),
           SizedBox(width: 12.w),
           CommonText(
             text: '${c.filteredFixtures.length} ${AppString.matchesFound}',
-            fontSize: 13.sp,
+            fontSize: 14.sp,
             color: AppColors.textSecondaryColor,
+            fontWeight: FontWeight(590),
           ),
         ],
       ),
@@ -133,35 +149,20 @@ class _FixtureList extends StatelessWidget {
         child: CommonText(text: AppString.noMatchesFound, fontSize: 14.sp),
       );
     }
-    return ListView(
+    return ListView.separated(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      children: groups.entries.map((entry) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 16.h),
-            Row(
-              children: [
-                CommonText(
-                  text: entry.key,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.primaryColor,
-                ),
-                SizedBox(width: 8.w),
-                CommonText(
-                  text: c.groupSubLabel(entry.key),
-                  fontSize: 12.sp,
-                  color: AppColors.secondary,
-                  fontWeight: FontWeight.w400,
-                ),
-              ],
-            ),
-            SizedBox(height: 8.h),
-            ...entry.value.map((f) => _FixtureCard(fixture: f)),
-          ],
+      itemBuilder: (BuildContext context, int index) {
+        return UpcomingFixtureCard(
+          date: AppString.oct12,
+          homeTeam: AppString.titansSc,
+          awayTeam: AppString.vortexFc,
+          time: "2:00 am",
         );
-      }).toList(),
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return SizedBox(height: 10.h);
+      },
+      itemCount: 10,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled/component/common_appbar/common_appbar.dart';
+import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 import '../../../../component/text/common_text.dart';
@@ -17,6 +18,7 @@ class EngTvScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppbar(title: "ENG TV"),
+      drawer: AppDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

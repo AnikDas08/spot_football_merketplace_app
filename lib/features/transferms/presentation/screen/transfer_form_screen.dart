@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/component/button/common_button.dart';
 import 'package:untitled/component/text_field/common_text_field.dart';
 import 'package:untitled/config/route/app_routes.dart';
+import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:untitled/utils/constants/app_string.dart';
@@ -31,7 +32,7 @@ class TransferFormScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.strAppBarTitle),
-
+      drawer: AppDrawer(),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.w),

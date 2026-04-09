@@ -142,14 +142,14 @@ class _LineupsTabState extends State<LineupsTab> {
                       decoration: BoxDecoration(
                         color: isSelected
                             ? AppColors.primaryColor
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.circular(30.r),
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: CommonText(
                         text: _teams[index],
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
                         fontWeight: isSelected
-                            ? FontWeight.w700
+                            ? FontWeight(590)
                             : FontWeight(590),
                         color: isSelected
                             ? AppColors.white
@@ -179,12 +179,13 @@ class _LineupsTabState extends State<LineupsTab> {
                   SizedBox(height: 16.h),
                   CommonText(
                     text: group.title,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight(590),
                     color: AppColors.primaryColor,
                   ),
                   SizedBox(height: 8.h),
                   Container(
+                    height: 92.h,
                     decoration: BoxDecoration(
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(12.r),
@@ -231,7 +232,7 @@ class _PlayerRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         Get.toNamed(AppRoutes.playerProfile);
       },
       child: Padding(

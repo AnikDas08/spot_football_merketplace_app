@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/common_appbar.dart';
 import 'package:untitled/config/route/app_routes.dart';
+import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 
 import '../../../../component/text/common_text.dart';
@@ -17,6 +18,7 @@ class StatsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppbar(title: 'STATS'),
+      drawer: AppDrawer(),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 28.h),
         child: SingleChildScrollView(

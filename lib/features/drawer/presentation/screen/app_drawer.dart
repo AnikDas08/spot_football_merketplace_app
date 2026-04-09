@@ -15,7 +15,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: 0.8.sw,
+      width: 0.9.sw,
       backgroundColor: AppColors.white,
       child: SafeArea(
         child: Padding(
