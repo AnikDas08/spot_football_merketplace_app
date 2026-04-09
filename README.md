@@ -1,7 +1,7 @@
 # flutter_football_marketplace
 
 A new Flutter project.
-
+## flutter sdk    sdk: '>=3.11.1 <4.0.0'
 ## Getting Started
 
 This project is a starting point for a Flutter application.

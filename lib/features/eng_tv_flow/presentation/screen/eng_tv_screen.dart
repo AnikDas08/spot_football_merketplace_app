@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled/component/common_appbar/common_appbar.dart';
+import 'package:untitled/utils/constants/app_icons.dart';
+import 'package:untitled/utils/constants/temp_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
 import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
@@ -10,6 +14,7 @@ import '../../../../utils/constants/app_colors.dart';
 import '../widget/latest_highlight_card.dart';
 import '../widget/upcoming_match_card.dart';
 import '../widget/video_thumbnail_card.dart';
+import 'package:get/get.dart';
 
 class EngTvScreen extends StatelessWidget {
   const EngTvScreen({super.key});
@@ -29,6 +34,7 @@ class EngTvScreen extends StatelessWidget {
                 title: 'Voltage FC vs Titan Athletic',
                 duration: '1h 13m',
                 onWatchNow: () {
+                  Get.toNamed(AppRoutes.videoStreamScreen);
                   // Get.toNamed(AppRoutes.videoPlayerScreen);
                 },
               ),
