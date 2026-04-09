@@ -12,16 +12,12 @@ class UpcomingFixtureCard extends StatelessWidget {
   final String time;
   final String homeTeam;
   final String awayTeam;
-  final int homeScore;
-  final int awayScore;
 
   const UpcomingFixtureCard({
     super.key,
     required this.date,
     required this.homeTeam,
     required this.awayTeam,
-    required this.homeScore,
-    required this.awayScore,
     required this.time,
   });
 

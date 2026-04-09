@@ -7,7 +7,6 @@ import '../../features/auth/forgot password/presentation/screen/verify_screen.da
 import '../../features/auth/sign in/presentation/screen/sign_in_screen.dart';
 import '../../features/auth/sign up/presentation/screen/sign_up_screen.dart';
 import '../../features/auth/sign up/presentation/screen/verify_user.dart';
-import '../../features/eng_tv_flow/presentation/screen/video_streem_screen.dart';
 import '../../features/message/presentation/screen/chat_screen.dart';
 import '../../features/message/presentation/screen/message_screen.dart';
 import '../../features/navbar/screen/navbar_screen.dart';
@@ -32,7 +31,6 @@ class AppRoutes {
   static const String playerComparisonScreen = '/playerComparisonScreen.dart';
   static const String transferPendingApproval = '/transferPendingApproval.dart';
   static const String navBarScreen = '/navBarScreen.dart';
-  static const String videoStreamScreen = '/videoStreamScreen.dart';
 
   // added by ajijul
   static const String matchInfo = "/matchInfo";
@@ -88,6 +86,5 @@ class AppRoutes {
     GetPage(name:  seasonStatsScreen, page: () =>   SeasonStatsScreen()),
     GetPage(name:  playerComparisonScreen, page: () =>   PlayerComparisonScreen()),
     GetPage(name:  addPlayerScreen, page: () =>   AddPlayerScreen()),
-    GetPage(name:  videoStreamScreen, page: () =>   VideoStreamScreen()),
   ];
 }

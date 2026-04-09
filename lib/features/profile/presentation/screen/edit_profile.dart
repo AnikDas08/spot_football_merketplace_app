@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:untitled/component/common_appbar/secondary_appbar.dart';
+import 'package:untitled/utils/constants/app_colors.dart';
+import 'package:untitled/utils/constants/temp_image.dart';
 import '../../../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,14 +28,7 @@ class EditProfile extends StatelessWidget {
 
         return Scaffold(
           /// AppBar
-          appBar: AppBar(
-            centerTitle: true,
-            title: const CommonText(
-              text: AppString.profile,
-              fontSize: 20,
-              fontWeight: .w600,
-            ),
-          ),
+          appBar: SecondaryAppBar(title: AppString.editProfile),
 
           /// Body
           body: SingleChildScrollView(
@@ -54,11 +50,11 @@ class EditProfile extends StatelessWidget {
                                   File(controller.image!),
                                   width: 140,
                                   height: 140,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                 )
                               : CommonImage(
                                   imageSrc: userImage.isEmpty
-                                      ? AppImages.profile
+                                      ? TempImage.profile
                                       : userImage,
                                   width: 140,
                                   height: 140,
@@ -77,8 +73,17 @@ class EditProfile extends StatelessWidget {
                       ),
                     ],
                   ),
+                  30.height,
 
-                  24.height,
+                  /// Update avatar
+                  Align(
+                    child: CommonText(
+                      text: AppString.updateAvatar.toUpperCase(),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight(510),
+                      color: AppColors.textSecondaryColor,
+                    ),
+                  ),
 
                   /// Fields
                   EditProfileAllFiled(controller: controller),

@@ -16,7 +16,7 @@ class LatestVideos extends StatelessWidget {
         crossAxisAlignment: .start,
         children: [
           CommonText(
-            text: AppString.latestNews.toUpperCase(),
+            text: AppString.latestVideos.toUpperCase(),
             fontSize: 20.sp,
             fontWeight: FontWeight(590),
           ),

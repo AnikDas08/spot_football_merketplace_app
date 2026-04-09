@@ -19,6 +19,7 @@ class CommonText extends StatelessWidget {
     this.color = AppColors.black,
     required this.text,
     this.overflow = TextOverflow.ellipsis,
+    this.letterSpacing,
   });
 
   final double left;
@@ -32,6 +33,7 @@ class CommonText extends StatelessWidget {
   final TextAlign textAlign;
   final int maxLines;
   final TextOverflow overflow;
+  final letterSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class CommonText extends StatelessWidget {
         maxLines: maxLines,
         overflow: overflow,
         style: TextStyle(
+          letterSpacing: letterSpacing,
           fontSize: fontSize.sp,
           fontWeight: fontWeight,
           color: color,
