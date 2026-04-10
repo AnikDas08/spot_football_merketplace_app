@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/component/button/common_button.dart';
+import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/component/text_field/common_text_field.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
@@ -45,7 +46,7 @@ class TransferFormScreen extends StatelessWidget {
                 buttonHeight: 44,
                 titleWeight: FontWeight.w600,
                 padding: const EdgeInsets.all(0),
-                titleText: AppString.strBtnPermanent, // Using variable
+                titleText: AppString.strBtnPermanent,
                 buttonColor: AppColors.primaryColor,
                 onTap: () {},
               ),
@@ -53,8 +54,8 @@ class TransferFormScreen extends StatelessWidget {
 
               CommonTextField(
                 borderColor: AppColors.white,
-                title:AppString. strLblTransferFee, // Using variable
-                hintText:AppString. strHintTransferFee, // Using variable
+                title:AppString. strLblTransferFee,
+                hintText:AppString. strHintTransferFee,
                 controller: controller.transFeeController,
               ),
 
@@ -63,8 +64,8 @@ class TransferFormScreen extends StatelessWidget {
               Obx(
                     () => CommonDropdownField<String>(
                   paddingVertical: 14.5.h,
-                  title: AppString.strLblContractDuration, // Using variable
-                  hintText: AppString.strHintContractDuration, // Using variable
+                  title: AppString.strLblContractDuration,
+                  hintText: AppString.strHintContractDuration,
                   value: controller.selectedDuration.value.isEmpty
                       ? null
                       : controller.selectedDuration.value,
@@ -74,13 +75,12 @@ class TransferFormScreen extends StatelessWidget {
                       ) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(
-                        value,
-                        style: TextStyle(
-                          fontFamily: 'SFPro',
+                      child: CommonText(
+                      text:   value,
+
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
-                        ),
+
                       ),
                     );
                   }).toList(),
@@ -93,9 +93,9 @@ class TransferFormScreen extends StatelessWidget {
               SizedBox(height: 28.h),
 
               OfferSummaryCard(
-                totalCoins: strTotalCoins, // Using variable
-                waceImpact: strWaceImpact, // Using variable
-                probability: strProbability, // Using variable
+                totalCoins: strTotalCoins,
+                waceImpact: strWaceImpact,
+                probability: strProbability,
                 onSubmit: () {
                   Get.toNamed(AppRoutes.transferPendingApproval);
                 },

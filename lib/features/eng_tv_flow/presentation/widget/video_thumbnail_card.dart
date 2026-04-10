@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:untitled/component/button/common_button.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
+import 'package:untitled/utils/constants/app_string.dart';
 import '../../../../component/text/common_text.dart';
 
 class VideoThumbnailCard extends StatelessWidget {
@@ -13,8 +14,7 @@ class VideoThumbnailCard extends StatelessWidget {
   final VoidCallback onWatchNow;
 
   // Hard-coded strings converted to constant variables
-  static const String labelVideo = "Video";
-  static const String labelWatchNow = "Watch Now";
+
 
   const VideoThumbnailCard({
     super.key,
@@ -71,7 +71,7 @@ class VideoThumbnailCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CommonText(
-                      text: labelVideo, // Static Variable
+                      text:AppString. labelVideo, // Static Variable
                       fontSize: 16.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
@@ -91,7 +91,7 @@ class VideoThumbnailCard extends StatelessWidget {
 
                 CommonButton(
                   onTap: onWatchNow,
-                  titleText: labelWatchNow, // Static Variable
+                  titleText: AppString. labelWatchNow, // Static Variable
                   titleWeight: FontWeight.w500,
                   titleSize: 18,
                   buttonHeight: 48,
