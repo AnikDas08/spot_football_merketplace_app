@@ -10,7 +10,7 @@ import '../../features/auth/forgot password/presentation/screen/verify_screen.da
 import '../../features/auth/sign in/presentation/screen/sign_in_screen.dart';
 import '../../features/auth/sign up/presentation/screen/sign_up_screen.dart';
 import '../../features/auth/sign up/presentation/screen/verify_user.dart';
-import '../../features/eng_tv_flow/presentation/screen/video_streem_screen.dart';
+import '../../features/eng_tv_flow/presentation/screen/video_stream_screen.dart';
 import '../../features/message/presentation/screen/chat_screen.dart';
 import '../../features/message/presentation/screen/message_screen.dart';
 import '../../features/my_subscription/presentation/screens/my_subscription_screen.dart';

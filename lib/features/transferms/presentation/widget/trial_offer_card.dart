@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/component/button/common_button.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
+import 'package:untitled/utils/constants/app_string.dart';
 
 class TrialOfferCard extends StatelessWidget {
   final String playerImageUrl;
@@ -136,7 +137,7 @@ class TrialOfferCard extends StatelessWidget {
             width: double.infinity,
             height: 48.h,
             child: CommonButton(
-              titleText: 'OFFER TRIAL',
+              titleText: AppString.offerTrial,
               buttonColor: AppColors.primaryColor,
               onTap: onOfferTap,
               buttonHeight: 35,

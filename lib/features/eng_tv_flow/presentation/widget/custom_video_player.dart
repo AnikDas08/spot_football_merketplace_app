@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../utils/constants/app_colors.dart';
 
 class CustomVideoPlayer extends StatefulWidget {
   final String videoUrl;
@@ -12,62 +15,126 @@ class CustomVideoPlayer extends StatefulWidget {
 
 class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   late VideoPlayerController _controller;
-  bool _showControls = true;
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
+    _initializePlayer(widget.videoUrl);
+  }
+
+  void _initializePlayer(String url) {
+    if (mounted) setState(() => _isInitialized = false);
+
+    _controller = VideoPlayerController.networkUrl(Uri.parse(url))
       ..initialize().then((_) {
-        setState(() {}); // ভিডিও লোড হলে UI আপডেট হবে
+        if (mounted) {
+          setState(() => _isInitialized = true);
+          _controller.play();
+        }
+      }).catchError((error) {
+        debugPrint("Video initialization error: $error");
       });
 
-    // ভিডিও শেষ হলে আবার শুরু থেকে দেখানোর জন্য লিসেনার
     _controller.addListener(() {
       if (mounted) setState(() {});
     });
   }
 
   @override
+  void didUpdateWidget(covariant CustomVideoPlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.videoUrl != widget.videoUrl) {
+      // ✅ Properly dispose old controller before creating new one
+      _controller.pause();
+      _controller.dispose();
+      _initializePlayer(widget.videoUrl);
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
 
-  // সময় ফরম্যাট করার ফাংশন (00:00)
+  void _toggleFullScreen() {
+    if (MediaQuery.of(context).orientation == Orientation.portrait) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    } else {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    }
+  }
+
   String _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+    return "${twoDigits(duration.inHours)}:${twoDigits(duration.inMinutes.remainder(60))}:${twoDigits(duration.inSeconds.remainder(60))}";
   }
 
   @override
   Widget build(BuildContext context) {
-    return _controller.value.isInitialized
-        ? AspectRatio(
-      aspectRatio: _controller.value.aspectRatio,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          // ভিডিও ডিসপ্লে
-          VideoPlayer(_controller),
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
-          // কাস্টম কন্ট্রোল লেয়ার
-          _buildControls(),
-        ],
-      ),
-    )
-        : Container(
-      height: 200.h,
+    if (!_isInitialized) {
+      return Container(
+        height: 200.h,
+        width: double.infinity,
+        color: Colors.black,
+        child: Shimmer.fromColors(
+          baseColor: AppColors.color6B6B6B.withOpacity(0.3),
+          highlightColor: AppColors.color6B6B6B.withOpacity(0.1),
+          child: Container(color: Colors.white),
+        ),
+      );
+    }
+
+    return Container(
+      width: double.infinity,
+      height: isLandscape ? MediaQuery.of(context).size.height : null,
       color: Colors.black,
-      child: const Center(child: CircularProgressIndicator(color: Colors.white)),
+      child: Center(
+        child: AspectRatio(
+          aspectRatio: isLandscape
+              ? MediaQuery.of(context).size.aspectRatio
+              : _controller.value.aspectRatio,
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              SizedBox.expand(
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: SizedBox(
+                    width: _controller.value.size.width,
+                    height: _controller.value.size.height,
+                    child: VideoPlayer(_controller),
+                  ),
+                ),
+              ),
+              _buildControls(isLandscape),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-  Widget _buildControls() {
+  Widget _buildControls(bool isLandscape) {
+    bool isVideoFinished =
+        _controller.value.position >= _controller.value.duration;
+
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(
+        horizontal: 10.w,
+        vertical: isLandscape ? 20.h : 10.h,
+      ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
@@ -78,42 +145,54 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // ভিডিওর স্লাইডার (Progress Bar)
           VideoProgressIndicator(
             _controller,
             allowScrubbing: true,
-            colors: VideoProgressColors(
+            colors: const VideoProgressColors(
               playedColor: Colors.white,
-              bufferedColor: Colors.white.withOpacity(0.3),
+              bufferedColor: Colors.white30,
               backgroundColor: Colors.grey,
             ),
           ),
           SizedBox(height: 10.h),
           Row(
             children: [
-              // প্লে/পজ বাটন
               GestureDetector(
-                onTap: () {
-                  _controller.value.isPlaying ? _controller.pause() : _controller.play();
-                },
+                onTap: () => _controller.value.isPlaying
+                    ? _controller.pause()
+                    : _controller.play(),
                 child: Icon(
-                  _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                  _controller.value.isPlaying
+                      ? Icons.pause
+                      : Icons.play_arrow,
                   color: Colors.white,
                   size: 24.sp,
                 ),
               ),
               SizedBox(width: 15.w),
-              GestureDetector(
-                onTap: () => _controller.seekTo(Duration.zero),
-                child: Icon(Icons.replay, color: Colors.white, size: 22.sp),
-              ),
+              if (isVideoFinished)
+                GestureDetector(
+                  onTap: () {
+                    _controller.seekTo(Duration.zero);
+                    _controller.play();
+                  },
+                  child:
+                  Icon(Icons.replay, color: Colors.white, size: 22.sp),
+                ),
               const Spacer(),
               Text(
                 "${_formatDuration(_controller.value.position)} / ${_formatDuration(_controller.value.duration)}",
                 style: TextStyle(color: Colors.white, fontSize: 12.sp),
               ),
               SizedBox(width: 15.w),
-              Icon(Icons.fullscreen, color: Colors.white, size: 24.sp),
+              GestureDetector(
+                onTap: _toggleFullScreen,
+                child: Icon(
+                  isLandscape ? Icons.fullscreen_exit : Icons.fullscreen,
+                  color: Colors.white,
+                  size: 24.sp,
+                ),
+              ),
             ],
           ),
         ],
