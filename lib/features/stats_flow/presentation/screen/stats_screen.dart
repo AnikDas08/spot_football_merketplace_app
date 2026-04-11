@@ -22,6 +22,7 @@ class StatsScreen extends StatelessWidget {
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 28.h),
         child: SingleChildScrollView(
+          physics:  ClampingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

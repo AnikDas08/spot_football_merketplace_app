@@ -25,6 +25,7 @@ class PlayerComparisonScreen extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
+          physics:  ClampingScrollPhysics(),
           child: Column(
             children: [
               SizedBox(height: 28.h),

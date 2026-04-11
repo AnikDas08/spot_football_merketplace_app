@@ -205,4 +205,19 @@ class AppString {
   static const matchesFound = 'Matches Found';
   static const noMatchesFound = 'No Matches Found';
   static const filterByLeague = 'Filter by League';
+
+  static const String labelVideo = "Video";
+  static const String labelWatchNow = "Watch Now";
+  static const String trending = "Trending";
+  static const String liveStadium = "Live Stadium";
+  static const String recentOffers = "Recent Offers";
+  static const String offerTrial = "OFFER TRIAL";
+  static const String pendingApproval = "pending approval";
+  static const String offerSubmitted = "Offer Submitted";
+  static const String transferPendingMessage = "Your transfer offer for Marcus Vancore is pending admin approval and team response.";
+  static const String transferFee = "TRANSFER FEE";
+  static const String contractDuration = "CONTRACT DURATION";
+  static const String backToTransfers = "Back to Transfers";
+
+
 }

@@ -7,9 +7,6 @@ import 'package:untitled/utils/constants/temp_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
 import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../widget/latest_highlight_card.dart';
 import '../widget/upcoming_match_card.dart';
@@ -26,6 +23,7 @@ class EngTvScreen extends StatelessWidget {
       drawer: AppDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics:  ClampingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

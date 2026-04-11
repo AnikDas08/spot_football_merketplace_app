@@ -28,7 +28,7 @@ class TransferScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonText(
-                text: "Trending Transfers".toUpperCase(),
+                text:AppString.trending.toUpperCase(),
                 color: AppColors.primaryColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
@@ -44,7 +44,7 @@ class TransferScreen extends StatelessWidget {
                       padding: EdgeInsets.only(right: 12.w),
                       child: PlayerCard(
                         imageUrl: TempImage.player,
-                        status: 'Live Stadium',
+                        status: AppString.liveStadium,
                         position: 'Striker',
                         age: 9,
                         playerName: 'Marcus Vance',
@@ -60,7 +60,7 @@ class TransferScreen extends StatelessWidget {
               SizedBox(height: 32.h),
 
               CommonText(
-                text: "Recent Offers".toUpperCase(),
+                text: AppString.recentOffers.toUpperCase(),
                 color: AppColors.primaryColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
@@ -71,13 +71,11 @@ class TransferScreen extends StatelessWidget {
                 itemCount: 10,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                // Crucial: lets parent scroll
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.h),
                     child: TrialOfferCard(
                       playerImageUrl: TempImage.playerProfile,
-                      // playerImageUrl: TempImage.tempImage,
                       title: 'Amateur',
                       matchPercentage: '92%',
                       description:
