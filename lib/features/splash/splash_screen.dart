@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _navigate() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    if (!mounted) return;
+    //if (!mounted) return;
 
     // Example logic
     // if (LocalStorage.token.isNotEmpty) {
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //   Get.offAllNamed(AppRoutes.onboarding);
     // }
 
-    Get.toNamed(AppRoutes.navBarScreen);
+    Get.toNamed(AppRoutes.signIn);
   }
 
   @override
