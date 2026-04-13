@@ -34,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
       /// Body
       body: GetBuilder<ProfileController>(
         builder: (controller) {
-          final user = LocalStorage.user;
+          final user = LocalStorage.userId;
 
           return SingleChildScrollView(
             padding: .symmetric(horizontal: 20.w, vertical: 24.h),
@@ -46,12 +46,12 @@ class ProfileScreen extends StatelessWidget {
                 CircleAvatar(
                   backgroundColor: Colors.transparent,
                   child: ClipOval(
-                    child: CommonImage(imageSrc: user.image, size: 140),
+                    //child: CommonImage(imageSrc: user.image, size: 140),
                   ),
                 ),
 
                 /// Name
-                CommonText(text: user.name, fontSize: 18, fontWeight: .w700),
+                //CommonText(text: user.name, fontSize: 18, fontWeight: .w700),
 
                 24.height,
 

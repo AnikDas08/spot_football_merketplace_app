@@ -78,7 +78,7 @@ class MessageController extends GetxController {
           text: model.message,
           image: model.sender.image,
           isNotice: model.type == 'notice',
-          isMe: LocalStorage.user.id == model.sender.id,
+          isMe: LocalStorage.userId == model.sender.id,
         );
       }).toList();
 
@@ -123,7 +123,7 @@ class MessageController extends GetxController {
       ChatMessageModel(
         time: DateTime.now(),
         text: text,
-        image: LocalStorage.user.image,
+        image: LocalStorage.userId,
         isMe: true,
       ),
     );
@@ -133,7 +133,7 @@ class MessageController extends GetxController {
     final body = {
       'chat': chatId,
       'message': text,
-      'sender': LocalStorage.user.id,
+      'sender': LocalStorage.userId,
     };
 
     messageController.clear();

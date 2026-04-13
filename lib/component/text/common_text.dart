@@ -1,15 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../utils/constants/app_colors.dart';
 
 class CommonText extends StatelessWidget {
   const CommonText({
     super.key,
-    this.maxLines = 1,
-    this.textAlign = TextAlign.center,
+    this.maxLines,                            // null = unlimited lines
+    this.textAlign = TextAlign.start,         // start is safer than center
     this.left = 0,
     this.right = 0,
     this.top = 0,
@@ -20,6 +17,9 @@ class CommonText extends StatelessWidget {
     required this.text,
     this.overflow = TextOverflow.ellipsis,
     this.letterSpacing,
+    this.height,                              // line height support
+    this.decoration,                          // underline / strikethrough
+    this.softWrap = true,                     // enables wrapping
   });
 
   final double left;
@@ -31,30 +31,38 @@ class CommonText extends StatelessWidget {
   final Color color;
   final String text;
   final TextAlign textAlign;
-  final int maxLines;
+  final int? maxLines;                        // nullable
   final TextOverflow overflow;
-  final letterSpacing;
+  final double? letterSpacing;
+  final double? height;
+  final TextDecoration? decoration;
+  final bool softWrap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: .only(
+      padding: EdgeInsets.only(
         left: left.w,
         right: right.w,
         top: top.h,
         bottom: bottom.h,
       ),
       child: Text(
-        textAlign: textAlign,
         text,
-        maxLines: maxLines,
-        overflow: overflow,
+        textAlign: textAlign,
+        maxLines: maxLines,                   // null = no limit
+        overflow: maxLines == null            // no clip if unlimited
+            ? TextOverflow.visible
+            : overflow,
+        softWrap: softWrap,
         style: TextStyle(
           letterSpacing: letterSpacing,
           fontSize: fontSize.sp,
           fontWeight: fontWeight,
           color: color,
-          fontFamily: 'SFPro',
+          height: height,
+          decoration: decoration,
+          fontFamily: 'SFProDisplay',
         ),
       ),
     );

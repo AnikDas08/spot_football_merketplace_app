@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/config/route/app_routes.dart';
+import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
 import '../../../../../../../utils/extensions/extension.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/image/common_image.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
+import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/helpers/validation.dart';
 import '../controller/forget_password_controller.dart';
 import '../../../../../../../utils/constants/app_images.dart';
@@ -19,74 +22,72 @@ class CreatePassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /// App Bar Section starts here
-      appBar: AppBar(
-        title: const CommonText(
-          text: AppString.createNewPassword,
-          fontWeight: .w700,
-          fontSize: 24,
-        ),
-      ),
+        backgroundColor: Color(0xFFF3F3F3),
+      appBar: SignupAppbar(),
 
       /// Body Section starts here
       body: GetBuilder<ForgetPasswordController>(
         builder: (controller) {
           return SingleChildScrollView(
             padding: .symmetric(horizontal: 20.w, vertical: 24.h),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: .start,
-                children: [
-                  64.height,
-                  const CommonImage(
-                    imageSrc: AppImages.noImage,
-                    size: 297,
-                  ).center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CommonText(
+                  text: 'Reset Password',
+                  fontSize: 40,
+                  fontWeight: FontWeight.w700,
+                  textAlign: TextAlign.start,
+                  color: AppColors.black,
+                  bottom: 10,
+                ),
 
-                  const CommonText(
-                    text: AppString.createYourNewPassword,
-                    fontSize: 18,
-                    textAlign: .start,
-                    top: 64,
-                    bottom: 24,
-                  ),
+                /// ── Subtitle ──
+                const CommonText(
+                  text: 'Enter your new credentials below. Choose a high-performance password to secure your player profile.',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  textAlign: TextAlign.start,
+                  maxLines: 3,
+                  color: AppColors.primaryColor,
+                  bottom: 32,
+                ),
+                SizedBox(height: 20.h,),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: .start,
+                    children: [
+                      CommonTextField(
+                        title: "Password",
+                        controller: controller.passwordController,
+                        isPassword: true,
+                        hintText: 'Password',
+                        validator: AppValidation.password,
+                      ),
 
-                  const CommonText(text: AppString.password, bottom: 8),
-                  CommonTextField(
-                    controller: controller.passwordController,
-                    hintText: AppString.password,
-                    isPassword: true,
-                    validator: AppValidation.password,
-                  ),
+                      SizedBox(height: 20,),
 
-                  const CommonText(
-                    text: AppString.password,
-                    bottom: 8,
-                    top: 12,
-                  ),
-                  CommonTextField(
-                    controller: controller.confirmPasswordController,
-                    hintText: AppString.confirmPassword,
-                    validator: (value) => AppValidation.confirmPassword(
-                      value,
-                      controller.passwordController,
-                    ),
-                    isPassword: true,
-                  ),
+                      CommonTextField(
+                        title: "Confirm Password",
+                        controller: controller.confirmPasswordController,
+                        isPassword: true,
+                        hintText: 'Confirm Password',
+                        validator: AppValidation.password,
+                      ),
 
-                  64.height,
-                  CommonButton(
-                    titleText: AppString.continues,
-                    isLoading: controller.isLoading,
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        controller.resetPassword();
-                      }
-                    },
+                      64.height,
+                      CommonButton(
+                        titleText: "Update Password",
+                        isLoading: controller.isLoading,
+                        onTap: () {
+                          Get.toNamed(AppRoutes.signIn);
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

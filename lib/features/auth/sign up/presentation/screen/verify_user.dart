@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../controller/sign_up_controller.dart';
@@ -27,100 +28,155 @@ class _VerifyUserState extends State<VerifyUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /// App Bar Section starts here
-      appBar: AppBar(
-        title: const CommonText(
-          text: AppString.otpVerify,
-          fontWeight: .w700,
-          fontSize: 24,
-        ),
-      ),
+      backgroundColor: Color(0xFFF3F3F3),
+      appBar: SignupAppbar(),
 
       /// Body Section starts here
       body: GetBuilder<SignUpController>(
         builder: (controller) {
           return SingleChildScrollView(
-            padding: .symmetric(vertical: 24.h, horizontal: 20.w),
+            padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
             child: Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// instruction how to get OTP
-                  Center(
-                    child: CommonText(
-                      text:
-                          '${AppString.codeHasBeenSendTo} ${controller.emailController.text}',
-                      fontSize: 18,
-                      top: 100,
-                      bottom: 60,
-                      maxLines: 3,
-                    ),
+                  SizedBox(height: 20.h),
+
+                  /// Title
+                  const CommonText(
+                    text: "Verify Account",
+                    fontSize: 40,
+                    fontWeight: FontWeight.w700,
+                    textAlign: TextAlign.start,
+                    color: AppColors.black,
+                    bottom: 10,
                   ),
 
-                  /// OTP Filed here
-                  Flexible(
-                    flex: 0,
-                    child: PinCodeTextField(
-                      controller: controller.otpController,
-                      autoDisposeControllers: false,
-                      cursorColor: AppColors.black,
-                      appContext: (context),
-                      autoFocus: true,
-                      pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(16.r),
-                        fieldHeight: 60.h,
-                        fieldWidth: 60.w,
-                        activeFillColor: AppColors.transparent,
-                        selectedFillColor: AppColors.transparent,
-                        inactiveFillColor: AppColors.transparent,
-                        borderWidth: 0.5.w,
-                        selectedColor: AppColors.primaryColor,
-                        activeColor: AppColors.primaryColor,
-                        inactiveColor: AppColors.black,
+                  /// Subtitle
+                  const CommonText(
+                    text: 'We sent a code to your email',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    textAlign: TextAlign.start,
+                    maxLines: 3,
+                    color: AppColors.black,
+                    bottom: 32,
+                  ),
+
+                  SizedBox(height: 20,),
+
+                  /// Card with PIN Code, Timer, and Resend Text
+                  Card(
+                    elevation: 2,
+                    color: Color(0xffFFFFFF),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 24,right: 24,top: 48,bottom: 48),
+                      child: Column(
+                        children: [
+                          /// PIN Code Fields - 4 boxes only
+                          Center(
+                            child: PinCodeTextField(
+                              controller: controller.otpController,
+                              autoDisposeControllers: false,
+                              cursorColor: AppColors.black,
+                              appContext: context,
+                              autoFocus: true,
+                              pinTheme: PinTheme(
+                                //shape: PinCodeFieldShape.roundedBox,
+                                borderRadius: BorderRadius.circular(8.r),
+                                fieldHeight: 50.h,
+                                fieldWidth: 50.w,
+                                activeFillColor: const Color(0xFFD4AF37), // Gold filled when selected
+                                selectedFillColor: const Color(0xFFD4AF37), // Gold filled when selected
+                                inactiveFillColor: AppColors.white, // White when inactive
+                                borderWidth: 2.w,
+                                selectedColor: const Color(0xFFD4AF37), // Gold border when selected
+                                activeColor: const Color(0xFFD4AF37), // Gold border when active
+                                inactiveColor: const Color(0xFFD4AF37), // Gold border when inactive
+                              ),
+                              length: 4, // Only 4 boxes
+                              keyboardType: TextInputType.number,
+                              autovalidateMode: AutovalidateMode.onUnfocus,
+                              enableActiveFill: true,
+                              //spacing: 12.w, // Space between fields
+                              textStyle: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.black,
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: 24.h),
+
+                          /// Timer Display
+                          CommonText(
+                            text: controller.time,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.primaryColor,
+                          ),
+
+                          SizedBox(height: 24.h),
+
+                          /// Resend Text
+                          GestureDetector(
+                            onTap: controller.time == '00:00'
+                                ? () {
+                              controller.startTimer();
+                              controller.signUpUser();
+                            }
+                                : () {},
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Didn't receive a code? ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xFF373737),
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: controller.time == '00:00'
+                                        ? AppString.resendCode
+                                        : AppString.resendCode,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      color: controller.time == '00:00'
+                                          ? AppColors.primaryColor
+                                          : AppColors.primaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 36.h,),
+                          CommonButton(
+                            titleText: "Verify Button",
+                            isLoading: controller.isLoadingVerify,
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                controller.verifyOtp();
+                              }
+                            },
+                          ),
+                        ],
                       ),
-                      length: 6,
-                      keyboardType: TextInputType.number,
-                      autovalidateMode: AutovalidateMode.onUnfocus,
-                      enableActiveFill: true,
-                      validator: (value) {
-                        if (value != null && value.length == 6) {
-                          return null;
-                        } else {
-                          return AppString.otpIsInValid;
-                        }
-                      },
                     ),
                   ),
 
-                  /// Resent OTP or show Timer
-                  GestureDetector(
-                    onTap: controller.time == '00:00'
-                        ? () {
-                            controller.startTimer();
-                            controller.signUpUser();
-                          }
-                        : () {},
-                    child: CommonText(
-                      text: controller.time == '00:00'
-                          ? AppString.resendCode
-                          : '${AppString.resendCodeIn} ${controller.time} ${AppString.minute}',
-                      top: 60,
-                      bottom: 100,
-                      fontSize: 18,
-                    ),
-                  ),
+                  SizedBox(height: 48.h),
 
-                  ///  Submit Button here
-                  CommonButton(
-                    titleText: AppString.verify,
-                    isLoading: controller.isLoadingVerify,
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        controller.verifyOtp();
-                      }
-                    },
-                  ),
+                  ///  Submit Button
                 ],
               ),
             ),

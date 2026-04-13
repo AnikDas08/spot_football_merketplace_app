@@ -46,7 +46,7 @@ class CommonButton extends StatelessWidget {
           backgroundColor: buttonColor ?? AppColors.primaryColor,
           foregroundColor: titleColor,
           elevation: 0,
-          padding: padding ?? EdgeInsets.zero,
+          padding: padding ?? EdgeInsets.symmetric(horizontal: 16,vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(buttonRadius.r),
             side: borderColor != null

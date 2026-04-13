@@ -30,6 +30,7 @@ class AppString {
   static const String password = 'Password';
   static const String continues = 'Continue';
   static const String email = 'Email';
+  static const String emailAddress = 'EmailAddress';
   static const String codeHasBeenSendTo = 'Code has been send to';
   static const String otpIsInValid = 'Otp is inValid';
   static const String resendCode = 'Resend Code';
@@ -37,13 +38,14 @@ class AppString {
   static const String minute = 'minute';
   static const String verify = 'Verify';
   static const String logIntoYourAccount = 'Login to Your Account';
-  static const String forgotThePassword = 'Forgot the password';
+  static const String login = 'Login';
+  static const String login_text = 'LogIn';
   static const String signIn = 'Sign in';
-  static const String doNotHaveAccount = 'Don’t have an account';
+  static const String doNotHaveAccount = 'Don’t have an account? ';
   static const String signUp = 'Sign up';
-  static const String alreadyHaveAccount = 'Already have an account';
+  static const String alreadyHaveAccount = 'Already have an account? ';
   static const String fullName = 'Full Name';
-  static const String createYourAccount = 'Create Your Account';
+  static const String createYourAccount = 'Create Account';
   static const String otpVerify = 'OTP Verify';
   static const String inbox = 'Inbox';
   static const String searchDoctor = 'search a doctor';

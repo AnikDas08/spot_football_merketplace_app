@@ -13,34 +13,39 @@ class DoNotHaveAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text.rich(
-      TextSpan(
-        children: [
-          TextSpan(
-            text: AppString.doNotHaveAccount,
-            style: GoogleFonts.plusJakartaSans(
-              color: AppColors.secondary,
-              fontSize: 16,
-              fontWeight: .w500,
+    return Center(
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: AppString.doNotHaveAccount,
+              style: GoogleFonts.plusJakartaSans(
+                color: AppColors.secondary,
+                fontSize: 16,
+                fontWeight: .w500,
+              ),
             ),
-          ),
 
-          /// Sign Up Button here
-          TextSpan(
-            text: AppString.signUp,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                Get.toNamed(AppRoutes.signUp);
-              },
-            style: GoogleFonts.plusJakartaSans(
-              color: AppColors.primaryColor,
-              fontSize: 16,
-              fontWeight: .w600,
+            /// Sign Up Button here
+            TextSpan(
+              text: AppString.signUp,
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Get.toNamed(AppRoutes.signUp);
+                },
+              style: GoogleFonts.plusJakartaSans(
+                color: AppColors.primaryColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                decoration: TextDecoration.underline,      // underline
+                decorationColor: AppColors.primaryColor,   // underline color
+                decorationThickness: 2,                    // optional thickness
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        textAlign: .center,
       ),
-      textAlign: .center,
     );
   }
 }

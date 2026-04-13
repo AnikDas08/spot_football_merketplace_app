@@ -1,4 +1,10 @@
 import 'package:get/get.dart';
+import 'package:untitled/features/auth/select_role/select_role.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/screen/manager_registation_screen.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/screen/manager_subscription_screen.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/screen/player_register_screen.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/screen/successful_create_account.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/screen/verify_player_screen.dart';
 import 'package:untitled/features/fixtures/presentation/screen/fixtures_screen.dart';
 import 'package:untitled/features/match_info/presentation/screens/match_info_screen.dart';
 import 'package:untitled/features/news_details/presentation/screens/news_details_screen.dart';
@@ -69,6 +75,12 @@ class AppRoutes {
   static const String privacyPolicy = '/privacy_policy_screen.dart';
   static const String termsOfServices = '/terms_of_services_screen.dart';
   static const String setting = '/setting_screen.dart';
+  static const String role_select_screen = '/role_select_screen';
+  static const String player_registration_screen = '/player_registration_screen';
+  static const String successful_create_account = '/successful_create_account';
+  static const String verify_player_screen = '/verify_player_screen';
+  static const String manager_registation_screen = '/manager_registation_screen';
+  static const String manager_subscription_screen = '/manager_subscription_screen';
 
   static List<GetPage<String>> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -121,5 +133,11 @@ class AppRoutes {
     GetPage(name: shopScreen, page: () => const ShopScreen()),
     GetPage(name: mySubscription, page: () => const MySubscriptionScreen()),
     GetPage(name: fixtures, page: () => FixturesScreen()),
+    GetPage(name: role_select_screen, page: () => SelectRole()),
+    GetPage(name: player_registration_screen, page: () => PlayerRegisterScreen()),
+    GetPage(name: successful_create_account, page: () => SuccessfulCreateAccount()),
+    GetPage(name: verify_player_screen, page: () => VerifyPlayerScreen()),
+    GetPage(name: manager_registation_screen, page: () => ManagerRegistationScreen()),
+    GetPage(name: manager_subscription_screen, page: () => ManagerSubscriptionScreen()),
   ];
 }
