@@ -114,7 +114,7 @@ class SelectRole extends StatelessWidget {
                     LocalStorage.role=="Manager";
                     await LocalStorage.setString(LocalStorageKeys.role, LocalStorage.role);
                     print("Role : ${LocalStorage.role}");
-                    Get.toNamed(AppRoutes.manager_registation_screen);
+                    Get.toNamed(AppRoutes.manager_subscription_screen);
                   } else {
                     Get.snackbar("Selection Required", "Please select a role to continue");
                   }
