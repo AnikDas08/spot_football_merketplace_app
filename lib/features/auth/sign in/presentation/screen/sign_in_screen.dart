@@ -21,6 +21,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF3F3F3),
       appBar: SignupAppbar(),
       body: GetBuilder<SignInController>(
         builder: (controller) {
@@ -45,7 +46,7 @@ class SignInScreen extends StatelessWidget {
                   /// ── Subtitle ──
                   const CommonText(
                     text: 'Welcome back to the ENG. Access your stats and roster.',
-                    fontSize: 15,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                     textAlign: TextAlign.start,
                     maxLines: 3,
@@ -62,6 +63,7 @@ class SignInScreen extends StatelessWidget {
                     validator: AppValidation.email,
                   ),
                   /// ── Password Field ──
+                  SizedBox(height: 24.h,),
                   CommonTextField(
                     title: "Password",
                     controller: controller.passwordController,
@@ -186,7 +188,7 @@ class _SocialButton extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
             color: AppColors.black.withOpacity(0.15),
             width: 1,

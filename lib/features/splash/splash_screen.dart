@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/component/text/common_text.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/screen/manager_registation_screen.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/screen/manager_subscription_screen.dart';
 import '../../../../config/route/app_routes.dart';
 import 'package:get/get.dart';
 import '../../../../utils/constants/app_images.dart';
@@ -22,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _navigate() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    if (!mounted) return;
+    //if (!mounted) return;
 
     // Example logic
     // if (LocalStorage.token.isNotEmpty) {
@@ -31,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //   Get.offAllNamed(AppRoutes.onboarding);
     // }
 
-    Get.toNamed(AppRoutes.navBarScreen);
+    Get.toNamed(AppRoutes.signIn);
   }
 
   @override

@@ -24,7 +24,7 @@ class EditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
       builder: (controller) {
-        final userImage = LocalStorage.user.image;
+        final userImage = LocalStorage.userId;
 
         return Scaffold(
           /// AppBar

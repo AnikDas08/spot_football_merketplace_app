@@ -120,7 +120,7 @@ class SignUpController extends GetxController {
 
   /// Verify OTP API call
   Future<void> verifyOtp() async {
-    Get.offAllNamed(AppRoutes.signIn);
+    Get.offAllNamed(AppRoutes.role_select_screen);
     return;
     try {
       _setVerifyLoading(true);
@@ -135,9 +135,6 @@ class SignUpController extends GetxController {
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = response.data['data'] ?? {};
 
-        LocalStorage.saveToken(data['accessToken']);
-        LocalStorage.saveRefreshToken(data['refreshToken']);
-        LocalStorage.saveUser(data['user']);
 
         Get.offAllNamed(AppRoutes.signIn);
       } else {
