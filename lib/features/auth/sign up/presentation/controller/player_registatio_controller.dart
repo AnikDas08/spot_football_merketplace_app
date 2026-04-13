@@ -12,12 +12,12 @@ class PlayerRegistrationController extends GetxController {
     isLoading = false.obs;
     selectedPlan = Rx<RegistrationPlan?>(null);
 
-    // Initialize plans
+    // Initialize plans based on the screenshot
     plans = RxList([
       RegistrationPlan(
         id: '1',
         title: 'AMATEUR',
-        badge: '🎖️',
+        badge: '🛡️',
         price: 4.95,
         priceSubtitle: '/Season',
         features: [
@@ -25,7 +25,7 @@ class PlayerRegistrationController extends GetxController {
           'Player Stats',
           'ENG Coins with a red cross',
         ],
-        featureStatus: [true, true, false],
+        featureStatus: [true, false, false], // Check, Cross, Cross
         buttonText: 'SELECT AMATEUR',
         isSelected: false,
       ),
@@ -40,7 +40,7 @@ class PlayerRegistrationController extends GetxController {
           'Detailed Player Stats',
           'No ENG Coins',
         ],
-        featureStatus: [true, true, false],
+        featureStatus: [true, true, false], // Check, Check, Cross
         buttonText: 'SELECT SEMI PRO',
         isSelected: false,
       ),
@@ -55,63 +55,33 @@ class PlayerRegistrationController extends GetxController {
           'Elite Player Stats',
           'ENG Coins Program',
         ],
-        featureStatus: [true, true, true],
+        featureStatus: [true, true, true], // Check, Check, Check
         buttonText: 'SELECT PROFESSIONAL',
         isSelected: false,
       ),
     ]);
   }
 
-  /// Select a plan
   void selectPlan(String planId) {
-    final updatedPlans = plans.map((plan) {
-      if (plan.id == planId) {
-        selectedPlan.value = plan.copyWith(isSelected: true);
-        return plan.copyWith(isSelected: true);
-      } else {
-        return plan.copyWith(isSelected: false);
+    for (var plan in plans) {
+      plan.isSelected = (plan.id == planId);
+      if (plan.isSelected) {
+        selectedPlan.value = plan;
       }
-    }).toList();
-
-    plans.assignAll(updatedPlans);
+    }
+    plans.refresh();
     update();
   }
 
-  /// Get selected plan details
-  RegistrationPlan? getSelectedPlan() {
-    return selectedPlan.value;
-  }
-
-  /// Continue with selected plan
   void continuWithPlan() {
     if (selectedPlan.value != null) {
       isLoading.value = true;
-
-      // Simulate API call
       Future.delayed(const Duration(seconds: 1), () {
         isLoading.value = false;
-        // Navigate to next screen
-        Get.snackbar(
-          'Success',
-          'Selected Plan: ${selectedPlan.value!.title}',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        // Navigation logic goes here
       });
-    } else {
-      Get.snackbar(
-        'Warning',
-        'Please select a plan',
-        snackPosition: SnackPosition.BOTTOM,
-      );
     }
   }
 
-  /// Switch primary role later
-  void switchPrimaryRoleLater() {
-    Get.snackbar(
-      'Info',
-      'You can switch your primary role in settings',
-      snackPosition: SnackPosition.BOTTOM,
-    );
-  }
+  void switchPrimaryRoleLater() {}
 }
