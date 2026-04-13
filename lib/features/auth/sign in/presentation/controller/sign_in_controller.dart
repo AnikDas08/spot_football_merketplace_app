@@ -25,7 +25,7 @@ class SignInController extends GetxController {
       isLoading = true;
       update();
 
-      Get.toNamed(AppRoutes.profile);
+      Get.toNamed(AppRoutes.navBarScreen);
       return;
 
       final Map<String, String> body = {
