@@ -19,7 +19,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /// App Bar Section Starts Here
+      backgroundColor: Color(0xFFF3F3F3),
       appBar: SignupAppbar(),
 
       /// Body Section Starts Here
@@ -50,7 +50,7 @@ class SignUpScreen extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     textAlign: TextAlign.start,
                     maxLines: 3,
-                    color: AppColors.black,
+                    color: AppColors.primaryColor,
                   ),
 
                   SizedBox(height: 48.h,),

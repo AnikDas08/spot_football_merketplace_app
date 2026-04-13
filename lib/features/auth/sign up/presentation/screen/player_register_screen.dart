@@ -23,6 +23,7 @@ class PlayerRegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF3F3F3),
       appBar: SignupAppbar(),
       body: SingleChildScrollView(
         child: Padding(
@@ -39,7 +40,7 @@ class PlayerRegisterScreen extends StatelessWidget {
                 fontSize: 40,
                 fontWeight: FontWeight.w700,
                 textAlign: TextAlign.start,
-                color: AppColors.black,
+                color: AppColors.primaryColor,
                 bottom: 10,
               ),
 
@@ -50,7 +51,7 @@ class PlayerRegisterScreen extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 textAlign: TextAlign.start,
                 maxLines: 3,
-                color: AppColors.black,
+                color: AppColors.primaryColor,
                 bottom: 32,
               ),
 
@@ -83,7 +84,7 @@ class PlayerRegisterScreen extends StatelessWidget {
                     titleText: 'Continue',
                     isLoading: ctrl.isLoading.value,
                     onTap: () {
-                      ctrl.continuWithPlan();
+                      Get.toNamed(AppRoutes.verify_player_screen);
                     },
                   );
                 },
@@ -99,10 +100,12 @@ class PlayerRegisterScreen extends StatelessWidget {
                 child: Center(
                   child: CommonText(
                     text: 'You can switch your primary role\nlater in settings',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    maxLines: 3,
                     textAlign: TextAlign.center,
-                    color: const Color(0xFF999999),
+                    color: Color(0xff373737),
+                    bottom: 32,
                   ),
                 ),
               ),

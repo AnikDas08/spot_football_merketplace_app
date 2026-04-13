@@ -37,9 +37,6 @@ class SignInController extends GetxController {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = response.data['data'] ?? '';
-        LocalStorage.saveToken(data['accessToken'] ?? '');
-        LocalStorage.saveRefreshToken(data['refreshToken'] ?? '');
-        LocalStorage.saveUser(data['user'] ?? '');
 
         /// clear
         emailController.clear();

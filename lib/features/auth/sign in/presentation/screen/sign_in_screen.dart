@@ -21,6 +21,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF3F3F3),
       appBar: SignupAppbar(),
       body: GetBuilder<SignInController>(
         builder: (controller) {

@@ -85,7 +85,7 @@ class ChatController extends GetxController {
 
   /// Listen chat updates from socket
   void listenChat() {
-    final userId = LocalStorage.user.id;
+    final userId = LocalStorage.userId;
     SocketService.on('update-chatlist::$userId', (data) {
       page = 1;
       chats.clear();

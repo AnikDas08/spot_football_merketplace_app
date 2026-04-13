@@ -40,25 +40,27 @@ class ForgetPasswordController extends GetxController {
   final confirmPasswordController = TextEditingController();
 
   bool get canResendOtp => remainingSeconds == 0;
+  int _seconds = 0;
 
-  String get timerText {
-    final minutes = remainingSeconds ~/ 60;
-    final seconds = remainingSeconds % 60;
-    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-  }
 
   /// ===================== TIMER =====================
-  void startOtpTimer() {
+  void startTimer() {
     _timer?.cancel();
-    remainingSeconds = _otpDurationSeconds;
+    _seconds = 180;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (remainingSeconds == 0) {
+      if (_seconds == 0) {
         timer.cancel();
-      } else {
-        remainingSeconds--;
-        update();
+        return;
       }
+      _seconds--;
+      update();
     });
+  }
+
+  String get time {
+    final minutes = (_seconds ~/ 60).toString().padLeft(2, '0');
+    final seconds = (_seconds % 60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
   }
 
   /// ===================== Forget Password Repo =====================
@@ -73,7 +75,7 @@ class ForgetPasswordController extends GetxController {
       if (response.statusCode == 200) {
         AppSnackbar.success(title: 'Success', message: response.message);
         currentStep = ForgetPasswordStep.otp;
-        startOtpTimer();
+        startTimer();
         Get.toNamed(AppRoutes.verifyEmail);
       } else {
         AppSnackbar.error(

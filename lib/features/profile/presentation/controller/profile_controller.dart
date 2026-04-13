@@ -71,7 +71,7 @@ class ProfileController extends GetxController {
 
       final Map<String, dynamic> data = response.data['data'] ?? {};
 
-      LocalStorage.saveUser(data['user']);
+      //LocalStorage.saveUser(data['user']);
 
       AppSnackbar.success(
         title: 'Success',

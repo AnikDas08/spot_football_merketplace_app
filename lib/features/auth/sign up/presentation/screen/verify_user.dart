@@ -28,7 +28,7 @@ class _VerifyUserState extends State<VerifyUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /// App Bar Section starts here
+      backgroundColor: Color(0xFFF3F3F3),
       appBar: SignupAppbar(),
 
       /// Body Section starts here
