@@ -1,144 +1,116 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/image/common_image.dart';
 import 'package:untitled/services/storage/storage_keys.dart';
 import 'package:untitled/services/storage/storage_services.dart';
 import '../../../../../../../config/route/app_routes.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
-import '../../../../../../../utils/constants/app_string.dart';
-import '../../../../../../../utils/extensions/extension.dart';
-import '../../../../../../../utils/helpers/validation.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
-import '../../../../../component/text_field/common_text_field.dart';
 import '../sign in/presentation/widgets/signup_appbar.dart';
 
 class SelectRole extends StatelessWidget {
   SelectRole({super.key});
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
-    // Inject or find your controller
     final controller = Get.put(RoleSelectController());
 
     return Scaffold(
-      appBar: SignupAppbar(),
+      backgroundColor: const Color(0xFFF3F3F3),
+      appBar: const SignupAppbar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 40.h),
+              SizedBox(height: 24.h),
               const CommonText(
                 text: 'Select Your Role',
-                fontSize: 40,
+                fontSize: 24,
                 fontWeight: FontWeight.w700,
                 color: AppColors.black,
-                bottom: 10,
+                bottom: 8,
               ),
               const CommonText(
                 text: 'Please Select One Of The Following Which Applies To You...',
-                fontSize: 16,
-                maxLines: 3,
-                color: AppColors.black,
-                bottom: 32,
+                fontSize: 14,
+                maxLines: 2,
+                fontWeight: FontWeight.w400,
+                color: AppColors.color6B6B6B,
+                bottom: 24,
               ),
 
               // --- Player Selection ---
-              Obx(() => GestureDetector(
-                onTap: () => controller.selectRole(1),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(
-                      color: controller.selectedRole.value == 1
-                          ? AppColors.primaryColor // Selected color
-                          : Colors.transparent,    // Unselected color
-                      width: 3,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(9.r),
-                    child: CommonImage(
-                      imageSrc: "assets/images/select_player.png",
-                      height: 124.h,
-                      width: double.infinity,
-                      fill: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              )),
+              Obx(() => _RoleCard(
+                    title: 'PLAYER',
+                    subtitle: 'Register For A Club For The\n26/27 Season',
+                    icon: Icons.person_outline,
+                    iconColor: const Color(0xFF19CA77),
+                    isSelected: controller.selectedRole.value == 1,
+                    onTap: () => controller.selectRole(1),
+                  )),
 
-              SizedBox(height: 20.h),
+              SizedBox(height: 16.h),
+
+              // --- Find a Team (Trial) ---
+              Obx(() => _RoleCard(
+                    title: 'FIND A TEAM (TRIAL)',
+                    subtitle: 'Create a profile and get\ndiscovered by clubs',
+                    icon: Icons.person_outline,
+                    iconColor: const Color(0xFFEABB00),
+                    isSelected: controller.selectedRole.value == 3,
+                    onTap: () => controller.selectRole(3),
+                  )),
+
+              SizedBox(height: 16.h),
 
               // --- Manager Selection ---
-              Obx(() => GestureDetector(
-                onTap: () => controller.selectRole(2),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(
-                      color: controller.selectedRole.value == 2
-                          ? AppColors.primaryColor
-                          : Colors.transparent,
-                      width: 3,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(9.r),
-                    child: CommonImage(
-                      imageSrc: "assets/images/select_manager.png",
-                      height: 124.h,
-                      width: double.infinity,
-                      fill: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              )),
+              Obx(() => _RoleCard(
+                    title: 'MANAGER',
+                    subtitle: 'Manage team & transfers',
+                    icon: Icons.business_center_outlined,
+                    iconColor: const Color(0xFFF06292),
+                    isSelected: controller.selectedRole.value == 2,
+                    onTap: () => controller.selectRole(2),
+                  )),
 
               SizedBox(height: 40.h),
 
-              // --- Dynamic Continue Button ---
+              // --- Continue Button ---
               Obx(() => CommonButton(
-                onTap: () async{
-                  if (controller.selectedRole.value == 1) {
-                    LocalStorage.role="Player";
+                onTap: () async {
+                  if (controller.selectedRole.value == 1 || controller.selectedRole.value == 3) {
+                    LocalStorage.role = "Player";
                     await LocalStorage.setString(LocalStorageKeys.role, LocalStorage.role);
-                    print("Role : ${LocalStorage.role}");
                     Get.toNamed(AppRoutes.player_registration_screen);
                   } else if (controller.selectedRole.value == 2) {
-                    LocalStorage.role=="Manager";
+                    LocalStorage.role = "Manager";
                     await LocalStorage.setString(LocalStorageKeys.role, LocalStorage.role);
-                    print("Role : ${LocalStorage.role}");
                     Get.toNamed(AppRoutes.manager_subscription_screen);
                   } else {
                     Get.snackbar("Selection Required", "Please select a role to continue");
                   }
                 },
-                // Optional: Change button opacity if nothing is selected
                 buttonColor: controller.selectedRole.value == 0
-                    ? Colors.grey
-                    : AppColors.primaryColor,
+                    ? Colors.grey.shade400
+                    : AppColors.black,
                 titleText: "Continue",
-                titleColor: controller.selectedRole.value == 0
-                    ? Colors.black
-                    : AppColors.white,
+                titleColor: AppColors.white,
               )),
 
-              SizedBox(height: 20.h),
+              SizedBox(height: 24.h),
 
               const Center(
                 child: CommonText(
                   text: "You can switch your primary role\nlater in settings.",
-                  fontSize: 16,
+                  fontSize: 14,
                   textAlign: TextAlign.center,
-                  color: AppColors.black,
+                  color: AppColors.color6B6B6B,
                 ),
-              )
+              ),
+              SizedBox(height: 24.h),
             ],
           ),
         ),
@@ -147,14 +119,96 @@ class SelectRole extends StatelessWidget {
   }
 }
 
+class _RoleCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color iconColor;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _RoleCard({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.iconColor,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: EdgeInsets.all(16.w),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(12.r),
+          border: Border.all(
+            color: isSelected ? AppColors.black : AppColors.transparent,
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Icon Background
+            Container(
+              width: 60.w,
+              height: 60.h,
+              decoration: BoxDecoration(
+                color: const Color(0xFF373737),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Icon(
+                icon,
+                color: iconColor,
+                size: 30.sp,
+              ),
+            ),
+            SizedBox(width: 16.w),
+            // Text content
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CommonText(
+                    text: title,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.black,
+                  ),
+                  CommonText(
+                    text: subtitle,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.color6B6B6B,
+                    maxLines: 2,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class RoleSelectController extends GetxController {
-  // 0 for none, 1 for Player, 2 for Manager
+  // 0: none, 1: Player, 2: Manager, 3: Find a team (Trial)
   var selectedRole = 0.obs;
 
   void selectRole(int index) {
     selectedRole.value = index;
+    print("Role selected: $index");
   }
 }
-
-
-
