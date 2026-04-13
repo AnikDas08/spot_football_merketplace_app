@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
 import '../../../../../../../utils/extensions/extension.dart';
 import '../../../../../component/button/common_button.dart';
@@ -80,9 +81,7 @@ class CreatePassword extends StatelessWidget {
                         titleText: "Update Password",
                         isLoading: controller.isLoading,
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            controller.resetPassword();
-                          }
+                          Get.toNamed(AppRoutes.signIn);
                         },
                       ),
                     ],
