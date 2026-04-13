@@ -52,7 +52,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                 description: 'Access basic manager features with no cost. Perfect for individual learning and initial growth.',
                 buttonText: 'Sign Up Free',
                 onTap: () {
-                  Get.toNamed(AppRoutes.successful_create_account);
+                  Get.toNamed(AppRoutes.manager_registation_screen);
                 },
               ),
 
@@ -68,7 +68,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                 price: '£4.95',
                 buttonText: 'Pay & Upgrade',
                 onTap: () {
-                  Get.toNamed(AppRoutes.successful_create_account);
+                  Get.toNamed(AppRoutes.manager_registation_screen);
                 },
               ),
             ],

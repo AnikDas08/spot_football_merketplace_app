@@ -120,7 +120,7 @@ class SignUpController extends GetxController {
 
   /// Verify OTP API call
   Future<void> verifyOtp() async {
-    Get.offAllNamed(AppRoutes.role_select_screen);
+    Get.toNamed(AppRoutes.role_select_screen);
     return;
     try {
       _setVerifyLoading(true);
