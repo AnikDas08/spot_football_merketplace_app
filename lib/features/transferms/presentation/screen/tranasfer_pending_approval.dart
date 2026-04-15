@@ -79,7 +79,6 @@ class TransferPendingApproval extends StatelessWidget {
               CommonButton(
                 onTap: () {
                   Get.back();
-                  Get.back();
                 },
                 titleText: AppString.backToTransfers,
                 buttonColor: AppColors.transparent,

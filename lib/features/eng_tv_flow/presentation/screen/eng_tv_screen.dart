@@ -18,12 +18,33 @@ class EngTvScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> upcomingMatches = [
+      {
+        'date': 'Oct 24',
+        'time': '21:00 PM',
+        'matchTitle': 'ROGUE CITY VS UNITED',
+        'coverageTime': '20:45 GMT • LIVE COVERAGE',
+      },
+      {
+        'date': 'Oct 25',
+        'time': '19:30 PM',
+        'matchTitle': 'TITAN ATHLETIC VS VOLTAGE FC',
+        'coverageTime': '19:15 GMT • LIVE COVERAGE',
+      },
+      {
+        'date': 'Oct 26',
+        'time': '22:00 PM',
+        'matchTitle': 'LEAGUE LEVELLERS VS ROGUE CITY',
+        'coverageTime': '21:45 GMT • LIVE COVERAGE',
+      },
+    ];
+
     return Scaffold(
       appBar: CommonAppbar(title: "ENG TV"),
       drawer: AppDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
-          physics:  ClampingScrollPhysics(),
+          physics: ClampingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,7 +54,6 @@ class EngTvScreen extends StatelessWidget {
                 duration: '1h 13m',
                 onWatchNow: () {
                   Get.toNamed(AppRoutes.videoStreamScreen);
-                  // Get.toNamed(AppRoutes.videoPlayerScreen);
                 },
               ),
 
@@ -51,13 +71,19 @@ class EngTvScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(right: 12.w),
-                      child: LatestHighlightCard(
-                        isCheck: true,
-                        imagePath: TempImage.stats1,
-                        title: 'Top 10 Goals: Week 24',
-                        time: '3h ago',
-                        source: 'ENG Original',
-                        duration: '7m',
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.videoStreamScreen);
+                        },
+
+                        child: LatestHighlightCard(
+                          isCheck: true,
+                          imagePath: TempImage.stats1,
+                          title: 'Top 10 Goals: Week 24',
+                          time: '3h ago',
+                          source: 'ENG Original',
+                          duration: '7m',
+                        ),
                       ),
                     );
                   },
@@ -76,21 +102,26 @@ class EngTvScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(right: 12.w),
-                      child: LatestHighlightCard(
-                        isCheck: false,
-                        imagePath: TempImage.player2,
-                        title: 'Top 20 late ENG ',
-                        time: '3h ago',
-                        source: '',
-                        leagueName: 'league Levellers',
-                        duration: '10m',
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.videoStreamScreen);
+                        },
+                        child: LatestHighlightCard(
+                          isCheck: false,
+                          imagePath: TempImage.player2,
+                          title: 'Top 20 late ENG ',
+                          time: '3h ago',
+                          source: '',
+                          leagueName: 'league Levellers',
+                          duration: '10m',
+                        ),
                       ),
                     );
                   },
                 ),
               ),
 
-              SizedBox(height: 28.h),
+              SizedBox(height: 16.h),
 
               Container(
                 margin: EdgeInsets.only(left: 16.w),
@@ -98,24 +129,31 @@ class EngTvScreen extends StatelessWidget {
                   text: "Scheduled Broadcasts",
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
-                  maxLines: 1,
+                  maxLines: 2,
                   color: AppColors.primaryColor,
                 ),
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 8.h),
 
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.w),
-                child: UpcomingMatchCard(
-                  date: "Oct 24",
-                  time: "21:00 PM",
-                  matchTitle: "ROGUE CITY VS UNITED",
-                  coverageTime: "20:45 GMT • LIVE COVERAGE",
-                  onNotificationTap: () {},
-                ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: upcomingMatches.length,
+                itemBuilder: (context, index) {
+                  final match = upcomingMatches[index];
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5),
+                    child: UpcomingMatchCard(
+                      date: match['date']!,
+                      time: match['time']!,
+                      matchTitle: match['matchTitle']!,
+                      coverageTime: match['coverageTime']!,
+                      onNotificationTap: () {},
+                    ),
+                  );
+                },
               ),
               SizedBox(height: 16.h),
-
             ],
           ),
         ),
@@ -123,13 +161,14 @@ class EngTvScreen extends StatelessWidget {
     );
   }
 
+
+
   Widget _buildSectionHeader(String title, VoidCallback onTap) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Section Title
           CommonText(
             text: title,
             fontSize: 20.sp,

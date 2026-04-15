@@ -22,6 +22,7 @@ class TransferScreen extends StatelessWidget {
       drawer: AppDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
           padding: EdgeInsets.only(top: 28.h, left: 16.h, bottom: 28.h),
 
           child: Column(
@@ -81,7 +82,7 @@ class TransferScreen extends StatelessWidget {
                       description:
                           'Personal terms agreed. Medical scheduled for Friday.',
                       onOfferTap: () {
-                        Get.toNamed(AppRoutes.transferFormScreen);
+                        Get.toNamed(AppRoutes.transferPendingApproval);
                       },
                     ),
                   );

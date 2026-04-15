@@ -21,12 +21,10 @@ class TransferFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // Dropdown Items
     const String strSeason1 = "1 Season";
     const String strSeason2 = "2 Seasons";
     const String strSeason3 = "3 Seasons";
 
-    // Offer Summary Static Data
     const String strTotalCoins = "€1.2M";
     const String strWaceImpact = "€0.5M";
     const String strProbability = "85%";
@@ -35,6 +33,7 @@ class TransferFormScreen extends StatelessWidget {
       appBar: SecondaryAppBar(title: AppString.strAppBarTitle),
       drawer: AppDrawer(),
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.w),
           child: Column(
@@ -97,7 +96,6 @@ class TransferFormScreen extends StatelessWidget {
                 waceImpact: strWaceImpact,
                 probability: strProbability,
                 onSubmit: () {
-                  Get.toNamed(AppRoutes.transferPendingApproval);
                 },
               ),
             ],
