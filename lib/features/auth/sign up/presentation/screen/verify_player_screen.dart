@@ -146,8 +146,9 @@ class VerifyPlayerScreen extends StatelessWidget {
                     titleText: "Submit Request",
                     //isLoading: controller.isLoading,
                     onTap: () async {
-                      await controller.submitVerification();
                       Get.toNamed(AppRoutes.successful_create_account);
+                      // await controller.submitVerification();
+
                     },
                   ),
 

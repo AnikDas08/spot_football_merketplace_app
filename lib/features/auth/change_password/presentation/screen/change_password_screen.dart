@@ -96,9 +96,10 @@ class ChangePasswordScreen extends StatelessWidget {
                     titleText: AppString.confirm,
                     isLoading: controller.isLoading,
                     onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        controller.changePasswordRepo();
-                      }
+                      controller.changePasswordRepo();
+
+                      // if (_formKey.currentState!.validate()) {
+                      // }
                     },
                   ),
                 ],
