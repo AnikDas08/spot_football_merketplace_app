@@ -144,11 +144,39 @@ class VerifyPlayerScreen extends StatelessWidget {
 
                   SizedBox(height: 40,),
 
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildDropdownField(
+                          title: "Gender",
+                          hint: "Select",
+                          value: controller.selectedGender,
+                          items: controller.genders,
+                          onChanged: (val) => controller.setGender(val!),
+                        ),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: _buildDropdownField(
+                          title: "Nationality",
+                          hint: "Select",
+                          value: controller.selectedNationality,
+                          items: controller.nationalities,
+                          onChanged: (val) => controller.setNationality(val!),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24.h),
+
                   CommonButton(
                     titleText: "Submit Request",
                     //isLoading: controller.isLoading,
-                    onTap: () {
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await controller.submitVerification();
                         Get.toNamed(AppRoutes.successful_create_account);
+                      }
                     },
                   ),
 

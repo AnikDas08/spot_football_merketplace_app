@@ -8,25 +8,48 @@ import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_string.dart';
+import '../../../../services/storage/storage_services.dart';
 
 class MySubscriptionScreen extends StatelessWidget {
   const MySubscriptionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Determine the plan directly from LocalStorage
+    String currentPlan = LocalStorage.plan.trim().toUpperCase();
+
+    print("${currentPlan}==============================================================");
+    
+    // Default to SEMI PRO only if stored plan is empty
+    if (currentPlan.isEmpty) {
+      currentPlan = "SEMI PRO";
+    }
+    
+    // Simple logic to show different prices based on plan
+    String price = "£9.95";
+    if (currentPlan == "AMATEUR") {
+      price = "£4.95";
+    } else if (currentPlan == "PROFESSIONAL") {
+      price = "£14.95";
+    } else {
+      // If it's anything else (like SEMI PRO or something unexpected)
+      price = "£9.95";
+      currentPlan = "SEMI PRO"; 
+    }
+
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.mySubscriptions),
       body: Padding(
-        padding: const .all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: .start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CommonText(
               text: AppString.subcriptionDetails.toUpperCase(),
               fontSize: 20.sp,
-              fontWeight: FontWeight(590),
+              fontWeight: FontWeight.w600,
             ),
-            SizedBox(height : 20.h),
+            SizedBox(height: 20.h),
             Container(
               padding: EdgeInsets.all(16.r),
               decoration: BoxDecoration(
@@ -41,9 +64,9 @@ class MySubscriptionScreen extends StatelessWidget {
                       SvgPicture.asset(AppIcons.startFourPoint),
                       SizedBox(width: 8.w),
                       CommonText(
-                        text: AppString.semiPro,
-                        fontWeight: FontWeight(590),
-                        fontSize: 20.sp.sp,
+                        text: currentPlan,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20.sp,
                         color: AppColors.primaryColor,
                       ),
                     ],
@@ -63,12 +86,12 @@ class MySubscriptionScreen extends StatelessWidget {
                             SizedBox(height: 8.h),
                             _FeatureItem(
                               text: AppString.detailedPlayerStats,
-                              isIncluded: true,
+                              isIncluded: currentPlan != "AMATEUR",
                             ),
                             SizedBox(height: 8.h),
                             _FeatureItem(
                               text: AppString.noEngCoins,
-                              isIncluded: false,
+                              isIncluded: currentPlan == "PROFESSIONAL",
                             ),
                           ],
                         ),
@@ -77,8 +100,8 @@ class MySubscriptionScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CommonText(
-                            text: AppString.semiProPrice,
-                            fontWeight: FontWeight(590),
+                            text: price,
+                            fontWeight: FontWeight.w600,
                             fontSize: 36.sp,
                             color: AppColors.yellow,
                           ),
@@ -86,7 +109,6 @@ class MySubscriptionScreen extends StatelessWidget {
                             text: AppString.perSeason,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
-
                             color: AppColors.textSecondaryColor,
                           ),
                         ],

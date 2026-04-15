@@ -2,10 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/controller/player_registatio_controller.dart';
 import '../../../../../config/route/app_routes.dart';
 import '../../../../../config/api/api_end_point.dart';
 import '../../../../../services/api/api_client.dart';
 import '../../../../../services/api/api_service.dart';
+import '../../../../../services/storage/storage_keys.dart';
 import '../../../../../services/storage/storage_services.dart';
 import '../../../../../utils/app_snackbar.dart';
 import '../../../../../utils/helpers/other_helper.dart';
@@ -13,6 +15,7 @@ import '../../../../../utils/helpers/other_helper.dart';
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find<SignUpController>();
 
+  final PlayerRegistrationController _playerRegistrationController = Get.find<PlayerRegistrationController>();
   final ApiClient apiClient = DioApiClient();
 
   bool isLoading = false;
@@ -70,6 +73,10 @@ class SignUpController extends GetxController {
 
   /// Sign up user API call
   Future<void> signUpUser() async {
+    // Save user info locally for now (Mocking persistence before verification)
+    await LocalStorage.setString(LocalStorageKeys.myName, nameController.text.trim());
+    await LocalStorage.setString(LocalStorageKeys.myEmail, emailController.text.trim());
+     _playerRegistrationController.continueWithPlan();
     Get.toNamed(AppRoutes.verifyUser);
     return;
     try {
