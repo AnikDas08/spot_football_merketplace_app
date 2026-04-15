@@ -21,12 +21,24 @@ class MatchInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TabsController tabsController = Get.find<TabsController>();
+    
+    // Extract arguments if passed from UpcomingFixtureCard
+    final dynamic args = Get.arguments;
+    final bool isUpcoming = args != null && args['isUpcoming'] == true;
+    final String time = args != null ? args['time'] : "LIVE 74'";
 
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.matchInfo),
       body: Column(
         children: [
-          ScoreCard(),
+          isUpcoming 
+            ? ScoreCard(
+                homeScore: "0",
+                awayScore: "0",
+                status: time,
+                isLive: false,
+              )
+            : const ScoreCard(),
 
           SizedBox(height: 16.h),
 

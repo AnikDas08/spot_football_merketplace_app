@@ -94,7 +94,12 @@ class PlayerRegistrationController extends GetxController {
       );
 
       isLoading.value = false;
-      Get.toNamed(AppRoutes.verify_player_screen);
+      // If the user is already logged in, it means they are changing the plan
+      if (LocalStorage.isLogIn) {
+        Get.back();
+      } else {
+        Get.toNamed(AppRoutes.verify_player_screen);
+      }
     }
   }
 

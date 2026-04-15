@@ -18,6 +18,7 @@ import '../../features/auth/sign in/presentation/screen/sign_in_screen.dart';
 import '../../features/auth/sign up/presentation/screen/sign_up_screen.dart';
 import '../../features/auth/sign up/presentation/screen/verify_user.dart';
 import '../../features/eng_tv_flow/presentation/screen/video_stream_screen.dart';
+import '../../features/home/presentation/screens/league_preview_screen.dart';
 import '../../features/message/presentation/screen/chat_screen.dart';
 import '../../features/message/presentation/screen/message_screen.dart';
 import '../../features/my_subscription/presentation/screens/my_subscription_screen.dart';
@@ -51,6 +52,7 @@ class AppRoutes {
 
   // added by ajijul
   static const String matchInfo = "/matchInfo";
+  static const String leaguePreview = "/leaguePreview";
   static const String newsDetails = "/newsDetails";
   static const String playerProfile = "/playerProfile";
   static const String transferHistoryScreen = '/transfer_history_screen.dart';
@@ -110,6 +112,7 @@ class AppRoutes {
       page: () => TransferPendingApproval(),
     ),
     GetPage(name: matchInfo, page: () => MatchInfoScreen()),
+    GetPage(name: leaguePreview, page: () => const LeaguePreviewScreen()),
     GetPage(name: transferFormScreen, page: () =>  TransferFormScreen()),
     GetPage(name:  navBarScreen, page: () =>   NavBarScreen()),
     GetPage(name:  transferPendingApproval, page: () =>   TransferPendingApproval()),

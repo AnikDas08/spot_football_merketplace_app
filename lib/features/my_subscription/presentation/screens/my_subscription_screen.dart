@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 
@@ -8,6 +10,7 @@ import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_string.dart';
+import '../../../../config/route/app_routes.dart';
 import '../../../../services/storage/storage_services.dart';
 
 class MySubscriptionScreen extends StatelessWidget {
@@ -117,7 +120,9 @@ class MySubscriptionScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16.h),
                   CommonButton(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(AppRoutes.player_registration_screen);
+                    },
                     titleText: AppString.changeSubscriptionPlan,
                     buttonColor: AppColors.primaryColor,
                     titleColor: AppColors.white,

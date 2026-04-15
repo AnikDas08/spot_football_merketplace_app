@@ -80,9 +80,9 @@ class PlayerRegisterScreen extends StatelessWidget {
                   return CommonButton(
                     titleText: 'Continue',
                     isLoading: ctrl.isLoading.value,
-                    onTap: () {
-                      ctrl.continueWithPlan();
-                    },
+                    onTap: ctrl.selectedPlan.value != null
+                        ? () => ctrl.continueWithPlan()
+                        : null,
                   );
                 },
               ),

@@ -4,7 +4,7 @@ import '../../utils/constants/app_colors.dart'; // Adjust path
 import '../text/common_text.dart'; // Adjust path
 
 class CommonButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String titleText;
   final Color titleColor;
   final Color? buttonColor;
@@ -20,7 +20,7 @@ class CommonButton extends StatelessWidget {
 
   const CommonButton({
     super.key,
-    required this.onTap,
+    this.onTap,
     required this.titleText,
     this.titleColor = Colors.white,
     this.buttonColor,
@@ -41,8 +41,9 @@ class CommonButton extends StatelessWidget {
       width: buttonWidth?.w,
       height: buttonHeight.h,
       child: ElevatedButton(
-        onPressed: isLoading ? null : (onTap ?? () {}),
+        onPressed: (isLoading || onTap == null) ? null : onTap,
         style: ElevatedButton.styleFrom(
+          disabledBackgroundColor: (buttonColor ?? AppColors.primaryColor).withOpacity(0.5),
           backgroundColor: buttonColor ?? AppColors.primaryColor,
           foregroundColor: titleColor,
           elevation: 0,

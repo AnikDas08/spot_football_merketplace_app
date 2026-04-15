@@ -9,7 +9,18 @@ import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
 
 class ScoreCard extends StatelessWidget {
-  const ScoreCard({super.key});
+  final String homeScore;
+  final String awayScore;
+  final String status; // e.g., "LIVE 74'", "18:00", "FT"
+  final bool isLive;
+
+  const ScoreCard({
+    super.key,
+    this.homeScore = "2",
+    this.awayScore = "1",
+    this.status = "LIVE 74'",
+    this.isLive = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +28,17 @@ class ScoreCard extends StatelessWidget {
       width: 1.sw,
       height: 240.h,
       child: Card(
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         color: AppColors.white,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Live badge
-              // Teams + Score row
+              // Live badge / Time badge
               Column(
-                mainAxisAlignment: .center,
-                crossAxisAlignment: .center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
@@ -36,26 +46,27 @@ class ScoreCard extends StatelessWidget {
                       vertical: 5.h,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.color19CA77,
+                      color: isLive ? AppColors.color19CA77 : AppColors.background,
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       spacing: 6,
                       children: [
-                        Container(
-                          width: 7.w,
-                          height: 7.h,
-                          decoration: const BoxDecoration(
-                            color: AppColors.white,
-                            shape: BoxShape.circle,
+                        if (isLive)
+                          Container(
+                            width: 7.w,
+                            height: 7.h,
+                            decoration: const BoxDecoration(
+                              color: AppColors.white,
+                              shape: BoxShape.circle,
+                            ),
                           ),
-                        ),
                         CommonText(
-                          text: "LIVE 74'",
+                          text: status,
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.white,
+                          color: isLive ? AppColors.white : AppColors.primaryColor,
                         ),
                       ],
                     ),
@@ -93,7 +104,7 @@ class ScoreCard extends StatelessWidget {
                         spacing: 6,
                         children: [
                           CommonText(
-                            text: "2",
+                            text: homeScore,
                             fontSize: 42.sp,
                             fontWeight: FontWeight.w800,
                             color: AppColors.primaryColor,
@@ -105,7 +116,7 @@ class ScoreCard extends StatelessWidget {
                             color: AppColors.primaryColor,
                           ),
                           CommonText(
-                            text: "1",
+                            text: awayScore,
                             fontSize: 42.sp,
                             fontWeight: FontWeight.w800,
                             color: AppColors.primaryColor,
