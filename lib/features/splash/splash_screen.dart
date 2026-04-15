@@ -42,12 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
       body: SafeArea(
         child: Center(
           //child: CommonImage(imageSrc: AppImages.noImage, size: 70),
-          child: CommonText(
-            text: "Add Value To Your Style",
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          child: Image.asset(AppImages.appLogoP,height: 72.h,width: 206.w,
+          child:
+           Image.asset(AppImages.appLogoP,height: 72.h,width: 206.w,
           ),
         ),
       ),
