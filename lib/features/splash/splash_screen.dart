@@ -41,7 +41,6 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: Center(
-          //child: CommonImage(imageSrc: AppImages.noImage, size: 70),
           child:
            Image.asset(AppImages.appLogoP,height: 72.h,width: 206.w,
           ),
