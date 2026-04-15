@@ -22,6 +22,7 @@ class TransferScreen extends StatelessWidget {
       drawer: AppDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
           padding: EdgeInsets.only(top: 28.h, left: 16.h, bottom: 28.h),
 
           child: Column(

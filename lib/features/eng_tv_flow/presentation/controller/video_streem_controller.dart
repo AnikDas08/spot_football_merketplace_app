@@ -13,7 +13,7 @@ class  VideoStreamController extends GetxController{
       "description": "See Anthony Taylor's view of Brian Brobbey's late winner against Newcastle",
       "timeAgo": "2 days ago",
       "image": TempImage.playerVideo,
-      "videoLink": 'https://raw.githubusercontent.com/mdarif3499/video/main/AngelDiMaria.mp4'
+      "videoLink": 'https://github.com/mdarif3499/video/raw/refs/heads/main/AngelDiMaria.mp4'
     },
     {
       "title": "Match Highlights: Arsenal vs Man City",
