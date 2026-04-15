@@ -82,7 +82,7 @@ class TransferScreen extends StatelessWidget {
                       description:
                           'Personal terms agreed. Medical scheduled for Friday.',
                       onOfferTap: () {
-                        Get.toNamed(AppRoutes.transferFormScreen);
+                        Get.toNamed(AppRoutes.transferPendingApproval);
                       },
                     ),
                   );

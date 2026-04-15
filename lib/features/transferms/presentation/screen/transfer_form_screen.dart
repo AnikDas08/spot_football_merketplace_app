@@ -96,7 +96,6 @@ class TransferFormScreen extends StatelessWidget {
                 waceImpact: strWaceImpact,
                 probability: strProbability,
                 onSubmit: () {
-                  Get.toNamed(AppRoutes.transferPendingApproval);
                 },
               ),
             ],
