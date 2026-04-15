@@ -99,8 +99,11 @@ class SignInScreen extends StatelessWidget {
                     titleText: 'Login',
                     isLoading: controller.isLoading,
                     onTap: () {
-                      if (!_formKey.currentState!.validate()) return;
+
+
                       controller.signInUser();
+                      // if (!_formKey.currentState!.validate()) return;
+
                     },
                   ),
 

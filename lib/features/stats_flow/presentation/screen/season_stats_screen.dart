@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart'; // GetX import add kora hoyeche
+import 'package:get/get.dart';
 
 import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
-import '../controller/seasson_stats_controller.dart'; // Controller import
+import '../controller/seasson_stats_controller.dart';
 import '../widget/leader_boad_card.dart';
 import '../widget/season_selector_button.dart';
 
@@ -22,13 +22,12 @@ class SeasonStatsScreen extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
+          physics:  ClampingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 28.h),
 
-              // Season Selector Button with Obx
               Obx(() => SeasonSelectorButton(
                 seasonValue: controller.selectedSeason.value,
                 onTap: () {
