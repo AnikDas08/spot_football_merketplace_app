@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import '../../../../../component/text_field/common_pin_code_field.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../config/route/app_routes.dart';
@@ -10,10 +10,21 @@ import '../controller/forget_password_controller.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../../../utils/constants/app_string.dart';
 
-class VerifyScreen extends StatelessWidget {
-  VerifyScreen({super.key});
+class VerifyScreen extends StatefulWidget {
+  const VerifyScreen({super.key});
 
+  @override
+  State<VerifyScreen> createState() => _VerifyScreenState();
+}
+
+class _VerifyScreenState extends State<VerifyScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    ForgetPasswordController.instance.startTimer();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +33,14 @@ class VerifyScreen extends StatelessWidget {
       appBar: SignupAppbar(),
       body: GetBuilder<ForgetPasswordController>(
         builder: (controller) => SingleChildScrollView(
-          padding: .symmetric(vertical: 24.h, horizontal: 20.w),
+          padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// Instruction text
-                SizedBox(height: 20,),
+                SizedBox(height: 20.h,),
                 /// Sign UP Instructions here
                 const CommonText(
                   text: "Verify Account",
@@ -47,9 +58,10 @@ class VerifyScreen extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   textAlign: TextAlign.start,
                   maxLines: 3,
-                  color: AppColors.primaryColor,
+                  color: AppColors.black,
+                  bottom: 32,
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 20.h,),
 
                 Card(
                   elevation: 2,
@@ -58,51 +70,42 @@ class VerifyScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 24,right: 24,top: 48,bottom: 48),
+                    padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 48.h, bottom: 48.h),
                     child: Column(
                       children: [
                         /// PIN Code Fields - 4 boxes only
                         Center(
-                          child: PinCodeTextField(
+                          child: CommonPinCodeField(
                             controller: controller.otpController,
-                            autoDisposeControllers: false,
-                            cursorColor: AppColors.black,
-                            appContext: context,
-                            autoFocus: true,
-                            pinTheme: PinTheme(
-                              //shape: PinCodeFieldShape.roundedBox,
-                              borderRadius: BorderRadius.circular(8.r),
-                              fieldHeight: 50.h,
-                              fieldWidth: 50.w,
-                              activeFillColor: const Color(0xFFD4AF37), // Gold filled when selected
-                              selectedFillColor: const Color(0xFFD4AF37), // Gold filled when selected
-                              inactiveFillColor: AppColors.white, // White when inactive
-                              borderWidth: 2.w,
-                              selectedColor: const Color(0xFFD4AF37), // Gold border when selected
-                              activeColor: const Color(0xFFD4AF37), // Gold border when active
-                              inactiveColor: const Color(0xFFD4AF37), // Gold border when inactive
-                            ),
-                            length: 4, // Only 4 boxes
-                            keyboardType: TextInputType.number,
-                            autovalidateMode: AutovalidateMode.onUnfocus,
-                            enableActiveFill: true,
-                            //spacing: 12.w, // Space between fields
-                            textStyle: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.black,
-                            ),
                           ),
                         ),
 
                         SizedBox(height: 24.h),
 
                         /// Timer Display
-                        CommonText(
-                          text: controller.time,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.primaryColor,
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
+                          decoration: BoxDecoration(
+                            color: AppColors.filledColor,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.access_time_filled_rounded,
+                                color: AppColors.green,
+                                size: 18.sp,
+                              ),
+                              SizedBox(width: 8.w),
+                              CommonText(
+                                text: controller.time,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.black,
+                              ),
+                            ],
+                          ),
                         ),
 
                         SizedBox(height: 24.h),
@@ -112,31 +115,27 @@ class VerifyScreen extends StatelessWidget {
                           onTap: controller.time == '00:00'
                               ? () {
                             controller.startTimer();
-                            //controller.signUpUser();
+                            // controller.sendForgetPasswordEmail(); // Or resend OTP specific method
                           }
                               : () {},
                           child: RichText(
                             textAlign: TextAlign.center,
-                            text: TextSpan(
+                            text: const TextSpan(
                               children: [
-                                const TextSpan(
+                                TextSpan(
                                   text: "Didn't receive a code? ",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    color: Color(0xFF373737),
+                                    color: AppColors.textSecondaryColor,
                                   ),
                                 ),
                                 TextSpan(
-                                  text: controller.time == '00:00'
-                                      ? AppString.resendCode
-                                      : AppString.resendCode,
+                                  text: "Resend Code",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
-                                    color: controller.time == '00:00'
-                                        ? AppColors.primaryColor
-                                        : AppColors.primaryColor,
+                                    color: AppColors.black,
                                   ),
                                 ),
                               ],
@@ -145,11 +144,11 @@ class VerifyScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 36.h,),
                         CommonButton(
-                          titleText: "Verify Button",
-                          //isLoading: controller.isLoadingVerify,
+                          titleText: "Verify",
+                          isLoading: controller.isLoading,
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
-                              Get.toNamed(AppRoutes.createPassword);
+                              controller.verifyOtp();
                             }
                           },
                         ),
@@ -166,3 +165,4 @@ class VerifyScreen extends StatelessWidget {
     );
   }
 }
+

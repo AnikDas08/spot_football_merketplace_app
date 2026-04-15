@@ -14,6 +14,7 @@ class LocalStorage {
   static String myName = "";
   static String myEmail = "";
   static String role = "";
+  static String plan = "";
 
   // Create Local Storage Instance
   static SharedPreferences? preferences;
@@ -36,6 +37,7 @@ class LocalStorage {
     myName = localStorage.getString(LocalStorageKeys.myName) ?? "";
     myEmail = localStorage.getString(LocalStorageKeys.myEmail) ?? "";
     role = localStorage.getString(LocalStorageKeys.role) ?? "";
+    plan = localStorage.getString(LocalStorageKeys.plan) ?? "";
 
     appLog(userId, source: "Local Storage");
   }
@@ -60,17 +62,29 @@ class LocalStorage {
     localStorage.setString(LocalStorageKeys.myEmail, "");
     localStorage.setBool(LocalStorageKeys.isLogIn, false);
     localStorage.setString(LocalStorageKeys.role, "");
+    localStorage.setString(LocalStorageKeys.plan, "");
   }
 
   // Save Data To SharedPreferences
   static Future<void> setString(String key, String value) async {
     final localStorage = await _getStorage();
     await localStorage.setString(key, value);
+
+    // Update static variables to be available immediately without re-reading all
+    if (key == LocalStorageKeys.token) token = value;
+    if (key == LocalStorageKeys.refreshToken) refreshToken = value;
+    if (key == LocalStorageKeys.userId) userId = value;
+    if (key == LocalStorageKeys.myImage) myImage = value;
+    if (key == LocalStorageKeys.myName) myName = value;
+    if (key == LocalStorageKeys.myEmail) myEmail = value;
+    if (key == LocalStorageKeys.role) role = value;
+    if (key == LocalStorageKeys.plan) plan = value;
   }
 
   static Future<void> setBool(String key, bool value) async {
     final localStorage = await _getStorage();
     await localStorage.setBool(key, value);
+    if (key == LocalStorageKeys.isLogIn) isLogIn = value;
   }
 
   static Future<void> setInt(String key, int value) async {

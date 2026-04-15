@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/route/app_routes.dart';
+import 'package:untitled/services/storage/storage_services.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/app_string.dart';
@@ -14,6 +15,8 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String role = LocalStorage.role;
+
     return Drawer(
       width: 0.9.sw,
       backgroundColor: AppColors.white,
@@ -30,21 +33,25 @@ class AppDrawer extends StatelessWidget {
                 label: AppString.editProfile,
                 onTap: () => Get.toNamed(AppRoutes.editProfile),
               ),
-              _buildMenuItem(
-                icon: AppIcons.rewards,
-                label: AppString.rewardsRedemption,
-                onTap: () => Get.toNamed(AppRoutes.shopScreen),
-              ),
-              _buildMenuItem(
-                icon: AppIcons.subscription,
-                label: AppString.mySubscriptions,
-                onTap: () => Get.toNamed(AppRoutes.mySubscription),
-              ),
-              _buildMenuItem(
-                icon: AppIcons.transferHistory,
-                label: AppString.myTransfersHistory,
-                onTap: () => Get.toNamed(AppRoutes.transferHistoryScreen),
-              ),
+              if (role == "Player") ...[
+                _buildMenuItem(
+                  icon: AppIcons.rewards,
+                  label: AppString.rewardsRedemption,
+                  onTap: () => Get.toNamed(AppRoutes.shopScreen),
+                ),
+                _buildMenuItem(
+                  icon: AppIcons.subscription,
+                  label: AppString.mySubscriptions,
+                  onTap: () => Get.toNamed(AppRoutes.mySubscription),
+                ),
+              ],
+              if (role == "Manager") ...[
+                _buildMenuItem(
+                  icon: AppIcons.transferHistory,
+                  label: AppString.myTransfersHistory,
+                  onTap: () => Get.toNamed(AppRoutes.transferHistoryScreen),
+                ),
+              ],
               _buildMenuItem(
                 icon: AppIcons.lockPassword,
                 label: AppString.changePassword,
@@ -94,14 +101,14 @@ class AppDrawer extends StatelessWidget {
         ),
         SizedBox(height: 14.h),
         CommonText(
-          text: 'Jane Cooper',
+          text: LocalStorage.myName.isEmpty ? 'User Name' : LocalStorage.myName,
           fontSize: 20,
           fontWeight: FontWeight.w700,
           color: AppColors.primaryColor,
         ),
         SizedBox(height: 4.h),
         CommonText(
-          text: 'janecooper@gmail.com',
+          text: LocalStorage.myEmail.isEmpty ? 'user@gmail.com' : LocalStorage.myEmail,
           fontSize: 13,
           fontWeight: FontWeight.w400,
           color: AppColors.textSecondaryColor,
@@ -173,7 +180,9 @@ class AppDrawer extends StatelessWidget {
       width: double.infinity,
       height: 52.h,
       child: ElevatedButton.icon(
-        onPressed: () {},
+        onPressed: () async {
+          await LocalStorage.removeAllPrefData();
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.logoutRed,
           shape: RoundedRectangleBorder(

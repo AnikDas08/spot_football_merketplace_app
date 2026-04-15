@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/image/common_image.dart';
+import 'package:untitled/config/route/app_routes.dart';
+import 'package:untitled/services/storage/storage_keys.dart';
+import 'package:untitled/services/storage/storage_services.dart';
 import 'package:untitled/features/auth/sign%20up/presentation/controller/manager_registation_controller.dart';
 import 'package:untitled/features/auth/sign%20up/presentation/controller/verify_player_controller.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
@@ -121,7 +124,14 @@ class ManagerRegistationScreen extends StatelessWidget {
                   CommonButton(
                     titleText: "Submit Request",
                     //isLoading: controller.isLoading,
-                    onTap: () {
+                    onTap: () async {
+                      // Simulating API call
+                      await Future.delayed(const Duration(seconds: 1));
+                      
+                      // Save role to local storage
+                      LocalStorage.role = "Manager";
+                      await LocalStorage.setString(LocalStorageKeys.role, LocalStorage.role);
+
                       Get.toNamed(AppRoutes.successful_create_account);
                     },
                   ),

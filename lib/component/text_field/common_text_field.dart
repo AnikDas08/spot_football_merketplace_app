@@ -38,9 +38,10 @@ class CommonTextField extends StatelessWidget {
     this.suffixIcon,
     this.maxLines,
     this.titleColor,
-    this.fontSize=14,
+    this.fontSize = 14,
     this.fontWeight,
     this.title,
+    this.readOnly,
   });
 
   final String? hintText;
@@ -74,6 +75,7 @@ class CommonTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +89,10 @@ class CommonTextField extends StatelessWidget {
             fontSize: fontSize ?? 16,
             color: titleColor ?? AppColors.primaryColor,
           ),
-          SizedBox(height: 12.h,),
+          SizedBox(height: 12.h),
 
           TextFormField(
+            readOnly: readOnly ?? false,
             autovalidateMode: .onUnfocus,
             keyboardType: keyboardType,
             controller: controller,

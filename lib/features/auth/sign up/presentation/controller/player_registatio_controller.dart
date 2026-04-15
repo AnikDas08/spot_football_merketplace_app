@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:untitled/config/route/app_routes.dart';
+import 'package:untitled/services/storage/storage_keys.dart';
+import 'package:untitled/services/storage/storage_services.dart';
 import '../../data/player_registation_model.dart';
 
 class PlayerRegistrationController extends GetxController {
@@ -73,13 +76,25 @@ class PlayerRegistrationController extends GetxController {
     update();
   }
 
-  void continuWithPlan() {
+  void continueWithPlan() async {
     if (selectedPlan.value != null) {
       isLoading.value = true;
-      Future.delayed(const Duration(seconds: 1), () {
-        isLoading.value = false;
-        // Navigation logic goes here
-      });
+
+      // Simulating API call
+      await Future.delayed(const Duration(seconds: 1));
+
+      // Save role and plan to local storage using the consistent setter
+      await LocalStorage.setString(LocalStorageKeys.role, "Player");
+      await LocalStorage.setString(
+        LocalStorageKeys.plan,
+        selectedPlan.value!.title.trim().toUpperCase(),
+      );
+      print(
+        "${selectedPlan.value!.title.trim()}==============================================================",
+      );
+
+      isLoading.value = false;
+      Get.toNamed(AppRoutes.verify_player_screen);
     }
   }
 
