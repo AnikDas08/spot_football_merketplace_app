@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
@@ -134,18 +133,22 @@ class VideoStreamScreen extends StatelessWidget {
           ListView.builder(
             itemCount: controller.videoList.length,
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            physics:  NeverScrollableScrollPhysics(),
             padding: EdgeInsets.symmetric(vertical: 10.h),
             itemBuilder: (context, index) {
               final item = controller.videoList[index];
-              return VideoNewsCard(
-                title: item["title"]!,
-                description: item["description"]!,
-                timeAgo: item["timeAgo"]!,
-                imageUrl: item["image"]!,
-                onTap: () {
+              return GestureDetector(
+                onTap: (){
                   controller.videoLink.value = item["videoLink"]!;
+
                 },
+                child: VideoNewsCard(
+                  title: item["title"]!,
+                  description: item["description"]!,
+                  timeAgo: item["timeAgo"]!,
+                  imageUrl: item["image"]!,
+
+                ),
               );
             },
           ),

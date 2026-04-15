@@ -59,6 +59,7 @@ class TransferPendingApproval extends StatelessWidget {
                       playerImageUrl: TempImage.playerProfile2,
                       isCheckCard: false,
                     ),
+
                     SizedBox(height: 16.h),
                     TransferFeeCard(
                       title: AppString.transferFee,
