@@ -45,7 +45,6 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   void didUpdateWidget(covariant CustomVideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.videoUrl != widget.videoUrl) {
-      // ✅ Properly dispose old controller before creating new one
       _controller.pause();
       _controller.dispose();
       _initializePlayer(widget.videoUrl);
@@ -89,8 +88,8 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         width: double.infinity,
         color: Colors.black,
         child: Shimmer.fromColors(
-          baseColor: AppColors.color6B6B6B.withOpacity(0.3),
-          highlightColor: AppColors.color6B6B6B.withOpacity(0.1),
+          baseColor: Color(0xFFD2D2D2),
+          highlightColor: Color(0xFFE5E5E5),
           child: Container(color: Colors.white),
         ),
       );
@@ -137,8 +136,10 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
-          begin: Alignment.topCenter,
+          colors: [
+            Color(0x00000000),
+            Color(0xB3000000),
+          ],          begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
       ),
@@ -149,8 +150,8 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
             _controller,
             allowScrubbing: true,
             colors: const VideoProgressColors(
-              playedColor: Colors.white,
-              bufferedColor: Colors.white30,
+              playedColor: Colors.red,
+              bufferedColor: Colors.white70,
               backgroundColor: Colors.grey,
             ),
           ),

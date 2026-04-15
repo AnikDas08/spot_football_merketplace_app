@@ -144,7 +144,6 @@ class VideoStreamScreen extends StatelessWidget {
                 timeAgo: item["timeAgo"]!,
                 imageUrl: item["image"]!,
                 onTap: () {
-                  print("${item["videoLink"]}");
                   controller.videoLink.value = item["videoLink"]!;
                 },
               );
