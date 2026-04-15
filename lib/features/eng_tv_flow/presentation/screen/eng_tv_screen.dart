@@ -129,7 +129,7 @@ class EngTvScreen extends StatelessWidget {
                   text: "Scheduled Broadcasts",
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
-                  maxLines: 1,
+                  maxLines: 2,
                   color: AppColors.primaryColor,
                 ),
               ),
@@ -161,13 +161,14 @@ class EngTvScreen extends StatelessWidget {
     );
   }
 
+
+
   Widget _buildSectionHeader(String title, VoidCallback onTap) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Section Title
           CommonText(
             text: title,
             fontSize: 20.sp,
