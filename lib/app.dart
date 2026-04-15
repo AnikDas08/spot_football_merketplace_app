@@ -8,6 +8,7 @@ import 'config/core/app_wrapper.dart';
 import 'config/route/app_routes.dart';
 import 'config/scroll_behavior/scroll_behavior.dart';
 import 'config/theme/light_theme.dart';
+import 'features/splash/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
             transitionDuration: const Duration(milliseconds: 200),
             getPages: AppRoutes.routes,
             initialRoute: AppRoutes.splash,
-            // home:  NavBarScreen(),
+          // home:  SplashScreen(),
           );
         },
       ),
