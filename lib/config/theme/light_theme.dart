@@ -4,7 +4,7 @@ import '../../utils/constants/app_colors.dart';
 
 ThemeData themeData = ThemeData(
   scaffoldBackgroundColor: AppColors.background,
-  fontFamily: 'SFProDisplay', // ✅ Global Font Set
+  fontFamily: 'SFProDisplay',
   useMaterial3: true,
   splashColor: AppColors.transparent,
   highlightColor: AppColors.transparent,
