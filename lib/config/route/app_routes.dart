@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:untitled/features/auth/select_role/select_role.dart';
+import 'package:untitled/features/auth/trial_registration/presentation/screen/trial_registration_screen.dart';
 import 'package:untitled/features/auth/sign%20up/presentation/screen/manager_registation_screen.dart';
 import 'package:untitled/features/auth/sign%20up/presentation/screen/manager_subscription_screen.dart';
 import 'package:untitled/features/auth/sign%20up/presentation/screen/player_register_screen.dart';
@@ -81,6 +82,7 @@ class AppRoutes {
   static const String verify_player_screen = '/verify_player_screen';
   static const String manager_registation_screen = '/manager_registation_screen';
   static const String manager_subscription_screen = '/manager_subscription_screen';
+  static const String trial_registration_screen = '/trial_registration_screen';
 
   static List<GetPage<String>> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -139,5 +141,6 @@ class AppRoutes {
     GetPage(name: verify_player_screen, page: () => VerifyPlayerScreen()),
     GetPage(name: manager_registation_screen, page: () => ManagerRegistationScreen()),
     GetPage(name: manager_subscription_screen, page: () => ManagerSubscriptionScreen()),
+    GetPage(name: trial_registration_screen, page: () => const TrialRegistrationScreen()),
   ];
 }

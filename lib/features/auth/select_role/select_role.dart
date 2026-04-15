@@ -81,13 +81,11 @@ class SelectRole extends StatelessWidget {
               // --- Continue Button ---
               Obx(() => CommonButton(
                 onTap: () async {
-                  if (controller.selectedRole.value == 1 || controller.selectedRole.value == 3) {
-                    LocalStorage.role = "Player";
-                    await LocalStorage.setString(LocalStorageKeys.role, LocalStorage.role);
+                  if (controller.selectedRole.value == 1) {
                     Get.toNamed(AppRoutes.player_registration_screen);
+                  } else if (controller.selectedRole.value == 3) {
+                    Get.toNamed(AppRoutes.trial_registration_screen);
                   } else if (controller.selectedRole.value == 2) {
-                    LocalStorage.role = "Manager";
-                    await LocalStorage.setString(LocalStorageKeys.role, LocalStorage.role);
                     Get.toNamed(AppRoutes.manager_subscription_screen);
                   } else {
                     Get.snackbar("Selection Required", "Please select a role to continue");

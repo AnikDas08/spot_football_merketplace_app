@@ -81,11 +81,7 @@ class PlayerRegisterScreen extends StatelessWidget {
                     titleText: 'Continue',
                     isLoading: ctrl.isLoading.value,
                     onTap: () {
-                      if (ctrl.selectedPlan.value != null) {
-                        Get.toNamed(AppRoutes.verify_player_screen);
-                      } else {
-                        Get.snackbar('Alert', 'Please select a plan first');
-                      }
+                      ctrl.continueWithPlan();
                     },
                   );
                 },

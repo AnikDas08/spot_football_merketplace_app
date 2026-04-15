@@ -1,13 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../utils/constants/app_colors.dart';
 
 ThemeData themeData = ThemeData(
   scaffoldBackgroundColor: AppColors.background,
-  fontFamily: 'SFProDisplay',        // ✅ Global Font Set
+  fontFamily: 'SFProDisplay', // ✅ Global Font Set
   useMaterial3: true,
   splashColor: AppColors.transparent,
   highlightColor: AppColors.transparent,
   hoverColor: AppColors.transparent,
+
+  extensions: [
+    MaterialPinThemeExtension(
+      theme: MaterialPinTheme(
+        shape: MaterialPinShape.outlined,
+        cellSize: const Size(56, 64),
+        spacing: 12,
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        borderWidth: 1.5,
+        focusedBorderWidth: 2.5,
+        borderColor: AppColors.filledColor,
+        focusedBorderColor: AppColors.yellow,
+        fillColor: AppColors.filledColor,
+        focusedFillColor: AppColors.white,
+        filledFillColor: AppColors.white,
+        textStyle: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
+          color: AppColors.black,
+        ),
+      ),
+    ),
+  ],
 
   /// AppBar Theme
   appBarTheme: const AppBarTheme(
