@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_images.dart';
+import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
@@ -12,7 +12,8 @@ import '../../../../utils/constants/app_icons.dart';
 import '../../data/league_preview_model.dart';
 
 class LeaguePreview extends StatelessWidget {
-  const LeaguePreview({super.key});
+  final bool isSeeAll;
+  const LeaguePreview({super.key, this.isSeeAll = false});
 
   @override
   Widget build(BuildContext context) {
@@ -20,38 +21,41 @@ class LeaguePreview extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CommonText(
-                text: AppString.leaguePreview.toUpperCase(),
-                fontWeight: FontWeight(590),
-                fontSize: 20.sp,
-              ),
-              InkWell(
-                child: Row(
-                  spacing: 5,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CommonText(
-                      text: AppString.viewAll,
-                      fontWeight: FontWeight(510),
-                      fontSize: 16.sp,
-                      color: AppColors.primaryColor,
-                    ),
-                    SvgPicture.asset(AppIcons.arrowRight),
-                  ],
+          if (!isSeeAll)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CommonText(
+                  text: AppString.leaguePreview.toUpperCase(),
+                  fontWeight: const FontWeight(600),
+                  fontSize: 20.sp,
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 12.h),
+                InkWell(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.leaguePreview);
+                  },
+                  child: Row(
+                    children: [
+                      CommonText(
+                        text: AppString.viewAll,
+                        fontWeight: const FontWeight(500),
+                        fontSize: 16.sp,
+                        color: AppColors.primaryColor,
+                      ),
+                      const SizedBox(width: 5),
+                      SvgPicture.asset(AppIcons.arrowRight),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          if (!isSeeAll) SizedBox(height: 12.h),
           Column(
             children: [
               _StandingsTable(
                 standings: [
                   ...List.generate(
-                    5,
+                    isSeeAll ? 15 : 5,
                     (index) => LeaguePreviewModel(
                       position: index + 1,
                       clubName: AppString.arsenal,
@@ -95,16 +99,16 @@ class _StandingsTable extends StatelessWidget {
         children: [
           // Header row
           Container(
-            padding: .symmetric(vertical: 12, horizontal: 8),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
             decoration: BoxDecoration(
-              borderRadius: .only(
-                topLeft: .circular(12.r),
-                topRight: .circular(12.r),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12.r),
+                topRight: Radius.circular(12.r),
               ),
               color: AppColors.primaryColor,
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
                 children: [
                   SizedBox(

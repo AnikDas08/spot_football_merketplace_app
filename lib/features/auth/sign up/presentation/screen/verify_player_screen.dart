@@ -51,7 +51,6 @@ class VerifyPlayerScreen extends StatelessWidget {
                     title: "Player First Name",
                     controller: controller.playerFirstName,
                     hintText: 'Enter your player first name here...',
-                    validator: AppValidation.required,
                   ),
                   SizedBox(height: 24.h),
 
@@ -59,7 +58,6 @@ class VerifyPlayerScreen extends StatelessWidget {
                     title: "Player Last Name",
                     controller: controller.playerLastName,
                     hintText: 'Enter your player last name here...',
-                    validator: AppValidation.required,
                   ),
                   SizedBox(height: 24.h),
 
@@ -144,39 +142,12 @@ class VerifyPlayerScreen extends StatelessWidget {
 
                   SizedBox(height: 40,),
 
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildDropdownField(
-                          title: "Gender",
-                          hint: "Select",
-                          value: controller.selectedGender,
-                          items: controller.genders,
-                          onChanged: (val) => controller.setGender(val!),
-                        ),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: _buildDropdownField(
-                          title: "Nationality",
-                          hint: "Select",
-                          value: controller.selectedNationality,
-                          items: controller.nationalities,
-                          onChanged: (val) => controller.setNationality(val!),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 24.h),
-
                   CommonButton(
                     titleText: "Submit Request",
                     //isLoading: controller.isLoading,
                     onTap: () async {
-                      if (_formKey.currentState!.validate()) {
-                        await controller.submitVerification();
-                        Get.toNamed(AppRoutes.successful_create_account);
-                      }
+                      await controller.submitVerification();
+                      Get.toNamed(AppRoutes.successful_create_account);
                     },
                   ),
 
