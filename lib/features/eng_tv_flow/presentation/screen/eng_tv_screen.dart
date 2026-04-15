@@ -129,7 +129,7 @@ class EngTvScreen extends StatelessWidget {
                   text: "Scheduled Broadcasts",
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
-                  maxLines: 1,
+                  maxLines: 2,
                   color: AppColors.primaryColor,
                 ),
               ),
