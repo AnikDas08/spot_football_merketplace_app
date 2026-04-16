@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:untitled/features/auth/sign%20up/presentation/controller/player_registatio_controller.dart';
 import 'package:untitled/features/fixtures/presentation/controller/fixtures_controller.dart';
 import 'package:untitled/features/shop/presentation/controllers/shop_controller.dart';
+import 'package:untitled/features/stats_flow/presentation/controller/stats_controller.dart';
 import 'package:untitled/features/transferms_history/presentation/controllers/tab_controller.dart';
 import '../../features/player_profile/presentation/controllers/player_profile_controller.dart';
 
@@ -49,5 +50,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => ShopController(), fenix: true);
     Get.lazyPut(() => FixturesController(), fenix: true);
     Get.lazyPut(() => PlayerRegistrationController(), fenix: true);
+    Get.lazyPut(() => StatsController(), fenix: true);
   }
 }
