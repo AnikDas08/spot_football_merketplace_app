@@ -25,23 +25,40 @@ class AddPlayerScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
               child: Row(
                 children: [
-                  FilterSelectorCard(
-                    label: "Season",
-                    value: "2024/25",
-                    onTap: () => print("Season tapped"),
-                  ),
+                  Obx(() => PopupMenuButton<String>(
+                    onSelected: (value) => controller.selectedSeason.value = value,
+                    itemBuilder: (context) => controller.seasons.map((e) =>
+                        PopupMenuItem(value: e, child: Text(e))).toList(),
+                    child: FilterSelectorCard(
+                      label: "Season",
+                      value: controller.selectedSeason.value,
+                      onTap: null,
+                    ),
+                  )),
                   SizedBox(width: 8.w),
-                  FilterSelectorCard(
-                    label: "Club",
-                    value: "All Clubs",
-                    onTap: () => print("Club tapped"),
-                  ),
+
+                  Obx(() => PopupMenuButton<String>(
+                    onSelected: (value) => controller.selectedClub.value = value,
+                    itemBuilder: (context) => controller.clubs.map((e) =>
+                        PopupMenuItem(value: e, child: Text(e))).toList(),
+                    child: FilterSelectorCard(
+                      label: "Club",
+                      value: controller.selectedClub.value,
+                      onTap: null,
+                    ),
+                  )),
                   SizedBox(width: 8.w),
-                  FilterSelectorCard(
-                    label: "Position",
-                    value: "All Positions",
-                    onTap: () => print("Position tapped"),
-                  ),
+
+                  Obx(() => PopupMenuButton<String>(
+                    onSelected: (value) => controller.selectedPosition.value = value,
+                    itemBuilder: (context) => controller.positions.map((e) =>
+                        PopupMenuItem(value: e, child: Text(e))).toList(),
+                    child: FilterSelectorCard(
+                      label: "Position",
+                      value: controller.selectedPosition.value,
+                      onTap: null,
+                    ),
+                  )),
                 ],
               ),
             ),
