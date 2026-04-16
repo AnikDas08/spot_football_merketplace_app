@@ -17,7 +17,7 @@ class UpcomingEvents extends StatelessWidget {
       crossAxisAlignment: .start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric( horizontal: 16),
           child: CommonText(
             text: AppString.upcomingEvents.toUpperCase(),
             fontSize: 20.sp,
