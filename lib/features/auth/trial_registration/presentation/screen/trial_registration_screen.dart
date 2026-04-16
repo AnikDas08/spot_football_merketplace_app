@@ -83,7 +83,9 @@ class TrialRegistrationScreen extends StatelessWidget {
                         onChanged: (val) => controller.setPreviousClub(val!),
                       ),
                     ),
+
                     SizedBox(width: 16.w),
+
                     Expanded(
                       child: _buildDropdownField(
                         title: "Position",
@@ -202,7 +204,7 @@ class TrialRegistrationScreen extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
-              borderSide: const BorderSide(color: Colors.black),
+              borderSide:  BorderSide(color: Colors.black),
             ),
           ),
           items: items.map((String item) {
@@ -221,7 +223,9 @@ class TrialRegistrationScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+
+         CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+
         InkWell(
           onTap: () => controller.selectDate(context),
           child: Container(
@@ -239,7 +243,7 @@ class TrialRegistrationScreen extends StatelessWidget {
                   controller.selectedDob ?? "dd/mm/yyyy",
                   style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                 ),
-                const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+                 Icon(Icons.keyboard_arrow_down, color: Colors.black54),
               ],
             ),
           ),
