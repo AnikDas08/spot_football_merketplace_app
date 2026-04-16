@@ -226,7 +226,7 @@ class TrialRegistrationScreen extends StatelessWidget {
 
          CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
 
-        InkWell(
+        GestureDetector(
           onTap: () => controller.selectDate(context),
           child: Container(
             height: 56.h,
