@@ -29,4 +29,15 @@ class AddPlayerController extends GetxController {
       assists: 5,
     ),
   ].obs;
+
+
+
+  var selectedSeason = "2024/25".obs;
+  var selectedClub = "All Clubs".obs;
+  var selectedPosition = "All Positions".obs;
+
+  // Options List
+  final List<String> seasons = ["2023/24", "2024/25", "2025/26"];
+  final List<String> clubs = ["All Clubs", "TITANS FC", "EAGLES SC"];
+  final List<String> positions = ["All Positions", "Forward", "Midfielder", "Defender"];
 }

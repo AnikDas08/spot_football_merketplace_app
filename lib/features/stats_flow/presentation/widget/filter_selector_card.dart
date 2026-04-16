@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 
 import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_icons.dart';
 
 class FilterSelectorCard extends StatelessWidget {
   final String label;
   final String value;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const FilterSelectorCard({
     super.key,
@@ -18,7 +20,6 @@ class FilterSelectorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ekhane Expanded soriye Container/GestureDetector diye shuru korun
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -26,7 +27,7 @@ class FilterSelectorCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(color: Colors.grey.shade200), // Ektu border dile dekhte bhalo lage
+          border: Border.all(color: Colors.grey.shade200),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,11 +51,18 @@ class FilterSelectorCard extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(width: 8.w),
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.keyboard_arrow_up, size: 14.sp, color: Colors.black54),
-                Icon(Icons.keyboard_arrow_down, size: 14.sp, color: Colors.black54),
+                SvgPicture.asset(AppIcons.topArrow, width: 12.w, height: 6.h),
+                SizedBox(height: 6.h),
+                SvgPicture.asset(
+                  AppIcons.bottomArrow,
+                  width: 12.w,
+                  height: 6.w,
+                  placeholderBuilder: (BuildContext context) => Container(),
+                ),
               ],
             ),
           ],
