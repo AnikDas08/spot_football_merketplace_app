@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/common_appbar.dart';
 import 'package:untitled/config/route/app_routes.dart';
@@ -8,6 +9,7 @@ import 'package:untitled/features/stats_flow/presentation/controller/stats_contr
 import 'package:untitled/utils/constants/app_colors.dart';
 
 import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_icons.dart';
 import '../../../../utils/constants/temp_image.dart';
 import '../widget/player_statcard.dart';
 import '../widget/season_stats_button.dart';
@@ -102,11 +104,17 @@ class StatsScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(width: 12.w),
-                          const Column(
+                          Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.keyboard_arrow_up_rounded, size: 18, color: Colors.black),
-                              Icon(Icons.keyboard_arrow_down_rounded, size: 18, color: Colors.black),
+                              SvgPicture.asset(AppIcons.topArrow, width: 12.w, height: 6.h),
+                              SizedBox(height: 6.h),
+                              SvgPicture.asset(
+                                AppIcons.bottomArrow,
+                                width: 12.w,
+                                height: 6.w,
+                                placeholderBuilder: (BuildContext context) => Container(),
+                              ),
                             ],
                           ),
                         ],
