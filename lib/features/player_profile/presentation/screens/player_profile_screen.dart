@@ -29,7 +29,7 @@ class PlayerProfileScreen extends StatelessWidget {
         builder: (controller) {
           return SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: .start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const PlayerHeaderWidget(),
                 SizedBox(height: 16.h),
@@ -50,5 +50,3 @@ class PlayerProfileScreen extends StatelessWidget {
     );
   }
 }
-
-

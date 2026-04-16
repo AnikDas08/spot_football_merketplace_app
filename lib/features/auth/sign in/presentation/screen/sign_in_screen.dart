@@ -32,7 +32,6 @@ class SignInScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   /// ── Title ──
                   const CommonText(
                     text: 'Login',
@@ -45,7 +44,8 @@ class SignInScreen extends StatelessWidget {
 
                   /// ── Subtitle ──
                   const CommonText(
-                    text: 'Welcome back to the ENG. Access your stats and roster.',
+                    text:
+                        'Welcome back to the ENG. Access your stats and roster.',
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     textAlign: TextAlign.start,
@@ -54,7 +54,6 @@ class SignInScreen extends StatelessWidget {
                     bottom: 32,
                   ),
 
-
                   /// ── Email Field ──
                   CommonTextField(
                     title: "Email Address",
@@ -62,8 +61,9 @@ class SignInScreen extends StatelessWidget {
                     hintText: 'Enter credentials',
                     validator: AppValidation.email,
                   ),
+
                   /// ── Password Field ──
-                  SizedBox(height: 24.h,),
+                  SizedBox(height: 24.h),
                   CommonTextField(
                     title: "Password",
                     controller: controller.passwordController,
@@ -71,7 +71,7 @@ class SignInScreen extends StatelessWidget {
                     hintText: 'Password',
                     validator: AppValidation.password,
                   ),
-                  SizedBox(height: 12.h,),
+                  SizedBox(height: 12.h),
 
                   /// ── Forgot Password ──
                   Align(
@@ -79,27 +79,27 @@ class SignInScreen extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () => Get.toNamed(AppRoutes.forgotPassword),
                       child: const Text(
-                      'Forget Password?',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.red,                 // Text color
-                        decoration: TextDecoration.underline, // Underline
-                        decorationColor: AppColors.red,       // Underline color
-                        decorationThickness: 2,               // (optional) underline thickness
-                        fontFamily: 'SFProDisplay',
+                        'Forget Password?',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.red, // Text color
+                          decoration: TextDecoration.underline, // Underline
+                          decorationColor: AppColors.red, // Underline color
+                          decorationThickness:
+                              2, // (optional) underline thickness
+                          fontFamily: 'SFProDisplay',
+                        ),
                       ),
                     ),
-                    ),
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(height: 20.h),
 
                   /// ── Login Button ──
                   CommonButton(
                     titleText: 'Login',
                     isLoading: controller.isLoading,
                     onTap: () {
-                      if (!_formKey.currentState!.validate()) return;
                       controller.signInUser();
                     },
                   ),
@@ -197,11 +197,7 @@ class _SocialButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              icon,
-              height: 22.h,
-              width: 22.w,
-            ),
+            Image.asset(icon, height: 22.h, width: 22.w),
             12.width,
             CommonText(
               text: label,

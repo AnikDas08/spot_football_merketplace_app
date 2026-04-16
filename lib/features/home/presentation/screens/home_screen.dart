@@ -5,13 +5,13 @@ import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
 import 'package:untitled/features/home/presentation/widgets/league_preview.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
 
-
 import '../../../../component/text/common_text.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/latest_news.dart';
 import '../widgets/recent_result.dart';
 import '../../../../utils/constants/app_string.dart';
 import '../../../../component/common_appbar/common_appbar.dart';
+import '../widgets/upcoming_events.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,11 +20,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(),
-      appBar: CommonAppbar(title: AppString.community,),
+      appBar: CommonAppbar(title: AppString.community),
       body: RefreshIndicator(
-        onRefresh: ()async {
-
-        },
+        onRefresh: () async {},
         child: SafeArea(
           child: SingleChildScrollView(
             physics: ClampingScrollPhysics(),
@@ -44,6 +42,8 @@ class HomeScreen extends StatelessWidget {
                 BannerSlider(),
                 SizedBox(height: 12.h),
                 LatestNews(),
+                SizedBox(height: 20.h),
+                UpcomingEvents(),
                 SizedBox(height: 20.h),
                 RecentResult(),
                 SizedBox(height: 20.h),

@@ -10,6 +10,7 @@ import 'package:untitled/features/fixtures/presentation/screen/fixtures_screen.d
 import 'package:untitled/features/match_info/presentation/screens/match_info_screen.dart';
 import 'package:untitled/features/news_details/presentation/screens/news_details_screen.dart';
 import 'package:untitled/features/player_profile/presentation/screens/player_profile_screen.dart';
+import 'package:untitled/features/profile/presentation/screens/my_children_screen.dart';
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
@@ -27,6 +28,7 @@ import '../../features/notifications/presentation/screen/notifications_screen.da
 import '../../features/onboarding_screen/onboarding_screen.dart';
 import '../../features/profile/presentation/screen/edit_profile.dart';
 import '../../features/profile/presentation/screen/profile_screen.dart';
+import '../../features/profile/presentation/screens/my_profile_screen.dart';
 import '../../features/setting/presentation/screen/privacy_policy_screen.dart';
 import '../../features/setting/presentation/screen/setting_screen.dart';
 import '../../features/setting/presentation/screen/terms_of_services_screen.dart';
@@ -55,6 +57,8 @@ class AppRoutes {
   static const String leaguePreview = "/leaguePreview";
   static const String newsDetails = "/newsDetails";
   static const String playerProfile = "/playerProfile";
+  static const String myChildren = "/myChildren";
+  static const String myProfile = "/myProfile";
   static const String transferHistoryScreen = '/transfer_history_screen.dart';
   static const String shopScreen = '/shop_screen.dart';
   static const String mySubscription = '/subscription_screen.dart';
@@ -131,6 +135,8 @@ class AppRoutes {
     GetPage(name: addPlayerScreen, page: () => AddPlayerScreen()),
     GetPage(name: newsDetails, page: () => NewsDetailsScreen()),
     GetPage(name: playerProfile, page: () => PlayerProfileScreen()),
+    GetPage(name: myChildren, page: () => const MyChildrenScreen()),
+    GetPage(name: myProfile, page: () => const MyProfileScreen()),
     GetPage(
       name: transferHistoryScreen,
       page: () => const TransfersHistoryScreen(),
