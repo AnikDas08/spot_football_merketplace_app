@@ -72,9 +72,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                   titleText: AppString.continues,
                   isLoading: controller.isLoading,
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      Get.toNamed(AppRoutes.verifyEmail);
-                    }
+                    Get.toNamed(AppRoutes.verifyEmail);
+                    // if (_formKey.currentState!.validate()) {
+                    //
+                    // }
                   },
                 ),
                     SizedBox(height: 50,),

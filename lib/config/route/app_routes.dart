@@ -38,7 +38,7 @@ import '../../features/stats_flow/presentation/screen/add_player_screen.dart';
 import '../../features/stats_flow/presentation/screen/player_comparison_screen.dart';
 import '../../features/stats_flow/presentation/screen/season_stats_screen.dart';
 import '../../features/transferms/presentation/screen/tranasfer_pending_approval.dart';
-import '../../features/transferms/presentation/screen/transfer_form_screen.dart';
+import '../../features/transferms/presentation/screen/player_profile_details_screen.dart';
 import '../../features/transferms_history/presentation/screens/transfers_history_screen.dart';
 
 class AppRoutes {
@@ -51,6 +51,7 @@ class AppRoutes {
   static const String transferPendingApproval = '/transferPendingApproval.dart';
   static const String navBarScreen = '/navBarScreen.dart';
   static const String videoStreamScreen = '/videoStreamScreen.dart';
+  static const String playerProfileDetailsScreen = '/playerProfileDetailsScreen.dart';
 
   // added by ajijul
   static const String matchInfo = "/matchInfo";
@@ -109,7 +110,6 @@ class AppRoutes {
     GetPage(name: termsOfServices, page: () => const TermsOfServicesScreen()),
     GetPage(name: setting, page: () => const SettingScreen()),
     //added by Arif
-    GetPage(name: transferFormScreen, page: () => TransferFormScreen()),
     GetPage(name: navBarScreen, page: () => NavBarScreen()),
     GetPage(
       name: transferPendingApproval,
@@ -117,14 +117,12 @@ class AppRoutes {
     ),
     GetPage(name: matchInfo, page: () => MatchInfoScreen()),
     GetPage(name: leaguePreview, page: () => const LeaguePreviewScreen()),
-    GetPage(name: transferFormScreen, page: () =>  TransferFormScreen()),
     GetPage(name:  navBarScreen, page: () =>   NavBarScreen()),
     GetPage(name:  transferPendingApproval, page: () =>   TransferPendingApproval()),
     GetPage(name:  seasonStatsScreen, page: () =>   SeasonStatsScreen()),
     GetPage(name:  playerComparisonScreen, page: () =>   PlayerComparisonScreen()),
     GetPage(name:  addPlayerScreen, page: () =>   AddPlayerScreen()),
     GetPage(name:  videoStreamScreen, page: () =>   VideoStreamScreen()),
-    GetPage(name: transferFormScreen, page: () => TransferFormScreen()),
     GetPage(name: navBarScreen, page: () => NavBarScreen()),
     GetPage(
       name: transferPendingApproval,
@@ -151,5 +149,6 @@ class AppRoutes {
     GetPage(name: manager_registation_screen, page: () => ManagerRegistationScreen()),
     GetPage(name: manager_subscription_screen, page: () => ManagerSubscriptionScreen()),
     GetPage(name: trial_registration_screen, page: () => const TrialRegistrationScreen()),
+    GetPage(name: playerProfileDetailsScreen, page: () => const PlayerProfileDetailsScreen()),
   ];
 }

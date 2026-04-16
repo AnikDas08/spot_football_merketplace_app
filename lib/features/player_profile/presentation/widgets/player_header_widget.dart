@@ -40,12 +40,12 @@ class PlayerHeaderWidget extends StatelessWidget {
                       fontWeight: FontWeight(510),
                     ),
                     const Spacer(),
-                    CommonText(
-                      text: '9',
-                      fontSize: 48.sp,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.white,
-                    ),
+                    // CommonText(
+                    //   text: '9',
+                    //   fontSize: 48.sp,
+                    //   fontWeight: FontWeight.w700,
+                    //   color: AppColors.white,
+                    // ),
                   ],
                 ),
               ),

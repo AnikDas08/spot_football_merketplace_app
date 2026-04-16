@@ -159,9 +159,10 @@ class _VerifyUserState extends State<VerifyUser> {
                             titleText: "Verify",
                             isLoading: controller.isLoadingVerify,
                             onTap: () {
-                              if (_formKey.currentState!.validate()) {
-                                controller.verifyOtp();
-                              }
+                                 controller.verifyOtp();
+                              // if (_formKey.currentState!.validate()) {
+                              //
+                              // }
                             },
                           ),
                         ],
