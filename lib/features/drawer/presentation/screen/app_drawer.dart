@@ -29,6 +29,11 @@ class AppDrawer extends StatelessWidget {
               _buildProfile(),
               SizedBox(height: 36.h),
               _buildMenuItem(
+                icon: AppIcons.myChildrenSvg,
+                label: AppString.myChildren,
+                onTap: () => Get.toNamed(AppRoutes.myChildren),
+              ),
+              _buildMenuItem(
                 icon: AppIcons.editProfile,
                 label: AppString.editProfile,
                 onTap: () => Get.toNamed(AppRoutes.editProfile),
