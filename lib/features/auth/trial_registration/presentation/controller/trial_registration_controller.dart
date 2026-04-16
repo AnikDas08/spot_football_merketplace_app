@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/services/storage/storage_keys.dart';
 import 'package:untitled/services/storage/storage_services.dart';
+import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/helpers/other_helper.dart';
 
 class TrialRegistrationController extends GetxController {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-  
+
   // Selected values
   String? selectedDob;
   String? selectedAgeGroup;
@@ -18,10 +19,21 @@ class TrialRegistrationController extends GetxController {
 
   // Data Lists
   final List<String> ageGroups = ["U-12", "U-15", "U-18", "Senior"];
-  final List<String> previousClubs = ["Lions FC", "Tigers United", "Dragons SC", "Eagles Academy", "None"];
-  final List<String> positions = ["Goalkeeper", "Defender", "Midfielder", "Forward"];
+  final List<String> previousClubs = [
+    "Lions FC",
+    "Tigers United",
+    "Dragons SC",
+    "Eagles Academy",
+    "None",
+  ];
+  final List<String> positions = [
+    "Goalkeeper",
+    "Defender",
+    "Midfielder",
+    "Forward",
+  ];
   final List<String> strongFeet = ["Right", "Left", "Both"];
-  
+
   String? profileImage;
   bool isLoading = false;
 
@@ -65,10 +77,15 @@ class TrialRegistrationController extends GetxController {
   }
 
   void submitRequest() async {
-    if (firstNameController.text.isEmpty || lastNameController.text.isEmpty) {
-      Get.snackbar("Error", "Please fill in all required fields");
-      return;
-    }
+    // if (firstNameController.text.isEmpty || lastNameController.text.isEmpty) {
+    //   Get.snackbar(
+    //     "Error",
+    //     "Please fill in all required fields",
+    //     backgroundColor: AppColors.red,
+    //     colorText: AppColors.white,
+    //   );
+    //   return;
+    // }
 
     isLoading = true;
     update();

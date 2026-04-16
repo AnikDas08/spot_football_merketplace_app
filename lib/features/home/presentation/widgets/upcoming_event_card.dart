@@ -22,7 +22,7 @@ class UpcomingEventCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha(21),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -35,8 +35,6 @@ class UpcomingEventCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.r),
             child: Image.asset(
               TempImage.upcomingEvent, // Replace with appropriate stadium image
-              width: 120.w,
-              height: 120.h,
               fit: BoxFit.cover,
             ),
           ),
