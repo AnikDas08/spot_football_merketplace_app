@@ -55,9 +55,7 @@ class TrialRegistrationScreen extends StatelessWidget {
 
                 Row(
                   children: [
-                    Expanded(
-                      child: _buildDatePickerField(context, controller),
-                    ),
+                    Expanded(child: _buildDatePickerField(context, controller)),
                     SizedBox(width: 16.w),
                     Expanded(
                       child: _buildDropdownField(
@@ -129,7 +127,11 @@ class TrialRegistrationScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (controller.profileImage != null)
-                          const Icon(Icons.check_circle, color: AppColors.green, size: 40)
+                          const Icon(
+                            Icons.check_circle,
+                            color: AppColors.green,
+                            size: 40,
+                          )
                         else ...[
                           Container(
                             padding: EdgeInsets.all(10.w),
@@ -137,16 +139,22 @@ class TrialRegistrationScreen extends StatelessWidget {
                               color: AppColors.black,
                               borderRadius: BorderRadius.circular(8.r),
                             ),
-                            child: const Icon(Icons.cloud_upload_outlined, color: Color(0xFFEABB00)),
+                            child: const Icon(
+                              Icons.cloud_upload_outlined,
+                              color: Color(0xFFEABB00),
+                            ),
                           ),
                           SizedBox(height: 8.h),
-                          const CommonText(text: "Upload File", fontWeight: FontWeight.w600),
+                          const CommonText(
+                            text: "Upload File",
+                            fontWeight: FontWeight.w600,
+                          ),
                           const CommonText(
                             text: "PDF, JPG or PNG (Max 5MB)",
                             fontSize: 10,
                             color: AppColors.color6B6B6B,
                           ),
-                        ]
+                        ],
                       ],
                     ),
                   ),
@@ -162,7 +170,8 @@ class TrialRegistrationScreen extends StatelessWidget {
 
                 const Center(
                   child: CommonText(
-                    text: "By submitting, you agree to the\nAthlete Terms of Service",
+                    text:
+                        "By submitting, you agree to the\nAthlete Terms of Service",
                     fontSize: 14,
                     textAlign: TextAlign.center,
                     color: AppColors.color6B6B6B,
@@ -186,7 +195,12 @@ class TrialRegistrationScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonText(text: title, fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+        CommonText(
+          text: title,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          bottom: 8,
+        ),
         DropdownButtonFormField<String>(
           value: value,
           isExpanded: true,
@@ -197,14 +211,17 @@ class TrialRegistrationScreen extends StatelessWidget {
             filled: true,
             hintText: hint,
             hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
-            contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 12.w,
+              vertical: 16.h,
+            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(color: Colors.grey.shade200),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
-              borderSide:  BorderSide(color: Colors.black),
+              borderSide: BorderSide(color: Colors.black),
             ),
           ),
           items: items.map((String item) {
@@ -219,12 +236,19 @@ class TrialRegistrationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDatePickerField(BuildContext context, TrialRegistrationController controller) {
+  Widget _buildDatePickerField(
+    BuildContext context,
+    TrialRegistrationController controller,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
-         CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+        CommonText(
+          text: "Date Of Birth",
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          bottom: 8,
+        ),
 
         GestureDetector(
           onTap: () => controller.selectDate(context),
@@ -243,7 +267,7 @@ class TrialRegistrationScreen extends StatelessWidget {
                   controller.selectedDob ?? "dd/mm/yyyy",
                   style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                 ),
-                 Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+                Icon(Icons.keyboard_arrow_down, color: Colors.black54),
               ],
             ),
           ),

@@ -34,7 +34,8 @@ class SelectRole extends StatelessWidget {
                 bottom: 8,
               ),
               const CommonText(
-                text: 'Please Select One Of The Following Which Applies To You...',
+                text:
+                    'Please Select One Of The Following Which Applies To You...',
                 fontSize: 14,
                 maxLines: 2,
                 fontWeight: FontWeight.w400,
@@ -43,60 +44,71 @@ class SelectRole extends StatelessWidget {
               ),
 
               // --- Player Selection ---
-              Obx(() => _RoleCard(
-                    title: 'PLAYER',
-                    subtitle: 'Register For A Club For The\n26/27 Season',
-                    icon: Icons.person_outline,
-                    iconColor: const Color(0xFF19CA77),
-                    isSelected: controller.selectedRole.value == 1,
-                    onTap: () => controller.selectRole(1),
-                  )),
+              Obx(
+                () => _RoleCard(
+                  title: 'PLAYER',
+                  subtitle: 'Register For A Club For The\n26/27 Season',
+                  icon: Icons.person_outline,
+                  iconColor: const Color(0xFF19CA77),
+                  isSelected: controller.selectedRole.value == 1,
+                  onTap: () => controller.selectRole(1),
+                ),
+              ),
 
               SizedBox(height: 16.h),
 
               // --- Find a Team (Trial) ---
-              Obx(() => _RoleCard(
-                    title: 'FIND A TEAM (TRIAL)',
-                    subtitle: 'Create a profile and get\ndiscovered by clubs',
-                    icon: Icons.person_outline,
-                    iconColor: const Color(0xFFEABB00),
-                    isSelected: controller.selectedRole.value == 3,
-                    onTap: () => controller.selectRole(3),
-                  )),
+              Obx(
+                () => _RoleCard(
+                  title: 'FIND A TEAM (TRIAL)',
+                  subtitle: 'Create a profile and get\ndiscovered by clubs',
+                  icon: Icons.person_outline,
+                  iconColor: const Color(0xFFEABB00),
+                  isSelected: controller.selectedRole.value == 3,
+                  onTap: () => controller.selectRole(3),
+                ),
+              ),
 
               SizedBox(height: 16.h),
 
               // --- Manager Selection ---
-              Obx(() => _RoleCard(
-                    title: 'MANAGER',
-                    subtitle: 'Manage team & transfers',
-                    icon: Icons.business_center_outlined,
-                    iconColor: const Color(0xFFF06292),
-                    isSelected: controller.selectedRole.value == 2,
-                    onTap: () => controller.selectRole(2),
-                  )),
+              Obx(
+                () => _RoleCard(
+                  title: 'MANAGER',
+                  subtitle: 'Manage team & transfers',
+                  icon: Icons.business_center_outlined,
+                  iconColor: const Color(0xFFF06292),
+                  isSelected: controller.selectedRole.value == 2,
+                  onTap: () => controller.selectRole(2),
+                ),
+              ),
 
               SizedBox(height: 40.h),
 
               // --- Continue Button ---
-              Obx(() => CommonButton(
-                onTap: () async {
-                  if (controller.selectedRole.value == 1) {
-                    Get.toNamed(AppRoutes.player_registration_screen);
-                  } else if (controller.selectedRole.value == 3) {
-                    Get.toNamed(AppRoutes.trial_registration_screen);
-                  } else if (controller.selectedRole.value == 2) {
-                    Get.toNamed(AppRoutes.manager_subscription_screen);
-                  } else {
-                    Get.snackbar("Selection Required", "Please select a role to continue");
-                  }
-                },
-                buttonColor: controller.selectedRole.value == 0
-                    ? Colors.grey.shade400
-                    : AppColors.black,
-                titleText: "Continue",
-                titleColor: AppColors.white,
-              )),
+              Obx(
+                () => CommonButton(
+                  onTap: () async {
+                    if (controller.selectedRole.value == 1) {
+                      Get.toNamed(AppRoutes.player_registration_screen);
+                    } else if (controller.selectedRole.value == 3) {
+                      Get.toNamed(AppRoutes.trial_registration_screen);
+                    } else if (controller.selectedRole.value == 2) {
+                      Get.toNamed(AppRoutes.manager_subscription_screen);
+                    } else {
+                      Get.snackbar(
+                        "Selection Required",
+                        "Please select a role to continue",
+                      );
+                    }
+                  },
+                  buttonColor: controller.selectedRole.value == 0
+                      ? Colors.grey.shade400
+                      : AppColors.black,
+                  titleText: "Continue",
+                  titleColor: AppColors.white,
+                ),
+              ),
 
               SizedBox(height: 24.h),
 
@@ -166,11 +178,7 @@ class _RoleCard extends StatelessWidget {
                 color: const Color(0xFF373737),
                 borderRadius: BorderRadius.circular(8.r),
               ),
-              child: Icon(
-                icon,
-                color: iconColor,
-                size: 30.sp,
-              ),
+              child: Icon(icon, color: iconColor, size: 30.sp),
             ),
             SizedBox(width: 16.w),
             // Text content
