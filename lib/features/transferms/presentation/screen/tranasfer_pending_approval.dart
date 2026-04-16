@@ -9,6 +9,7 @@ import 'package:untitled/utils/constants/temp_image.dart';
 import '../../../../component/button/common_button.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
+
 // Mone korchi AppStrings file-ti ekhane import kora ache
 // import 'package:untitled/utils/constants/app_strings.dart';
 import '../../../../utils/constants/app_string.dart';
@@ -27,9 +28,10 @@ class TransferPendingApproval extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.center,
                 child: Column(
                   children: [
                     SizedBox(height: 32.h),
@@ -50,35 +52,37 @@ class TransferPendingApproval extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                       maxLines: 3,
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 24.h),
-                    PlayerProfileCard(
-                      playerName: "Marcus Vancore",
-                      playerRole: "Forward |",
-                      playerAcademy: "  Manchester City Academy",
-                      playerImageUrl: TempImage.playerProfile2,
-                      isCheckCard: false,
-                    ),
-
-                    SizedBox(height: 16.h),
-                    TransferFeeCard(
-                      title: AppString.transferFee,
-                      feeAmount: "ENG Coins 10000",
-                      subTitle: "Payable over 3 installments",
-                    ),
-                    SizedBox(height: 16.h),
-                    ContractDurationResultCard(
-                      durationTitle: AppString.contractDuration,
-                      yearsText: "5 YEARS",
-                      dateText: "Until June 2029",
-                      iconPath: AppIcons.checkMark,
-                    ),
+                    // PlayerProfileCard(
+                    //   playerName: "Marcus Vancore",
+                    //   playerRole: "Forward |",
+                    //   playerAcademy: "  Manchester City Academy",
+                    //   playerImageUrl: TempImage.playerProfile2,
+                    //   isCheckCard: false,
+                    // ),
+                    //
+                    // SizedBox(height: 16.h),
+                    // TransferFeeCard(
+                    //   title: AppString.transferFee,
+                    //   feeAmount: "ENG Coins 10000",
+                    //   subTitle: "Payable over 3 installments",
+                    // ),
+                    // SizedBox(height: 16.h),
+                    // ContractDurationResultCard(
+                    //   durationTitle: AppString.contractDuration,
+                    //   yearsText: "5 YEARS",
+                    //   dateText: "Until June 2029",
+                    //   iconPath: AppIcons.checkMark,
+                    // ),
                   ],
                 ),
               ),
               SizedBox(height: 40),
               CommonButton(
                 onTap: () {
+                  Get.back();
                   Get.back();
                 },
                 titleText: AppString.backToTransfers,
@@ -88,6 +92,7 @@ class TransferPendingApproval extends StatelessWidget {
                 titleSize: 18,
                 titleWeight: FontWeight.w500,
               ),
+              SizedBox(height: 160),
             ],
           ),
         ),
