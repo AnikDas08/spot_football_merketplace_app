@@ -11,12 +11,7 @@ class RedemptionItemWidget extends StatelessWidget {
   final String? image;
   final String? coins;
 
-  const RedemptionItemWidget({
-    super.key,
-    this.title,
-    this.image,
-    this.coins,
-  });
+  const RedemptionItemWidget({super.key, this.title, this.image, this.coins});
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +32,7 @@ class RedemptionItemWidget extends StatelessWidget {
           SizedBox(height: 8.h),
           const Divider(),
           SizedBox(height: 8.h),
-          Image.asset(
-            image ?? TempImage.product,
-            height: 70.h,
-          ),
+          Image.asset(image ?? TempImage.product, height: 70.h),
           SizedBox(height: 8.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +54,7 @@ class RedemptionItemWidget extends StatelessWidget {
           SizedBox(height: 10.h),
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 10.h),
+            padding: EdgeInsets.symmetric(vertical: 5.h),
             decoration: BoxDecoration(
               color: AppColors.black,
               borderRadius: BorderRadius.circular(10.r),
@@ -73,8 +65,9 @@ class RedemptionItemWidget extends StatelessWidget {
               fontWeight: const FontWeight(600),
               color: AppColors.white,
               textAlign: TextAlign.center,
+              maxLines: 1,
             ),
-          )
+          ),
         ],
       ),
     );
