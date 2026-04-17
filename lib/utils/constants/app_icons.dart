@@ -23,6 +23,9 @@ class AppIcons {
   static const String rectangle= '$baseurl/rectangle.svg';
   static const String play= '$baseurl/play.svg';
   static const String notificationM= '$baseurl/notification_m.svg';
+  static const String pro= '$baseurl/pro.svg';
+  static const String card= '$baseurl/card.svg';
+  static const String star= '$baseurl/star.svg';
 
 
 

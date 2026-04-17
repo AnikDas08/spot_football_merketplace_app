@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/image/common_image.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
@@ -62,6 +63,11 @@ class PlayerRegisterScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final plan = ctrl.plans[index];
                       return _RegistrationPlanCard(
+                     icon: index == 0
+                      ? AppIcons.card
+                          : index == 1
+                          ? AppIcons.star
+                          : AppIcons.pro,
                         plan: plan,
                         onSelectTap: () {
                           ctrl.selectPlan(plan.id);
@@ -118,10 +124,11 @@ class PlayerRegisterScreen extends StatelessWidget {
 class _RegistrationPlanCard extends StatelessWidget {
   final RegistrationPlan plan;
   final VoidCallback onSelectTap;
+  final String icon;
 
   const _RegistrationPlanCard({
     required this.plan,
-    required this.onSelectTap,
+    required this.onSelectTap, required this.icon,
   });
 
   @override
@@ -144,8 +151,8 @@ class _RegistrationPlanCard extends StatelessWidget {
             /// Header
             Row(
               children: [
-                CommonImage(
-                  imageSrc: AppIcons.startFourPoint,
+                SvgPicture.asset(
+              icon,
                   height: 24,
                   width: 24,
                 ),
