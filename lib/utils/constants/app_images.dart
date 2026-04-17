@@ -12,6 +12,7 @@ class AppImages {
   static const String playerSeason = '$baseurl/player_season.png';
   static const String appLogoP = '$baseurl/app_logo_p.png';
 
+
   // added by ajijul
   static const String appLogo = '$baseurl/app_logo.png';
   static const String newsDetailsBg = '$baseurl/news_details_bg.png';
@@ -20,4 +21,6 @@ class AppImages {
   static const String assist = '$baseurl/assist.svg';
   static const String rating = '$baseurl/rating.svg';
   static const String matches = '$baseurl/matches.svg';
+  static const String upcomingEvent = '$baseurl/upcoming_event.png';
+
 }

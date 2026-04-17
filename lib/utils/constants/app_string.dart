@@ -182,6 +182,31 @@ class AppString {
   static const String marcus = "Marcus Vane";
   static const String updateAvatar = "Update Avatar";
   static const String prizeRedemptionFeed = "PRIZE REDEMPTION FEED";
+  static const String myChildren = "My Children";
+  static const String activeAthletes = "Active Athletes";
+  static const String manageYourChildrenSports = "Manage your children's sports schedules and team activities in one place.";
+  static const String nextGame = "NEXT GAME";
+  static const String viewProfile = "View profile";
+  static const String engWristBand = "ENG WRIST BAND";
+  static const String purchase5CupsGet1Free = "PURCHASE 5 CUPS GET 1 FREE";
+  static const String totalCoins = "Total Coins: ";
+  static const String redeem = "Redeem";
+  static const String myProfile = "My Profile";
+  static const String personalDetails = "PERSONAL DETAILS";
+  static const String approved = "Approved";
+  static const String nationality = "Nationality";
+  static const String club = "Club";
+  static const String position = "Position";
+  static const String engDebut = "ENG Debut";
+  static const String engCoins = "ENG Coins";
+  static const String goals = "GOALS";
+  static const String assists = "ASSISTS";
+  static const String matches = "MATCHES";
+  static const String avgRating = "AVG RATING";
+  static const String plus3ThisMonth = "+3 this month";
+  static const String top5PercentLeague = "Top 5% League";
+  static const String mvpForm = "MVP Form";
+  static const String coffle = "Coffle";
 
   static const semiPro = 'SEMI PRO';
   static const enhancedTeamRegistration = 'Enhanced Team Registration';
@@ -219,6 +244,8 @@ class AppString {
   static const String transferFee = "TRANSFER FEE";
   static const String contractDuration = "CONTRACT DURATION";
   static const String backToTransfers = "Back to Transfers";
+
+  static const String upcomingEvents = "Upcoming Events";
 
 
 }

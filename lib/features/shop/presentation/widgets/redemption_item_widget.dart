@@ -3,10 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
+import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
 class RedemptionItemWidget extends StatelessWidget {
-  const RedemptionItemWidget({super.key});
+  final String? title;
+  final String? image;
+  final String? coins;
+
+  const RedemptionItemWidget({
+    super.key,
+    this.title,
+    this.image,
+    this.coins,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +29,16 @@ class RedemptionItemWidget extends StatelessWidget {
       child: Column(
         children: [
           CommonText(
-            text: 'ENG WRIST BAND',
+            text: title ?? AppString.engWristBand,
             fontSize: 14.sp,
-            fontWeight: FontWeight(590),
+            fontWeight: const FontWeight(600),
             color: AppColors.primaryColor,
           ),
           SizedBox(height: 8.h),
-          Divider(),
+          const Divider(),
           SizedBox(height: 8.h),
           Image.asset(
-            TempImage.product,
+            image ?? TempImage.product,
             height: 70.h,
           ),
           SizedBox(height: 8.h),
@@ -36,14 +46,14 @@ class RedemptionItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CommonText(
-                text: 'Total Coins: ',
-                fontSize: 16.sp,
+                text: AppString.totalCoins,
+                fontSize: 14.sp,
                 color: AppColors.textSecondaryColor,
                 fontWeight: FontWeight.w400,
               ),
               CommonText(
-                text: '5000',
-                fontSize: 12,
+                text: coins ?? '5000',
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w700,
                 color: AppColors.yellow,
               ),
@@ -54,13 +64,13 @@ class RedemptionItemWidget extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 10.h),
             decoration: BoxDecoration(
-              color: AppColors.primaryColor,
+              color: AppColors.black,
               borderRadius: BorderRadius.circular(10.r),
             ),
             child: CommonText(
-              text: 'Redeem',
+              text: AppString.redeem,
               fontSize: 15.sp,
-              fontWeight: FontWeight(510),
+              fontWeight: const FontWeight(600),
               color: AppColors.white,
               textAlign: TextAlign.center,
             ),

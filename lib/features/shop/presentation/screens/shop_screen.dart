@@ -38,11 +38,9 @@ class ShopScreen extends StatelessWidget {
           Expanded(
             child: GetBuilder<ShopController>(
               builder: (controller) {
-                if (controller.selectedTab == 0) {
-                  return const RedemptionGridWidget();
-                } else {
-                  return const RedemptionGridWidget();
-                }
+                return RedemptionGridWidget(
+                  isCoffee: controller.selectedTab == 1,
+                );
               },
             ),
           ),
