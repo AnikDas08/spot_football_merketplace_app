@@ -100,15 +100,7 @@ class SignInScreen extends StatelessWidget {
                     titleText: 'Login',
                     isLoading: controller.isLoading,
                     onTap: () {
-
-<<<<<<< HEAD
-
-                      controller.signInUser();
-                      // if (!_formKey.currentState!.validate()) return;
-
-=======
                       Get.toNamed(AppRoutes.navBarScreen);
->>>>>>> c578ae4 (add new path trail)
                     },
                   ),
 
