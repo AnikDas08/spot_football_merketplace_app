@@ -36,7 +36,6 @@ class AddPlayerScreen extends StatelessWidget {
                     ),
                   )),
                   SizedBox(width: 8.w),
-
                   Obx(() => PopupMenuButton<String>(
                     onSelected: (value) => controller.selectedClub.value = value,
                     itemBuilder: (context) => controller.clubs.map((e) =>
@@ -48,7 +47,6 @@ class AddPlayerScreen extends StatelessWidget {
                     ),
                   )),
                   SizedBox(width: 8.w),
-
                   Obx(() => PopupMenuButton<String>(
                     onSelected: (value) => controller.selectedPosition.value = value,
                     itemBuilder: (context) => controller.positions.map((e) =>
