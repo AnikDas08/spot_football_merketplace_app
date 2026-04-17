@@ -42,6 +42,26 @@ class LocalStorage {
     appLog(userId, source: "Local Storage");
   }
 
+
+
+  static Future<void> setValue(String key, dynamic value) async {
+    if (value is String) {
+      await preferences?.setString(key, value);
+    } else if (value is bool) {
+      await preferences?.setBool(key, value);
+    } else if (value is int) {
+      await preferences?.setInt(key, value);
+    } else if (value is double) {
+      await preferences?.setDouble(key, value);
+    }
+  }
+
+  /// Generic Get Method
+  /// Eta diye jekono key er value read kora jabe
+  static dynamic getValue(String key) {
+    return preferences?.get(key);
+  }
+
   /// Remove All Data From SharedPreferences
   static Future<void> removeAllPrefData() async {
     final localStorage = await _getStorage();

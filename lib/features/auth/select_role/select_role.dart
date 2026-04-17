@@ -89,11 +89,17 @@ class SelectRole extends StatelessWidget {
               Obx(
                 () => CommonButton(
                   onTap: () async {
+                    LocalStorage.getValue("role") ?? "Player";
+
                     if (controller.selectedRole.value == 1) {
+                      LocalStorage.setString(LocalStorageKeys.role,"Player");
                       Get.toNamed(AppRoutes.player_registration_screen);
                     } else if (controller.selectedRole.value == 3) {
                       Get.toNamed(AppRoutes.trial_registration_screen);
                     } else if (controller.selectedRole.value == 2) {
+
+                      LocalStorage.setString(LocalStorageKeys.role,"Manager");
+
                       Get.toNamed(AppRoutes.manager_subscription_screen);
                     } else {
                       Get.snackbar(
