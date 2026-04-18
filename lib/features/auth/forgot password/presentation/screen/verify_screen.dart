@@ -148,11 +148,10 @@ class _VerifyScreenState extends State<VerifyScreen> {
                           isLoading: controller.isLoading,
                           onTap: () {
 
+                            /*if (_formKey.currentState!.validate()) {
+                              controller.verifyOtp();
+                            }*/
                             Get.toNamed(AppRoutes.createPassword);
-                            // controller.verifyOtp();
-
-                            // if (_formKey.currentState!.validate()) {
-                            // }
                           },
                         ),
                       ],

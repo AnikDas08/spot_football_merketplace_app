@@ -63,7 +63,7 @@ class TrialRegistrationScreen extends StatelessWidget {
                         hint: "Select",
                         value: controller.selectedAgeGroup,
                         items: controller.ageGroups,
-                        onChanged: (val) => controller.setAgeGroup(val!),
+                        // onChanged: (val) => controller.setAgeGroup(val!),
                       ),
                     ),
                   ],
@@ -190,7 +190,7 @@ class TrialRegistrationScreen extends StatelessWidget {
     required String hint,
     required String? value,
     required List<String> items,
-    required Function(String?) onChanged,
+     Function(String?) ?onChanged,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

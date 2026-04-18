@@ -15,7 +15,7 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String role = LocalStorage.role;
+    final String role = LocalStorage.getValue("role") ?? "Player";
 
     return Drawer(
       width: 0.9.sw,
@@ -28,17 +28,18 @@ class AppDrawer extends StatelessWidget {
             children: [
               _buildProfile(),
               SizedBox(height: 36.h),
-              _buildMenuItem(
-                icon: AppIcons.myChildrenSvg,
-                label: AppString.myChildren,
-                onTap: () => Get.toNamed(AppRoutes.myChildren),
-              ),
+
               _buildMenuItem(
                 icon: AppIcons.editProfile,
                 label: AppString.editProfile,
                 onTap: () => Get.toNamed(AppRoutes.editProfile),
               ),
               if (role == "Player") ...[
+                _buildMenuItem(
+                icon: AppIcons.myChildrenSvg,
+                label: AppString.myChildren,
+                onTap: () => Get.toNamed(AppRoutes.myChildren),
+              ),
                 _buildMenuItem(
                   icon: AppIcons.rewards,
                   label: AppString.rewardsRedemption,
