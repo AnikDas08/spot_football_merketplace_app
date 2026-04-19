@@ -15,7 +15,7 @@ class MyChildrenScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const SecondaryAppBar(title: AppString.myChildren),
+      appBar: const SecondaryAppBar(title: AppString.myPlayer),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Column(
