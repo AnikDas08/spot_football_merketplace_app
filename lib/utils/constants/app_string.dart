@@ -182,7 +182,7 @@ class AppString {
   static const String marcus = "Marcus Vane";
   static const String updateAvatar = "Update Avatar";
   static const String prizeRedemptionFeed = "PRIZE REDEMPTION FEED";
-  static const String myChildren = "My Children";
+  static const String myPlayer = "My Player";
   static const String activeAthletes = "Active Athletes";
   static const String manageYourChildrenSports = "Manage your children's sports schedules and team activities in one place.";
   static const String nextGame = "NEXT GAME";

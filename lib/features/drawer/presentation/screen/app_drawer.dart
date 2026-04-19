@@ -37,7 +37,7 @@ class AppDrawer extends StatelessWidget {
               if (role == "Player") ...[
                 _buildMenuItem(
                 icon: AppIcons.myChildrenSvg,
-                label: AppString.myChildren,
+                label: AppString.myPlayer,
                 onTap: () => Get.toNamed(AppRoutes.myChildren),
               ),
                 _buildMenuItem(

@@ -37,6 +37,7 @@ class PersonalDetailsWidget extends StatelessWidget {
           _item('Position', 'Forward'),
           _item('ENG Debut', '7 August 2025'),
           _item('ENG Coins', '100000'),
+          _item('Market Value', "1000 million"),
         ],
       ),
     );
@@ -56,11 +57,26 @@ class PersonalDetailsWidget extends StatelessWidget {
               textAlign: TextAlign.start,
             ),
           ),
-          CommonText(
-            text: value,
-            fontSize: 15.sp,
-            fontWeight: FontWeight(510),
-            color: AppColors.primaryColor,
+          Row(
+            mainAxisAlignment: .spaceBetween,
+            spacing: 5,
+            children: [
+              if (title == 'ENG Coins') ...[
+                SizedBox(
+                  width: 20.w,
+                  height: 20.w,
+                  child: Image.asset(AppImages.coin),
+                ),
+              ] else ...[
+                SizedBox(width: 0, height: 0),
+              ],
+              CommonText(
+                text: value,
+                fontSize: 15.sp,
+                fontWeight: FontWeight(510),
+                color: AppColors.primaryColor,
+              ),
+            ],
           ),
         ],
       ),
