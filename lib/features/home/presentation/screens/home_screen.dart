@@ -52,6 +52,8 @@ class HomeScreen extends StatelessWidget {
                 LeaguePreview(),
                 SizedBox(height: 20.h),
                 LatestVideos(),
+                SizedBox(height: 20.h),
+
               ],
             ),
           ),

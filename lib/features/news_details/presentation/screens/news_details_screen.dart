@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:untitled/component/image/common_image.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/features/home/presentation/widgets/latest_news.dart';
@@ -19,6 +19,7 @@ class NewsDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.newsDetails.toUpperCase()),
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Column(
           children: [
             Container(
@@ -56,7 +57,11 @@ class NewsDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Image.asset(TempImage.newsDetails, fit: .fill, width: 1.sw),
+            CommonImage(
+              imageSrc: TempImage.newsDetails,
+              fill: BoxFit.fill,
+              width: .infinity,
+            ),
             Padding(
               padding: .all(16),
               child: SizedBox(
@@ -133,26 +138,44 @@ class NewsDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: .all(16),
-              child: Column(
-                spacing: 10,
-                crossAxisAlignment: .start,
-                children: [
-                  CommonText(
-                    text: AppString.latestVideos,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: CommonText(
+                    text: AppString.latestVideos.toUpperCase(),
                     fontSize: 20.sp,
-                    fontWeight: FontWeight(590),
-                    textAlign: .start,
+                    fontWeight: FontWeight.w600,
                   ),
-                  LatestVideoCard(),
-                  LatestVideoCard(),
-                  LatestVideoCard(),
-                  LatestVideoCard(),
-
-                ],
-              ),
+                ),
+                SizedBox(height: 16.h),
+                SizedBox(
+                  height: 240.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 5,
+                    padding: EdgeInsets.only(left: 16.w),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: LatestVideoCard(
+                          imageHeight: 130.h,
+                          titleFontSize: 14.sp,
+                          timeFontSize: 10.sp,
+                          imagePath:
+                              index % 2 == 0 ? TempImage.stats1 : TempImage.stats2,
+                          title: AppString.top10GoalsWeek24,
+                          time: AppString.threeHourAgoEngOriginal,
+                          duration: AppString.duration7m,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
+            SizedBox(height: 20.h),
           ],
         ),
       ),

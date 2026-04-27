@@ -8,7 +8,9 @@ import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
 import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../widget/latest_highlight_card.dart';
+import '../../../home/presentation/widgets/latest_video_card.dart';
 import '../widget/upcoming_match_card.dart';
 import '../widget/video_thumbnail_card.dart';
 import 'package:get/get.dart';
@@ -63,27 +65,22 @@ class EngTvScreen extends StatelessWidget {
               SizedBox(height: 10.h),
 
               SizedBox(
-                height: 190.h,
+                height: 170.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 10,
+                  itemCount: 5,
                   padding: EdgeInsets.only(left: 16.w),
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(right: 12.w),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.videoStreamScreen);
-                        },
-
-                        child: LatestHighlightCard(
-                          isCheck: true,
-                          imagePath: TempImage.stats1,
-                          title: 'Top 10 Goals: Week 24',
-                          time: '3h ago',
-                          source: 'ENG Original',
-                          duration: '7m',
-                        ),
+                      child: LatestVideoCard(
+                        imageHeight: 130.h,
+                        titleFontSize: 14.sp,
+                        timeFontSize: 10.sp,
+                        imagePath: TempImage.stats1,
+                        title: AppString.top10GoalsWeek24,
+                        time: AppString.threeHourAgoEngOriginal,
+                        duration: AppString.duration7m,
                       ),
                     );
                   },
@@ -160,8 +157,6 @@ class EngTvScreen extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget _buildSectionHeader(String title, VoidCallback onTap) {
     return Padding(
