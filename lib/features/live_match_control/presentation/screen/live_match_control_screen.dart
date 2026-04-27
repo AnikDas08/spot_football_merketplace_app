@@ -6,6 +6,8 @@ import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
+import '../../../../config/route/app_routes.dart';
+
 class LiveMatchControlScreen extends StatelessWidget {
   const LiveMatchControlScreen({super.key});
 
@@ -177,30 +179,33 @@ class LiveMatchControlScreen extends StatelessWidget {
   }
 
   Widget _buildTeamActionCard(String teamName, Color accentColor) {
-    return Container(
-      padding: EdgeInsets.all(20.w),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border(bottom: BorderSide(color: accentColor, width: 4)),
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(12.w),
-            decoration: BoxDecoration(
-              color: accentColor.withOpacity(0.1),
-              shape: BoxShape.circle,
+    return GestureDetector(
+      onTap: () => Get.toNamed(AppRoutes.record_goal_screen),
+      child: Container(
+        padding: EdgeInsets.all(20.w),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border(bottom: BorderSide(color: accentColor, width: 4)),
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(12.w),
+              decoration: BoxDecoration(
+                color: accentColor.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(Icons.sports_soccer, color: accentColor, size: 24.sp),
             ),
-            child: Icon(Icons.sports_soccer, color: accentColor, size: 24.sp),
-          ),
-          SizedBox(height: 16.h),
-          CommonText(
-            text: teamName,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w700,
-          ),
-        ],
+            SizedBox(height: 16.h),
+            CommonText(
+              text: teamName,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w700,
+            ),
+          ],
+        ),
       ),
     );
   }
