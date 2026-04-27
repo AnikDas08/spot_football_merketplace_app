@@ -119,25 +119,37 @@ class NewsDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: .all(16),
-              child: Column(
-                spacing: 10,
-                crossAxisAlignment: .start,
-                children: [
-                  CommonText(
-                    text: AppString.related,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: CommonText(
+                    text: AppString.related.toUpperCase(),
                     fontSize: 20.sp,
-                    fontWeight: FontWeight(590),
-                    textAlign: .start,
+                    fontWeight: FontWeight.w600,
                   ),
-                  NewsCard(),
-                  NewsCard(),
-                  NewsCard(),
-                  NewsCard(),
-                ],
-              ),
+                ),
+                SizedBox(height: 16.h),
+                SizedBox(
+                  height: 248.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 5,
+                    padding: EdgeInsets.only(left: 16.w),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: NewsCard(
+                          width: 220.w,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
+            SizedBox(height: 20.h),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
