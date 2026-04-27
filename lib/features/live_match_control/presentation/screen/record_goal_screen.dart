@@ -100,7 +100,7 @@ class _RecordGoalScreenState extends State<RecordGoalScreen> {
                   ),
                   child: CommonText(
                     text: 'Confirm Goal',
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
                   ),
