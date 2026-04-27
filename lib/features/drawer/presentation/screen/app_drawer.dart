@@ -40,6 +40,13 @@ class AppDrawer extends StatelessWidget {
                 label: "League Tables",
                 onTap: () => Get.toNamed(AppRoutes.leagueTable),
               ),
+              if (role == "Referee") ...[
+                _buildMenuItem(
+                  icon: AppIcons.myChildrenSvg, // Using a suitable placeholder icon
+                  label: "Referee Dashboard",
+                  onTap: () => Get.toNamed(AppRoutes.referee_dashboard_screen),
+                ),
+              ],
               if (role == "Player") ...[
                 _buildMenuItem(
                   icon: AppIcons.myChildrenSvg,

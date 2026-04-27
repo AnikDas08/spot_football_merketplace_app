@@ -1,3 +1,5 @@
+import 'package:untitled/features/live_match_control/presentation/screen/live_match_control_screen.dart';
+import 'package:untitled/features/referee_dashboard/presentation/screen/referee_dashboard_screen.dart';
 import 'package:untitled/features/league_tables/presentation/screen/league_tables_screen.dart';
 import 'package:untitled/features/auth/referee_info/presentation/screen/referee_info_screen.dart';
 import 'package:get/get.dart';
@@ -94,6 +96,8 @@ class AppRoutes {
   static const String manager_subscription_screen = '/manager_subscription_screen';
   static const String trial_registration_screen = '/trial_registration_screen';
   static const String referee_info_screen = '/referee_info_screen';
+  static const String referee_dashboard_screen = '/referee_dashboard_screen';
+  static const String live_match_control_screen = '/live_match_control_screen';
 
   static List<GetPage<String>> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -154,7 +158,10 @@ class AppRoutes {
     GetPage(name: manager_subscription_screen, page: () => ManagerSubscriptionScreen()),
     GetPage(name: trial_registration_screen, page: () => const TrialRegistrationScreen()),
     GetPage(name: referee_info_screen, page: () => const RefereeInfoScreen()),
+    GetPage(name: referee_dashboard_screen, page: () => const RefereeDashboardScreen()),
     GetPage(name: leagueTable, page: () => const LeagueTablesScreen()),
     GetPage(name: playerProfileDetailsScreen, page: () => const PlayerProfileDetailsScreen()),
+    GetPage(name: live_match_control_screen, page: () => const LiveMatchControlScreen()),
+
   ];
 }
