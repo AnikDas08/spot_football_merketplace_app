@@ -23,6 +23,8 @@ class AppImages {
   static const String matches = '$baseurl/matches.svg';
   static const String upcomingEvent = '$baseurl/upcoming_event.png';
   static const String coin = '$baseurl/gold_coin.png';
+  static const String stadium = '$baseurl/stadium.svg';
+
 
 
 }

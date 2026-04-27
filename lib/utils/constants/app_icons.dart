@@ -26,10 +26,7 @@ class AppIcons {
   static const String pro= '$baseurl/pro.svg';
   static const String card= '$baseurl/card.svg';
   static const String star= '$baseurl/star.svg';
-
-
-
-
+  static const String stadium = '$baseurl/stadium.svg';
 
   // added by ajijul
   static const String notification = '$baseurl/notification_inactive.svg';

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
+import 'package:untitled/utils/constants/app_images.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
+
+
+import 'package:untitled/utils/constants/app_icons.dart';
 
 class OverviewTab extends StatelessWidget {
   const OverviewTab({super.key});
@@ -104,21 +109,23 @@ class OverviewTab extends StatelessWidget {
 
           // Formation Setup
           Container(
-            padding: .only(bottom: 32.h),
             decoration: BoxDecoration(
-              borderRadius: .circular(12.r),
               color: AppColors.white,
+              borderRadius: BorderRadius.circular(12.r),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.black.withAlpha(10),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
+            clipBehavior: Clip.antiAlias,
             child: Column(
-              spacing: 20,
               children: [
                 Container(
-                  padding: .symmetric(horizontal: 16, vertical: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                   decoration: BoxDecoration(
-                    borderRadius: .only(
-                      topLeft: .circular(12.r),
-                      topRight: .circular(12.r),
-                    ),
                     color: AppColors.primaryColor,
                   ),
                   child: Row(
@@ -126,25 +133,78 @@ class OverviewTab extends StatelessWidget {
                     children: [
                       CommonText(
                         text: 'Formation Setup',
-                        fontSize: 15.sp,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w700,
                         color: AppColors.white,
                       ),
                       CommonText(
                         text: '4-3-3 Attacking',
-                        fontSize: 15.sp,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w700,
                         color: AppColors.white,
                       ),
                     ],
                   ),
                 ),
-                // Row 1 — Forwards
-                _FormationRow(positions: ['LW', 'ST', 'RW']),
-                // Row 2 — Midfielders
-                _FormationRow(positions: ['CM', 'AM', 'CM'], highlightIndex: 1),
-                // Row 3 — Defenders
-                _FormationRow(positions: ['LB', 'CB', 'CB', 'RB']),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(12.r)
+                  ),
+                  padding: EdgeInsets.all(12.r),
+                  child: AspectRatio(
+                    aspectRatio: 335 / 440,
+                    child: Stack(
+                      children: [
+                        // Background Stadium SVG
+                        Positioned.fill(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.r),
+                            child: SvgPicture.asset(
+                              AppImages.stadium,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        // Players
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // Forwards (Row 1)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                _PlayerNode(initial: 'M', name: 'Marcus', position: 'ST'),
+                                _PlayerNode(initial: 'J', name: 'James', position: 'ST'),
+                                _PlayerNode(initial: 'R', name: 'Ryan', position: 'ST'),
+                                _PlayerNode(initial: 'D', name: 'David', position: 'ST'),
+                              ],
+                            ),
+                            // Midfielders (Row 2)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                _PlayerNode(initial: 'T', name: 'Tom', position: 'CM'),
+                                _PlayerNode(initial: 'C', name: 'Chris', position: 'CM'),
+                                _PlayerNode(initial: 'T', name: 'Tom', position: 'CM'),
+                              ],
+                            ),
+                            // Defenders (Row 3)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                _PlayerNode(initial: 'B', name: 'Ben', position: 'CB'),
+                                _PlayerNode(initial: 'T', name: 'Tom', position: 'CB'),
+                                _PlayerNode(initial: 'J', name: 'Jake', position: 'CB'),
+                              ],
+                            ),
+                            // Goalkeeper (Row 4)
+                            _PlayerNode(initial: 'M', name: 'Mike', position: 'GK'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -276,3 +336,69 @@ class _FormationRow extends StatelessWidget {
     );
   }
 }
+
+class _PlayerNode extends StatelessWidget {
+  final String initial;
+  final String name;
+  final String position;
+
+  const _PlayerNode({
+    required this.initial,
+    required this.name,
+    required this.position,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 50.w,
+          height: 50.w,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFFFFA726),
+                Color(0xFFFB8C00),
+              ],
+            ),
+            border: Border.all(color: AppColors.white, width: 2),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Center(
+            child: CommonText(
+              text: initial,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
+              color: AppColors.white,
+            ),
+          ),
+        ),
+        SizedBox(height: 4.h),
+        CommonText(
+          text: name,
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w700,
+          color: AppColors.white,
+        ),
+        CommonText(
+          text: position,
+          fontSize: 10.sp,
+          fontWeight: FontWeight.w400,
+          color: AppColors.white.withOpacity(0.8),
+        ),
+      ],
+    );
+  }
+}
+
