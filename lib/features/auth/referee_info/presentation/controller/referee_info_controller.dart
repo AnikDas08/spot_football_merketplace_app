@@ -27,6 +27,6 @@ class RefereeInfoController extends GetxController {
     isLoading.value = false;
     
     // Navigate to home screen
-    Get.offAllNamed(AppRoutes.navBarScreen);
+    Get.offAllNamed(AppRoutes.successful_create_account);
   }
 }
