@@ -246,6 +246,13 @@ class AppString {
   static const String backToTransfers = "Back to Transfers";
 
   static const String upcomingEvents = "Upcoming Events";
+  static const String limitedSlots = "Limited Slots";
+  static const String summerFootballTournament2026 = "Summer Football Tournament 2026";
+  static const String ageGroupUnder12_16 = "Age Group:Under 12 - 16";
+  static const String viewDetails = "View Details";
+  static const String top10GoalsWeek24 = "Top 10 Goals: Week 24";
+  static const String threeHourAgoEngOriginal = "3h ago • ENG Original";
+  static const String duration7m = "7m";
 
 
 }
