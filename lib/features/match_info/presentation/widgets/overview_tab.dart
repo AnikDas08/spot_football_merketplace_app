@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:untitled/component/image/common_image.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
@@ -110,7 +111,7 @@ class OverviewTab extends StatelessWidget {
           // Formation Setup
           Container(
             decoration: BoxDecoration(
-              color: AppColors.white,
+
               borderRadius: BorderRadius.circular(12.r),
               boxShadow: [
                 BoxShadow(
@@ -160,7 +161,7 @@ class OverviewTab extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12.r),
                             child: SvgPicture.asset(
-                              AppImages.stadium,
+                             AppImages.stadium,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -227,7 +228,6 @@ class _SectionCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.white,
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(

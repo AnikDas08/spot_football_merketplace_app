@@ -50,6 +50,8 @@ class AppIcons {
   static const startFourPoint = "$baseurl/star_four_point.svg";
   static const String filterSvg = "$baseurl/filter_svg.svg";
   static const String myChildrenSvg = "$baseurl/my_children.svg";
+  static const String league = "$baseurl/league.svg";
+
 
 
 }
