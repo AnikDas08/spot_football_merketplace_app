@@ -26,10 +26,7 @@ class AppIcons {
   static const String pro= '$baseurl/pro.svg';
   static const String card= '$baseurl/card.svg';
   static const String star= '$baseurl/star.svg';
-
-
-
-
+  static const String stadium = '$baseurl/stadium.svg';
 
   // added by ajijul
   static const String notification = '$baseurl/notification_inactive.svg';
@@ -53,6 +50,8 @@ class AppIcons {
   static const startFourPoint = "$baseurl/star_four_point.svg";
   static const String filterSvg = "$baseurl/filter_svg.svg";
   static const String myChildrenSvg = "$baseurl/my_children.svg";
+  static const String league = "$baseurl/league.svg";
+
 
 
 }

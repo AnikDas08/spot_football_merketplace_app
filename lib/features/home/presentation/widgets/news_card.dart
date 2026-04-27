@@ -9,47 +9,86 @@ import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_images.dart';
 
+import 'package:untitled/component/image/common_image.dart';
+
 class NewsCard extends StatelessWidget {
-  const NewsCard({super.key});
+  final String? imagePath;
+  final String? title;
+  final String? subTitle;
+  final double? width;
+  final double? height;
+
+  const NewsCard({
+    super.key,
+    this.imagePath,
+    this.title,
+    this.subTitle,
+    this.width,
+    this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         Get.toNamed(AppRoutes.newsDetails);
       },
-      child: Card(
-        color: AppColors.white,
-        child: Container(
-          padding: .all(10),
-          child: Row(
-            crossAxisAlignment: .start,
-            spacing: 10,
-            children: [
-              Image.asset(TempImage.news),
-              Expanded(
+      child: Container(
+        width: width ?? double.infinity,
+        height: height ?? 248.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Stack(
+          children: [
+            CommonImage(
+              imageSrc: imagePath ?? TempImage.news,
+              width: .infinity,
+              height: .infinity,
+              fill: BoxFit.cover,
+              borderRadius: 12.r,
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: EdgeInsets.all(12.r),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.8),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
                 child: Column(
-                  crossAxisAlignment: .start,
-                  mainAxisAlignment: .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     CommonText(
-                      text: AppString.feature,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight(590),
+                      text: title ?? AppString.feature,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.white,
                     ),
+                    SizedBox(height: 4.h),
                     CommonText(
-                      textAlign: .start,
+                      text: subTitle ?? AppString.engCommunityAcademyStarOfTheWeek,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white,
                       maxLines: 2,
-                      text:
-                      AppString.engCommunityAcademyStarOfTheWeek,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight(510),
+                      textAlign: TextAlign.start,
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

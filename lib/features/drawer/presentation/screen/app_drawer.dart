@@ -34,12 +34,25 @@ class AppDrawer extends StatelessWidget {
                 label: AppString.editProfile,
                 onTap: () => Get.toNamed(AppRoutes.editProfile),
               ),
+              _buildMenuItem(
+                icon: AppIcons
+                    .league, // Using pro icon for league tables as a placeholder if no specific icon exists
+                label: "League Tables",
+                onTap: () => Get.toNamed(AppRoutes.leagueTable),
+              ),
+              if (role == "Referee") ...[
+                _buildMenuItem(
+                  icon: AppIcons.myChildrenSvg, // Using a suitable placeholder icon
+                  label: "Referee Dashboard",
+                  onTap: () => Get.toNamed(AppRoutes.referee_dashboard_screen),
+                ),
+              ],
               if (role == "Player") ...[
                 _buildMenuItem(
-                icon: AppIcons.myChildrenSvg,
-                label: AppString.myPlayer,
-                onTap: () => Get.toNamed(AppRoutes.myChildren),
-              ),
+                  icon: AppIcons.myChildrenSvg,
+                  label: AppString.myPlayer,
+                  onTap: () => Get.toNamed(AppRoutes.myChildren),
+                ),
                 _buildMenuItem(
                   icon: AppIcons.rewards,
                   label: AppString.rewardsRedemption,
@@ -114,7 +127,9 @@ class AppDrawer extends StatelessWidget {
         ),
         SizedBox(height: 4.h),
         CommonText(
-          text: LocalStorage.myEmail.isEmpty ? 'user@gmail.com' : LocalStorage.myEmail,
+          text: LocalStorage.myEmail.isEmpty
+              ? 'user@gmail.com'
+              : LocalStorage.myEmail,
           fontSize: 13,
           fontWeight: FontWeight.w400,
           color: AppColors.textSecondaryColor,

@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/component/image/common_image.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
-import '../../../../utils/constants/app_images.dart';
 
 class LatestVideoCard extends StatelessWidget {
-  const LatestVideoCard({super.key});
+  final String imagePath;
+  final String title;
+  final String time;
+  final String duration;
+  final double? width;
+  final double? imageHeight;
+  final double? titleFontSize;
+  final double? timeFontSize;
+
+  const LatestVideoCard({
+    super.key,
+    required this.imagePath,
+    required this.title,
+    required this.time,
+    required this.duration,
+    this.width,
+    this.imageHeight,
+    this.titleFontSize,
+    this.timeFontSize,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,61 +36,81 @@ class LatestVideoCard extends StatelessWidget {
       onTap: () {
         Get.toNamed(AppRoutes.videoStreamScreen);
       },
-      child: Card(
-        color: AppColors.white,
+      child: ClipRRect(
+        borderRadius: .circular(8.r),
+
         child: Container(
-          padding: .all(10),
-          child: Row(
-            crossAxisAlignment: .start,
-            spacing: 10,
+          color: AppColors.white.withAlpha(200),
+          width: width ?? 170.w,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
-                alignment: .bottomLeft,
+                alignment: Alignment.center,
                 children: [
-                  Image.asset(TempImage.videoThumbnail),
+                  CommonImage(
+                    imageSrc: imagePath,
+                    width: width ?? MediaQuery.of(context).size.width,
+                    height: imageHeight ?? 220.h,
+                    fill: BoxFit.cover,
+                    borderRadius: 5,
+                  ),
+                  Container(
+                    width: 40.w,
+                    height: 40.w,
+                    decoration: const BoxDecoration(
+                      color: AppColors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.play_arrow_rounded,
+                      size: 20,
+                      color: AppColors.black,
+                    ),
+                  ),
                   Positioned(
+                    bottom: 12.h,
+                    right: 12.w,
                     child: Container(
-                      padding: .all(2),
-                      width: 50.w,
-                      height: 20.h,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
-                        borderRadius: .only(
-                          topRight: .circular(5.37.r),
-                          bottomLeft: .circular(6.71.r),
-                        ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                        vertical: 4.h,
                       ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.play_arrow,
-                            color: AppColors.white,
-                            size: 18,
-                          ),
-                          CommonText(
-                            text: "01:52",
-                            color: AppColors.white,
-                            fontSize: 8.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ],
+                      decoration: BoxDecoration(
+                        color: AppColors.black.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(6.r),
+                      ),
+                      child: CommonText(
+                        text: duration,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.white,
                       ),
                     ),
                   ),
                 ],
               ),
-              Expanded(
+
+              Padding(
+                padding: const EdgeInsets.all(6.0),
                 child: Column(
-                  crossAxisAlignment: .center,
-                  mainAxisAlignment: .center,
+                  crossAxisAlignment: .start,
                   children: [
-                    SizedBox(height: 10.h),
                     CommonText(
                       textAlign: .start,
-                      maxLines: 2,
-                      text: AppString.thingsYouMayHaveMissedFromMatchweek20,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight(510),
+                      text: title,
+                      fontSize: titleFontSize ?? 14.sp,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.black,
+                      maxLines: 1,
+                    ),
+                    SizedBox(height: 2.h),
+                    CommonText(
+                      textAlign: .start,
+                      text: time,
+                      fontSize: timeFontSize ?? 10.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.color6B6B6B,
                     ),
                   ],
                 ),

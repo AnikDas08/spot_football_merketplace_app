@@ -13,21 +13,32 @@ class LatestNews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: .start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CommonText(
             text: AppString.latestNews.toUpperCase(),
             fontSize: 20.sp,
-            fontWeight: FontWeight(590),
+            fontWeight: FontWeight.w600,
           ),
         ),
-        ListView(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          padding: .symmetric(horizontal: 16),
-          children: [NewsCard(), NewsCard(), NewsCard(), NewsCard()],
+        SizedBox(height: 16.h),
+        SizedBox(
+          height: 248.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5,
+            padding: EdgeInsets.only(left: 16.w),
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(right: 12.w),
+                child: NewsCard(
+                  width: 230.w,
+                ),
+              );
+            },
+          ),
         ),
       ],
     );

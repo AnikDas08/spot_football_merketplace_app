@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/services/storage/storage_keys.dart';
 import 'package:untitled/services/storage/storage_services.dart';
+import 'package:untitled/utils/constants/app_images.dart';
 import '../../../../../../../config/route/app_routes.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../component/button/common_button.dart';
@@ -35,12 +36,13 @@ class SelectRole extends StatelessWidget {
               ),
               const CommonText(
                 text:
-                    'Please Select One Of The Following Which Applies To You...',
+                    'Please Select One Of The Following Which Applies To You - All Registrations Pending ENG Admin Approval',
                 fontSize: 14,
-                maxLines: 2,
+                maxLines: 3,
                 fontWeight: FontWeight.w400,
                 color: AppColors.color6B6B6B,
                 bottom: 24,
+                textAlign: TextAlign.start,
               ),
 
               // --- Player Selection ---
@@ -48,7 +50,7 @@ class SelectRole extends StatelessWidget {
                 () => _RoleCard(
                   title: 'PLAYER',
                   subtitle: 'Register For A Club For The\n26/27 Season',
-                  icon: Icons.person_outline,
+                  imagePath: AppImages.appLogo,
                   iconColor: const Color(0xFF19CA77),
                   isSelected: controller.selectedRole.value == 1,
                   onTap: () => controller.selectRole(1),
@@ -62,8 +64,8 @@ class SelectRole extends StatelessWidget {
                 () => _RoleCard(
                   title: 'FIND A TEAM (TRIAL)',
                   subtitle: 'Create a profile and get\ndiscovered by clubs',
-                  icon: Icons.person_outline,
-                  iconColor: const Color(0xFFEABB00),
+                  imagePath: AppImages.appLogo,
+                  iconColor: const Color(0xFF131B6A),
                   isSelected: controller.selectedRole.value == 3,
                   onTap: () => controller.selectRole(3),
                 ),
@@ -76,10 +78,24 @@ class SelectRole extends StatelessWidget {
                 () => _RoleCard(
                   title: 'MANAGER',
                   subtitle: 'Manage team & transfers',
-                  icon: Icons.business_center_outlined,
-                  iconColor: const Color(0xFFF06292),
+                  imagePath: AppImages.appLogo,
+                  iconColor: const Color(0xFFFF0000),
                   isSelected: controller.selectedRole.value == 2,
                   onTap: () => controller.selectRole(2),
+                ),
+              ),
+
+              SizedBox(height: 16.h),
+
+              // --- Referee Selection ---
+              Obx(
+                () => _RoleCard(
+                  title: 'REFEREE',
+                  subtitle: 'Manage match reporting, disciplinary actions, and earn certifications within the global officiating network.',
+                  imagePath: AppImages.appLogo,
+                  iconColor: const Color(0xFFEABB00),
+                  isSelected: controller.selectedRole.value == 4,
+                  onTap: () => controller.selectRole(4),
                 ),
               ),
 
@@ -97,10 +113,11 @@ class SelectRole extends StatelessWidget {
                     } else if (controller.selectedRole.value == 3) {
                       Get.toNamed(AppRoutes.trial_registration_screen);
                     } else if (controller.selectedRole.value == 2) {
-
                       LocalStorage.setString(LocalStorageKeys.role,"Manager");
-
                       Get.toNamed(AppRoutes.manager_subscription_screen);
+                    } else if (controller.selectedRole.value == 4) {
+                      LocalStorage.setString(LocalStorageKeys.role, "Referee");
+                      Get.toNamed(AppRoutes.referee_info_screen); // Adjust if there's a specific referee reg screen
                     } else {
                       Get.snackbar(
                         "Selection Required",
@@ -138,7 +155,7 @@ class SelectRole extends StatelessWidget {
 class _RoleCard extends StatelessWidget {
   final String title;
   final String subtitle;
-  final IconData icon;
+  final String? imagePath;
   final Color iconColor;
   final bool isSelected;
   final VoidCallback onTap;
@@ -146,7 +163,7 @@ class _RoleCard extends StatelessWidget {
   const _RoleCard({
     required this.title,
     required this.subtitle,
-    required this.icon,
+    this.imagePath,
     required this.iconColor,
     required this.isSelected,
     required this.onTap,
@@ -181,10 +198,18 @@ class _RoleCard extends StatelessWidget {
               width: 60.w,
               height: 60.h,
               decoration: BoxDecoration(
-                color: const Color(0xFF373737),
+                color: iconColor,
                 borderRadius: BorderRadius.circular(8.r),
               ),
-              child: Icon(icon, color: iconColor, size: 30.sp),
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(8.r),
+                  child: Image.asset(
+                    imagePath ?? AppImages.appLogo,
+                    color: AppColors.white,
+                  ),
+                ),
+              ),
             ),
             SizedBox(width: 16.w),
             // Text content
@@ -203,7 +228,8 @@ class _RoleCard extends StatelessWidget {
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
                     color: AppColors.color6B6B6B,
-                    maxLines: 2,
+                    maxLines: 4,
+                    textAlign: TextAlign.start,
                   ),
                 ],
               ),
