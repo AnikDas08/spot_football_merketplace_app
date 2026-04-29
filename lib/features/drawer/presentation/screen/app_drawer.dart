@@ -71,6 +71,11 @@ class AppDrawer extends StatelessWidget {
                   onTap: () => Get.toNamed(AppRoutes.myChildren),
                 ),
                 _buildMenuItem(
+                  icon: AppIcons.pro,
+                  label: "Team Sheet",
+                  onTap: () => Get.toNamed(AppRoutes.team_sheet_screen),
+                ),
+                _buildMenuItem(
                   icon: AppIcons.transferHistory,
                   label: AppString.myTransfersHistory,
                   onTap: () => Get.toNamed(AppRoutes.transfer_request_screen),
