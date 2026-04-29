@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,9 +21,12 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
   String selectedFormation = '4-3-3 Attacking';
 
   final List<String> teams = ['United FC', 'Madrid Kings', 'London Lions'];
-  final List<String> formations = ['4-3-3 Attacking', '3-3-4 Formation', '4-4-2 Defensive'];
+  final List<String> formations = [
+    '4-3-3 Attacking',
+    '3-3-4 Formation',
+    '4-4-2 Defensive',
+  ];
 
-  // Mock player data for roster
   final List<Map<String, String>> roster = [
     {'name': 'James', 'initial': 'J', 'pos': 'ST'},
     {'name': 'David', 'initial': 'D', 'pos': 'ST'},
@@ -37,11 +41,8 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
     {'name': 'Leo', 'initial': 'L', 'pos': 'ST'},
   ];
 
-  // Current lineup: formationKey -> slotIndex -> PlayerData
-  // We'll simplify: just one lineup for the current screen state
   Map<int, Map<String, String>?> currentLineup = {};
 
-  // Substitutes: slotIndex -> PlayerData
   Map<int, Map<String, String>?> substitutes = {
     0: null,
     1: null,
@@ -52,11 +53,10 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize with some dummy assignments matching the visual from previous state
     currentLineup = {
       1: {'name': 'James', 'initial': 'J', 'pos': 'ST'},
       2: {'name': 'David', 'initial': 'D', 'pos': 'ST'},
-      6: {'name': 'Tom', 'initial': 'T', 'pos': 'CM'},
+      4: {'name': 'Tom', 'initial': 'T', 'pos': 'CM'},
       7: {'name': 'Tom', 'initial': 'T', 'pos': 'CB'},
     };
   }
@@ -136,7 +136,6 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
                             _buildDropdown(selectedFormation, formations, (val) {
                               setState(() {
                                 selectedFormation = val!;
-                                // Reset lineup on formation change to avoid index mismatches
                                 currentLineup.clear();
                               });
                             }),
@@ -325,27 +324,27 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: 48.w,
-            height: 48.w,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isEmpty ? Colors.white.withOpacity(0.2) : const Color(0xFFF57C00),
-              border: Border.all(
-                color: Colors.white,
-                width: 1.5,
+          CustomPaint(
+            painter: isEmpty ? DashedCirclePainter(color: Colors.white) : null,
+            child: Container(
+              width: 48.w,
+              height: 48.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isEmpty ? Colors.white.withOpacity(0.2) : const Color(0xFFF57C00),
+                border: isEmpty ? null : Border.all(color: Colors.white, width: 1.5),
               ),
-            ),
-            child: isEmpty
-                ? const Icon(Icons.add, color: Colors.white, size: 22)
-                : Center(
-                    child: CommonText(
-                      text: initial,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
+              child: isEmpty
+                  ? const Icon(Icons.add, color: Colors.white, size: 22)
+                  : Center(
+                      child: CommonText(
+                        text: initial,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
+            ),
           ),
           SizedBox(height: 4.h),
           CommonText(
@@ -368,54 +367,62 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
 
   Widget _buildSubstitutesList() {
     final List<String> subPos = ['ST', 'CM', 'CB', 'GK'];
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(subPos.length, (index) {
-          final playerData = substitutes[index];
-          return GestureDetector(
-            onTap: () => _showPlayerSelection(subPos[index], isSub: true, index: index),
-            child: Container(
-              margin: EdgeInsets.only(right: 12.w),
-              width: 80.w,
-              height: 90.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (playerData == null) ...[
-                    const Icon(Icons.add, color: Colors.black54, size: 24),
-                    SizedBox(height: 4.h),
-                    CommonText(text: subPos[index], fontSize: 13.sp, fontWeight: FontWeight.w700),
-                  ] else ...[
-                    CircleAvatar(
-                      radius: 18.r,
-                      backgroundColor: const Color(0xFFF57C00),
-                      child: CommonText(
-                        text: playerData['initial']!,
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    SizedBox(height: 4.h),
-                    CommonText(
-                      text: playerData['name']!,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w700,
-                      maxLines: 1,
-                    ),
-                    CommonText(text: playerData['pos']!, fontSize: 10.sp, color: Colors.grey),
-                  ],
-                ],
-              ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(subPos.length, (index) {
+        final playerData = substitutes[index];
+        return GestureDetector(
+          onTap: () => _showPlayerSelection(subPos[index], isSub: true, index: index),
+          child: Container(
+            width: (MediaQuery.of(context).size.width - 32.w - 36.w) / 4,
+            height: 100.h,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12.r),
             ),
-          );
-        }),
-      ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (playerData == null) ...[
+                  CustomPaint(
+                    painter: DashedCirclePainter(color: Colors.grey.shade400),
+                    child: Container(
+                      width: 40.w,
+                      height: 40.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey.shade100,
+                      ),
+                      child: const Icon(Icons.add, color: Colors.black54, size: 20),
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  CommonText(text: subPos[index], fontSize: 13.sp, fontWeight: FontWeight.w700),
+                ] else ...[
+                  CircleAvatar(
+                    radius: 18.r,
+                    backgroundColor: const Color(0xFFF57C00),
+                    child: CommonText(
+                      text: playerData['initial']!,
+                      color: Colors.white,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
+                  CommonText(
+                    text: playerData['name']!,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w700,
+                    maxLines: 1,
+                  ),
+                  CommonText(text: playerData['pos']!, fontSize: 10.sp, color: Colors.grey),
+                ],
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 
@@ -438,9 +445,7 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,
           foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
           elevation: 0,
         ),
         child: CommonText(
@@ -468,11 +473,7 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CommonText(
-                  text: 'Select Player for $position',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+                CommonText(text: 'Select Player for $position', fontSize: 18.sp, fontWeight: FontWeight.w700),
                 IconButton(
                   onPressed: () => Get.back(),
                   icon: const Icon(Icons.close),
@@ -492,24 +493,10 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
                     contentPadding: EdgeInsets.symmetric(vertical: 4.h),
                     leading: CircleAvatar(
                       backgroundColor: AppColors.iconBgYellow,
-                      child: CommonText(
-                        text: roster[i]['initial']!,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87,
-                      ),
+                      child: CommonText(text: roster[i]['initial']!, fontWeight: FontWeight.w700, color: Colors.black87),
                     ),
-                    title: CommonText(
-                      text: roster[i]['name']!,
-                      textAlign: TextAlign.start,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15.sp,
-                    ),
-                    subtitle: CommonText(
-                      text: 'Position: ${roster[i]['pos']}',
-                      textAlign: TextAlign.start,
-                      fontSize: 12.sp,
-                      color: Colors.grey,
-                    ),
+                    title: CommonText(text: roster[i]['name']!, textAlign: TextAlign.start, fontWeight: FontWeight.w600, fontSize: 15.sp),
+                    subtitle: CommonText(text: 'Position: ${roster[i]['pos']}', textAlign: TextAlign.start, fontSize: 12.sp, color: Colors.grey),
                     onTap: () {
                       setState(() {
                         if (isSub) {
@@ -530,4 +517,48 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
       isScrollControlled: true,
     );
   }
+}
+
+class DashedCirclePainter extends CustomPainter {
+  final Color color;
+  final double strokeWidth;
+  final double dashWidth;
+  final double dashSpace;
+
+  DashedCirclePainter({
+    required this.color,
+    this.strokeWidth = 1.5,
+    this.dashWidth = 4,
+    this.dashSpace = 3,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = color
+      ..strokeWidth = strokeWidth
+      ..style = PaintingStyle.stroke;
+
+    final double radius = size.width / 2;
+    final Offset center = Offset(size.width / 2, size.height / 2);
+
+    double currentAngle = 0;
+    final double totalLength = 2 * pi * radius;
+    final double angleStep = (dashWidth + dashSpace) / totalLength * 2 * pi;
+    final double dashAngle = dashWidth / totalLength * 2 * pi;
+
+    while (currentAngle < 2 * pi) {
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius),
+        currentAngle,
+        dashAngle,
+        false,
+        paint,
+      );
+      currentAngle += angleStep;
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
