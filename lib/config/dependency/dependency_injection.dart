@@ -23,6 +23,7 @@ import '../../features/setting/presentation/controller/setting_controller.dart';
 import '../../features/setting/presentation/controller/terms_of_services_controller.dart';
 import '../../features/stats_flow/presentation/controller/add_player_controller.dart';
 import '../../features/transferms/presentation/controller/transfer_form_controller.dart';
+import '../../features/transferms/presentation/controller/transfer_request_controller.dart';
 
 class DependencyInjection extends Bindings {
   @override
@@ -41,6 +42,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => BannerController(), fenix: true);
     Get.lazyPut(() => NavBarController(), fenix: true);
     Get.lazyPut(() => TransferFormController(), fenix: true);
+    Get.lazyPut(() => TransferRequestController(), fenix: true);
     Get.lazyPut(() => TabsController(), fenix: true);
     Get.lazyPut(() => AddPlayerController(), fenix: true);
     Get.lazyPut(() => VideoStreamController(), fenix: true);

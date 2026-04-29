@@ -139,7 +139,7 @@ class AppString {
 
   //drawer added by ajijul
 
-  static const String myTransfersHistory = 'My Transfers History';
+  static const String myTransfersHistory = 'Transfers Request';
   static const String logout = 'Logout';
 
   // news details page added by ajijul

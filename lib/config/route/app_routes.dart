@@ -1,3 +1,5 @@
+import 'package:untitled/features/team_sheet/presentation/screen/team_sheet_screen.dart';
+import 'package:untitled/features/transferms/presentation/screen/transfer_request_screen.dart';
 import 'package:untitled/features/live_match_control/presentation/screen/record_goal_screen.dart';
 import 'package:untitled/features/live_match_control/presentation/screen/live_match_control_screen.dart';
 import 'package:untitled/features/referee_dashboard/presentation/screen/referee_dashboard_screen.dart';
@@ -100,6 +102,8 @@ class AppRoutes {
   static const String referee_dashboard_screen = '/referee_dashboard_screen';
   static const String live_match_control_screen = '/live_match_control_screen';
   static const String record_goal_screen = '/record_goal_screen';
+  static const String transfer_request_screen = '/transfer_request_screen';
+  static const String team_sheet_screen = '/team_sheet_screen';
 
   static List<GetPage<String>> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -165,6 +169,7 @@ class AppRoutes {
     GetPage(name: playerProfileDetailsScreen, page: () => const PlayerProfileDetailsScreen()),
     GetPage(name: live_match_control_screen, page: () => const LiveMatchControlScreen()),
     GetPage(name: record_goal_screen, page: () => const RecordGoalScreen()),
-
+    GetPage(name: transfer_request_screen, page: () => const TransferRequestScreen()),
+    GetPage(name: team_sheet_screen, page: () => const TeamSheetScreen()),
   ];
 }

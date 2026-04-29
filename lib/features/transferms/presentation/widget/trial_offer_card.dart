@@ -24,7 +24,6 @@ class TrialOfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 16),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFF),

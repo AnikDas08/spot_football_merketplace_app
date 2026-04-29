@@ -23,21 +23,24 @@ class TransferScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: ClampingScrollPhysics(),
-          padding: EdgeInsets.only(top: 28.h, left: 16.h, bottom: 28.h),
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CommonText(
-                text:AppString.trending.toUpperCase(),
-                color: AppColors.primaryColor,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.only(left: 16,right: 16,top: 16,),
+                child: CommonText(
+                  text:AppString.trending.toUpperCase(),
+                  color: AppColors.primaryColor,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               SizedBox(height: 20.h),
               SizedBox(
                 height: 200.h,
                 child: ListView.builder(
+                  padding: .symmetric(horizontal: 16),
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                   itemBuilder: (context, index) {
@@ -60,15 +63,19 @@ class TransferScreen extends StatelessWidget {
 
               SizedBox(height: 32.h),
 
-              CommonText(
-                text: AppString.recentOffers.toUpperCase(),
-                color: AppColors.primaryColor,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.only(left: 16,right: 16,top: 0,),
+                child: CommonText(
+                  text: AppString.recentOffers.toUpperCase(),
+                  color: AppColors.primaryColor,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               SizedBox(height: 16.h),
 
               ListView.builder(
+                padding: .symmetric(horizontal: 16),
                 itemCount: 10,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),

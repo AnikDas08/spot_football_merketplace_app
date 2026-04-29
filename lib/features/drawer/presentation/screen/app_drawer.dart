@@ -66,9 +66,19 @@ class AppDrawer extends StatelessWidget {
               ],
               if (role == "Manager") ...[
                 _buildMenuItem(
+                  icon: AppIcons.myChildrenSvg,
+                  label: AppString.myPlayer,
+                  onTap: () => Get.toNamed(AppRoutes.myChildren),
+                ),
+                _buildMenuItem(
+                  icon: AppIcons.pro,
+                  label: "Team Sheet",
+                  onTap: () => Get.toNamed(AppRoutes.team_sheet_screen),
+                ),
+                _buildMenuItem(
                   icon: AppIcons.transferHistory,
                   label: AppString.myTransfersHistory,
-                  onTap: () => Get.toNamed(AppRoutes.transferHistoryScreen),
+                  onTap: () => Get.toNamed(AppRoutes.transfer_request_screen),
                 ),
               ],
               _buildMenuItem(
@@ -201,8 +211,26 @@ class AppDrawer extends StatelessWidget {
       width: double.infinity,
       height: 52.h,
       child: ElevatedButton.icon(
-        onPressed: () async {
-          await LocalStorage.removeAllPrefData();
+        onPressed: () {
+          Get.dialog(
+            AlertDialog(
+              title: const Text('Logout'),
+              content: const Text('Are you sure you want to logout?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Get.back(),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    await LocalStorage.removeAllPrefData();
+                    Get.offAllNamed(AppRoutes.signIn);
+                  },
+                  child: const Text('Logout', style: TextStyle(color: Colors.red)),
+                ),
+              ],
+            ),
+          );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.logoutRed,
