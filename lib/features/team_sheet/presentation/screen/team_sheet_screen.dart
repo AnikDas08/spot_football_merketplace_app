@@ -8,95 +8,22 @@ import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
+import '../controller/team_sheet_controller.dart';
 
-class TeamSheetScreen extends StatefulWidget {
+class TeamSheetScreen extends StatelessWidget {
   const TeamSheetScreen({super.key});
 
   @override
-  State<TeamSheetScreen> createState() => _TeamSheetScreenState();
-}
-
-class _TeamSheetScreenState extends State<TeamSheetScreen> {
-  String selectedTeam = 'United FC';
-  String selectedFormation = '4-3-3 Attacking';
-
-  final List<String> teams = ['United FC', 'Madrid Kings', 'London Lions'];
-  final List<String> formations = [
-    '4-3-3 Attacking',
-    '3-3-4 Formation',
-    '4-4-2 Defensive',
-  ];
-
-  final List<Map<String, String>> roster = [
-    {'name': 'James', 'initial': 'J', 'pos': 'ST'},
-    {'name': 'David', 'initial': 'D', 'pos': 'ST'},
-    {'name': 'Tom', 'initial': 'T', 'pos': 'CM'},
-    {'name': 'Chris', 'initial': 'C', 'pos': 'CM'},
-    {'name': 'Marcus', 'initial': 'M', 'pos': 'ST'},
-    {'name': 'Ryan', 'initial': 'R', 'pos': 'CM'},
-    {'name': 'Ben', 'initial': 'B', 'pos': 'CB'},
-    {'name': 'Jake', 'initial': 'J', 'pos': 'CB'},
-    {'name': 'Mike', 'initial': 'M', 'pos': 'GK'},
-    {'name': 'Alex', 'initial': 'A', 'pos': 'CM'},
-    {'name': 'Leo', 'initial': 'L', 'pos': 'ST'},
-  ];
-
-  Map<int, Map<String, String>?> currentLineup = {};
-
-  Map<int, Map<String, String>?> substitutes = {
-    0: null,
-    1: null,
-    2: null,
-    3: null,
-  };
-
-  @override
-  void initState() {
-    super.initState();
-    currentLineup = {
-      1: {'name': 'James', 'initial': 'J', 'pos': 'ST'},
-      2: {'name': 'David', 'initial': 'D', 'pos': 'ST'},
-      4: {'name': 'Tom', 'initial': 'T', 'pos': 'CM'},
-      7: {'name': 'Tom', 'initial': 'T', 'pos': 'CB'},
-    };
-  }
-
-  List<List<String>> getFormationLayout(String formation) {
-    switch (formation) {
-      case '3-3-4 Formation':
-        return [
-          ['ST', 'ST', 'ST', 'ST'],
-          ['CM', 'CM', 'CM'],
-          ['CB', 'CB', 'CB'],
-          ['GK'],
-        ];
-      case '4-4-2 Defensive':
-        return [
-          ['ST', 'ST'],
-          ['CM', 'CM', 'CM', 'CM'],
-          ['CB', 'CB', 'CB', 'CB'],
-          ['GK'],
-        ];
-      case '4-3-3 Attacking':
-      default:
-        return [
-          ['ST', 'ST', 'ST'],
-          ['CM', 'CM', 'CM'],
-          ['CB', 'CB', 'CB', 'CB'],
-          ['GK'],
-        ];
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final controller = Get.put(TeamSheetController());
+
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
       appBar: const SecondaryAppBar(title: 'TEAM SHEET'),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _buildHeroBanner(),
+            Obx(() => _buildHeroBanner(controller)),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
@@ -115,9 +42,10 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
                               color: Colors.black87,
                             ),
                             SizedBox(height: 8.h),
-                            _buildDropdown(selectedTeam, teams, (val) {
-                              setState(() => selectedTeam = val!);
-                            }),
+                            Obx(() => _buildDropdown(
+                                controller.selectedTeam.value,
+                                controller.teams,
+                                (val) => controller.updateTeam(val!))),
                           ],
                         ),
                       ),
@@ -133,19 +61,17 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
                               color: Colors.black87,
                             ),
                             SizedBox(height: 8.h),
-                            _buildDropdown(selectedFormation, formations, (val) {
-                              setState(() {
-                                selectedFormation = val!;
-                                currentLineup.clear();
-                              });
-                            }),
+                            Obx(() => _buildDropdown(
+                                controller.selectedFormation.value,
+                                controller.formations,
+                                (val) => controller.updateFormation(val!))),
                           ],
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 24.h),
-                  _buildFormationCard(),
+                  Obx(() => _buildFormationCard(controller)),
                   SizedBox(height: 24.h),
                   CommonText(
                     text: 'SUBSTITUTES',
@@ -153,9 +79,9 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
                     fontWeight: FontWeight.w700,
                   ),
                   SizedBox(height: 16.h),
-                  _buildSubstitutesList(),
+                  Obx(() => _buildSubstitutesList(context, controller)),
                   SizedBox(height: 32.h),
-                  _buildConfirmButton(),
+                  _buildConfirmButton(controller),
                   SizedBox(height: 24.h),
                 ],
               ),
@@ -166,7 +92,7 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
     );
   }
 
-  Widget _buildHeroBanner() {
+  Widget _buildHeroBanner(TeamSheetController controller) {
     return Container(
       width: double.infinity,
       height: 180.h,
@@ -199,7 +125,7 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
               color: Colors.white70,
             ),
             CommonText(
-              text: selectedFormation,
+              text: controller.selectedFormation.value,
               fontSize: 22.sp,
               fontWeight: FontWeight.w700,
               color: Colors.white,
@@ -234,8 +160,8 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
     );
   }
 
-  Widget _buildFormationCard() {
-    final layout = getFormationLayout(selectedFormation);
+  Widget _buildFormationCard(TeamSheetController controller) {
+    final layout = controller.getFormationLayout();
     int globalIndex = 0;
 
     return Container(
@@ -266,7 +192,7 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
                   color: Colors.white,
                 ),
                 CommonText(
-                  text: selectedFormation,
+                  text: controller.selectedFormation.value,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
@@ -296,12 +222,12 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: row.map((pos) {
                           final currentIndex = globalIndex++;
-                          final playerData = currentLineup[currentIndex];
+                          final playerData = controller.currentLineup[currentIndex];
                           return _buildPlayerNode(
                             playerData?['initial'],
                             pos,
                             name: playerData?['name'],
-                            onTap: () => _showPlayerSelection(pos, index: currentIndex),
+                            onTap: () => _showPlayerSelection(controller, pos, index: currentIndex),
                           );
                         }).toList(),
                       );
@@ -365,14 +291,14 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
     );
   }
 
-  Widget _buildSubstitutesList() {
+  Widget _buildSubstitutesList(BuildContext context, TeamSheetController controller) {
     final List<String> subPos = ['ST', 'CM', 'CB', 'GK'];
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(subPos.length, (index) {
-        final playerData = substitutes[index];
+        final playerData = controller.substitutes[index];
         return GestureDetector(
-          onTap: () => _showPlayerSelection(subPos[index], isSub: true, index: index),
+          onTap: () => _showPlayerSelection(controller, subPos[index], isSub: true, index: index),
           child: Container(
             width: (MediaQuery.of(context).size.width - 32.w - 36.w) / 4,
             height: 100.h,
@@ -426,22 +352,13 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
     );
   }
 
-  Widget _buildConfirmButton() {
+  Widget _buildConfirmButton(TeamSheetController controller) {
     return Container(
       width: double.infinity,
       height: 54.h,
       margin: EdgeInsets.only(bottom: 20.h),
       child: ElevatedButton(
-        onPressed: () {
-          Get.snackbar(
-            'Success',
-            'Lineup confirmed successfully!',
-            snackPosition: SnackPosition.TOP,
-            backgroundColor: AppColors.green,
-            colorText: Colors.white,
-            margin: EdgeInsets.all(15.w),
-          );
-        },
+        onPressed: () => controller.confirmLineup(),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,
           foregroundColor: Colors.white,
@@ -458,7 +375,7 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
     );
   }
 
-  void _showPlayerSelection(String position, {bool isSub = false, required int index}) {
+  void _showPlayerSelection(TeamSheetController controller, String position, {bool isSub = false, required int index}) {
     Get.bottomSheet(
       Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
@@ -486,25 +403,19 @@ class _TeamSheetScreenState extends State<TeamSheetScreen> {
             Flexible(
               child: ListView.separated(
                 shrinkWrap: true,
-                itemCount: roster.length,
+                itemCount: controller.roster.length,
                 separatorBuilder: (context, i) => Divider(height: 1.h, color: Colors.grey.withOpacity(0.2)),
                 itemBuilder: (context, i) {
                   return ListTile(
                     contentPadding: EdgeInsets.symmetric(vertical: 4.h),
                     leading: CircleAvatar(
                       backgroundColor: AppColors.iconBgYellow,
-                      child: CommonText(text: roster[i]['initial']!, fontWeight: FontWeight.w700, color: Colors.black87),
+                      child: CommonText(text: controller.roster[i]['initial']!, fontWeight: FontWeight.w700, color: Colors.black87),
                     ),
-                    title: CommonText(text: roster[i]['name']!, textAlign: TextAlign.start, fontWeight: FontWeight.w600, fontSize: 15.sp),
-                    subtitle: CommonText(text: 'Position: ${roster[i]['pos']}', textAlign: TextAlign.start, fontSize: 12.sp, color: Colors.grey),
+                    title: CommonText(text: controller.roster[i]['name']!, textAlign: TextAlign.start, fontWeight: FontWeight.w600, fontSize: 15.sp),
+                    subtitle: CommonText(text: 'Position: ${controller.roster[i]['pos']}', textAlign: TextAlign.start, fontSize: 12.sp, color: Colors.grey),
                     onTap: () {
-                      setState(() {
-                        if (isSub) {
-                          substitutes[index] = roster[i];
-                        } else {
-                          currentLineup[index] = roster[i];
-                        }
-                      });
+                      controller.assignPlayer(index, controller.roster[i], isSub: isSub);
                       Get.back();
                     },
                   );
