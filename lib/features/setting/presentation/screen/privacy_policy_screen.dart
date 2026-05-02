@@ -14,89 +14,91 @@ class PrivacyPolicyScreen extends StatelessWidget {
       appBar: SecondaryAppBar(title: AppString.privacyPolicy),
       body: Padding(
         padding: .all(16),
-        child: Column(
-          children: [
-            Align(
-              child: CommonText(
-                text: AppString.legalProtoCol.toUpperCase(),
-                color: AppColors.primaryColor,
-                fontSize: 32.sp,
-                fontWeight: FontWeight(700),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Align(
+                child: CommonText(
+                  text: AppString.legalProtoCol.toUpperCase(),
+                  color: AppColors.primaryColor,
+                  fontSize: 32.sp,
+                  fontWeight: FontWeight(700),
+                  textAlign: .center,
+                ),
+              ),
+              CommonText(
+                text: AppString.lastUpdatedOctober2024.toUpperCase(),
+                color: AppColors.color6B6B6B,
+                fontSize: 16.sp,
+                fontWeight: FontWeight(510),
                 textAlign: .center,
               ),
-            ),
-            CommonText(
-              text: AppString.lastUpdatedOctober2024.toUpperCase(),
-              color: AppColors.color6B6B6B,
-              fontSize: 16.sp,
-              fontWeight: FontWeight(510),
-              textAlign: .center,
-            ),
-            SizedBox(height: 20.h),
-            Column(
-              crossAxisAlignment: .start,
-              spacing: 10,
-              children: [
-                CommonText(
-                  text: AppString.updateYourCredentials.toUpperCase(),
-                  color: AppColors.primaryColor,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight(700),
-                  textAlign: .center,
-                ),
-                CommonText(
-                  maxLines: 7,
-                  text: AppString.atVoltageAthletic,
-                  color: AppColors.color6B6B6B,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight(400),
-                  textAlign: .start,
-                ),
-                CommonText(
-                  maxLines: 7,
-                  text: AppString.informationCollection,
-                  color: AppColors.color6B6B6B,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight(400),
-                  textAlign: .start,
-                ),
-                CommonText(
-                  text: AppString.usageRight.toUpperCase(),
-                  color: AppColors.primaryColor,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight(700),
-                  textAlign: .center,
-                ),
-                Column(
-                  spacing: 10,
-                  children: [
-                    CommonText(
-                      maxLines: 7,
-                      text: AppString.atVoltageAthletic,
-                      color: AppColors.color6B6B6B,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight(400),
-                      textAlign: .start,
-                    ),  CommonText(
-                      maxLines: 7,
-                      text: AppString.voltageAthletic,
-                      color: AppColors.color6B6B6B,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight(400),
-                      textAlign: .start,
-                    ), CommonText(
-                      maxLines: 7,
-                      text: AppString.informationCollection,
-                      color: AppColors.color6B6B6B,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight(400),
-                      textAlign: .start,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ],
+              SizedBox(height: 20.h),
+              Column(
+                crossAxisAlignment: .start,
+                spacing: 10,
+                children: [
+                  CommonText(
+                    text: AppString.updateYourCredentials.toUpperCase(),
+                    color: AppColors.primaryColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight(700),
+                    textAlign: .center,
+                  ),
+                  CommonText(
+                    maxLines: 7,
+                    text: AppString.atVoltageAthletic,
+                    color: AppColors.color6B6B6B,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight(400),
+                    textAlign: .start,
+                  ),
+                  CommonText(
+                    maxLines: 7,
+                    text: AppString.informationCollection,
+                    color: AppColors.color6B6B6B,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight(400),
+                    textAlign: .start,
+                  ),
+                  CommonText(
+                    text: AppString.usageRight.toUpperCase(),
+                    color: AppColors.primaryColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight(700),
+                    textAlign: .center,
+                  ),
+                  Column(
+                    spacing: 10,
+                    children: [
+                      CommonText(
+                        maxLines: 7,
+                        text: AppString.atVoltageAthletic,
+                        color: AppColors.color6B6B6B,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight(400),
+                        textAlign: .start,
+                      ),  CommonText(
+                        maxLines: 7,
+                        text: AppString.voltageAthletic,
+                        color: AppColors.color6B6B6B,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight(400),
+                        textAlign: .start,
+                      ), CommonText(
+                        maxLines: 7,
+                        text: AppString.informationCollection,
+                        color: AppColors.color6B6B6B,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight(400),
+                        textAlign: .start,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

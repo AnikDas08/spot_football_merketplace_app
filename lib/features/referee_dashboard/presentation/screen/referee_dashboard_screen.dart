@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/common_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/services/storage/storage_services.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
+import 'package:untitled/utils/extensions/extension.dart';
 
 class RefereeDashboardScreen extends StatefulWidget {
   const RefereeDashboardScreen({super.key});
@@ -41,9 +41,13 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                       SizedBox(height: 16.h),
                       _buildMatchCard(isLive: false),
                     ] else if (activeTabIndex == 1) ...[
-                      const Center(child: CommonText(text: 'No Upcoming Matches')),
+                      const Center(
+                        child: CommonText(text: 'No Upcoming Matches'),
+                      ),
                     ] else ...[
-                      const Center(child: CommonText(text: 'No History Available')),
+                      const Center(
+                        child: CommonText(text: 'No History Available'),
+                      ),
                     ],
                   ],
                 ),
@@ -57,11 +61,28 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
 
   Widget _buildProfileHeader() {
     return Container(
-      color: AppColors.primaryColor,      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 50.h,bottom: 16.h),
+      color: AppColors.primaryColor,
+      padding: EdgeInsets.only(
+        left: 16.w,
+        right: 16.w,
+        top: 50.h,
+        bottom: 16.h,
+      ),
       child: Column(
         children: [
           Row(
             children: [
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: AppColors.white,
+                  size: 24.sp,
+                ),
+              ),
+              10.width,
               CircleAvatar(
                 radius: 24.r,
                 backgroundImage: const AssetImage(TempImage.profile),
@@ -72,7 +93,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CommonText(
-                      text: LocalStorage.myName.isEmpty ? 'John Smith' : LocalStorage.myName,
+                      text: LocalStorage.myName.isEmpty
+                          ? 'John Smith'
+                          : LocalStorage.myName,
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                       color: AppColors.white,
@@ -86,7 +109,6 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                   ],
                 ),
               ),
-              Icon(Icons.settings_outlined, color: AppColors.white, size: 24.sp),
             ],
           ),
           SizedBox(height: 24.h),
@@ -240,9 +262,17 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                   ),
                   child: Column(
                     children: [
-                      _buildInfoRow(Icons.watch_later_outlined, 'Time: ', '2:00 PM'),
+                      _buildInfoRow(
+                        Icons.watch_later_outlined,
+                        'Time: ',
+                        '2:00 PM',
+                      ),
                       SizedBox(height: 8.h),
-                      _buildInfoRow(Icons.location_on_outlined, 'Venue: ', 'Main Ground'),
+                      _buildInfoRow(
+                        Icons.location_on_outlined,
+                        'Venue: ',
+                        'Main Ground',
+                      ),
                     ],
                   ),
                 ),
@@ -257,7 +287,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: isLive ? AppColors.black : const Color(0xFF19CA77),
+                      backgroundColor: isLive
+                          ? AppColors.black
+                          : const Color(0xFF19CA77),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.r),
                       ),
@@ -316,11 +348,17 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
             style: TextStyle(
               fontSize: 14.sp,
               color: AppColors.black,
-              fontWeight: FontWeight.w400
+              fontWeight: FontWeight.w400,
             ),
             children: [
-              TextSpan(text: label, style:  TextStyle( fontSize: 14.sp, fontWeight: FontWeight.w400)),
-              TextSpan(text: value, style: const TextStyle(fontWeight: FontWeight.w700)),
+              TextSpan(
+                text: label,
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
+              ),
+              TextSpan(
+                text: value,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
             ],
           ),
         ),
