@@ -95,12 +95,12 @@ class TeamSheetScreen extends StatelessWidget {
   Widget _buildHeroBanner(TeamSheetController controller) {
     return Container(
       width: double.infinity,
-      height: 180.h,
+      height: 220.h,
       margin: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
         image: DecorationImage(
-          image: AssetImage(TempImage.football),
+          image: AssetImage(AppImages.teamSheetBanner),
           fit: BoxFit.cover,
         ),
       ),

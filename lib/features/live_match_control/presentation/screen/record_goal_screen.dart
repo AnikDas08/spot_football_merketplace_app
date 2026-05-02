@@ -100,78 +100,81 @@ class RecordGoalScreen extends StatelessWidget {
   Widget _buildPlayerList(RecordGoalController controller) {
     return SizedBox(
       height: 100.h,
-      child: Obx(() => ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: controller.players.length,
-            itemBuilder: (context, index) {
-              final isSelected = controller.selectedPlayerIndex.value == index;
-              return GestureDetector(
-                onTap: () => controller.updatePlayerIndex(index),
-                child: Padding(
-                  padding: EdgeInsets.only(right: 16.w),
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
-                            width: 64,
-                            height: 64,
-                            padding: EdgeInsets.all(3.r),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: controller.players.length,
+        itemBuilder: (context, index) {
+          return Obx(() {
+            final isSelected = controller.selectedPlayerIndex.value == index;
+            return GestureDetector(
+              onTap: () => controller.updatePlayerIndex(index),
+              child: Padding(
+                padding: EdgeInsets.only(right: 16.w),
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          width: 64,
+                          height: 64,
+                          padding: EdgeInsets.all(3.r),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: isSelected
+                                  ? const Color(0xFF0056D2)
+                                  : Colors.transparent,
+                              width: 2,
+                            ),
+                          ),
+                          child: CircleAvatar(
+                            radius: 28.r,
+                            backgroundImage:
+                                AssetImage(controller.players[index]['image']!),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 4,
+                          right: 0,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: isSelected
-                                    ? const Color(0xFF0056D2)
-                                    : Colors.transparent,
-                                width: 2,
-                              ),
+                              color: isSelected
+                                  ? const Color(0xFFFFD54F)
+                                  : Color(0xFFF2F1FF),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            child: CircleAvatar(
-                              radius: 28.r,
-                              backgroundImage: AssetImage(controller.players[index]['image']!),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 4,
-                            right: 0,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: isSelected
-                                    ? const Color(0xFFFFD54F)
-                                    : Color(0xFFF2F1FF),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: CommonText(
-                                color: isSelected
-                                    ? AppColors.white
-                                    : AppColors.black,
-                                text: controller.players[index]['number']!,
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
+                            child: CommonText(
+                              color: isSelected
+                                  ? AppColors.white
+                                  : AppColors.black,
+                              text: controller.players[index]['number']!,
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 8.h),
-                      CommonText(
-                        text: controller.players[index]['name']!,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w700,
-                        color: isSelected
-                            ? const Color(0xFF000000)
-                            : const Color(0xFF9E9E9E),
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    CommonText(
+                      text: controller.players[index]['name']!,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w700,
+                      color: isSelected
+                          ? const Color(0xFF000000)
+                          : const Color(0xFF9E9E9E),
+                    ),
+                  ],
                 ),
-              );
-            },
-          )),
+              ),
+            );
+          });
+        },
+      ),
     );
   }
 
