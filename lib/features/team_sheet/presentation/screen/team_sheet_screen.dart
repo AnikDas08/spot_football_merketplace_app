@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -45,7 +46,7 @@ class TeamSheetScreen extends StatelessWidget {
                             Obx(() => _buildDropdown(
                                 controller.selectedTeam.value,
                                 controller.teams,
-                                (val) => controller.updateTeam(val!))),
+                                    (val) => controller.updateTeam(val!))),
                           ],
                         ),
                       ),
@@ -64,7 +65,7 @@ class TeamSheetScreen extends StatelessWidget {
                             Obx(() => _buildDropdown(
                                 controller.selectedFormation.value,
                                 controller.formations,
-                                (val) => controller.updateFormation(val!))),
+                                    (val) => controller.updateFormation(val!))),
                           ],
                         ),
                       ),
@@ -104,34 +105,58 @@ class TeamSheetScreen extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.r),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(16.r),
+              bottomRight: Radius.circular(16.r),
+              topLeft: Radius.circular(12.r),
+              topRight: Radius.circular(12.r),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(12.r),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12.r),
+                    topRight: Radius.circular(12.r),
+                  ),
+                  border: Border(
+                    top: BorderSide(
+                      color: AppColors.white.withAlpha(400),
+                      width: 1.5.w,
+                    ),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CommonText(
+                      text: 'Team Sheet',
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.white,
+                    ),
+                    SizedBox(height: 4.h),
+                    CommonText(
+                      text: controller.selectedFormation.value,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white,
+                      maxLines: 2,
+                      textAlign: TextAlign.start,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ),
-        padding: EdgeInsets.all(16.w),
-        alignment: Alignment.bottomLeft,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CommonText(
-              text: 'Team Sheet',
-              fontSize: 14.sp,
-              color: Colors.white70,
-            ),
-            CommonText(
-              text: controller.selectedFormation.value,
-              fontSize: 22.sp,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -263,13 +288,13 @@ class TeamSheetScreen extends StatelessWidget {
               child: isEmpty
                   ? const Icon(Icons.add, color: Colors.white, size: 22)
                   : Center(
-                      child: CommonText(
-                        text: initial,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
+                child: CommonText(
+                  text: initial,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
           SizedBox(height: 4.h),
