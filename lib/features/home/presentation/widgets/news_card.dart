@@ -60,18 +60,17 @@ class NewsCard extends StatelessWidget {
                   topRight: Radius.circular(12.r),
                 ),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
                   child: Container(
                     padding: EdgeInsets.all(12.r),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.3),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12.r),
                         topRight: Radius.circular(12.r),
                       ),
                       border: Border(
                         top: BorderSide(
-                          color: AppColors.colorEABB00,
+                          color: AppColors.white.withAlpha(400),
                           width: 1.5.w,
                         ),
                       ),
