@@ -116,7 +116,7 @@ class TeamSheetScreen extends StatelessWidget {
               topRight: Radius.circular(12.r),
             ),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
               child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(12.r),
