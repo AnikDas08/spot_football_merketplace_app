@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/config/route/app_routes.dart';
@@ -53,38 +54,51 @@ class NewsCard extends StatelessWidget {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Container(
-                padding: EdgeInsets.all(12.r),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.8),
-                      Colors.transparent,
-                    ],
-                  ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12.r),
+                  topRight: Radius.circular(12.r),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CommonText(
-                      text: title ?? AppString.feature,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.white,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  child: Container(
+                    padding: EdgeInsets.all(12.r),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.3),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12.r),
+                        topRight: Radius.circular(12.r),
+                      ),
+                      border: Border(
+                        top: BorderSide(
+                          color: AppColors.colorEABB00,
+                          width: 1.5.w,
+                        ),
+                      ),
                     ),
-                    SizedBox(height: 4.h),
-                    CommonText(
-                      text: subTitle ?? AppString.engCommunityAcademyStarOfTheWeek,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.white,
-                      maxLines: 2,
-                      textAlign: TextAlign.start,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CommonText(
+                          text: title ?? AppString.feature,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.white,
+                        ),
+                        SizedBox(height: 4.h),
+                        CommonText(
+                          text: subTitle ??
+                              AppString.engCommunityAcademyStarOfTheWeek,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.white,
+                          maxLines: 2,
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),

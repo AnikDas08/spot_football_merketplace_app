@@ -16,6 +16,7 @@ class UpcomingEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 390.h,
       margin: EdgeInsets.only(top: 8.h),
       padding: EdgeInsets.all(8.r),
       decoration: BoxDecoration(
@@ -31,6 +32,7 @@ class UpcomingEventCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: .spaceBetween,
         children: [
           Stack(
             children: [
@@ -39,7 +41,7 @@ class UpcomingEventCard extends StatelessWidget {
                 child: CommonImage(
                   imageSrc: TempImage.upcomingEvent,
                   width: double.infinity,
-                  height: 220.h,
+                  height: 270.h,
                   fill: BoxFit.cover,
                 ),
               ),
