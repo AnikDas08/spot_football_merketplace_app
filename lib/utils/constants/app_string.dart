@@ -253,6 +253,7 @@ class AppString {
   static const String top10GoalsWeek24 = "Top 10 Goals: Week 24";
   static const String threeHourAgoEngOriginal = "3h ago • ENG Original";
   static const String duration7m = "7m";
+  static const String skipForNow = "Skip for now";
 
 
 }
