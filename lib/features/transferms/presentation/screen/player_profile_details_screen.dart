@@ -56,7 +56,7 @@ class PlayerProfileDetailsScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
 
                   child: CommonButton(
-                    titleText: "Submit Offer",
+                    titleText: "Offer Trial",
                     buttonColor: AppColors.primaryColor,
                   onTap: (){
                       Get.toNamed(AppRoutes.transferPendingApproval);

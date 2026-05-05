@@ -56,7 +56,7 @@ class OfferSummaryCard extends StatelessWidget {
 
           // Submit Button
           CommonButton(
-            titleText: "Submit Offer",
+            titleText: "Offer Trial",
             buttonColor: AppColors.black,
             onTap: onSubmit,
             buttonWidth: double.infinity,
