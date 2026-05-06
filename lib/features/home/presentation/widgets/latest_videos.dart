@@ -25,7 +25,7 @@ class LatestVideos extends StatelessWidget {
         ),
         SizedBox(height: 16.h),
         SizedBox(
-          height: 170.h,
+          height: 180.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: 5,

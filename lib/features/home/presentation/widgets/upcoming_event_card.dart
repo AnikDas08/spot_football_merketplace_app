@@ -16,7 +16,7 @@ class UpcomingEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 390.h,
+      height: 430.h,
       margin: EdgeInsets.only(top: 8.h),
       padding: EdgeInsets.all(8.r),
       decoration: BoxDecoration(
