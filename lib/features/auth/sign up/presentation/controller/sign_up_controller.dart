@@ -29,11 +29,11 @@ class SignUpController extends GetxController {
   int _seconds = 0;
 
   /// Form controllers
-  final nameController = TextEditingController(text: kDebugMode ? "Ajijul Islam" : null );
-  final emailController = TextEditingController(text: kDebugMode ? "mesoso4279@gixpos.com" : null);
-  final passwordController = TextEditingController(text: kDebugMode ? "Aaaa@#+1" : null);
-  final confirmPasswordController = TextEditingController(text:  kDebugMode ? "Aaaa@#+1" : null);
-  final numberController = TextEditingController(text: kDebugMode ? "+8801712345678" : null);
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final numberController = TextEditingController();
   final otpController = TextEditingController();
 
   /// Get formatted timer text (mm:ss)

@@ -16,8 +16,12 @@ class SignInController extends GetxController {
   bool isLoading = false;
 
   /// email and password Controller here
-  final emailController = TextEditingController(text: kDebugMode ? "mesoso4279@gixpos.com" : null);
-  final passwordController = TextEditingController(text: kDebugMode ? "Aaaa@#+1" : null);
+  final emailController = TextEditingController(
+    text: kDebugMode ? "mesoso4279@gixpos.com" : null,
+  );
+  final passwordController = TextEditingController(
+    text: kDebugMode ? "Aaaa@#+1" : null,
+  );
 
   final ApiClient apiClient = DioApiClient();
 
@@ -38,15 +42,18 @@ class SignInController extends GetxController {
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = response.data['data'] ?? '';
         final userData = Jwt.parseJwt(data["accessToken"]);
-        await LocalStorage.setString(LocalStorageKeys.token, data["accessToken"]);
-        await LocalStorage.setString(LocalStorageKeys.refreshToken, data["refreshToken"]);
+        await LocalStorage.setString(
+          LocalStorageKeys.token,
+          data["accessToken"],
+        );
+        await LocalStorage.setString(
+          LocalStorageKeys.refreshToken,
+          data["refreshToken"],
+        );
         await LocalStorage.setBool(LocalStorageKeys.isLogIn, true);
-
 
         // Fetch profile data immediately after login
         await Get.find<ProfileController>().getProfileData();
-
-        print(userData);
 
         /// clear
         emailController.clear();

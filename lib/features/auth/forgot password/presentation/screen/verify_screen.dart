@@ -33,7 +33,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
       appBar: SignupAppbar(),
       body: GetBuilder<ForgetPasswordController>(
         builder: (controller) => SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
+          padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
           child: Form(
             key: _formKey,
             child: Column(
@@ -70,12 +70,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 48.h, bottom: 48.h),
+                    padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 48.h, bottom: 48.h),
                     child: Column(
                       children: [
                         /// PIN Code Fields - 4 boxes only
                         Center(
                           child: CommonPinCodeField(
+                            length: 6,
                             controller: controller.otpController,
                           ),
                         ),
@@ -114,9 +115,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
                         GestureDetector(
                           onTap: controller.time == '00:00'
                               ? () {
-                            controller.startTimer();
-                            // controller.sendForgetPasswordEmail(); // Or resend OTP specific method
-                          }
+                                  controller.resendOtp();
+                                }
                               : () {},
                           child: RichText(
                             textAlign: TextAlign.center,
@@ -142,16 +142,14 @@ class _VerifyScreenState extends State<VerifyScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 36.h,),
+                        SizedBox(height: 36.h),
                         CommonButton(
                           titleText: "Verify",
                           isLoading: controller.isLoading,
                           onTap: () {
-
-                            /*if (_formKey.currentState!.validate()) {
+                            if (_formKey.currentState!.validate()) {
                               controller.verifyOtp();
-                            }*/
-                            Get.toNamed(AppRoutes.createPassword);
+                            }
                           },
                         ),
                       ],

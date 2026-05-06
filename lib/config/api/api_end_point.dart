@@ -7,9 +7,10 @@ class ApiEndPoint {
   static const verifyEmail = 'users/verify-email';
   static const signIn = '/auth/login';
   static const profile = '/user/profile';
-  static const forgotPassword = 'users/forget-password';
-  static const verifyOtp = 'users/verify-otp';
-  static const resetPassword = 'users/reset-password';
+  static const forgotPassword = '/auth/forgot-password';
+  static const verifyOtp = '/auth/verify-email';
+  static const resetPassword = '/auth/reset-password';
+  static const resendOtp = '/auth/resend-otp';
   static const changePassword = 'users/change-password';
   static const user = 'users';
   static const notifications = 'notifications';
