@@ -10,12 +10,15 @@ import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
+import '../../../profile/presentation/controller/profile_controller.dart';
+
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final String role = LocalStorage.getValue("role") ?? "Player";
+    final ProfileController profileController = Get.find<ProfileController>();
+    final String role = LocalStorage.role;
 
     return Drawer(
       width: 0.9.sw,
@@ -26,9 +29,8 @@ class AppDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _buildProfile(),
+              Obx(() => _buildProfile(profileController)),
               SizedBox(height: 36.h),
-
               _buildMenuItem(
                 icon: AppIcons.editProfile,
                 label: AppString.editProfile,
@@ -47,7 +49,7 @@ class AppDrawer extends StatelessWidget {
                   onTap: () => Get.toNamed(AppRoutes.referee_dashboard_screen),
                 ),
               ],
-              if (role == "Player") ...[
+              if (role == "PLAYER") ...[
                 _buildMenuItem(
                   icon: AppIcons.myChildrenSvg,
                   label: AppString.myPlayer,
@@ -95,7 +97,12 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildProfile() {
+  Widget _buildProfile(ProfileController controller) {
+    final data = controller.profileData;
+    final String name = data['userName'] ?? LocalStorage.myName;
+    final String email = data['email'] ?? LocalStorage.myEmail;
+    final String image = data['profile'] ?? LocalStorage.myImage;
+
     return Column(
       children: [
         Stack(
@@ -103,7 +110,10 @@ class AppDrawer extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50.r,
-              backgroundImage: const AssetImage(TempImage.profile),
+              backgroundColor: AppColors.color6B6B6B.withOpacity(0.1),
+              backgroundImage: image.isNotEmpty
+                  ? NetworkImage(image) as ImageProvider
+                  : const AssetImage(TempImage.profile),
             ),
             Positioned(
               bottom: 0,
@@ -125,16 +135,14 @@ class AppDrawer extends StatelessWidget {
         ),
         SizedBox(height: 14.h),
         CommonText(
-          text: LocalStorage.myName.isEmpty ? 'User Name' : LocalStorage.myName,
+          text: name.isEmpty ? 'User Name' : name,
           fontSize: 20,
           fontWeight: FontWeight.w700,
           color: AppColors.primaryColor,
         ),
         SizedBox(height: 4.h),
         CommonText(
-          text: LocalStorage.myEmail.isEmpty
-              ? 'user@gmail.com'
-              : LocalStorage.myEmail,
+          text: email.isEmpty ? 'user@gmail.com' : email,
           fontSize: 13,
           fontWeight: FontWeight.w400,
           color: AppColors.textSecondaryColor,
@@ -218,6 +226,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () async {
+                    print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
                     await LocalStorage.removeAllPrefData();
                     Get.offAllNamed(AppRoutes.signIn);
                   },

@@ -1,11 +1,12 @@
 class ApiEndPoint {
-  static const baseUrl = 'http://103.145.138.74:3000/api/v1';
+  static const baseUrl = 'http://10.10.7.55:5005/api/v1';
   static const imageUrl = 'http://103.145.138.74:3000';
   static const socketUrl = 'http://103.145.138.74:3001';
 
   static const signUp = 'users/sign-up';
   static const verifyEmail = 'users/verify-email';
-  static const signIn = 'users/sign-in';
+  static const signIn = '/auth/login';
+  static const profile = '/user/profile';
   static const forgotPassword = 'users/forget-password';
   static const verifyOtp = 'users/verify-otp';
   static const resetPassword = 'users/reset-password';
