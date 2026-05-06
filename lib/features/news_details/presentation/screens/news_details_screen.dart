@@ -163,7 +163,7 @@ class NewsDetailsScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 SizedBox(
-                  height: 240.h,
+                  height: 170.h,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 5,

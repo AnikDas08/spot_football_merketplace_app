@@ -43,7 +43,8 @@ class ManagerRegistationScreen extends StatelessWidget {
                     bottom: 10,
                   ),
                   const CommonText(
-                    text: 'Create your account and start managing your team today!',
+                    text:
+                        'Create your account and start managing your team today!',
                     fontSize: 16,
                     maxLines: 5,
                     color: AppColors.primaryColor,
@@ -91,7 +92,6 @@ class ManagerRegistationScreen extends StatelessWidget {
                     bottom: 10,
                   ),
 
-
                   /// ── Image Upload Section ──
                   GestureDetector(
                     onTap: () => controller.pickIdImage(),
@@ -105,21 +105,64 @@ class ManagerRegistationScreen extends StatelessWidget {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.r),
-                        child: controller.pickedImage != null
-                            ? Image.file(controller.pickedImage!, fit: BoxFit.cover)
+                        child: controller.pickedIdImage != null
+                            ? Image.file(
+                                controller.pickedIdImage!,
+                                fit: BoxFit.cover,
+                              )
                             : Center(
-                          child: CommonImage(
-                            imageSrc: "assets/images/upload_file_image.png",
-                            width: double.infinity,
-                            height: 156.h,
-                            fill: BoxFit.fill,
-                          ),
-                        ),
+                                child: CommonImage(
+                                  imageSrc:
+                                      "assets/images/upload_file_image.png",
+                                  width: double.infinity,
+                                  height: 156.h,
+                                  fill: BoxFit.fill,
+                                ),
+                              ),
                       ),
                     ),
                   ),
 
-                  SizedBox(height: 40,),
+                  SizedBox(height: 40),
+                  CommonText(
+                    text: "Medical Certificate",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.primaryColor,
+                    bottom: 10,
+                  ),
+                  /// ── Image Upload Section ──
+                  GestureDetector(
+                    onTap: () => controller.pickMedicalImage(),
+                    child: Container(
+                      width: double.infinity,
+                      height: 156.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(color: Colors.grey.shade300),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.r),
+                        child: controller.pickedMedicalImage != null
+                            ? Image.file(
+                                controller.pickedMedicalImage!,
+                                fit: BoxFit.cover,
+                              )
+                            : Center(
+                                child: CommonImage(
+                                  imageSrc:
+                                      "assets/images/upload_file_image.png",
+                                  width: double.infinity,
+                                  height: 156.h,
+                                  fill: BoxFit.fill,
+                                ),
+                              ),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 40),
 
                   CommonButton(
                     titleText: "Submit Request",
@@ -127,10 +170,13 @@ class ManagerRegistationScreen extends StatelessWidget {
                     onTap: () async {
                       // Simulating API call
                       await Future.delayed(const Duration(seconds: 1));
-                      
+
                       // Save role to local storage
                       LocalStorage.role = "Manager";
-                      await LocalStorage.setString(LocalStorageKeys.role, LocalStorage.role);
+                      await LocalStorage.setString(
+                        LocalStorageKeys.role,
+                        LocalStorage.role,
+                      );
 
                       Get.toNamed(AppRoutes.successful_create_account);
                     },
@@ -139,7 +185,8 @@ class ManagerRegistationScreen extends StatelessWidget {
                   SizedBox(height: 32.h),
                   const Center(
                     child: CommonText(
-                      text: 'By submitting, you agree to the\nAthlete Terms of Service',
+                      text:
+                          'By submitting, you agree to the\nAthlete Terms of Service',
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,

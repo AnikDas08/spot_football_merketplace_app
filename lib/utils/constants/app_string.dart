@@ -182,7 +182,7 @@ class AppString {
   static const String marcus = "Marcus Vane";
   static const String updateAvatar = "Update Avatar";
   static const String prizeRedemptionFeed = "PRIZE REDEMPTION FEED";
-  static const String myPlayer = "My Player";
+  static const String myPlayer = "Player";
   static const String activeAthletes = "Active Athletes";
   static const String manageYourChildrenSports = "Manage your children's sports schedules and team activities in one place.";
   static const String nextGame = "NEXT GAME";
@@ -253,6 +253,7 @@ class AppString {
   static const String top10GoalsWeek24 = "Top 10 Goals: Week 24";
   static const String threeHourAgoEngOriginal = "3h ago • ENG Original";
   static const String duration7m = "7m";
+  static const String skipForNow = "Skip for now";
 
 
 }

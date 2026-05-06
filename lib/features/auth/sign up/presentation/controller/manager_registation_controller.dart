@@ -16,7 +16,8 @@ class ManagerRegistationController extends GetxController {
   String? selectedPosition = "Forward";
 
   // Image Picker variables
-  File? pickedImage;
+  File? pickedIdImage;
+  File? pickedMedicalImage;
   final ImagePicker _picker = ImagePicker();
 
 
@@ -28,7 +29,18 @@ class ManagerRegistationController extends GetxController {
     );
 
     if (image != null) {
-      pickedImage = File(image.path);
+      pickedIdImage = File(image.path);
+      update();
+    }
+  }// Method to pick image from gallery
+  Future<void> pickMedicalImage() async {
+    final XFile? image = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
+
+    if (image != null) {
+      pickedMedicalImage = File(image.path);
       update();
     }
   }

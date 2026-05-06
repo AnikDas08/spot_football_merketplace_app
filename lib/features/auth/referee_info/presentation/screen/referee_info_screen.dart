@@ -7,6 +7,7 @@ import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/features/auth/referee_info/presentation/controller/referee_info_controller.dart';
 import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
+import 'package:untitled/utils/constants/app_string.dart';
 
 class RefereeInfoScreen extends StatefulWidget {
   const RefereeInfoScreen({super.key});
@@ -157,7 +158,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
                 onTap: () {},
                 buttonColor: const Color(0xFFF3F3F3),
                 borderColor: Colors.grey.withOpacity(0.3),
-                titleText: "Sample Text",
+                titleText: AppString.skipForNow,
                 titleColor: AppColors.black,
               ),
               
