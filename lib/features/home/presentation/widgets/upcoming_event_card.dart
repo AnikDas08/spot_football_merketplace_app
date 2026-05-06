@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
-import '../../../../utils/constants/app_images.dart';
 
 class UpcomingEventCard extends StatelessWidget {
   const UpcomingEventCard({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 390.h,
+      height: 415.h,
       margin: EdgeInsets.only(top: 8.h),
       padding: EdgeInsets.all(8.r),
       decoration: BoxDecoration(
@@ -67,21 +63,20 @@ class UpcomingEventCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16.h),
+
           CommonText(
             text: AppString.summerFootballTournament2026,
             fontSize: 20.sp,
             fontWeight: FontWeight.w700,
             color: AppColors.black,
           ),
-          SizedBox(height: 8.h),
           CommonText(
             text: AppString.ageGroupUnder12_16,
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,
             color: AppColors.color6B6B6B,
           ),
-          SizedBox(height: 20.h),
+
           Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 14.h),
