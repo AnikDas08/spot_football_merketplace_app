@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:dio/dio.dart' as dio;
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:untitled/config/api/api_end_point.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/services/api/api_client.dart';
 import 'package:untitled/services/api/api_service.dart';
+import 'package:untitled/services/api/multipart_helper.dart';
 import 'package:untitled/utils/app_snackbar.dart';
 import '../../../../../../services/storage/storage_keys.dart';
 import '../../../../../../services/storage/storage_services.dart';
@@ -17,6 +17,7 @@ class VerifyPlayerController extends GetxController {
   final playerLastName = TextEditingController();
 
   bool isLoading = false;
+  double uploadProgress = 0.0;
 
   // Selected values
   String? selectedDob;
@@ -26,9 +27,8 @@ class VerifyPlayerController extends GetxController {
   String? selectedGender;
   String? selectedNationality;
 
-  // Image Picker variables
+  // File Picker variable
   File? pickedImage;
-  final ImagePicker _picker = ImagePicker();
 
   // Data Lists
   final List<String> ageGroups = ["U18", "U15", "U12", "Senior"];
@@ -50,15 +50,15 @@ class VerifyPlayerController extends GetxController {
     update();
   }
 
-  // Method to pick image from gallery
+  // Method to pick file (image, pdf, etc.)
   Future<void> pickIdImage() async {
-    final XFile? image = await _picker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 80,
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'doc', 'png', 'jpeg'],
     );
 
-    if (image != null) {
-      pickedImage = File(image.path);
+    if (result != null && result.files.single.path != null) {
+      pickedImage = File(result.files.single.path!);
       update();
     }
   }
@@ -79,38 +79,48 @@ class VerifyPlayerController extends GetxController {
   }
 
   Future<void> submitVerification() async {
+    if (playerFirstName.text.isEmpty || playerLastName.text.isEmpty || selectedDob == null) {
+      AppSnackbar.error(title: 'Error', message: 'Please fill in all required fields');
+      return;
+    }
+
     try {
       isLoading = true;
+      uploadProgress = 0.0;
       update();
 
-      final token = LocalStorage.token;
-      
-      final Map<String, dynamic> body = {
+      final Map<String, String> body = {
         'firstName': playerFirstName.text.trim(),
         'lastName': playerLastName.text.trim(),
-        'dateOfBirth': selectedDob,
-        'ageGroup': selectedAgeGroup,
-        'selectGroup': selectedTeam, 
-        'position': selectedPosition,
+        'dateOfBirth': selectedDob!,
+        'ageGroup': selectedAgeGroup ?? "",
+        'selectGroup': selectedTeam ?? "",
+        'position': selectedPosition ?? "",
       };
 
+      List<MultipartFileItem> files = [];
       if (pickedImage != null) {
-        body['document'] = await dio.MultipartFile.fromFile(
-          pickedImage!.path,
-          filename: pickedImage!.path.split('/').last,
-        );
+        files.add(MultipartFileItem(
+          filePath: pickedImage!.path,
+          fileName: 'document',
+        ));
       }
 
-      final response = await apiClient.post(
-        ApiEndPoint.playerProfile,
-        headers: {'Authorization': token},
+      final response = await apiClient.multipart(
+        url: ApiEndPoint.playerProfile,
+        headers: {'Authorization': LocalStorage.token},
         body: body,
-
+        files: files,
+        onSendProgress: (sent, total) {
+          if (total > 0) {
+            uploadProgress = sent / total;
+            update();
+          }
+        },
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         AppSnackbar.success(title: 'Success', message: response.message);
-        // Next step in flow: Plan Selection
         Get.toNamed(AppRoutes.player_registration_screen);
       } else {
         AppSnackbar.error(title: 'Error', message: response.message);
@@ -120,6 +130,7 @@ class VerifyPlayerController extends GetxController {
       AppSnackbar.error(title: 'Error', message: 'Failed to submit player details.');
     } finally {
       isLoading = false;
+      uploadProgress = 0.0;
       update();
     }
   }

@@ -88,10 +88,16 @@ class SignUpController extends GetxController {
         startTimer();
         Get.toNamed(AppRoutes.verifyEmail, arguments: {'isSignUp': true});
       } else {
-        AppSnackbar.error(
-          title: 'Error',
-          message: response.message,
-        );
+        final String errorMessage = response.message;
+        if(errorMessage.contains("E11000")){
+          AppSnackbar.error(title: 'Failed to create $selectRole account', message: 'User already exists with this email.');
+          return;
+        }else{
+          AppSnackbar.error(
+            title: 'Error',
+            message: response.message,
+          );
+        }
       }
     } catch (e) {
       debugPrint('❌ signUpUser error: $e');

@@ -157,7 +157,7 @@ class _VerifyUserState extends State<VerifyUser> {
                           SizedBox(height: 36.h),
                           CommonButton(
                             titleText: "Verify",
-                            isLoading: controller.isLoadingVerify,
+                            isLoading: controller.isLoading,
                             onTap: () {
                                  controller.verifyOtp();
                               // if (_formKey.currentState!.validate()) {
