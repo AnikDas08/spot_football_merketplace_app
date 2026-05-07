@@ -98,7 +98,8 @@ class PlayerRegistrationController extends GetxController {
       if (LocalStorage.isLogIn) {
         Get.back();
       } else {
-        Get.toNamed(AppRoutes.verify_player_screen);
+        // Last step of registration
+        Get.offAllNamed(AppRoutes.successful_create_account);
       }
     }
   }

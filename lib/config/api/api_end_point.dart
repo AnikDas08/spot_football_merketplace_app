@@ -3,8 +3,9 @@ class ApiEndPoint {
   static const imageUrl = 'http://103.145.138.74:3000';
   static const socketUrl = 'http://103.145.138.74:3001';
 
-  static const signUp = 'users/sign-up';
-  static const verifyEmail = 'users/verify-email';
+  static const signUp = '/user/';
+  static const playerProfile = '/user/player';
+  static const verifyEmail = '/auth/verify-email';
   static const signIn = '/auth/login';
   static const profile = '/user/profile';
   static const forgotPassword = '/auth/forgot-password';

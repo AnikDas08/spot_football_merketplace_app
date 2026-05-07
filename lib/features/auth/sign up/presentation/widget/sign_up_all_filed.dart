@@ -49,7 +49,10 @@ class SignUpAllField extends StatelessWidget {
           controller: controller.confirmPasswordController,
           isPassword: true,
           hintText: 'Enter Confirm Password',
-          validator: AppValidation.password,
+          validator: (value) => AppValidation.confirmPassword(
+            value,
+            controller.passwordController,
+          ),
         ),
 
         /// User Confirm Password here

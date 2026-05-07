@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/controller/sign_up_controller.dart';
 import 'package:untitled/services/storage/storage_keys.dart';
 import 'package:untitled/services/storage/storage_services.dart';
 import 'package:untitled/utils/constants/app_images.dart';
@@ -105,19 +106,25 @@ class SelectRole extends StatelessWidget {
               Obx(
                 () => CommonButton(
                   onTap: () async {
-                    LocalStorage.getValue("role") ?? "Player";
-
-                    if (controller.selectedRole.value == 1) {
-                      LocalStorage.setString(LocalStorageKeys.role,"Player");
-                      Get.toNamed(AppRoutes.player_registration_screen);
-                    } else if (controller.selectedRole.value == 3) {
-                      Get.toNamed(AppRoutes.trial_registration_screen);
-                    } else if (controller.selectedRole.value == 2) {
-                      LocalStorage.setString(LocalStorageKeys.role,"Manager");
-                      Get.toNamed(AppRoutes.manager_subscription_screen);
-                    } else if (controller.selectedRole.value == 4) {
-                      LocalStorage.setString(LocalStorageKeys.role, "Referee");
-                      Get.toNamed(AppRoutes.referee_info_screen); // Adjust if there's a specific referee reg screen
+                    final signUpController = Get.find<SignUpController>();
+                    if (controller.selectedRole.value != 0) {
+                      String role = "";
+                      switch (controller.selectedRole.value) {
+                        case 1:
+                          role = "PLAYER";
+                          break;
+                        case 2:
+                          role = "MANAGER";
+                          break;
+                        case 3:
+                          role = "TRIAL";
+                          break;
+                        case 4:
+                          role = "REFEREE";
+                          break;
+                      }
+                      signUpController.setSelectedRole(role);
+                      signUpController.signUpUser();
                     } else {
                       Get.snackbar(
                         "Selection Required",

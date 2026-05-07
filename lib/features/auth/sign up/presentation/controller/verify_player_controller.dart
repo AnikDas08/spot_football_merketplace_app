@@ -1,13 +1,22 @@
 import 'dart:io';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:untitled/config/api/api_end_point.dart';
+import 'package:untitled/config/route/app_routes.dart';
+import 'package:untitled/services/api/api_client.dart';
+import 'package:untitled/services/api/api_service.dart';
+import 'package:untitled/utils/app_snackbar.dart';
 import '../../../../../../services/storage/storage_keys.dart';
 import '../../../../../../services/storage/storage_services.dart';
 
 class VerifyPlayerController extends GetxController {
+  final ApiClient apiClient = DioApiClient();
   final playerFirstName = TextEditingController();
   final playerLastName = TextEditingController();
+
+  bool isLoading = false;
 
   // Selected values
   String? selectedDob;
@@ -22,11 +31,9 @@ class VerifyPlayerController extends GetxController {
   final ImagePicker _picker = ImagePicker();
 
   // Data Lists
-  final List<String> ageGroups = ["U-12", "U-15", "U-18", "Senior"];
-  final List<String> teams = ["Lions FC", "Tigers United", "Dragons SC", "Eagles Academy"];
+  final List<String> ageGroups = ["U18", "U15", "U12", "Senior"];
+  final List<String> teams = ["A", "B", "C"];
   final List<String> positions = ["Goalkeeper", "Defender", "Midfielder", "Forward"];
-  final List<String> genders = ["Male", "Female", "Other"];
-  final List<String> nationalities = ["British", "American", "Spanish", "French", "German", "Other"];
 
   void setAgeGroup(String value) {
     selectedAgeGroup = value;
@@ -40,16 +47,6 @@ class VerifyPlayerController extends GetxController {
 
   void setPosition(String value) {
     selectedPosition = value;
-    update();
-  }
-
-  void setGender(String value) {
-    selectedGender = value;
-    update();
-  }
-
-  void setNationality(String value) {
-    selectedNationality = value;
     update();
   }
 
@@ -75,17 +72,56 @@ class VerifyPlayerController extends GetxController {
       lastDate: DateTime.now(),
     );
     if (picked != null) {
-      selectedDob = "${picked.day}/${picked.month}/${picked.year}";
+      // API expects YYYY-MM-DD
+      selectedDob = "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
       update();
     }
   }
 
   Future<void> submitVerification() async {
-    // Save to SharedPreferences
-    await LocalStorage.setString(LocalStorageKeys.role, "Player");
-    // You might want to save other details too if needed
-    // await LocalStorage.setString("player_first_name", playerFirstName.text);
-    // ...
+    try {
+      isLoading = true;
+      update();
+
+      final token = LocalStorage.token;
+      
+      final Map<String, dynamic> body = {
+        'firstName': playerFirstName.text.trim(),
+        'lastName': playerLastName.text.trim(),
+        'dateOfBirth': selectedDob,
+        'ageGroup': selectedAgeGroup,
+        'selectGroup': selectedTeam, 
+        'position': selectedPosition,
+      };
+
+      if (pickedImage != null) {
+        body['document'] = await dio.MultipartFile.fromFile(
+          pickedImage!.path,
+          filename: pickedImage!.path.split('/').last,
+        );
+      }
+
+      final response = await apiClient.post(
+        ApiEndPoint.playerProfile,
+        headers: {'Authorization': token},
+        body: body,
+
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        AppSnackbar.success(title: 'Success', message: response.message);
+        // Next step in flow: Plan Selection
+        Get.toNamed(AppRoutes.player_registration_screen);
+      } else {
+        AppSnackbar.error(title: 'Error', message: response.message);
+      }
+    } catch (e) {
+      debugPrint('❌ submitVerification error: $e');
+      AppSnackbar.error(title: 'Error', message: 'Failed to submit player details.');
+    } finally {
+      isLoading = false;
+      update();
+    }
   }
 
   @override
