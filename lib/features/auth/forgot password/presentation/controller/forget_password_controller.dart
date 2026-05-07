@@ -22,7 +22,7 @@ class ForgetPasswordController extends GetxController {
 
   void setValue() {
     if (!kDebugMode) return;
-    emailController.text = 'mesoso4279@gixpos.com';
+    emailController.text = 'rodefe4817@cadinr.com';
   }
 
   bool isLoading = false;
@@ -38,7 +38,6 @@ class ForgetPasswordController extends GetxController {
 
   bool get canResendOtp => remainingSeconds == 0;
   int _seconds = 0;
-
 
   /// ===================== TIMER =====================
   void startTimer() {
@@ -126,7 +125,7 @@ class ForgetPasswordController extends GetxController {
       _setLoading(true);
       final response = await apiClient.post(
         ApiEndPoint.resetPassword,
-        headers: {'Authorization': 'Bearer $forgetPasswordToken'},
+        headers: {'Authorization': forgetPasswordToken},
         body: {
           'newPassword': passwordController.text.trim(),
           'confirmPassword': confirmPasswordController.text.trim(),

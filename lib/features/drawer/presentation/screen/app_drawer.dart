@@ -226,7 +226,6 @@ class AppDrawer extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () async {
-                    print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
                     await LocalStorage.removeAllPrefData();
                     Get.offAllNamed(AppRoutes.signIn);
                   },

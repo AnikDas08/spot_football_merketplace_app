@@ -81,7 +81,6 @@ class DioApiClient implements ApiClient {
         queryParameters: query,
         options: Options(method: method, headers: headers),
       );
-
       return ApiResponseHandler.handleSuccess(response);
     } catch (e) {
       return ApiResponseHandler.handleError(e);

@@ -17,10 +17,10 @@ class SignInController extends GetxController {
 
   /// email and password Controller here
   final emailController = TextEditingController(
-    text: kDebugMode ? "mesoso4279@gixpos.com" : null,
+    text: kDebugMode ? "rodefe4817@cadinr.com" : null,
   );
   final passwordController = TextEditingController(
-    text: kDebugMode ? "Aaaa@#+1" : null,
+    text: kDebugMode ? "Aaaa@#+11" : null,
   );
 
   final ApiClient apiClient = DioApiClient();
