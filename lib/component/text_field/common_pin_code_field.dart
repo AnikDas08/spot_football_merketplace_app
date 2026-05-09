@@ -46,7 +46,7 @@ class _CommonPinCodeFieldState extends State<CommonPinCodeField> {
         focusedBorderColor: AppColors.yellow,
         focusedFillColor: AppColors.background,
         completeBorderColor: AppColors.yellow,
-        spacing: 5
+        spacing: 2
       ),
       length: widget.length,
       pinController: _pinInputController,
