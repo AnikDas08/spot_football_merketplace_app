@@ -66,7 +66,7 @@ class AppDrawer extends StatelessWidget {
                   onTap: () => Get.toNamed(AppRoutes.mySubscription),
                 ),
               ],
-              if (role == "Manager") ...[
+              if (role == "MANAGER") ...[
                 _buildMenuItem(
                   icon: AppIcons.pro,
                   label: "Team Sheet",

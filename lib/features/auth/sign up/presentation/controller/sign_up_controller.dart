@@ -138,13 +138,12 @@ class SignUpController extends GetxController {
       if (response.statusCode == 200) {
         final String token = response.data['data'] ?? '';
         await LocalStorage.setString(LocalStorageKeys.token, token);
-
-        print("token $token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxsg");
-        
         AppSnackbar.success(title: 'Success', message: response.message);
         
         if (selectRole.toUpperCase() == 'PLAYER') {
           Get.offAllNamed(AppRoutes.verify_player_screen);
+        } else if (selectRole.toUpperCase() == 'MANAGER') {
+          Get.offAllNamed(AppRoutes.manager_registation_screen);
         } else {
           Get.offAllNamed(AppRoutes.signIn);
         }

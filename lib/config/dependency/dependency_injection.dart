@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:untitled/features/auth/sign%20up/presentation/controller/manager_registation_controller.dart';
 import 'package:untitled/features/auth/sign%20up/presentation/controller/player_registatio_controller.dart';
 import 'package:untitled/features/fixtures/presentation/controller/fixtures_controller.dart';
 import 'package:untitled/features/shop/presentation/controllers/shop_controller.dart';
@@ -52,6 +53,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => ShopController(), fenix: true);
     Get.lazyPut(() => FixturesController(), fenix: true);
     Get.lazyPut(() => PlayerRegistrationController(), fenix: true);
+    Get.lazyPut(() => ManagerRegistationController(), fenix: true);
     Get.lazyPut(() => StatsController(), fenix: true);
   }
 }
