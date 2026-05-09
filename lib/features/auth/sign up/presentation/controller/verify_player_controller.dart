@@ -30,7 +30,7 @@ class VerifyPlayerController extends GetxController {
   File? pickedImage;
 
   // Data Lists
-  final List<String> ageGroups = ["U18", "U15", "U12", "Senior"];
+  final List<String> ageGroups = ["U18", "U16", "U21", "SENIOR"];
   List<Map<String, dynamic>> teams = [];
   final List<String> positions = ["Goalkeeper", "Defender", "Midfielder", "Forward"];
 
