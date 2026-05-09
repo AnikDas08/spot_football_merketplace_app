@@ -7,6 +7,7 @@ class ApiEndPoint {
   static const playerProfile = '/user/player';
   static const managerProfile = '/user/manager';
   static const refereeProfile = '/user/referee';
+  static const trialProfile = '/user/other-clubs';
   static const teams = '/team/';
   static const verifyEmail = '/auth/verify-email';
   static const signIn = '/auth/login';

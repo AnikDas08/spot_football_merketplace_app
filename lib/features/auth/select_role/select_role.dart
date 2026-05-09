@@ -117,7 +117,7 @@ class SelectRole extends StatelessWidget {
                           role = "MANAGER";
                           break;
                         case 3:
-                          role = "TRIAL";
+                          role = "OTHER_CLUBS";
                           break;
                         case 4:
                           role = "REFEREE";

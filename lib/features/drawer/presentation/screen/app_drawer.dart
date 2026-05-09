@@ -42,9 +42,10 @@ class AppDrawer extends StatelessWidget {
                 label: "League Tables",
                 onTap: () => Get.toNamed(AppRoutes.leagueTable),
               ),
-              if (role == "Referee") ...[
+              if (role == "REFEREE") ...[
                 _buildMenuItem(
-                  icon: AppIcons.myChildrenSvg, // Using a suitable placeholder icon
+                  icon: AppIcons
+                      .myChildrenSvg, // Using a suitable placeholder icon
                   label: "Referee Dashboard",
                   onTap: () => Get.toNamed(AppRoutes.referee_dashboard_screen),
                 ),
@@ -229,7 +230,10 @@ class AppDrawer extends StatelessWidget {
                     await LocalStorage.removeAllPrefData();
                     Get.offAllNamed(AppRoutes.signIn);
                   },
-                  child: const Text('Logout', style: TextStyle(color: Colors.red)),
+                  child: const Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
               ],
             ),

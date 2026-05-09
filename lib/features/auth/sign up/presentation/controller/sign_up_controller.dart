@@ -90,7 +90,7 @@ class SignUpController extends GetxController {
       } else {
         final String errorMessage = response.message;
         if(errorMessage.contains("E11000")){
-          AppSnackbar.error(title: 'Failed to create $selectRole account', message: 'User already exists with this email.');
+          AppSnackbar.error(title: 'Failed to create account', message: 'User already exists with this email.');
           return;
         }else{
           AppSnackbar.error(
@@ -144,6 +144,10 @@ class SignUpController extends GetxController {
           Get.offAllNamed(AppRoutes.verify_player_screen);
         } else if (selectRole.toUpperCase() == 'MANAGER') {
           Get.offAllNamed(AppRoutes.manager_registation_screen);
+        } else if (selectRole.toUpperCase() == 'REFEREE') {
+          Get.offAllNamed(AppRoutes.referee_info_screen);
+        } else if (selectRole.toUpperCase() == 'OTHER_CLUBS') {
+          Get.offAllNamed(AppRoutes.trial_registration_screen);
         } else {
           Get.offAllNamed(AppRoutes.signIn);
         }
