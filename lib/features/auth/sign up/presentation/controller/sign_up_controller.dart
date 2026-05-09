@@ -32,7 +32,7 @@ class SignUpController extends GetxController {
   final emailController = TextEditingController(text: kDebugMode ? "rodefe4817@cadinr.com" : null);
   final passwordController = TextEditingController(text: kDebugMode ? "Aaaa@#+11" : null);
   final confirmPasswordController = TextEditingController(text: kDebugMode ? "Aaaa@#+11" : null);
-  final otpController = TextEditingController(text: kDebugMode ? "123456" : null);
+  final otpController = TextEditingController();
 
   /// Get formatted timer text (mm:ss)
   String get time {
@@ -138,6 +138,8 @@ class SignUpController extends GetxController {
       if (response.statusCode == 200) {
         final String token = response.data['data'] ?? '';
         await LocalStorage.setString(LocalStorageKeys.token, token);
+
+        print("token $token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxsg");
         
         AppSnackbar.success(title: 'Success', message: response.message);
         

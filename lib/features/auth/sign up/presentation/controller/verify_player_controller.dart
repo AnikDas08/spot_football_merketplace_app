@@ -8,7 +8,6 @@ import 'package:untitled/services/api/api_client.dart';
 import 'package:untitled/services/api/api_service.dart';
 import 'package:untitled/services/api/multipart_helper.dart';
 import 'package:untitled/utils/app_snackbar.dart';
-import '../../../../../../services/storage/storage_keys.dart';
 import '../../../../../../services/storage/storage_services.dart';
 
 class VerifyPlayerController extends GetxController {
@@ -32,8 +31,30 @@ class VerifyPlayerController extends GetxController {
 
   // Data Lists
   final List<String> ageGroups = ["U18", "U15", "U12", "Senior"];
-  final List<String> teams = ["A", "B", "C"];
+  List<Map<String, dynamic>> teams = [];
   final List<String> positions = ["Goalkeeper", "Defender", "Midfielder", "Forward"];
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchTeams();
+  }
+
+  Future<void> fetchTeams() async {
+    try {
+      final response = await apiClient.get(ApiEndPoint.teams);
+      if (response.statusCode == 200) {
+        if (response.data['data'] != null) {
+          teams = List<Map<String, dynamic>>.from(response.data['data']);
+        } else if (response.data is List) {
+          teams = List<Map<String, dynamic>>.from(response.data["data"]);
+        }
+        update();
+      }
+    } catch (e) {
+      debugPrint('❌ fetchTeams error: $e');
+    }
+  }
 
   void setAgeGroup(String value) {
     selectedAgeGroup = value;
@@ -94,7 +115,7 @@ class VerifyPlayerController extends GetxController {
         'lastName': playerLastName.text.trim(),
         'dateOfBirth': selectedDob!,
         'ageGroup': selectedAgeGroup ?? "",
-        'selectGroup': selectedTeam ?? "",
+        'selectTeam': selectedTeam ?? "",
         'position': selectedPosition ?? "",
       };
 
@@ -105,6 +126,8 @@ class VerifyPlayerController extends GetxController {
           fileName: 'document',
         ));
       }
+
+      print("${LocalStorage.token} xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxvf");
 
       final response = await apiClient.multipart(
         url: ApiEndPoint.playerProfile,

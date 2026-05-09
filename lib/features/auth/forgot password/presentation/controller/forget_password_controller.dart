@@ -106,7 +106,6 @@ class ForgetPasswordController extends GetxController {
 
       if (response.statusCode == 200) {
         forgetPasswordToken = response.data['data'] ?? '';
-        await LocalStorage.setString(LocalStorageKeys.token, forgetPasswordToken);
         currentStep = ForgetPasswordStep.resetPassword;
         Get.toNamed(AppRoutes.createPassword);
       } else {

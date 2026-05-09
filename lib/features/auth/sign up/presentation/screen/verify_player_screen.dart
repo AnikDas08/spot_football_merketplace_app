@@ -83,12 +83,39 @@ class VerifyPlayerScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: _buildDropdownField(
-                          title: "Select Team",
-                          hint: "Select team...",
-                          value: controller.selectedTeam,
-                          items: controller.teams,
-                          onChanged: (val) => controller.setTeam(val!),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const CommonText(text: "Select Team", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+                            DropdownButtonFormField<String>(
+                              value: controller.selectedTeam,
+                              isExpanded: true,
+                              icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+                              style: TextStyle(fontSize: 14.sp, color: AppColors.black),
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: "Select team...",
+                                hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                                contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  borderSide: BorderSide(color: Colors.grey.shade200),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  borderSide: const BorderSide(color: AppColors.primaryColor),
+                                ),
+                              ),
+                              items: controller.teams.map((team) {
+                                return DropdownMenuItem<String>(
+                                  value: team['_id'],
+                                  child: Text(team['teamName'] ?? "", overflow: TextOverflow.ellipsis),
+                                );
+                              }).toList(),
+                              onChanged: (val) => controller.setTeam(val!),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(width: 12.w),
