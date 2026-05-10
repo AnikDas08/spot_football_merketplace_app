@@ -153,10 +153,10 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                   ),
 
                   SizedBox(height: 32.h),
-                  const Center(
+                   Center(
                     child: CommonText(
                       text: "By submitting, you agree to the\nAthlete Terms of Service",
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
                       maxLines: 3,
