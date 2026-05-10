@@ -29,67 +29,81 @@ class AppDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Obx(() => _buildProfile(profileController)),
-              SizedBox(height: 36.h),
-              _buildMenuItem(
-                icon: AppIcons.editProfile,
-                label: AppString.editProfile,
-                onTap: () => Get.toNamed(AppRoutes.editProfile),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Obx(() => _buildProfile(profileController)),
+                      SizedBox(height: 36.h),
+                      _buildMenuItem(
+                        icon: AppIcons.editProfile,
+                        label: AppString.editProfile,
+                        onTap: () => Get.toNamed(AppRoutes.editProfile),
+                      ),
+                      _buildMenuItem(
+                        icon: AppIcons
+                            .league, // Using pro icon for league tables as a placeholder if no specific icon exists
+                        label: "League Tables",
+                        onTap: () => Get.toNamed(AppRoutes.leagueTable),
+                      ),
+                      if (role == "REFEREE") ...[
+                        _buildMenuItem(
+                          icon: AppIcons
+                              .myChildrenSvg, // Using a suitable placeholder icon
+                          label: "Referee Dashboard",
+                          onTap: () => Get.toNamed(AppRoutes.referee_dashboard_screen),
+                        ),
+                      ],
+                      if (role == "PLAYER") ...[
+                        _buildMenuItem(
+                          icon: AppIcons.myChildrenSvg,
+                          label: AppString.myPlayer,
+                          onTap: () => Get.toNamed(AppRoutes.myChildren),
+                        ),
+                        _buildMenuItem(
+                          icon: AppIcons.rewards,
+                          label: AppString.rewardsRedemption,
+                          onTap: () => Get.toNamed(AppRoutes.shopScreen),
+                        ),
+                        _buildMenuItem(
+                          icon: AppIcons.subscription,
+                          label: AppString.mySubscriptions,
+                          onTap: () => Get.toNamed(AppRoutes.mySubscription),
+                        ),
+                      ],
+                      if (role == "MANAGER") ...[
+                        _buildMenuItem(
+                          icon: AppIcons.pro,
+                          label: "Team Sheet",
+                          onTap: () => Get.toNamed(AppRoutes.team_sheet_screen),
+                        ),
+                        _buildMenuItem(
+                          icon: AppIcons.transferHistory,
+                          label: AppString.myTransfersHistory,
+                          onTap: () => Get.toNamed(AppRoutes.transfer_request_screen),
+                        ),
+                      ],
+                      _buildMenuItem(
+                        icon: AppIcons.lockPassword,
+                        label: AppString.changePassword,
+                        onTap: () => Get.toNamed(AppRoutes.changePassword),
+                      ),
+                      _buildMenuItem(
+                        icon: AppIcons.infoPolicy,
+                        label: AppString.privacyPolicy,
+                        onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
+                      ),
+                      _buildMenuItem(
+                        icon: AppIcons.infoPolicy,
+                        label: AppString.termsOfServices,
+                        onTap: () => Get.toNamed(AppRoutes.termsOfServices),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              _buildMenuItem(
-                icon: AppIcons
-                    .league, // Using pro icon for league tables as a placeholder if no specific icon exists
-                label: "League Tables",
-                onTap: () => Get.toNamed(AppRoutes.leagueTable),
-              ),
-              if (role == "REFEREE") ...[
-                _buildMenuItem(
-                  icon: AppIcons
-                      .myChildrenSvg, // Using a suitable placeholder icon
-                  label: "Referee Dashboard",
-                  onTap: () => Get.toNamed(AppRoutes.referee_dashboard_screen),
-                ),
-              ],
-              if (role == "PLAYER") ...[
-                _buildMenuItem(
-                  icon: AppIcons.myChildrenSvg,
-                  label: AppString.myPlayer,
-                  onTap: () => Get.toNamed(AppRoutes.myChildren),
-                ),
-                _buildMenuItem(
-                  icon: AppIcons.rewards,
-                  label: AppString.rewardsRedemption,
-                  onTap: () => Get.toNamed(AppRoutes.shopScreen),
-                ),
-                _buildMenuItem(
-                  icon: AppIcons.subscription,
-                  label: AppString.mySubscriptions,
-                  onTap: () => Get.toNamed(AppRoutes.mySubscription),
-                ),
-              ],
-              if (role == "MANAGER") ...[
-                _buildMenuItem(
-                  icon: AppIcons.pro,
-                  label: "Team Sheet",
-                  onTap: () => Get.toNamed(AppRoutes.team_sheet_screen),
-                ),
-                _buildMenuItem(
-                  icon: AppIcons.transferHistory,
-                  label: AppString.myTransfersHistory,
-                  onTap: () => Get.toNamed(AppRoutes.transfer_request_screen),
-                ),
-              ],
-              _buildMenuItem(
-                icon: AppIcons.lockPassword,
-                label: AppString.changePassword,
-                onTap: () => Get.toNamed(AppRoutes.changePassword),
-              ),
-              _buildMenuItem(
-                icon: AppIcons.infoPolicy,
-                label: AppString.privacyPolicy,
-                onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
-              ),
-              const Spacer(),
+              SizedBox(height: 20.h),
               _buildLogoutButton(),
             ],
           ),
@@ -140,6 +154,9 @@ class AppDrawer extends StatelessWidget {
           fontSize: 20,
           fontWeight: FontWeight.w700,
           color: AppColors.primaryColor,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
         ),
         SizedBox(height: 4.h),
         CommonText(
@@ -147,6 +164,9 @@ class AppDrawer extends StatelessWidget {
           fontSize: 13,
           fontWeight: FontWeight.w400,
           color: AppColors.textSecondaryColor,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -190,6 +210,8 @@ class AppDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     color: AppColors.primaryColor,
                     textAlign: TextAlign.start,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 SvgPicture.asset(
