@@ -10,6 +10,7 @@ import '../../../../component/text/common_text.dart';
 import '../controller/terms_of_services_controller.dart';
 import '../../../../../../utils/constants/app_string.dart';
 import '../../../../../../utils/enum/enum.dart';
+import '../../../../utils/constants/app_colors.dart';
 
 class TermsOfServicesScreen extends StatelessWidget {
   const TermsOfServicesScreen({super.key});
@@ -28,6 +29,7 @@ class TermsOfServicesScreen extends StatelessWidget {
 
       /// Body
       body: GetBuilder<TermsOfServicesController>(
+        init: TermsOfServicesController(),
         builder: (controller) => switch (controller.status) {
           /// Loading
           Status.loading => const CommonLoader(),
@@ -37,8 +39,28 @@ class TermsOfServicesScreen extends StatelessWidget {
 
           /// Completed
           Status.completed => SingleChildScrollView(
-            padding: .symmetric(vertical: 24.h, horizontal: 20.w),
-            child: Html(data: controller.data.content),
+            padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
+            child: Html(
+              data: controller.data.content,
+              style: {
+                "body": Style(
+                  fontSize: FontSize(16.sp),
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.color6B6B6B,
+                  textAlign: TextAlign.start,
+                ),
+                "h1": Style(
+                  color: AppColors.primaryColor,
+                  fontSize: FontSize(20.sp),
+                  fontWeight: FontWeight.w700,
+                ),
+                "h2": Style(
+                  color: AppColors.primaryColor,
+                  fontSize: FontSize(18.sp),
+                  fontWeight: FontWeight.w700,
+                ),
+              },
+            ),
           ),
         },
       ),

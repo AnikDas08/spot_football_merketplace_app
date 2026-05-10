@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/services/api/api_client.dart';
 
@@ -22,26 +23,22 @@ class PrivacyPolicyController extends GetxController {
 
   /// Fetch privacy policy
   Future<void> getPrivacyPolicy() async {
-    return;
     try {
       status = Status.loading;
       update();
 
       final response = await apiClient.get(ApiEndPoint.privacyPolicies);
 
-      if (response.statusCode != 200) {
-        throw Exception(response.message);
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> rawData = response.data['data'] ?? {};
+        data = HtmlModel.fromJson(rawData);
+        status = Status.completed;
+      } else {
+        status = Status.error;
       }
-
-      final Map<String, dynamic> rawData = response.data['data'] ?? {};
-      final Map<String, dynamic> raw = rawData['attributes'] ?? {};
-
-      data = HtmlModel.fromJson(raw);
-
-      status = Status.completed;
     } catch (e) {
       status = Status.error;
-      AppSnackbar.error(title: 'Error', message: e.toString());
+      debugPrint('❌ getPrivacyPolicy error: $e');
     } finally {
       update();
     }
