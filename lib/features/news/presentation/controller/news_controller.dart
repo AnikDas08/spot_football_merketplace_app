@@ -12,6 +12,8 @@ class NewsController extends GetxController {
 
   var newsList = <NewsModel>[].obs;
   var isLoading = false.obs;
+  var singleNews = Rxn<NewsModel>();
+  var isDetailLoading = false.obs;
 
   @override
   void onInit() {
@@ -37,6 +39,27 @@ class NewsController extends GetxController {
       debugPrint('❌ fetchNews error: $e');
     } finally {
       isLoading.value = false;
+      update();
+    }
+  }
+
+  Future<void> fetchSingleNews(String id) async {
+    try {
+      isDetailLoading.value = true;
+      update();
+
+      final response = await apiClient.get(
+        '${ApiEndPoint.news}/$id',
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+
+      if (response.statusCode == 200) {
+        singleNews.value = NewsModel.fromJson(response.data['data']);
+      }
+    } catch (e) {
+      debugPrint('❌ fetchSingleNews error: $e');
+    } finally {
+      isDetailLoading.value = false;
       update();
     }
   }
