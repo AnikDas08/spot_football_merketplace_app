@@ -30,136 +30,141 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
         init: TrialRegistrationController(),
         builder: (controller) {
           return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 24.h),
-                    const CommonText(
-                      text: "Get discovered\nby clubs",
-                      fontSize: 40,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.black,
-                      bottom: 8,
-                    ),
-                    const CommonText(
-                      text: "Create your profile and get trial opportunities.",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.color373737,
-                      bottom: 24,
-                    ),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CommonText(
+                    text: "Get discovered\nby clubs",
+                    fontSize: 40,
+                    fontWeight: FontWeight.w700,
+                    bottom: 10,
+                  ),
+                  const CommonText(
+                    text: "Create your profile and get trial opportunities to unlock official league features and tracking tools.",
+                    fontSize: 16,
+                    maxLines: 5,
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w400,
+                    bottom: 32,
+                  ),
 
-                    /// First Name
-                    CommonTextField(
-                      title: "First Name",
-                      controller: controller.firstNameController,
-                      hintText: 'Enter your first name here...',
-                      validator: AppValidation.required,
-                    ),
-                    SizedBox(height: 20.h),
+                  /// First Name
+                  CommonTextField(
+                    title: "First Name",
+                    controller: controller.firstNameController,
+                    hintText: 'Enter your first name here...',
+                    validator: AppValidation.required,
+                  ),
+                  SizedBox(height: 24.h),
 
-                    /// Last Name
-                    CommonTextField(
-                      title: "Last Name",
-                      controller: controller.lastNameController,
-                      hintText: 'Enter your last name here...',
-                      validator: AppValidation.required,
-                    ),
-                    SizedBox(height: 20.h),
+                  /// Last Name
+                  CommonTextField(
+                    title: "Last Name",
+                    controller: controller.lastNameController,
+                    hintText: 'Enter your last name here...',
+                    validator: AppValidation.required,
+                  ),
+                  SizedBox(height: 24.h),
 
-                    /// DOB and Phone
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: _buildDatePickerField(context, controller),
+                  /// DOB and Phone
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _buildDatePickerField(context, controller),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: CommonTextField(
+                          title: "Phone Number",
+                          controller: controller.phoneController,
+                          hintText: 'Enter phone...',
+                          validator: AppValidation.required,
                         ),
-                        SizedBox(width: 12.w),
-                        Expanded(
-                          child: CommonTextField(
-                            title: "Phone Number",
-                            controller: controller.phoneController,
-                            hintText: 'Enter phone...',
-                            validator: AppValidation.required,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24.h),
+
+                  /// Team Selection and Strong Foot
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _buildTeamDropdown(controller),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: _buildStrongFootDropdown(controller),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 30.h),
+
+                   CommonText(
+                    text: "Document / ID Card",
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.primaryColor,
+                    bottom: 10,
+                  ),
+
+                  /// File Upload Section
+                  _buildFileUploadSection(
+                    file: controller.pickedDocument,
+                    onTap: () => controller.pickDocument(),
+                  ),
+
+                  /// Upload Progress Indicator
+                  if (controller.isLoading)
+                    Column(
+                      children: [
+                        SizedBox(height: 20.h),
+                        LinearProgressIndicator(
+                          value: controller.uploadProgress,
+                          backgroundColor: Colors.grey.shade200,
+                          color: AppColors.primaryColor,
+                        ),
+                        SizedBox(height: 8.h),
+                        Center(
+                          child: CommonText(
+                            text: "Uploading: ${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.h),
 
-                    /// Team Selection
-                    _buildTeamDropdown(controller),
-                    SizedBox(height: 20.h),
+                  SizedBox(height: 40.h),
 
-                    /// Strong Foot Selection
-                    _buildStrongFootDropdown(controller),
-                    SizedBox(height: 20.h),
+                  /// Submit Button
+                  CommonButton(
+                    titleText: "Submit Request",
+                    isLoading: controller.isLoading,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        controller.submitRequest();
+                      }
+                    },
+                  ),
 
-                    const CommonText(
-                      text: "Document / ID Card",
+                  SizedBox(height: 32.h),
+                  const Center(
+                    child: CommonText(
+                      text: "By submitting, you agree to the\nAthlete Terms of Service",
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.black,
-                      bottom: 8,
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.center,
+                      maxLines: 3,
+                      color: Color(0xff373737),
                     ),
-
-                    /// File Upload Section
-                    _buildFileUploadSection(
-                      file: controller.pickedDocument,
-                      onTap: () => controller.pickDocument(),
-                    ),
-
-                    /// Upload Progress Indicator
-                    if (controller.isLoading)
-                      Column(
-                        children: [
-                          SizedBox(height: 20.h),
-                          LinearProgressIndicator(
-                            value: controller.uploadProgress,
-                            backgroundColor: Colors.grey.shade200,
-                            color: AppColors.primaryColor,
-                          ),
-                          SizedBox(height: 8.h),
-                          Center(
-                            child: CommonText(
-                              text: "Uploading: ${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                    SizedBox(height: 40.h),
-
-                    /// Submit Button
-                    CommonButton(
-                      titleText: "Submit Request",
-                      isLoading: controller.isLoading,
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          controller.submitRequest();
-                        }
-                      },
-                    ),
-
-                    SizedBox(height: 16.h),
-                    const Center(
-                      child: CommonText(
-                        text: "By submitting, you agree to the\nAthlete Terms of Service",
-                        fontSize: 14,
-                        textAlign: TextAlign.center,
-                        color: AppColors.color6B6B6B,
-                      ),
-                    ),
-
-                    SizedBox(height: 32.h),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 24.h),
+                ],
               ),
             ),
           );
@@ -172,21 +177,22 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CommonText(
+         CommonText(
           text: "Select Team",
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500,
           bottom: 8,
         ),
         DropdownButtonFormField<String>(
           value: controller.selectedTeam,
           isExpanded: true,
           icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
-          decoration: _dropdownDecoration("Select a team..."),
+          style: TextStyle(fontSize: 14.sp, color: AppColors.black),
+          decoration: _dropdownDecoration("Select team..."),
           items: controller.teams.map((team) {
             return DropdownMenuItem<String>(
               value: team['_id'],
-              child: Text(team['name'] ?? "Unknown", overflow: TextOverflow.ellipsis),
+              child: Text(team['teamName'] ?? "", overflow: TextOverflow.ellipsis),
             );
           }).toList(),
           onChanged: (val) => controller.setTeam(val!),
@@ -200,21 +206,22 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CommonText(
+         CommonText(
           text: "Strong Foot",
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500,
           bottom: 8,
         ),
         DropdownButtonFormField<String>(
           value: controller.selectedStrongFoot,
           isExpanded: true,
           icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
-          decoration: _dropdownDecoration("Select strong foot..."),
+          style: TextStyle(fontSize: 14.sp, color: AppColors.black),
+          decoration: _dropdownDecoration("Select foot..."),
           items: controller.strongFeet.map((foot) {
             return DropdownMenuItem<String>(
               value: foot,
-              child: Text(foot),
+              child: Text(foot, overflow: TextOverflow.ellipsis),
             );
           }).toList(),
           onChanged: (val) => controller.setStrongFoot(val!),
@@ -237,7 +244,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.r),
-        borderSide: const BorderSide(color: Colors.black),
+        borderSide: const BorderSide(color: AppColors.primaryColor),
       ),
     );
   }
@@ -257,41 +264,41 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
           borderRadius: BorderRadius.circular(8.r),
           child: file != null
               ? (file.path.toLowerCase().endsWith('.pdf') ||
-                      file.path.toLowerCase().endsWith('.doc') ||
-                      file.path.toLowerCase().endsWith('.docx')
-                  ? Container(
-                      color: Colors.grey.shade50,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            file.path.toLowerCase().endsWith('.pdf') ? Icons.picture_as_pdf : Icons.description,
-                            size: 48.sp,
-                            color: AppColors.primaryColor,
-                          ),
-                          SizedBox(height: 8.h),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            child: Text(
-                              file.path.split(Platform.isWindows ? '\\\\' : '/').last,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Image.file(file, fit: BoxFit.cover))
-              : Center(
-                  child: CommonImage(
-                    imageSrc: "assets/images/upload_file_image.png",
-                    width: double.infinity,
-                    height: 156.h,
-                    fill: BoxFit.fill,
+              file.path.toLowerCase().endsWith('.doc') ||
+              file.path.toLowerCase().endsWith('.docx')
+              ? Container(
+            color: Colors.grey.shade50,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  file.path.toLowerCase().endsWith('.pdf') ? Icons.picture_as_pdf : Icons.description,
+                  size: 48.sp,
+                  color: AppColors.primaryColor,
+                ),
+                SizedBox(height: 8.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Text(
+                    file.path.split(Platform.isWindows ? '\\\\' : '/').last,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
                   ),
                 ),
+              ],
+            ),
+          )
+              : Image.file(file, fit: BoxFit.cover))
+              : Center(
+            child: CommonImage(
+              imageSrc: "assets/images/upload_file_image.png",
+              width: double.infinity,
+              height: 156.h,
+              fill: BoxFit.fill,
+            ),
+          ),
         ),
       ),
     );
@@ -301,7 +308,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+         CommonText(text: "Date Of Birth", fontSize: 16.sp, fontWeight: FontWeight.w500, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
           child: Container(
