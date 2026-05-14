@@ -6,6 +6,7 @@ import '../../utils/log/app_log.dart';
 import 'storage_keys.dart';
 
 class LocalStorage {
+
   static String token = "";
   static String refreshToken = "";
   static bool isLogIn = false;
