@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 
 import '../../../../component/other_widgets/common_loader.dart';
 import '../../../../component/screen/error_screen.dart';
@@ -10,6 +11,7 @@ import '../../../../component/text/common_text.dart';
 import '../controller/terms_of_services_controller.dart';
 import '../../../../../../utils/constants/app_string.dart';
 import '../../../../../../utils/enum/enum.dart';
+import '../../../../utils/constants/app_colors.dart';
 
 class TermsOfServicesScreen extends StatelessWidget {
   const TermsOfServicesScreen({super.key});
@@ -18,16 +20,11 @@ class TermsOfServicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       /// AppBar
-      appBar: AppBar(
-        title: const CommonText(
-          text: AppString.termsOfServices,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      appBar: SecondaryAppBar(title: AppString.termsOfServices),
 
       /// Body
       body: GetBuilder<TermsOfServicesController>(
+        init: TermsOfServicesController(),
         builder: (controller) => switch (controller.status) {
           /// Loading
           Status.loading => const CommonLoader(),
@@ -37,9 +34,52 @@ class TermsOfServicesScreen extends StatelessWidget {
 
           /// Completed
           Status.completed => SingleChildScrollView(
-            padding: .symmetric(vertical: 24.h, horizontal: 20.w),
-            child: Html(data: controller.data.content),
-          ),
+              padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 20.w),
+              child: Column(
+                children: [
+                  Align(
+                    child: CommonText(
+                      text: AppString.legalProtoCol.toUpperCase(),
+                      color: AppColors.primaryColor,
+                      fontSize: 32.sp,
+                      fontWeight: FontWeight.w700,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  CommonText(
+                    text: AppString.lastUpdatedOctober2024.toUpperCase(),
+                    color: AppColors.color6B6B6B,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20.h),
+                  Html(
+                    data: controller.data.content,
+                    style: {
+                      "body": Style(
+                        fontSize: FontSize(16.sp),
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.color6B6B6B,
+                        textAlign: TextAlign.start,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
+                      ),
+                      "h1": Style(
+                        color: AppColors.primaryColor,
+                        fontSize: FontSize(20.sp),
+                        fontWeight: FontWeight.w700,
+                      ),
+                      "h2": Style(
+                        color: AppColors.primaryColor,
+                        fontSize: FontSize(18.sp),
+                        fontWeight: FontWeight.w700,
+                      ),
+                    },
+                  ),
+                ],
+              ),
+            ),
         },
       ),
     );

@@ -24,78 +24,101 @@ class EditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
       builder: (controller) {
-        final userImage = LocalStorage.userId;
+        final userImage = LocalStorage.myImage;
 
         return Scaffold(
+          backgroundColor: const Color(0xFFF3F3F3),
           /// AppBar
           appBar: SecondaryAppBar(title: AppString.editProfile),
 
           /// Body
           body: SingleChildScrollView(
-            padding: .symmetric(horizontal: 20.w, vertical: 24.h),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
             child: Form(
               key: _formKey,
               child: Column(
                 children: [
                   /// Profile image
                   Stack(
-                    alignment: .bottomRight,
+                    alignment: Alignment.bottomRight,
                     children: [
-                      CircleAvatar(
-                        radius: 70.r,
-                        backgroundColor: Colors.transparent,
-                        child: ClipOval(
-                          child: controller.image != null
-                              ? Image.file(
-                                  File(controller.image!),
-                                  width: 140,
-                                  height: 140,
-                                  fit: BoxFit.contain,
-                                )
-                              : CommonImage(
-                                  imageSrc: userImage.isEmpty
-                                      ? TempImage.profile
-                                      : userImage,
-                                  width: 140,
-                                  height: 140,
-                                ),
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppColors.primaryColor, width: 2),
+                        ),
+                        child: CircleAvatar(
+                          radius: 60.r,
+                          backgroundColor: Colors.white,
+                          child: ClipOval(
+                            child: controller.image != null
+                                ? Image.file(
+                                    File(controller.image!),
+                                    width: 120.r,
+                                    height: 120.r,
+                                    fit: BoxFit.cover,
+                                  )
+                                : CommonImage(
+                                    imageSrc: userImage.isEmpty
+                                        ? TempImage.profile
+                                        : userImage,
+                                    width: 120.r,
+                                    height: 120.r,
+                                    fill: BoxFit.cover,
+                                  ),
+                          ),
                         ),
                       ),
 
                       /// Edit icon
-                      IconButton(
-                        onPressed: controller.getProfileImage,
-                        icon: const Icon(Icons.edit),
-                        color: Colors.white,
-                        style: IconButton.styleFrom(
-                          backgroundColor: Colors.black,
+                      Positioned(
+                        right: 0,
+                        bottom: 0,
+                        child: GestureDetector(
+                          onTap: controller.getProfileImage,
+                          child: Container(
+                            padding: EdgeInsets.all(8.r),
+                            decoration: const BoxDecoration(
+                              color: Colors.black,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.white,
+                              size: 20.r,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  30.height,
+                  24.height,
 
                   /// Update avatar
-                  Align(
-                    child: CommonText(
-                      text: AppString.updateAvatar.toUpperCase(),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight(510),
-                      color: AppColors.textSecondaryColor,
-                    ),
+                  CommonText(
+                    text: AppString.updateAvatar.toUpperCase(),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primaryColor,
                   ),
+                  32.height,
 
                   /// Fields
                   EditProfileAllFiled(controller: controller),
 
-                  30.height,
+                  40.height,
 
                   /// Save button
                   CommonButton(
                     titleText: AppString.saveAndChanges,
                     isLoading: controller.isLoading,
-                    onTap: controller.editProfileRepo,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        controller.editProfileRepo();
+                      }
+                    },
                   ),
+                  24.height,
                 ],
               ),
             ),

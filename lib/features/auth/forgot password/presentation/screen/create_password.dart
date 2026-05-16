@@ -81,7 +81,9 @@ class CreatePassword extends StatelessWidget {
                         titleText: "Update Password",
                         isLoading: controller.isLoading,
                         onTap: () {
-                          Get.toNamed(AppRoutes.signIn);
+                          if (_formKey.currentState!.validate()) {
+                            controller.resetPassword();
+                          }
                         },
                       ),
                     ],

@@ -99,9 +99,11 @@ class SignInScreen extends StatelessWidget {
                   CommonButton(
                     titleText: 'Login',
                     isLoading: controller.isLoading,
-                    onTap: () {
-                      Get.toNamed(AppRoutes.navBarScreen);
-                    },
+                    onTap: () => controller.isLoading
+                        ? null
+                        : _formKey.currentState!.validate()
+                        ? controller.signInUser()
+                        : null,
                   ),
 
                   40.height,

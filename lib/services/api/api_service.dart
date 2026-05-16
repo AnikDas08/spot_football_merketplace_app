@@ -62,9 +62,16 @@ class DioApiClient implements ApiClient {
     Map<String, String> body = const {},
     String method = 'POST',
     Map<String, String>? headers,
+    void Function(int, int)? onSendProgress,
   }) async {
     final formData = await MultipartHelper.build(files: files, fields: body);
-    return _request(url, method: method, body: formData, headers: headers);
+    return _request(
+      url,
+      method: method,
+      body: formData,
+      headers: headers,
+      onSendProgress: onSendProgress,
+    );
   }
 
   Future<ApiResponseModel> _request(
@@ -73,6 +80,7 @@ class DioApiClient implements ApiClient {
     dynamic body,
     Map<String, dynamic>? query,
     Map<String, String>? headers,
+    void Function(int, int)? onSendProgress,
   }) async {
     try {
       final response = await _dio.request(
@@ -80,8 +88,8 @@ class DioApiClient implements ApiClient {
         data: body,
         queryParameters: query,
         options: Options(method: method, headers: headers),
+        onSendProgress: onSendProgress,
       );
-
       return ApiResponseHandler.handleSuccess(response);
     } catch (e) {
       return ApiResponseHandler.handleError(e);

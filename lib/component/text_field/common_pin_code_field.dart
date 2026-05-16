@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:untitled/utils/constants/app_colors.dart';
 
 class CommonPinCodeField extends StatefulWidget {
   final TextEditingController controller;
@@ -39,6 +40,14 @@ class _CommonPinCodeFieldState extends State<CommonPinCodeField> {
   @override
   Widget build(BuildContext context) {
     return MaterialPinField(
+
+      theme: MaterialPinTheme(
+        filledBorderColor: AppColors.yellow,
+        focusedBorderColor: AppColors.yellow,
+        focusedFillColor: AppColors.background,
+        completeBorderColor: AppColors.yellow,
+        spacing: 2
+      ),
       length: widget.length,
       pinController: _pinInputController,
       onCompleted: widget.onCompleted,

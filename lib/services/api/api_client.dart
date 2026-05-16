@@ -38,5 +38,6 @@ abstract class ApiClient {
     Map<String, String> body,
     String method,
     Map<String, String>? headers,
+    void Function(int, int)? onSendProgress,
   });
 }

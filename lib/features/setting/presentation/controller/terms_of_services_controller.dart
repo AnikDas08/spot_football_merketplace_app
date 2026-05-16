@@ -19,20 +19,18 @@ class TermsOfServicesController extends GetxController {
 
   /// Fetch terms of services
   Future<void> getTermsOfServices() async {
-    return;
     try {
       status = Status.loading;
       update();
       final response = await apiClient.get(ApiEndPoint.termsOfServices);
 
-      if (response.statusCode != 200) {
+      if (!response.isSuccess) {
         throw Exception(response.message);
       }
 
       final Map<String, dynamic> rawData = response.data['data'] ?? {};
-      final Map<String, dynamic> raw = rawData['attributes'] ?? {};
 
-      data = HtmlModel.fromJson(raw);
+      data = HtmlModel.fromJson(rawData);
 
       status = Status.completed;
     } catch (e) {

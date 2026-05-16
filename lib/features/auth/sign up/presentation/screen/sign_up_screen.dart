@@ -64,11 +64,11 @@ class SignUpScreen extends StatelessWidget {
                   CommonButton(
                     titleText: AppString.signUp,
                     isLoading: controller.isLoading,
-                    /*onTap: () {
-                      if (!_formKey.currentState!.validate()) return;
-                      controller.signUpUser();
-                    },*/
-                    onTap: controller.signUpUser,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        controller.goToRoleSelection();
+                      }
+                    },
                   ),
                   24.height,
 
