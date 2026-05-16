@@ -25,14 +25,14 @@ class LatestVideos extends StatelessWidget {
         ),
         SizedBox(height: 16.h),
         SizedBox(
-
+          height: 220.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: 5,
             padding: EdgeInsets.only(left: 16.w),
             itemBuilder: (context, index) {
               return LatestVideoCard(
-                imageHeight: 100.h,
+                imageHeight: 130.h,
                 titleFontSize: 14.sp,
                 timeFontSize: 14.sp,
                 imagePath: index % 2 == 0 ? TempImage.stats1 : TempImage.stats2,
