@@ -42,9 +42,11 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
       appBar: SecondaryAppBar(title: AppString.newsDetails.toUpperCase()),
       body: GetBuilder<NewsController>(
         builder: (controller) {
-          final NewsModel? news = controller.singleNews.value ?? (Get.arguments as NewsModel?);
+          final NewsModel? news =
+              controller.singleNews.value ?? (Get.arguments as NewsModel?);
 
-          if (controller.isDetailLoading.value && controller.singleNews.value == null) {
+          if (controller.isDetailLoading.value &&
+              controller.singleNews.value == null) {
             return const Center(child: CircularProgressIndicator());
           }
 
@@ -53,7 +55,10 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 32.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 28.w,
+                    vertical: 32.h,
+                  ),
                   width: 1.sw,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -71,7 +76,9 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                         color: AppColors.white,
                       ),
                       CommonText(
-                        text: news?.title ?? AppString.engCommunityAcademyStarOfTheWeek,
+                        text:
+                            news?.title ??
+                            AppString.engCommunityAcademyStarOfTheWeek,
                         fontSize: 32.sp,
                         fontWeight: FontWeight.w600,
                         maxLines: 3,
@@ -80,7 +87,9 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                       ),
                       CommonText(
                         text: news != null
-                            ? DateFormat('dd MMM yyyy').format(news.publishDateTime)
+                            ? DateFormat(
+                                'dd MMM yyyy',
+                              ).format(news.publishDateTime)
                             : "04 Jan 2025",
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
@@ -102,14 +111,19 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                     width: 1.sw,
                     child: Card(
                       color: AppColors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.r),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CommonText(
-                              text: news?.description ?? AppString.thisWeekWereProudToCelebrateLeoAsOurStarOfTheWeek,
+                              text:
+                                  news?.description ??
+                                  AppString
+                                      .thisWeekWereProudToCelebrateLeoAsOurStarOfTheWeek,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                               color: AppColors.color373737,
@@ -137,7 +151,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                     ),
                     SizedBox(height: 16.h),
                     SizedBox(
-                      height: 170.h,
+                      height: 195.h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: 5,
@@ -149,8 +163,9 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                               imageHeight: 130.h,
                               titleFontSize: 14.sp,
                               timeFontSize: 10.sp,
-                              imagePath:
-                                  index % 2 == 0 ? TempImage.stats1 : TempImage.stats2,
+                              imagePath: index % 2 == 0
+                                  ? TempImage.stats1
+                                  : TempImage.stats2,
                               title: AppString.top10GoalsWeek24,
                               time: AppString.threeHourAgoEngOriginal,
                               duration: AppString.duration7m,
