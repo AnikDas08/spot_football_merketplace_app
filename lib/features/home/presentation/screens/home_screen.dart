@@ -45,8 +45,25 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20.h),
                 UpcomingEvents(),
                 SizedBox(height: 20.h),
-                RecentResult(),
-                SizedBox(height: 20.h),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+
+                    return Padding(
+                      padding: EdgeInsets.only(left: 0.w, right: 0.w, bottom: 0.h),
+                      child: RecentResult(
+                        time: "18:30 PM",
+                        date: "NOV 12",
+                        homeTeam: "Phoenix UTDS",
+                        awayTeam: "Lions FC",
+                        homeScore: 3,
+                        awayScore: 0,
+                      ),
+                    );
+                  },
+                ),                 SizedBox(height: 20.h),
                 UpcomingFixtures(),
                 SizedBox(height: 20.h),
                 LeaguePreview(),

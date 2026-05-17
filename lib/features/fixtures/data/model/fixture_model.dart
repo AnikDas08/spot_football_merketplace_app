@@ -6,7 +6,7 @@ class FixtureModel {
   final String time;       // "20:00 PM"
   final String homeTeam;
   final String awayTeam;
-  final String groupLabel; // "TONIGHT", "TOMORROW", etc.
+  final String groupLabel;
 
   FixtureModel({
     required this.id,

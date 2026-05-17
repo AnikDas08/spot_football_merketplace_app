@@ -26,6 +26,7 @@ import '../../features/auth/sign in/presentation/screen/sign_in_screen.dart';
 import '../../features/auth/sign up/presentation/screen/sign_up_screen.dart';
 import '../../features/auth/sign up/presentation/screen/verify_user.dart';
 import '../../features/eng_tv_flow/presentation/screen/video_stream_screen.dart';
+import '../../features/home/presentation/screens/club_profile_screen.dart';
 import '../../features/home/presentation/screens/league_preview_screen.dart';
 import '../../features/message/presentation/screen/chat_screen.dart';
 import '../../features/message/presentation/screen/message_screen.dart';
@@ -59,6 +60,7 @@ class AppRoutes {
   static const String navBarScreen = '/navBarScreen.dart';
   static const String videoStreamScreen = '/videoStreamScreen.dart';
   static const String playerProfileDetailsScreen = '/playerProfileDetailsScreen.dart';
+  static const String clubProfileScreen = '/clubProfileScreen.dart';
 
   // added by ajijul
   static const String matchInfo = "/matchInfo";
@@ -171,5 +173,6 @@ class AppRoutes {
     GetPage(name: record_goal_screen, page: () => const RecordGoalScreen()),
     GetPage(name: transfer_request_screen, page: () => const TransferRequestScreen()),
     GetPage(name: team_sheet_screen, page: () => const TeamSheetScreen()),
+    GetPage(name: clubProfileScreen, page: () => const ClubProfileScreen()),
   ];
 }

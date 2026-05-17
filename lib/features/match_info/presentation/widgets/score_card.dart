@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 
 import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
 
@@ -77,25 +79,30 @@ class ScoreCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // Home team
-                      Column(
-                        children: [
-                          Container(
-                            width: 72.w,
-                            height: 72.h,
-                            decoration: BoxDecoration(
-                              color: AppColors.color3F3F3,
-                              borderRadius: BorderRadius.circular(12.r),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.clubProfileScreen);
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 72.w,
+                              height: 72.h,
+                              decoration: BoxDecoration(
+                                color: AppColors.color3F3F3,
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: Image.asset(TempImage.titanFlag),
                             ),
-                            child: Image.asset(TempImage.titanFlag),
-                          ),
-                          SizedBox(height: 6.h),
-                          CommonText(
-                            text: "TITANS FC",
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight(590),
-                            color: AppColors.primaryColor,
-                          ),
-                        ],
+                            SizedBox(height: 6.h),
+                            CommonText(
+                              text: "TITANS FC",
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight(590),
+                              color: AppColors.primaryColor,
+                            ),
+                          ],
+                        ),
                       ),
 
                       // Score
@@ -125,26 +132,31 @@ class ScoreCard extends StatelessWidget {
                       ),
 
                       // Away team
-                      Column(
-                        children: [
-                          Container(
-                            width: 72.w,
-                            height: 72.h,
-                            decoration: BoxDecoration(
-                              color: AppColors.color3F3F3,
-                              borderRadius: BorderRadius.circular(12.r),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.clubProfileScreen);
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 72.w,
+                              height: 72.h,
+                              decoration: BoxDecoration(
+                                color: AppColors.color3F3F3,
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: Image.asset(TempImage.phoenixFlag),
                             ),
-                            child: Image.asset(TempImage.phoenixFlag),
-                          ),
-                          SizedBox(height: 6.h),
-                          CommonText(
-                            text: "PHOENIX\nUTDS",
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight(590),
-                            color: AppColors.primaryColor,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                            SizedBox(height: 6.h),
+                            CommonText(
+                              text: "PHOENIX\nUTDS",
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight(590),
+                              color: AppColors.primaryColor,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
