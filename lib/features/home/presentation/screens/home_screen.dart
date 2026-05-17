@@ -6,6 +6,7 @@ import 'package:untitled/features/home/presentation/widgets/league_preview.dart'
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
 
 import '../../../../component/text/common_text.dart';
+import '../controllers/club_profile_controller.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/latest_news.dart';
 import '../widgets/recent_result.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = ClubProfileController();
     return Scaffold(
       drawer: AppDrawer(),
       appBar: CommonAppbar(title: AppString.community),
@@ -45,10 +47,26 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20.h),
                 UpcomingEvents(),
                 SizedBox(height: 20.h),
-                RecentResult(),
-                SizedBox(height: 20.h),
-                UpcomingFixtures(),
-                SizedBox(height: 20.h),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+
+                    return Padding(
+                      padding: EdgeInsets.only(left: 0.w, right: 0.w, bottom: 0.h),
+                      child: RecentResult(
+                        time: "18:30 PM",
+                        date: "NOV 12",
+                        homeTeam: "Phoenix UTDS",
+                        awayTeam: "Lions FC",
+                        homeScore: 3,
+                        awayScore: 0,
+                      ),
+                    );
+                  },
+                ),                 SizedBox(height: 20.h),
+                UpcomingFixtures(fixtures: controller.upcomingFixturesList),                SizedBox(height: 20.h),
                 LeaguePreview(),
                 SizedBox(height: 20.h),
                 LatestVideos(),

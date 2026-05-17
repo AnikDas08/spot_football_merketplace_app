@@ -14,7 +14,6 @@ class LatestVideos extends StatelessWidget {
 
   const LatestVideos({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,7 +53,5 @@ class LatestVideos extends StatelessWidget {
       ],
     );
   }
-
-
 
 }
