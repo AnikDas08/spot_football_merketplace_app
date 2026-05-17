@@ -18,9 +18,7 @@ import '../widgets/upcoming_fixtures.dart';
 
 class ClubProfileScreen extends StatelessWidget {
   ClubProfileScreen({super.key});
-
   final TabsController tabsController = Get.find<TabsController>();
-
   final List<LineupGroupModel> _lineups = [
     LineupGroupModel(
       title: 'Goalkeeper',
@@ -116,7 +114,6 @@ class ClubProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 28.h),
 
-            // Recent Results List
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -137,8 +134,6 @@ class ClubProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             UpcomingFixtures(fixtures: controller.upcomingFixturesList),
-
-
 
             ListView.builder(
               shrinkWrap: true,
@@ -191,7 +186,6 @@ class ClubProfileScreen extends StatelessWidget {
               },
             ),
 
-            // Safe bottom spacing for scrolling comfort
             SizedBox(height: 24.h),
           ],
         ),
@@ -215,7 +209,6 @@ class _PlayerRow extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         child: Row(
           children: [
-            // Jersey number
             SizedBox(
               width: 28.w,
               child: CommonText(
@@ -228,7 +221,6 @@ class _PlayerRow extends StatelessWidget {
 
             SizedBox(width: 8.w),
 
-            // Player image
             ClipRRect(
               borderRadius: BorderRadius.circular(8.r),
               child: Image.asset(
@@ -241,10 +233,9 @@ class _PlayerRow extends StatelessWidget {
 
             SizedBox(width: 12.w),
 
-            // Name + nationality
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, // Fixed syntax typo (.center -> MainAxisAlignment.center)
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 3,
                 children: [
@@ -264,12 +255,11 @@ class _PlayerRow extends StatelessWidget {
               ),
             ),
 
-            // Arrow
             SvgPicture.asset(
               AppIcons.arrowRight,
               colorFilter: ColorFilter.mode(
                 AppColors.primaryColor,
-                BlendMode.srcIn, // Fixed BlendMode to properly render vector color fills
+                BlendMode.srcIn,
               ),
             ),
           ],
