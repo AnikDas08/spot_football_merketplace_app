@@ -73,7 +73,6 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20.h),
                 LatestVideos(),
                 SizedBox(height: 20.h),
-
               ],
             ),
           ),
