@@ -20,11 +20,5 @@ class ChangePasswordController extends GetxController {
     return;
 
   /// dispose Controller
-  @override
-  void dispose() {
-    currentPasswordController.dispose();
-    newPasswordController.dispose();
-    confirmPasswordController.dispose();
-    super.dispose();
-  }}
+}
 }
