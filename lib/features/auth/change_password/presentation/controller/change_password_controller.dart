@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../../services/api/api_client.dart';
 import '../../../../../services/api/api_service.dart';
-import '../../../../../config/api/api_end_point.dart';
-import '../../../../../utils/app_snackbar.dart';
+
 
 class ChangePasswordController extends GetxController {
   bool isLoading = false;
@@ -27,5 +26,5 @@ class ChangePasswordController extends GetxController {
     newPasswordController.dispose();
     confirmPasswordController.dispose();
     super.dispose();
-  }
+  }}
 }
