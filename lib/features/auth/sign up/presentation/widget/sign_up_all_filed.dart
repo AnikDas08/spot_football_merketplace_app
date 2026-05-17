@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../../utils/constants/app_string.dart';
-import '../../../../../component/text/common_text.dart';
+
 import '../../../../../component/text_field/common_text_field.dart';
 import '../../../../../utils/helpers/validation.dart';
 import '../controller/sign_up_controller.dart';
