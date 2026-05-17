@@ -125,7 +125,7 @@ class AppDrawer extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50.r,
-              backgroundColor: AppColors.color6B6B6B.withOpacity(0.1),
+              backgroundColor: AppColors.color6B6B6B.withValues(alpha: 0.1),
               backgroundImage: image.isNotEmpty
                   ? NetworkImage(image) as ImageProvider
                   : const AssetImage(TempImage.profile),

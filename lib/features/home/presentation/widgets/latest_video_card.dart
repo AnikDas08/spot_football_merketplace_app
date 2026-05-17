@@ -76,7 +76,7 @@ class LatestVideoCard extends StatelessWidget {
                         vertical: 4.h,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.black.withOpacity(0.8),
+                        color: AppColors.black.withValues(alpha: 0.8),
                         borderRadius: BorderRadius.circular(6.r),
                       ),
                       child: CommonText(

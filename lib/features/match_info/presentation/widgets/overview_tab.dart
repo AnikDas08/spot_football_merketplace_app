@@ -367,7 +367,7 @@ class _PlayerNode extends StatelessWidget {
             border: Border.all(color: AppColors.white, width: 2),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
@@ -393,7 +393,7 @@ class _PlayerNode extends StatelessWidget {
           text: position,
           fontSize: 10.sp,
           fontWeight: FontWeight.w400,
-          color: AppColors.white.withOpacity(0.8),
+          color: AppColors.white.withValues(alpha: 0.8),
         ),
       ],
     );

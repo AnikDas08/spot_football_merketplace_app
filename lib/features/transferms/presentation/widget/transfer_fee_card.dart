@@ -27,7 +27,7 @@ class TransferFeeCard extends StatelessWidget {
 
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 5,
             offset: const Offset(0, 2),
           ),

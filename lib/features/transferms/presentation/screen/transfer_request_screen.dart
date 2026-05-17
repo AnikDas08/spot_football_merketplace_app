@@ -68,7 +68,7 @@ class TransferRequestScreen extends StatelessWidget {
               text: 'Manage your roster moves and negotiations.',
               fontSize: 14.sp,
               fontWeight: FontWeight.w500,
-              color: Colors.black.withOpacity(0.8),
+              color: Colors.black.withValues(alpha: 0.8),
             ),
           ),
         ],
