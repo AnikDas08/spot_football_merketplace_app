@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/features/home/data/slider_model.dart';
@@ -11,7 +9,6 @@ import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
-import '../../../../utils/constants/app_images.dart';
 
 class BannerCard extends StatelessWidget {
   final SliderModel sliderModel;
@@ -103,7 +100,6 @@ class BannerCard extends StatelessWidget {
                             width: 1.2,
                           ),
                         ),
-
                         child: CommonText(
                           text: AppString.watchEngLive,
                           color: AppColors.white,

@@ -14,7 +14,6 @@ class LeagueTablesScreen extends StatefulWidget {
   @override
   State<LeagueTablesScreen> createState() => _LeagueTablesScreenState();
 }
-
 class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
   String selectedDateText = '2025/26';
 

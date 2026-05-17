@@ -18,15 +18,12 @@ class RecordGoalController extends GetxController {
   void updateTeam(String team) {
     selectedTeam.value = team;
   }
-
   void updatePlayerIndex(int index) {
     selectedPlayerIndex.value = index;
   }
-
   void updateGoalType(String type) {
     selectedGoalType.value = type;
   }
-
   void updateAssistPlayer(String? player) {
     selectedAssistPlayer.value = player;
   }
