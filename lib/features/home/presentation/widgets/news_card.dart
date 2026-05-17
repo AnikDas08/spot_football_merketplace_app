@@ -7,10 +7,8 @@ import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/features/news/data/models/news_model.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
-
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
-
 import 'package:untitled/component/image/common_image.dart';
 
 class NewsCard extends StatelessWidget {
@@ -30,7 +28,6 @@ class NewsCard extends StatelessWidget {
     this.height,
     this.newsModel,
   });
-
   @override
   Widget build(BuildContext context) {
     final displayImage = newsModel != null
