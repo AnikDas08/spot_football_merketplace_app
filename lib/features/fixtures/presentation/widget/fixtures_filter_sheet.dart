@@ -273,7 +273,7 @@ class _CalendarWidget extends StatelessWidget {
   final FixturesController c;
   const _CalendarWidget({required this.c});
 
-  static const _weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  // static const _weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/config/api/api_end_point.dart';
 import 'package:untitled/features/home/presentation/widgets/news_card.dart';
 import 'package:untitled/features/news/presentation/controller/news_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_images.dart';
+
 
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_string.dart';
