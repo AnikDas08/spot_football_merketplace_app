@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 
 import '../../../../component/button/common_button.dart';
 import '../../../../component/common_dropdown_field/common_dropdown_field.dart';
