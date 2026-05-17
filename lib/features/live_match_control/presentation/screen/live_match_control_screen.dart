@@ -5,7 +5,6 @@ import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
-
 import '../../../../config/route/app_routes.dart';
 
 class LiveMatchControlScreen extends StatelessWidget {
@@ -193,7 +192,7 @@ class LiveMatchControlScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: accentColor.withOpacity(0.1),
+                color: accentColor.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.sports_soccer, color: accentColor, size: 24.sp),
