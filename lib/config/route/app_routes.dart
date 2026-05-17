@@ -173,6 +173,6 @@ class AppRoutes {
     GetPage(name: record_goal_screen, page: () => const RecordGoalScreen()),
     GetPage(name: transfer_request_screen, page: () => const TransferRequestScreen()),
     GetPage(name: team_sheet_screen, page: () => const TeamSheetScreen()),
-    GetPage(name: clubProfileScreen, page: () => const ClubProfileScreen()),
+    GetPage(name: clubProfileScreen, page: () =>  ClubProfileScreen()),
   ];
 }
