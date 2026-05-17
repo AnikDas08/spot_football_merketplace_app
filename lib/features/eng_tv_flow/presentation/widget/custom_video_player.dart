@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../utils/constants/app_colors.dart';
 
 class CustomVideoPlayer extends StatefulWidget {
   final String videoUrl;

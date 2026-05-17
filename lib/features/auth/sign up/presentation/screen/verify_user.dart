@@ -7,7 +7,6 @@ import '../../../../../component/text/common_text.dart';
 import '../controller/sign_up_controller.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../component/text_field/common_pin_code_field.dart';
-import '../../../../../../../utils/constants/app_string.dart';
 
 class VerifyUser extends StatefulWidget {
   const VerifyUser({super.key});
