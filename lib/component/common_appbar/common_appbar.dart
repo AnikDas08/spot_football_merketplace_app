@@ -8,7 +8,6 @@ import 'package:untitled/config/route/app_routes.dart';
 import '../../utils/constants/app_colors.dart';
 import '../../utils/constants/app_icons.dart';
 import '../../utils/constants/app_images.dart';
-import '../../utils/constants/app_string.dart';
 
 class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
