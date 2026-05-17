@@ -6,6 +6,7 @@ import 'package:untitled/features/home/presentation/widgets/league_preview.dart'
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
 
 import '../../../../component/text/common_text.dart';
+import '../controllers/club_profile_controller.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/latest_news.dart';
 import '../widgets/recent_result.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = ClubProfileController();
     return Scaffold(
       drawer: AppDrawer(),
       appBar: CommonAppbar(title: AppString.community),
@@ -64,8 +66,7 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                 ),                 SizedBox(height: 20.h),
-                UpcomingFixtures(),
-                SizedBox(height: 20.h),
+                UpcomingFixtures(fixtures: controller.upcomingFixturesList),                SizedBox(height: 20.h),
                 LeaguePreview(),
                 SizedBox(height: 20.h),
                 LatestVideos(),

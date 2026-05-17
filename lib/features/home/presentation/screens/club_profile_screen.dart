@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../component/common_appbar/secondary_appbar.dart';
-import '../../../../component/text/common_text.dart';
-import '../../../../utils/constants/app_colors.dart';
+
+import '../controllers/club_profile_controller.dart';
 import '../widgets/league_context_widget.dart';
 import '../widgets/league_header_widget.dart';
 import '../widgets/recent_result.dart';
-import '../widgets/recent_result_card.dart';
 import '../widgets/upcoming_fixtures.dart';
 
 class ClubProfileScreen extends StatelessWidget {
@@ -15,6 +14,7 @@ class ClubProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = ClubProfileController();
     return Scaffold(
       appBar: SecondaryAppBar(title: "Club profile"),
       body: SingleChildScrollView(
@@ -48,8 +48,7 @@ class ClubProfileScreen extends StatelessWidget {
                 );
               },
             ),            SizedBox(height: 20.h),
-            UpcomingFixtures(),
-
+            UpcomingFixtures(fixtures: controller.upcomingFixturesList),
           ],
         ),
       ),
