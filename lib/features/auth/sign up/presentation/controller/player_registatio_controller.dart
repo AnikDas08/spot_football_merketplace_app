@@ -1,16 +1,12 @@
-import 'package:dio/dio.dart' as dio;
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:untitled/config/api/api_end_point.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/services/api/api_client.dart';
 import 'package:untitled/services/api/api_service.dart';
 import 'package:untitled/utils/app_snackbar.dart';
 import 'package:untitled/services/storage/storage_keys.dart';
 import 'package:untitled/services/storage/storage_services.dart';
-import '../../../../../services/api/multipart_helper.dart';
 import '../../data/player_registation_model.dart';
-import 'verify_player_controller.dart';
 
 class PlayerRegistrationController extends GetxController {
   late RxList<RegistrationPlan> plans;
