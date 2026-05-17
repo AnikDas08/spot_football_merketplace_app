@@ -283,7 +283,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (isLive) {
-                        Get.toNamed(AppRoutes.live_match_control_screen);
+                        Get.toNamed(AppRoutes.liveMatchControlScreen);
                       }
                     },
                     style: ElevatedButton.styleFrom(

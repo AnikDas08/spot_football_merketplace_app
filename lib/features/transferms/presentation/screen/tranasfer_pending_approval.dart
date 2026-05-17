@@ -4,18 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../component/button/common_button.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
-
-// Mone korchi AppStrings file-ti ekhane import kora ache
-// import 'package:untitled/utils/constants/app_strings.dart';
 import '../../../../utils/constants/app_string.dart';
-import '../widget/contract_duration_result_card.dart';
-import '../widget/player_profile_card.dart';
-import '../widget/transfer_fee_card.dart';
+
 
 class TransferPendingApproval extends StatelessWidget {
   const TransferPendingApproval({super.key});

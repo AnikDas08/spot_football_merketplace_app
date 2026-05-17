@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 import '../controller/transfer_request_controller.dart';
 

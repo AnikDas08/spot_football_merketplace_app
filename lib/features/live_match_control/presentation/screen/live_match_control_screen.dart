@@ -179,7 +179,7 @@ class LiveMatchControlScreen extends StatelessWidget {
 
   Widget _buildTeamActionCard(String teamName, Color accentColor) {
     return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.record_goal_screen),
+      onTap: () => Get.toNamed(AppRoutes.recordGoalScreen),
       child: Container(
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(

@@ -8,7 +8,6 @@ import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
 import '../controller/team_sheet_controller.dart';
 
 class TeamSheetScreen extends StatelessWidget {

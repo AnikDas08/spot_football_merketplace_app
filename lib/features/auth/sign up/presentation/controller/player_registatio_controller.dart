@@ -98,7 +98,7 @@ class PlayerRegistrationController extends GetxController {
           Get.back();
         } else {
           // Last step of registration
-          Get.offAllNamed(AppRoutes.successful_create_account);
+          Get.offAllNamed(AppRoutes.successfulCreateAccount);
         }
       } catch (e) {
         debugPrint('❌ continueWithPlan error: $e');

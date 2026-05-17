@@ -5,7 +5,6 @@ import 'package:untitled/services/api/api_client.dart';
 import '../../data/model/html_model.dart';
 import '../../../../services/api/api_service.dart';
 import '../../../../config/api/api_end_point.dart';
-import '../../../../utils/app_snackbar.dart';
 import '../../../../utils/enum/enum.dart';
 
 class PrivacyPolicyController extends GetxController {
