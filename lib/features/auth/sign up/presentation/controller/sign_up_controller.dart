@@ -66,7 +66,7 @@ class SignUpController extends GetxController {
 
   /// Navigate to Role Selection
   void goToRoleSelection() {
-    Get.toNamed(AppRoutes.role_select_screen);
+    Get.toNamed(AppRoutes.roleSelectScreen);
   }
 
   /// Sign up user API call
@@ -141,13 +141,13 @@ class SignUpController extends GetxController {
         AppSnackbar.success(title: 'Success', message: response.message);
         
         if (selectRole.toUpperCase() == 'PLAYER') {
-          Get.offAllNamed(AppRoutes.verify_player_screen);
+          Get.offAllNamed(AppRoutes.verifyPlayerScreen);
         } else if (selectRole.toUpperCase() == 'MANAGER') {
-          Get.offAllNamed(AppRoutes.manager_registation_screen);
+          Get.offAllNamed(AppRoutes.managerRegistrationScreen);
         } else if (selectRole.toUpperCase() == 'REFEREE') {
-          Get.offAllNamed(AppRoutes.referee_info_screen);
+          Get.offAllNamed(AppRoutes.refereeInfoScreen);
         } else if (selectRole.toUpperCase() == 'OTHER_CLUBS') {
-          Get.offAllNamed(AppRoutes.trial_registration_screen);
+          Get.offAllNamed(AppRoutes.trialRegistrationScreen);
         } else {
           Get.offAllNamed(AppRoutes.signIn);
         }

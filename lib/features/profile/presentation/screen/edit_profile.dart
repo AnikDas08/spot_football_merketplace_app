@@ -11,7 +11,6 @@ import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../services/storage/storage_services.dart';
 import '../controller/profile_controller.dart';
-import '../../../../../../utils/constants/app_images.dart';
 import '../../../../../../utils/constants/app_string.dart';
 import '../widgets/edit_profile_all_filed.dart';
 

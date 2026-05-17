@@ -71,7 +71,7 @@ class NewsCard extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(12.r),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12.r),
                         topRight: Radius.circular(12.r),

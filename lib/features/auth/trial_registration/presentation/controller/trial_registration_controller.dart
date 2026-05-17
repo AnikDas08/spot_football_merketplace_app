@@ -130,7 +130,7 @@ class TrialRegistrationController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         AppSnackbar.success(title: 'Success', message: response.message);
-        Get.offAllNamed(AppRoutes.successful_create_account);
+        Get.offAllNamed(AppRoutes.successfulCreateAccount);
       } else {
         AppSnackbar.error(title: 'Error', message: response.message);
       }

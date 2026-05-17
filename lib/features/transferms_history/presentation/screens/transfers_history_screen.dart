@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/common_appbar.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
-
 import '../widgets/transfer_list_widget.dart';
 import '../widgets/transfer_summary_card.dart';
 import '../widgets/transfer_tab_widget.dart';

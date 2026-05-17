@@ -8,7 +8,6 @@ import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
 import '../controller/team_sheet_controller.dart';
 
 class TeamSheetScreen extends StatelessWidget {
@@ -195,7 +194,7 @@ class TeamSheetScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -282,7 +281,7 @@ class TeamSheetScreen extends StatelessWidget {
               height: 48.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isEmpty ? Colors.white.withOpacity(0.2) : const Color(0xFFF57C00),
+                color: isEmpty ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFF57C00),
                 border: isEmpty ? null : Border.all(color: Colors.white, width: 1.5),
               ),
               child: isEmpty
@@ -309,7 +308,7 @@ class TeamSheetScreen extends StatelessWidget {
             text: position,
             fontSize: 10.sp,
             fontWeight: FontWeight.w500,
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withValues(alpha: 0.9),
           ),
         ],
       ),
@@ -429,7 +428,7 @@ class TeamSheetScreen extends StatelessWidget {
               child: ListView.separated(
                 shrinkWrap: true,
                 itemCount: controller.roster.length,
-                separatorBuilder: (context, i) => Divider(height: 1.h, color: Colors.grey.withOpacity(0.2)),
+                separatorBuilder: (context, i) => Divider(height: 1.h, color: Colors.grey.withValues(alpha: 0.2)),
                 itemBuilder: (context, i) {
                   return ListTile(
                     contentPadding: EdgeInsets.symmetric(vertical: 4.h),

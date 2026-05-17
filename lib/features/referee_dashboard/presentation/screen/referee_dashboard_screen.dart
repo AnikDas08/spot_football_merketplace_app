@@ -197,7 +197,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -283,7 +283,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (isLive) {
-                        Get.toNamed(AppRoutes.live_match_control_screen);
+                        Get.toNamed(AppRoutes.liveMatchControlScreen);
                       }
                     },
                     style: ElevatedButton.styleFrom(

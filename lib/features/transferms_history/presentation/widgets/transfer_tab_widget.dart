@@ -48,7 +48,7 @@ class TransferTabWidget extends StatelessWidget {
         );
       },
     );
-    ;
+
   }
 }
 

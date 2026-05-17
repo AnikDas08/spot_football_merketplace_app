@@ -112,7 +112,8 @@ class SignInScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Divider(
-                          color: AppColors.black.withOpacity(0.15),
+                          color: AppColors.black.
+                      withValues(alpha: 0.15),
                           thickness: 1,
                         ),
                       ),
@@ -127,7 +128,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                       Expanded(
                         child: Divider(
-                          color: AppColors.black.withOpacity(0.15),
+                          color: AppColors.black.withValues(alpha: 0.15),
                           thickness: 1,
                         ),
                       ),
@@ -191,7 +192,7 @@ class _SocialButton extends StatelessWidget {
           color: AppColors.white,
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
-            color: AppColors.black.withOpacity(0.15),
+            color: AppColors.black.withValues(alpha: 0.15),
             width: 1,
           ),
         ),

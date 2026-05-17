@@ -21,7 +21,7 @@ class MySubscriptionScreen extends StatelessWidget {
     // Determine the plan directly from LocalStorage
     String currentPlan = LocalStorage.plan.trim().toUpperCase();
 
-    print("${currentPlan}==============================================================");
+    print("$currentPlan==============================================================");
     
     // Default to SEMI PRO only if stored plan is empty
     if (currentPlan.isEmpty) {
@@ -121,7 +121,7 @@ class MySubscriptionScreen extends StatelessWidget {
                   SizedBox(height: 16.h),
                   CommonButton(
                     onTap: () {
-                      Get.toNamed(AppRoutes.player_registration_screen);
+                      Get.toNamed(AppRoutes.playerRegistrationScreen);
                     },
                     titleText: AppString.changeSubscriptionPlan,
                     buttonColor: AppColors.primaryColor,

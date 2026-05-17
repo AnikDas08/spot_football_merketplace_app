@@ -145,7 +145,7 @@ class ManagerRegistationController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         AppSnackbar.success(title: 'Success', message: response.message);
-        Get.toNamed(AppRoutes.manager_subscription_screen);
+        Get.toNamed(AppRoutes.managerSubscriptionScreen);
       }
       else {
         final String errorMessage = response.message;
