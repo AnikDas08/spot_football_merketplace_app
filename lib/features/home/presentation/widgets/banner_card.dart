@@ -35,7 +35,6 @@ class BannerCard extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // Background image
               Image.asset(
                 TempImage.banner,
                 fit: BoxFit.cover,
@@ -43,7 +42,6 @@ class BannerCard extends StatelessWidget {
                     Container(color: AppColors.colorCCCCCC),
               ),
 
-              // Dark gradient overlay
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -59,7 +57,6 @@ class BannerCard extends StatelessWidget {
                 ),
               ),
 
-              // Text content
               Positioned(
                 left: 16,
                 right: 16,
