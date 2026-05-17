@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-
-
 import '../../data/fixture_model.dart';
 
 class ClubProfileController extends ChangeNotifier {

@@ -52,9 +52,9 @@ class HomeScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 4,
                   itemBuilder: (context, index) {
-
                     return Padding(
-                      padding: EdgeInsets.only(left: 0.w, right: 0.w, bottom: 0.h),
+                      padding: EdgeInsets.only(
+                          left: 0.w, right: 0.w, bottom: 0.h),
                       child: RecentResult(
                         time: "18:30 PM",
                         date: "NOV 12",
@@ -65,8 +65,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   },
-                ),                 SizedBox(height: 20.h),
-                UpcomingFixtures(fixtures: controller.upcomingFixturesList),                SizedBox(height: 20.h),
+                ),
+                SizedBox(height: 20.h),
+                UpcomingFixtures(fixtures: controller.upcomingFixturesList),
+                SizedBox(height: 20.h),
                 LeaguePreview(),
                 SizedBox(height: 20.h),
                 LatestVideos(),
