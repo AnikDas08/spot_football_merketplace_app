@@ -8,7 +8,6 @@ import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/api/api_end_point.dart';
 import 'package:untitled/features/home/presentation/widgets/latest_news.dart';
 import 'package:untitled/features/home/presentation/widgets/latest_video_card.dart';
-import 'package:untitled/features/home/presentation/widgets/news_card.dart';
 import 'package:untitled/features/news/data/models/news_model.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
