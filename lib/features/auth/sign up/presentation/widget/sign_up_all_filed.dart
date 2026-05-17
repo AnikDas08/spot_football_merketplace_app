@@ -18,7 +18,7 @@ class SignUpAllField extends StatelessWidget {
       children: [
         /// User Name here
         CommonTextField(
-          title: "Full Name",
+          title: "User name",
           controller: controller.nameController,
           hintText: 'Enter full name here',
           validator: AppValidation.required,
@@ -49,7 +49,10 @@ class SignUpAllField extends StatelessWidget {
           controller: controller.confirmPasswordController,
           isPassword: true,
           hintText: 'Enter Confirm Password',
-          validator: AppValidation.password,
+          validator: (value) => AppValidation.confirmPassword(
+            value,
+            controller.passwordController,
+          ),
         ),
 
         /// User Confirm Password here

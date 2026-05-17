@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/countries.dart';
@@ -23,16 +24,14 @@ class SignUpController extends GetxController {
   String selectRole = 'User';
   String countryCode = '+880';
   String? image;
-  String signUpToken = '';
   Timer? _timer;
   int _seconds = 0;
 
   /// Form controllers
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-  final numberController = TextEditingController();
+  final nameController = TextEditingController(text: kDebugMode ? "Ajijul Islam" : null);
+  final emailController = TextEditingController(text: kDebugMode ? "rodefe4817@cadinr.com" : null);
+  final passwordController = TextEditingController(text: kDebugMode ? "Aaaa@#+11" : null);
+  final confirmPasswordController = TextEditingController(text: kDebugMode ? "Aaaa@#+11" : null);
   final otpController = TextEditingController();
 
   /// Get formatted timer text (mm:ss)
@@ -65,47 +64,44 @@ class SignUpController extends GetxController {
     update();
   }
 
-  /// Set verify loading state
-  void _setVerifyLoading(bool value) {
-    isLoadingVerify = value;
-    update();
+  /// Navigate to Role Selection
+  void goToRoleSelection() {
+    Get.toNamed(AppRoutes.role_select_screen);
   }
 
   /// Sign up user API call
   Future<void> signUpUser() async {
-    // Save user info locally for now (Mocking persistence before verification)
-    await LocalStorage.setString(LocalStorageKeys.myName, nameController.text.trim());
-    await LocalStorage.setString(LocalStorageKeys.myEmail, emailController.text.trim());
-     _playerRegistrationController.continueWithPlan();
-    Get.toNamed(AppRoutes.verifyUser);
-    return;
     try {
       _setLoading(true);
 
       final body = {
-        'fullName': nameController.text.trim(),
+        'userName': nameController.text.trim(),
         'email': emailController.text.trim(),
-        'phoneNumber': numberController.text.trim(),
-        'countryCode': countryCode,
         'password': passwordController.text.trim(),
-        'role': selectRole.toLowerCase(),
+        'role': selectRole.toUpperCase(),
       };
 
       final response = await apiClient.post(ApiEndPoint.signUp, body: body);
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = response.data['data'] ?? {};
-        signUpToken = data['signUpToken'] ?? '';
-
-        Get.toNamed(AppRoutes.verifyUser);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        AppSnackbar.success(title: 'Success', message: response.message);
+        startTimer();
+        Get.toNamed(AppRoutes.verifyEmail, arguments: {'isSignUp': true});
       } else {
-        AppSnackbar.error(
-          title: response.statusCode.toString(),
-          message: response.message,
-        );
+        final String errorMessage = response.message;
+        if(errorMessage.contains("E11000")){
+          AppSnackbar.error(title: 'Failed to create account', message: 'User already exists with this email.');
+          return;
+        }else{
+          AppSnackbar.error(
+            title: 'Error',
+            message: response.message,
+          );
+        }
       }
     } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
+      debugPrint('❌ signUpUser error: $e');
+      AppSnackbar.error(title: 'Error', message: 'Registration failed.');
     } finally {
       _setLoading(false);
     }
@@ -127,30 +123,61 @@ class SignUpController extends GetxController {
 
   /// Verify OTP API call
   Future<void> verifyOtp() async {
-    Get.toNamed(AppRoutes.role_select_screen);
-    return;
     try {
-      _setVerifyLoading(true);
-      final body = {'otp': otpController.text};
-      final headers = {'SignUpToken': 'signUpToken $signUpToken'};
+      _setLoading(true);
+      final body = {
+        'email': emailController.text.trim(),
+        'oneTimeCode': int.tryParse(otpController.text.trim()) ?? 0,
+      };
+      
       final response = await apiClient.post(
         ApiEndPoint.verifyEmail,
         body: body,
-        headers: headers,
       );
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = response.data['data'] ?? {};
-
-
-        Get.offAllNamed(AppRoutes.signIn);
+        final String token = response.data['data'] ?? '';
+        await LocalStorage.setString(LocalStorageKeys.token, token);
+        AppSnackbar.success(title: 'Success', message: response.message);
+        
+        if (selectRole.toUpperCase() == 'PLAYER') {
+          Get.offAllNamed(AppRoutes.verify_player_screen);
+        } else if (selectRole.toUpperCase() == 'MANAGER') {
+          Get.offAllNamed(AppRoutes.manager_registation_screen);
+        } else if (selectRole.toUpperCase() == 'REFEREE') {
+          Get.offAllNamed(AppRoutes.referee_info_screen);
+        } else if (selectRole.toUpperCase() == 'OTHER_CLUBS') {
+          Get.offAllNamed(AppRoutes.trial_registration_screen);
+        } else {
+          Get.offAllNamed(AppRoutes.signIn);
+        }
       } else {
-        Get.snackbar(response.statusCode.toString(), response.message);
+        AppSnackbar.error(title: 'Error', message: response.message);
       }
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      debugPrint('❌ verifyOtp error: $e');
+      AppSnackbar.error(title: 'Error', message: 'OTP verification failed.');
     } finally {
-      _setVerifyLoading(false);
+      _setLoading(false);
+    }
+  }
+
+  /// Resend OTP API call
+  Future<void> resendOtp() async {
+    try {
+      final response = await apiClient.post(
+        ApiEndPoint.resendOtp,
+        body: {'email': emailController.text.trim()},
+      );
+      if (response.statusCode == 200) {
+        AppSnackbar.success(title: 'Success', message: response.message);
+        startTimer();
+      } else {
+        AppSnackbar.error(title: 'Error', message: response.message);
+      }
+    } catch (e) {
+      debugPrint('❌ resendOtp error: $e');
+      AppSnackbar.error(title: 'Error', message: 'Failed to resend OTP.');
     }
   }
 
@@ -162,7 +189,6 @@ class SignUpController extends GetxController {
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
-    numberController.dispose();
     otpController.dispose();
     super.onClose();
   }

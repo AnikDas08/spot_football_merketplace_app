@@ -4,11 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/features/home/presentation/widgets/latest_video_card.dart';
 import 'package:untitled/utils/constants/app_string.dart';
-
 import 'package:untitled/utils/constants/temp_image.dart';
 
+
+
+
+
 class LatestVideos extends StatelessWidget {
+
   const LatestVideos({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class LatestVideos extends StatelessWidget {
         ),
         SizedBox(height: 16.h),
         SizedBox(
-          height: 180.h,
+          height: 220.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: 5,
@@ -49,4 +54,7 @@ class LatestVideos extends StatelessWidget {
       ],
     );
   }
+
+
+
 }

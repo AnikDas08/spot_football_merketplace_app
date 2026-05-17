@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/config/api/api_end_point.dart';
 import 'package:untitled/config/route/app_routes.dart';
+import 'package:untitled/features/news/data/models/news_model.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
-import '../../../../utils/constants/app_images.dart';
 
 import 'package:untitled/component/image/common_image.dart';
 
@@ -18,6 +19,7 @@ class NewsCard extends StatelessWidget {
   final String? subTitle;
   final double? width;
   final double? height;
+  final NewsModel? newsModel;
 
   const NewsCard({
     super.key,
@@ -26,13 +28,21 @@ class NewsCard extends StatelessWidget {
     this.subTitle,
     this.width,
     this.height,
+    this.newsModel,
   });
 
   @override
   Widget build(BuildContext context) {
+    final displayImage = newsModel != null
+        ? "${ApiEndPoint.imageUrl}${newsModel!.image}"
+        : (imagePath ?? TempImage.news);
+    
+    final displayCategory = newsModel?.category ?? (title ?? AppString.feature);
+    final displayTitle = newsModel?.description ?? (subTitle ?? AppString.engCommunityAcademyStarOfTheWeek);
+
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.newsDetails);
+        Get.toNamed(AppRoutes.newsDetails, arguments: newsModel);
       },
       child: Container(
         width: width ?? double.infinity,
@@ -44,9 +54,9 @@ class NewsCard extends StatelessWidget {
         child: Stack(
           children: [
             CommonImage(
-              imageSrc: imagePath ?? TempImage.news,
-              width: .infinity,
-              height: .infinity,
+              imageSrc: displayImage,
+              width: double.infinity,
+              height: double.infinity,
               fill: BoxFit.cover,
               borderRadius: 12.r,
             ),
@@ -64,13 +74,14 @@ class NewsCard extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(12.r),
                     decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.3),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12.r),
                         topRight: Radius.circular(12.r),
                       ),
                       border: Border(
                         top: BorderSide(
-                          color: AppColors.white.withAlpha(400),
+                          color: AppColors.white.withAlpha(100),
                           width: 1.5.w,
                         ),
                       ),
@@ -80,15 +91,14 @@ class NewsCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         CommonText(
-                          text: title ?? AppString.feature,
+                          text: displayCategory,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white,
                         ),
                         SizedBox(height: 4.h),
                         CommonText(
-                          text: subTitle ??
-                              AppString.engCommunityAcademyStarOfTheWeek,
+                          text: displayTitle,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.white,

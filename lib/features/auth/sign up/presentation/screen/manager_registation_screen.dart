@@ -1,19 +1,14 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/services/storage/storage_keys.dart';
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/controller/manager_registation_controller.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/controller/verify_player_controller.dart';
+import 'package:untitled/features/auth/sign up/presentation/controller/manager_registation_controller.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../../../utils/helpers/validation.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
-import '../../../../../config/route/app_routes.dart';
-import '../../../../../utils/constants/app_string.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
 
 class ManagerRegistationScreen extends StatelessWidget {
@@ -43,8 +38,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                     bottom: 10,
                   ),
                   const CommonText(
-                    text:
-                        'Create your account and start managing your team today!',
+                    text: 'Create your account and start managing your team today!',
                     fontSize: 16,
                     maxLines: 5,
                     color: AppColors.primaryColor,
@@ -53,77 +47,95 @@ class ManagerRegistationScreen extends StatelessWidget {
                   ),
 
                   CommonTextField(
-                    title: "Player First Name",
-                    controller: controller.playerFirstName,
+                    title: "First Name",
+                    controller: controller.firstNameController,
                     hintText: 'Enter your first name here...',
                     validator: AppValidation.required,
                   ),
                   SizedBox(height: 24.h),
 
                   CommonTextField(
-                    title: "Player Last Name",
-                    controller: controller.playerLastName,
+                    title: "Last Name",
+                    controller: controller.lastNameController,
                     hintText: 'Enter your last name here...',
                     validator: AppValidation.required,
                   ),
                   SizedBox(height: 24.h),
 
-                  CommonTextField(
-                    title: "Email Address",
-                    controller: controller.emailAddress,
-                    hintText: 'Enter your email address here...',
-                    validator: AppValidation.email,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildDatePickerField(context, controller),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const CommonText(text: "Select Team", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+                            DropdownButtonFormField<String>(
+                              value: controller.selectedTeam,
+                              isExpanded: true,
+                              icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+                              style: TextStyle(fontSize: 14.sp, color: AppColors.black),
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: "Select team...",
+                                hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                                contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  borderSide: BorderSide(color: Colors.grey.shade200),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  borderSide: const BorderSide(color: AppColors.primaryColor),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  borderSide: const BorderSide(color: Colors.red),
+                                ),
+                              ),
+                              items: controller.teams.map((team) {
+                                return DropdownMenuItem<String>(
+                                  value: team['_id'],
+                                  child: Text(team['teamName'] ?? "", overflow: TextOverflow.ellipsis),
+                                );
+                              }).toList(),
+                              onChanged: (val) => controller.setTeam(val!),
+                              validator: (value) => value == null ? "Required" : null,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 24.h),
 
                   CommonTextField(
                     title: "Phone Number",
-                    controller: controller.emailAddress,
+                    controller: controller.phoneController,
                     hintText: 'Enter your phone number here...',
-                    validator: AppValidation.email,
+                    validator: AppValidation.required,
                   ),
 
                   SizedBox(height: 30.h),
                   CommonText(
-                    text: "DBS Certificate",
+                    text: "DBS / DOB Document",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: AppColors.primaryColor,
                     bottom: 10,
                   ),
 
-                  /// ── Image Upload Section ──
-                  GestureDetector(
-                    onTap: () => controller.pickIdImage(),
-                    child: Container(
-                      width: double.infinity,
-                      height: 156.h,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(color: Colors.grey.shade300),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.r),
-                        child: controller.pickedIdImage != null
-                            ? Image.file(
-                                controller.pickedIdImage!,
-                                fit: BoxFit.cover,
-                              )
-                            : Center(
-                                child: CommonImage(
-                                  imageSrc:
-                                      "assets/images/upload_file_image.png",
-                                  width: double.infinity,
-                                  height: 156.h,
-                                  fill: BoxFit.fill,
-                                ),
-                              ),
-                      ),
-                    ),
+                  /// ── DOB Document Upload ──
+                  _buildFileUploadSection(
+                    file: controller.pickedDobFile,
+                    onTap: () => controller.pickDobFile(),
                   ),
 
-                  SizedBox(height: 40),
+                  SizedBox(height: 24.h),
                   CommonText(
                     text: "Medical Certificate",
                     fontSize: 16,
@@ -131,62 +143,46 @@ class ManagerRegistationScreen extends StatelessWidget {
                     color: AppColors.primaryColor,
                     bottom: 10,
                   ),
-                  /// ── Image Upload Section ──
-                  GestureDetector(
-                    onTap: () => controller.pickMedicalImage(),
-                    child: Container(
-                      width: double.infinity,
-                      height: 156.h,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(color: Colors.grey.shade300),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.r),
-                        child: controller.pickedMedicalImage != null
-                            ? Image.file(
-                                controller.pickedMedicalImage!,
-                                fit: BoxFit.cover,
-                              )
-                            : Center(
-                                child: CommonImage(
-                                  imageSrc:
-                                      "assets/images/upload_file_image.png",
-                                  width: double.infinity,
-                                  height: 156.h,
-                                  fill: BoxFit.fill,
-                                ),
-                              ),
-                      ),
-                    ),
+
+                  /// ── Medical Certificate Upload ──
+                  _buildFileUploadSection(
+                    file: controller.pickedMedicalFile,
+                    onTap: () => controller.pickMedicalFile(),
                   ),
 
-                  SizedBox(height: 40),
+                  if (controller.isLoading) ...[
+                    SizedBox(height: 20.h),
+                    LinearProgressIndicator(
+                      value: controller.uploadProgress,
+                      backgroundColor: Colors.grey.shade200,
+                      color: AppColors.primaryColor,
+                    ),
+                    SizedBox(height: 8.h),
+                    Center(
+                      child: CommonText(
+                        text: "Uploading: ${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+
+                  SizedBox(height: 40.h),
 
                   CommonButton(
                     titleText: "Submit Request",
-                    //isLoading: controller.isLoading,
+                    isLoading: controller.isLoading,
                     onTap: () async {
-                      // Simulating API call
-                      await Future.delayed(const Duration(seconds: 1));
-
-                      // Save role to local storage
-                      LocalStorage.role = "Manager";
-                      await LocalStorage.setString(
-                        LocalStorageKeys.role,
-                        LocalStorage.role,
-                      );
-
-                      Get.toNamed(AppRoutes.successful_create_account);
+                      if (_formKey.currentState!.validate()) {
+                        await controller.submitVerification();
+                      }
                     },
                   ),
 
                   SizedBox(height: 32.h),
                   const Center(
                     child: CommonText(
-                      text:
-                          'By submitting, you agree to the\nAthlete Terms of Service',
+                      text: 'By submitting, you agree to the\nAthlete Terms of Service',
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
@@ -200,6 +196,92 @@ class ManagerRegistationScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Widget _buildFileUploadSection({required File? file, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        height: 156.h,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(color: Colors.grey.shade300),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.r),
+          child: file != null
+              ? (file.path.toLowerCase().endsWith('.pdf') ||
+                      file.path.toLowerCase().endsWith('.doc') ||
+                      file.path.toLowerCase().endsWith('.docx')
+                  ? Container(
+                      color: Colors.grey.shade50,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            file.path.toLowerCase().endsWith('.pdf') ? Icons.picture_as_pdf : Icons.description,
+                            size: 48.sp,
+                            color: AppColors.primaryColor,
+                          ),
+                          SizedBox(height: 8.h),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            child: Text(
+                              file.path.split(Platform.isWindows ? '\\' : '/').last,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Image.file(file, fit: BoxFit.cover))
+              : Center(
+                  child: CommonImage(
+                    imageSrc: "assets/images/upload_file_image.png",
+                    width: double.infinity,
+                    height: 156.h,
+                    fill: BoxFit.fill,
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDatePickerField(BuildContext context, ManagerRegistationController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+        InkWell(
+          onTap: () => controller.selectDate(context),
+          child: Container(
+            height: 56.h,
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(color: Colors.grey.shade200),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.selectedDob ?? "dd/mm/yyyy",
+                  style: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                ),
+                const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

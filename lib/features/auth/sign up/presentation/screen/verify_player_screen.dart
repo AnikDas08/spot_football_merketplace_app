@@ -83,12 +83,39 @@ class VerifyPlayerScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: _buildDropdownField(
-                          title: "Select Team",
-                          hint: "Select team...",
-                          value: controller.selectedTeam,
-                          items: controller.teams,
-                          onChanged: (val) => controller.setTeam(val!),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const CommonText(text: "Select Team", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+                            DropdownButtonFormField<String>(
+                              value: controller.selectedTeam,
+                              isExpanded: true,
+                              icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+                              style: TextStyle(fontSize: 14.sp, color: AppColors.black),
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: "Select team...",
+                                hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                                contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  borderSide: BorderSide(color: Colors.grey.shade200),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  borderSide: const BorderSide(color: AppColors.primaryColor),
+                                ),
+                              ),
+                              items: controller.teams.map((team) {
+                                return DropdownMenuItem<String>(
+                                  value: team['_id'],
+                                  child: Text(team['teamName'] ?? "", overflow: TextOverflow.ellipsis),
+                                );
+                              }).toList(),
+                              onChanged: (val) => controller.setTeam(val!),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(width: 12.w),
@@ -127,28 +154,60 @@ class VerifyPlayerScreen extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.r),
                         child: controller.pickedImage != null
-                            ? Image.file(controller.pickedImage!, fit: BoxFit.cover)
+                            ? (controller.pickedImage!.path.toLowerCase().endsWith('.pdf')
+                                ? Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(Icons.picture_as_pdf, size: 50, color: Colors.red),
+                                        SizedBox(height: 8.h),
+                                        Text(
+                                          controller.pickedImage!.path.split('/').last,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 12.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Image.file(controller.pickedImage!, fit: BoxFit.cover))
                             : Center(
-                          child: CommonImage(
-                            imageSrc: "assets/images/upload_file_image.png",
-                            width: double.infinity,
-                            height: 156.h,
-                            fill: BoxFit.fill,
-                          ),
-                        ),
+                                child: CommonImage(
+                                  imageSrc: "assets/images/upload_file_image.png",
+                                  width: double.infinity,
+                                  height: 156.h,
+                                  fill: BoxFit.fill,
+                                ),
+                              ),
                       ),
                     ),
                   ),
 
-                  SizedBox(height: 40,),
+                  if (controller.isLoading) ...[
+                    SizedBox(height: 20.h),
+                    LinearProgressIndicator(
+                      value: controller.uploadProgress,
+                      backgroundColor: Colors.grey.shade200,
+                      color: AppColors.primaryColor,
+                    ),
+                    SizedBox(height: 8.h),
+                    Center(
+                      child: CommonText(
+                        text: "Uploading: ${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+
+                  SizedBox(height: 40.h),
 
                   CommonButton(
                     titleText: "Submit Request",
-                    //isLoading: controller.isLoading,
+                    isLoading: controller.isLoading,
                     onTap: () async {
-                      Get.toNamed(AppRoutes.successful_create_account);
-                      // await controller.submitVerification();
-
+                      if (_formKey.currentState!.validate()) {
+                        await controller.submitVerification();
+                      }
                     },
                   ),
 

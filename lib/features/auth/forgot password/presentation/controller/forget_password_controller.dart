@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/services/storage/storage_keys.dart';
+import 'package:untitled/services/storage/storage_services.dart';
 import '../../../../../config/api/api_end_point.dart';
 import '../../../../../config/route/app_routes.dart';
 import '../../../../../services/api/api_client.dart';
@@ -21,11 +23,8 @@ class ForgetPasswordController extends GetxController {
   final ApiClient apiClient = DioApiClient();
 
   void setValue() {
-    if (kDebugMode) return;
-    emailController.text = 'developernaimul00@gmail.com';
-    otpController.text = '123456';
-    passwordController.text = 'hello123';
-    confirmPasswordController.text = 'hello123';
+    if (!kDebugMode) return;
+    emailController.text = 'rodefe4817@cadinr.com';
   }
 
   bool isLoading = false;
@@ -41,7 +40,6 @@ class ForgetPasswordController extends GetxController {
 
   bool get canResendOtp => remainingSeconds == 0;
   int _seconds = 0;
-
 
   /// ===================== TIMER =====================
   void startTimer() {
@@ -65,7 +63,6 @@ class ForgetPasswordController extends GetxController {
 
   /// ===================== Forget Password Repo =====================
   Future<void> sendForgetPasswordEmail() async {
-    return;
     try {
       _setLoading(true);
       final response = await apiClient.post(
@@ -103,14 +100,12 @@ class ForgetPasswordController extends GetxController {
         ApiEndPoint.verifyOtp,
         body: {
           'email': emailController.text.trim(),
-          'otp': otpController.text.trim(),
+          'oneTimeCode': int.tryParse(otpController.text.trim()) ?? 0,
         },
       );
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = response.data['data'] ?? {};
-        forgetPasswordToken = data['forgetPasswordToken'] ?? '';
-
+        forgetPasswordToken = response.data['data'] ?? '';
         currentStep = ForgetPasswordStep.resetPassword;
         Get.toNamed(AppRoutes.createPassword);
       } else {
@@ -131,10 +126,10 @@ class ForgetPasswordController extends GetxController {
       _setLoading(true);
       final response = await apiClient.post(
         ApiEndPoint.resetPassword,
-        headers: {'Forget-password': 'Forget-password $forgetPasswordToken'},
+        headers: {'Authorization': forgetPasswordToken},
         body: {
-          'email': emailController.text.trim(),
-          'password': passwordController.text.trim(),
+          'newPassword': passwordController.text.trim(),
+          'confirmPassword': confirmPasswordController.text.trim(),
         },
       );
       if (response.statusCode == 200) {
@@ -150,6 +145,25 @@ class ForgetPasswordController extends GetxController {
       AppSnackbar.error(title: 'Error', message: 'Password reset failed.');
     } finally {
       _setLoading(false);
+    }
+  }
+
+  /// ===================== RESEND OTP Repo =====================
+  Future<void> resendOtp() async {
+    try {
+      final response = await apiClient.post(
+        ApiEndPoint.resendOtp,
+        body: {'email': emailController.text.trim()},
+      );
+      if (response.statusCode == 200) {
+        AppSnackbar.success(title: 'Success', message: response.message);
+        startTimer();
+      } else {
+        AppSnackbar.error(title: 'Error', message: response.message);
+      }
+    } catch (e) {
+      debugPrint('❌ resendOtp error: $e');
+      AppSnackbar.error(title: 'Error', message: 'Failed to resend OTP.');
     }
   }
 

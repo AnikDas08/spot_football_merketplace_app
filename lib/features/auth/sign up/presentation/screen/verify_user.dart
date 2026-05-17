@@ -68,105 +68,98 @@ class _VerifyUserState extends State<VerifyUser> {
 
                   /// Card with PIN Code, Timer, and Resend Text
                   Card(
+                    margin: .all(0),
                     elevation: 2,
                     color: Color(0xffFFFFFF),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.r),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: 24.w,
-                        right: 24.w,
-                        top: 48.h,
-                        bottom: 48.h,
-                      ),
-                      child: Column(
-                        children: [
-                          /// PIN Code Fields - 4 boxes only
-                          Center(
-                            child: CommonPinCodeField(
-                              controller: controller.otpController,
-                            ),
+                    child: Column(
+                      children: [
+                        /// PIN Code Fields - 4 boxes only
+                        Center(
+                          child: CommonPinCodeField(
+                            controller: controller.otpController,
                           ),
+                        ),
 
-                          SizedBox(height: 24.h),
+                        SizedBox(height: 24.h),
 
-                          /// Timer Display
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 14.w,
-                              vertical: 8.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.filledColor,
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                        /// Timer Display
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 14.w,
+                            vertical: 8.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.filledColor,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.access_time_filled_rounded,
+                                color: AppColors.green,
+                                size: 18.sp,
+                              ),
+                              SizedBox(width: 8.w),
+                              CommonText(
+                                text: controller.time,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.black,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(height: 24.h),
+
+                        /// Resend Text
+                        GestureDetector(
+                          onTap: controller.time == '00:00'
+                              ? () {
+                                  controller.startTimer();
+                                  controller.signUpUser();
+                                }
+                              : () {},
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: const TextSpan(
                               children: [
-                                Icon(
-                                  Icons.access_time_filled_rounded,
-                                  color: AppColors.green,
-                                  size: 18.sp,
+                                TextSpan(
+                                  text: "Didn't receive a code? ",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.textSecondaryColor,
+                                  ),
                                 ),
-                                SizedBox(width: 8.w),
-                                CommonText(
-                                  text: controller.time,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.black,
+                                TextSpan(
+                                  text: "Resend Code",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.black,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-
-                          SizedBox(height: 24.h),
-
-                          /// Resend Text
-                          GestureDetector(
-                            onTap: controller.time == '00:00'
-                                ? () {
-                                    controller.startTimer();
-                                    controller.signUpUser();
-                                  }
-                                : () {},
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: const TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: "Didn't receive a code? ",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.textSecondaryColor,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "Resend Code",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 36.h),
-                          CommonButton(
-                            titleText: "Verify",
-                            isLoading: controller.isLoadingVerify,
-                            onTap: () {
-                                 controller.verifyOtp();
-                              // if (_formKey.currentState!.validate()) {
-                              //
-                              // }
-                            },
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 36.h),
+                        CommonButton(
+                          titleText: "Verify",
+                          isLoading: controller.isLoading,
+                          onTap: () {
+                               controller.verifyOtp();
+                            // if (_formKey.currentState!.validate()) {
+                            //
+                            // }
+                          },
+                        ),
+                      ],
                     ),
                   ),
 
