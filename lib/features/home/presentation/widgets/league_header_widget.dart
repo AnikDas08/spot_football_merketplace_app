@@ -51,7 +51,7 @@ class LeagueHeaderWidget extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.location_on_outlined,
-                      color: AppColors.white.withOpacity(0.8),
+                      color: AppColors.white.withValues(alpha: 0.8),
                       size: 20.r,
                     ),
                     SizedBox(width: 6.w),
@@ -59,7 +59,7 @@ class LeagueHeaderWidget extends StatelessWidget {
                       child: CommonText(
                         text: 'The writes, founded 1902',
                         fontSize: 18.sp,
-                        color: AppColors.white.withOpacity(0.9),
+                        color: AppColors.white.withValues(alpha: 0.9),
                         fontWeight: FontWeight.w400,
                       ),
                     ),
