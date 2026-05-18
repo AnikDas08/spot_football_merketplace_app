@@ -34,7 +34,6 @@ class TransferRequestScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildTransferPortalBanner() {
     return Container(
       width: double.infinity,
@@ -74,7 +73,6 @@ class TransferRequestScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildTabs(TransferRequestController controller) {
     return Obx(() {
       return Container(
