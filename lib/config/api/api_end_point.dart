@@ -26,6 +26,7 @@ class ApiEndPoint {
   static const messages = 'messages';
   static const rewardProducts = '/reward-products';
   static const event = '/event/';
+  static const transfersAvailable = '/transfers/available/';
 
 
 
