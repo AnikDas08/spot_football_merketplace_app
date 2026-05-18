@@ -4,7 +4,6 @@ import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
 import 'package:untitled/features/home/presentation/widgets/league_preview.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
-
 import '../../../../component/text/common_text.dart';
 import '../controllers/club_profile_controller.dart';
 import '../widgets/banner_slider.dart';
@@ -31,6 +30,9 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
+
+
                 SizedBox(height: 20.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
@@ -82,6 +84,8 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20.h),
                 LatestVideos(),
                 SizedBox(height: 20.h),
+
+
               ],
             ),
           ),

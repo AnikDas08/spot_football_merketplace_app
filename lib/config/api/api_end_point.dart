@@ -25,4 +25,8 @@ class ApiEndPoint {
   static const chats = 'chats';
   static const messages = 'messages';
   static const rewardProducts = '/reward-products';
+  static const event = '/event/';
+
+
+
 }

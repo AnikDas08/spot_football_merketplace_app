@@ -1,36 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/features/shop/presentation/widgets/redemption_item_widget.dart';
-
-import '../../../../utils/constants/app_string.dart';
-import '../../../../utils/constants/temp_image.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../data/reward_response.dart';
+import 'redemption_item_widget.dart';
 
 class RedemptionGridWidget extends StatelessWidget {
-  final bool isCoffee;
-  const RedemptionGridWidget({super.key, this.isCoffee = false});
+  final List<RewardProduct> products;
+  final bool isLoading;
+
+  const RedemptionGridWidget({
+    super.key,
+    required this.products,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const ShimmerGridLoading();
+    }
+
+    if (products.isEmpty) {
+      return const Center(
+        child: Text("No products available"),
+      );
+    }
+
     return GridView.builder(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      itemCount: 6,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      itemCount: products.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12.w,
         mainAxisSpacing: 12.h,
-        childAspectRatio: .85,
+        childAspectRatio: 0.75, // Adjusted for professional look with image and button
       ),
       itemBuilder: (_, index) {
-        if (isCoffee) {
-          return RedemptionItemWidget(
-            title: index % 2 == 0 ? AppString.engWristBand : "ENG COFFEE CUP",
-            image: index % 2 == 0
-                ? TempImage.product
-                : TempImage.product, // Should use coffee image if available
-            coins: "5000",
-          );
-        }
-        return const RedemptionItemWidget();
+        return RedemptionItemWidget(
+          product: products[index],
+        );
       },
     );
   }
