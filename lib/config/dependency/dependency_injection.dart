@@ -55,5 +55,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => PlayerRegistrationController(), fenix: true);
     Get.lazyPut(() => ManagerRegistationController(), fenix: true);
     Get.lazyPut(() => StatsController(), fenix: true);
+    Get.lazyPut(() => ShopController(), fenix: true);
   }
 }

@@ -47,6 +47,15 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20.h),
                 UpcomingEvents(),
                 SizedBox(height: 20.h),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: CommonText(
+                    text: AppString.recentResult.toUpperCase(),
+                    fontSize: 20.sp,
+                    fontWeight: const FontWeight(590),
+                  ),
+                ),
+                SizedBox(height: 16.h),
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -54,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(
-                          left: 0.w, right: 0.w, bottom: 0.h),
+                          left: 0.w, right: 0.w, bottom: 14.h),
                       child: RecentResult(
                         time: "18:30 PM",
                         date: "NOV 12",

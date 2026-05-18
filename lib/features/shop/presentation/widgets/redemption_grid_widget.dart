@@ -18,7 +18,7 @@ class RedemptionGridWidget extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 12.w,
         mainAxisSpacing: 12.h,
-        childAspectRatio: .90,
+        childAspectRatio: .85,
       ),
       itemBuilder: (_, index) {
         if (isCoffee) {

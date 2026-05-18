@@ -28,7 +28,7 @@ class AlreadyAccountRichText extends StatelessWidget {
 
             /// Sign Up Button here
             TextSpan(
-              text: AppString.login_text,
+              text: AppString.loginText,
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   Get.toNamed(AppRoutes.signIn);

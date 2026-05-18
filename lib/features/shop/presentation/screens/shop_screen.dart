@@ -7,14 +7,16 @@ import 'package:untitled/features/shop/presentation/controllers/shop_controller.
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/extensions/extension.dart';
-
 import '../widgets/redemption_grid_widget.dart';
 import '../widgets/shop_tab_widget.dart';
 
 class ShopScreen extends StatelessWidget {
-  const ShopScreen({super.key});
+   ShopScreen({super.key});
 
-  @override
+   final controller = Get.find<ShopController>();
+
+
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
