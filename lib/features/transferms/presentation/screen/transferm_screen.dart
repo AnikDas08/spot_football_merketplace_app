@@ -15,11 +15,9 @@ import '../widget/trial_offer_card.dart';
 
 class TransferScreen extends StatelessWidget {
   const TransferScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(TransferController());
-
     return Scaffold(
       appBar: CommonAppbar(title: AppString.transfer.toUpperCase()),
       drawer: const AppDrawer(),
