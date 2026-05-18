@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 
@@ -33,19 +35,38 @@ class PlayerCard extends StatelessWidget {
         width: 280.w,
         height: 195.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
-          image: DecorationImage(
-            image: AssetImage(imageUrl),
-            fit: BoxFit.fill,
-            alignment: Alignment.center,
-          ),
+          borderRadius: BorderRadius.circular(16.r),
         ),
         child: Stack(
           children: [
+            // Background Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16.r),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                width: 280.w,
+                height: 195.h,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => CustomShimmer.rectangular(height: 195.h),
+                errorWidget: (context, url, error) => Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.person, size: 50, color: Colors.grey),
+                ),
+              ),
+            ),
+            
+            // Gradient Overlay for better text visibility
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.r),
-
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.8),
+                  ],
+                ),
               ),
             ),
 
@@ -55,78 +76,62 @@ class PlayerCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 3.h),
+                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                     decoration: BoxDecoration(
-                      color: AppColors.yellow, // Yellow color
+                      color: AppColors.yellow,
                       borderRadius: BorderRadius.circular(40.r),
                     ),
                     child: CommonText(
-                     text:  status,
-
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-
+                      text: status,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
                     ),
                   ),
                   const Spacer(),
 
                   // Position and Age
                   Text(
-                   '${position.toUpperCase()} • $age YRS',
-                   style:TextStyle (
+                    '${position.toUpperCase()} • $age YRS',
+                    style: TextStyle(
                       color: AppColors.white,
-                      fontSize: 14.sp,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
                       letterSpacing: 0.6,
-
-                   )  ),
-
+                    ),
+                  ),
 
                   // Player Name
                   CommonText(
-                    text:  playerName.toUpperCase(),
-
-                      color: AppColors.white,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w500,
-
-
+                    text: playerName.toUpperCase(),
+                    color: AppColors.white,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w700,
                   ),
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 6.h),
 
                   Row(
                     children: [
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                         decoration: BoxDecoration(
-                          color:  AppColors.green, // Green color
+                          color: AppColors.green,
                           borderRadius: BorderRadius.circular(40.r),
                         ),
-                        child:  CommonText(
-                          text:
-                          academyName.toUpperCase(),
-                            color: Colors.white,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-
+                        child: CommonText(
+                          text: academyName.toUpperCase(),
+                          color: Colors.white,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-
-                      SizedBox(width: 20.w,),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: CommonText(
-                            text: '$price COINS',
-                            color: Colors.white,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                            maxLines: 2,
-                          ),
-                        ),
+                      SizedBox(width: 12.w),
+                      CommonText(
+                        text: '$price COINS',
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
                       ),
                     ],
                   ),

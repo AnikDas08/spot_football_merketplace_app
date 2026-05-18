@@ -116,3 +116,104 @@ class ShimmerGridLoading extends StatelessWidget {
     );
   }
 }
+
+class ShimmerListLoading extends StatelessWidget {
+  const ShimmerListLoading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      itemCount: 5,
+      itemBuilder: (_, __) {
+        return Container(
+          margin: EdgeInsets.only(bottom: 16.h),
+          padding: EdgeInsets.all(12.w),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16.r),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomShimmer.rectangular(height: 150.h, width: double.infinity),
+              SizedBox(height: 12.h),
+              CustomShimmer.rectangular(height: 20.h, width: 200.w),
+              SizedBox(height: 8.h),
+              CustomShimmer.rectangular(height: 14.h, width: double.infinity),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class TransferShimmer extends StatelessWidget {
+  const TransferShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16.w),
+            child: CustomShimmer.rectangular(height: 24.h, width: 150.w),
+          ),
+          SizedBox(
+            height: 200.h,
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              scrollDirection: Axis.horizontal,
+              itemCount: 3,
+              itemBuilder: (_, __) => Padding(
+                padding: EdgeInsets.only(right: 12.w),
+                child: CustomShimmer.rectangular(height: 200.h, width: 280.w),
+              ),
+            ),
+          ),
+          SizedBox(height: 32.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: CustomShimmer.rectangular(height: 24.h, width: 150.w),
+          ),
+          SizedBox(height: 16.h),
+          ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 3,
+            itemBuilder: (_, __) => Padding(
+              padding: EdgeInsets.only(bottom: 16.h),
+              child: Container(
+                padding: EdgeInsets.all(12.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: Row(
+                  children: [
+                    CustomShimmer.rectangular(height: 72.w, width: 72.w),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomShimmer.rectangular(height: 20.h, width: 150.w),
+                          SizedBox(height: 8.h),
+                          CustomShimmer.rectangular(height: 14.h, width: double.infinity),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
