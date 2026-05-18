@@ -11,18 +11,17 @@ import '../widgets/redemption_grid_widget.dart';
 import '../widgets/shop_tab_widget.dart';
 
 class ShopScreen extends StatelessWidget {
-   ShopScreen({super.key});
+  ShopScreen({super.key});
 
-   final controller = Get.find<ShopController>();
+  final controller = Get.find<ShopController>();
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: const SecondaryAppBar(title: 'SHOP'),
       body: Column(
-        crossAxisAlignment: .start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 16.h),
           const ShopTabWidget(),
@@ -32,7 +31,7 @@ class ShopScreen extends StatelessWidget {
             child: CommonText(
               text: AppString.prizeRedemptionFeed,
               fontSize: 20.sp,
-              fontWeight: FontWeight(590),
+              fontWeight: FontWeight.w600,
             ),
           ),
           SizedBox(height: 16.h),
@@ -40,7 +39,8 @@ class ShopScreen extends StatelessWidget {
             child: GetBuilder<ShopController>(
               builder: (controller) {
                 return RedemptionGridWidget(
-                  isCoffee: controller.selectedTab == 1,
+                  products: controller.productList,
+                  isLoading: controller.isLoading.value,
                 );
               },
             ),
