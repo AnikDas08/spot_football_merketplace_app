@@ -65,7 +65,7 @@ class EngTvScreen extends StatelessWidget {
               SizedBox(height: 10.h),
 
               SizedBox(
-                height: 170.h,
+                height: 195.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
@@ -86,6 +86,7 @@ class EngTvScreen extends StatelessWidget {
                   },
                 ),
               ),
+
               _buildSectionHeader("Goal Countdowns", () {}),
 
               SizedBox(height: 10.h),

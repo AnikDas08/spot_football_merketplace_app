@@ -29,12 +29,7 @@ class RecentResult extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonText(
-            text: AppString.recentResult.toUpperCase(),
-            fontSize: 20.sp,
-            fontWeight: const FontWeight(590),
-          ),
-          SizedBox(height: 16.h),
+
 
           RecentResultCard(
             time: time,

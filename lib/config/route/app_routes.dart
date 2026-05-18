@@ -155,7 +155,7 @@ class AppRoutes {
       name: transferHistoryScreen,
       page: () => const TransfersHistoryScreen(),
     ),
-    GetPage(name: shopScreen, page: () => const ShopScreen()),
+    GetPage(name: shopScreen, page: () =>  ShopScreen()),
     GetPage(name: mySubscription, page: () => const MySubscriptionScreen()),
     GetPage(name: fixtures, page: () => FixturesScreen()),
     GetPage(name: roleSelectScreen, page: () => SelectRole()),
