@@ -141,7 +141,7 @@ class VideoStreamScreen extends StatelessWidget {
               final item = controller.videoList[index];
               return GestureDetector(
                 onTap: () {
-                  controller.videoLink.value = item["videoLink"]!;
+                  // controller.videoLink.value = item["videoLink"]!;
                 },
                 child: VideoNewsCard(
                   title: item["title"]!,
