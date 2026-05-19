@@ -29,12 +29,11 @@ class BannerCard extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // Assuming the video has a thumbnail or using a placeholder since API didn't show thumbnail field
               Image.network(
-                "${ApiEndPoint.imageUrl}${videoModel.videoUrl}", // Fallback or if videoUrl can be used for thumbnail
+                "${ApiEndPoint.imageUrl}${videoModel.thumbnail}", // Fallback or if videoUrl can be used for thumbnail
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) => Image.network(
-                   'https://images.unsplash.com/photo-1551958219-acbc630e2914?w=600',
+                   'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg',
                    fit: BoxFit.cover,
                 ),
               ),
