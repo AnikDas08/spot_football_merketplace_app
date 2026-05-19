@@ -98,97 +98,87 @@ class ClubProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = ClubProfileController();
+    final controller = Get.put(ClubProfileController());
 
     return Scaffold(
       appBar: const SecondaryAppBar(title: "Club profile"),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const LeagueHeaderWidget(),
-            SizedBox(height: 28.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: const LeagueContextWidget(),
-            ),
-            SizedBox(height: 28.h),
+      body: GetBuilder<ClubProfileController>(
+        builder: (controller) {
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const LeagueHeaderWidget(),
+                SizedBox(height: 28.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: const LeagueContextWidget(),
+                ),
+                SizedBox(height: 28.h),
 
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(left: 0.w, right: 0.w, bottom: 0.h),
-                  child: const RecentResult(
-                    time: "18:30 PM",
-                    date: "NOV 12",
-                    homeTeam: "Phoenix UTDS",
-                    awayTeam: "Lions FC",
-                    homeScore: 3,
-                    awayScore: 0,
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: 20.h),
-            UpcomingFixtures(fixtures: controller.upcomingFixturesList),
+                RecentResult(matches: controller.recentMatches),
+                
+                SizedBox(height: 20.h),
+                UpcomingFixtures(fixtures: controller.upcomingMatches),
 
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              itemCount: _lineups.length,
-              itemBuilder: (context, groupIndex) {
-                final group = _lineups[groupIndex];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CommonText(
-                      text: group.title,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.primaryColor,
-                    ),
-                    SizedBox(height: 8.h),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(12.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.black.withAlpha(10),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: group.players.length,
-                        separatorBuilder: (_, __) => Divider(
-                          color: AppColors.colorCCCCCC,
-                          height: 1,
-                          thickness: 1,
-                          indent: 16.w,
-                          endIndent: 16.w,
+                SizedBox(height: 20.h),
+
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  itemCount: _lineups.length,
+                  itemBuilder: (context, groupIndex) {
+                    final group = _lineups[groupIndex];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CommonText(
+                          text: group.title,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.primaryColor,
                         ),
-                        itemBuilder: (context, playerIndex) {
-                          final player = group.players[playerIndex];
-                          return _PlayerRow(player: player);
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
+                        SizedBox(height: 8.h),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(12.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.black.withAlpha(10),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: group.players.length,
+                            separatorBuilder: (_, __) => Divider(
+                              color: AppColors.colorCCCCCC,
+                              height: 1,
+                              thickness: 1,
+                              indent: 16.w,
+                              endIndent: 16.w,
+                            ),
+                            itemBuilder: (context, playerIndex) {
+                              final player = group.players[playerIndex];
+                              return _PlayerRow(player: player);
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
 
-            SizedBox(height: 24.h),
-          ],
-        ),
+                SizedBox(height: 24.h),
+              ],
+            ),
+          );
+        }
       ),
     );
   }

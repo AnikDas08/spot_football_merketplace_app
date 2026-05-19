@@ -7,6 +7,7 @@ import 'package:untitled/config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
 
 class RecentResultCard extends StatelessWidget {
+  final String id;
   final String date;
   final String time;
   final String homeTeam;
@@ -16,6 +17,7 @@ class RecentResultCard extends StatelessWidget {
 
   const RecentResultCard({
     super.key,
+    required this.id,
     required this.date,
     required this.homeTeam,
     required this.awayTeam,
@@ -27,8 +29,14 @@ class RecentResultCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Get.toNamed(AppRoutes.matchInfo);
+      onTap: () {
+        Get.toNamed(
+          AppRoutes.matchInfo,
+          arguments: {
+            'id': id,
+            'isUpcoming': false,
+          },
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -72,7 +80,7 @@ class RecentResultCard extends StatelessWidget {
                   maxLines: 2,
                   text: homeTeam.toUpperCase(),
                   fontSize: 14.sp,
-                  fontWeight: FontWeight(590),
+                  fontWeight: const FontWeight(590),
                   color: AppColors.primaryColor,
                   textAlign: TextAlign.left,
                 ),
@@ -103,7 +111,7 @@ class RecentResultCard extends StatelessWidget {
                   maxLines: 2,
                   text: awayTeam.toUpperCase(),
                   fontSize: 14.sp,
-                  fontWeight: FontWeight(590),
+                  fontWeight: const FontWeight(590),
                   color: AppColors.primaryColor,
                   textAlign: TextAlign.right,
                 ),

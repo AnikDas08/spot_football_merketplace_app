@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/button/common_button.dart';
+import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/features/home/presentation/widgets/latest_news.dart';
 import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
+import 'package:untitled/features/match_info/presentation/controllers/match_info_controller.dart';
 import 'package:untitled/features/match_info/presentation/controllers/tabs_controller.dart';
 import 'package:untitled/features/match_info/presentation/widgets/line_up_tab.dart';
 import 'package:untitled/features/match_info/presentation/widgets/overview_tab.dart';
@@ -13,70 +15,86 @@ import 'package:untitled/utils/constants/app_string.dart';
 import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../widgets/score_card.dart';
 
-class MatchInfoScreen extends StatelessWidget {
+class MatchInfoScreen extends StatefulWidget {
   const MatchInfoScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final TabsController tabsController = Get.find<TabsController>();
+  State<MatchInfoScreen> createState() => _MatchInfoScreenState();
+}
 
+class _MatchInfoScreenState extends State<MatchInfoScreen> {
+  final TabsController tabsController = Get.find<TabsController>();
+  final MatchInfoController matchController = Get.put(MatchInfoController());
+
+  @override
+  void initState() {
+    super.initState();
     final dynamic args = Get.arguments;
-    final bool isUpcoming = args != null && args['isUpcoming'] == true;
-    final String time = args != null ? args['time'] : "LIVE 74'";
+    if (args != null && args['id'] != null) {
+      matchController.fetchMatchDetails(args['id']);
+    }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.matchInfo),
-      body: Column(
-        children: [
-          isUpcoming
-            ? ScoreCard(
-                homeScore: "0",
-                awayScore: "0",
-                status: time,
-                isLive: false,
-              )
-            : const ScoreCard(),
+      body: Obx(() {
+        if (matchController.isLoading.value) {
+          return const MatchInfoShimmer(); // ইউটিউব স্টাইল শিমার লোডিং
+        }
 
-          SizedBox(height: 16.h),
+        final match = matchController.match.value;
+        if (match == null) {
+          return const Center(child: Text("No match data found"));
+        }
 
-          // Tab bar
-          Obx(
-            () => Padding(
+        return Column(
+          children: [
+            ScoreCard(
+              homeTeam: match.homeTeam.teamName,
+              homeLogo: match.homeTeam.teamLogo,
+              awayTeam: match.awayTeam.teamName,
+              awayLogo: match.awayTeam.teamLogo,
+              homeScore: "${match.homeScore}",
+              awayScore: "${match.awayScore}",
+              status: match.status.toUpperCase(),
+              isLive: match.status.toLowerCase() == 'live',
+              venue: match.venueName,
+            ),
+
+            SizedBox(height: 16.h),
+
+            // Tab bar
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Container(
-                padding: EdgeInsets.all(4),
+                padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   color: AppColors.background,
                   borderRadius: BorderRadius.circular(30.r),
                 ),
                 child: Row(
                   children: List.generate(tabsController.tabs.length, (index) {
-                    final isSelected =
-                        tabsController.selectedTab.value == index;
+                    final isSelected = tabsController.selectedTab.value == index;
                     return Expanded(
                       child: GestureDetector(
                         onTap: () {
                           tabsController.selectedTab.value = index;
                         },
                         child: AnimatedContainer(
-                          margin: .symmetric(horizontal: 5.w),
+                          margin: EdgeInsets.symmetric(horizontal: 5.w),
                           duration: const Duration(milliseconds: 200),
                           padding: EdgeInsets.symmetric(vertical: 10.h),
                           decoration: BoxDecoration(
-                            color: isSelected
-                                ? AppColors.primaryColor
-                                : Colors.white,
+                            color: isSelected ? AppColors.primaryColor : Colors.white,
                             borderRadius: BorderRadius.circular(12.r),
                           ),
                           child: CommonText(
                             text: tabsController.tabs[index],
                             fontSize: 14.sp,
-                            fontWeight: isSelected
-                                ? FontWeight.w700
-                                : FontWeight(590),
-                            color: isSelected
-                                ? AppColors.white
-                                : AppColors.primaryColor,
+                            fontWeight: isSelected ? FontWeight.w700 : const FontWeight(590),
+                            color: isSelected ? AppColors.white : AppColors.primaryColor,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -86,21 +104,16 @@ class MatchInfoScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
 
-          SizedBox(height: 16.h),
+            SizedBox(height: 16.h),
 
-          // Tab content
-          Obx(
-            () => Expanded(
+            // Tab content
+            Expanded(
               child: IndexedStack(
                 index: tabsController.selectedTab.value,
                 children: [
-                  // Overview tab
                   const SizedBox.expand(child: OverviewTab()),
-                  // Lineups tab
                   const SizedBox.expand(child: LineupsTab()),
-                  // Related tab
                   SizedBox.expand(
                     child: SingleChildScrollView(
                       child: Column(
@@ -108,7 +121,7 @@ class MatchInfoScreen extends StatelessWidget {
                           const LatestNews(),
                           const SizedBox(height: 16),
                           Padding(
-                            padding: .symmetric(horizontal: 16),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: CommonButton(
                               buttonColor: AppColors.transparent,
                               titleColor: AppColors.primaryColor,
@@ -116,11 +129,11 @@ class MatchInfoScreen extends StatelessWidget {
                               onTap: () {},
                               titleSize: 18.sp,
                               titleText: AppString.moreNews,
-                              titleWeight: FontWeight(510),
+                              titleWeight: const FontWeight(510),
                             ),
                           ),
                           SizedBox(height: 20.h),
-                          LatestVideos(),
+                          const LatestVideos(),
                         ],
                       ),
                     ),
@@ -128,9 +141,9 @@ class MatchInfoScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }

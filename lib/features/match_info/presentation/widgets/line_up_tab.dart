@@ -8,6 +8,7 @@ import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../utils/constants/app_icons.dart';
+import '../controllers/match_info_controller.dart';
 
 class LineupPlayerModel {
   final int number;
@@ -39,10 +40,8 @@ class LineupsTab extends StatefulWidget {
 
 class _LineupsTabState extends State<LineupsTab> {
   int _selectedTeam = 0;
+  final matchController = Get.find<MatchInfoController>();
 
-  final List<String> _teams = ['Titan FC', 'Phoenix Utds'];
-
-  // Dummy data — replace with real model/API
   final List<LineupGroupModel> _lineups = [
     LineupGroupModel(
       title: 'Goalkeeper',
@@ -122,118 +121,110 @@ class _LineupsTabState extends State<LineupsTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Team toggle
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Container(
-            padding: EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: AppColors.background,
-              borderRadius: BorderRadius.circular(30.r),
-            ),
-            child: Row(
-              children: List.generate(_teams.length, (index) {
-                final isSelected = _selectedTeam == index;
-                return Expanded(
-                  child: GestureDetector(
-                    onTap: () => setState(() => _selectedTeam = index),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      padding: EdgeInsets.symmetric(vertical: 10.h),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? AppColors.primaryColor
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      child: CommonText(
-                        text: _teams[index],
-                        fontSize: 16.sp,
-                        fontWeight: isSelected
-                            ? FontWeight(590)
-                            : FontWeight(590),
-                        color: isSelected
-                            ? AppColors.white
-                            : AppColors.primaryColor,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                );
-              }),
-            ),
-          ),
-        ),
+    return Obx(() {
+      final match = matchController.match.value;
+      if (match == null) return const SizedBox.shrink();
 
-        SizedBox(height: 12.h),
+      final List<String> teams = [match.homeTeam.teamName, match.awayTeam.teamName];
 
-        // Player list
-        Expanded(
-          child: ListView.builder(
+      return Column(
+        children: [
+          // Team toggle
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            itemCount: _lineups.length,
-            itemBuilder: (context, groupIndex) {
-              final group = _lineups[groupIndex];
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 16.h),
-                  CommonText(
-                    text: group.title,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight(590),
-                    color: AppColors.primaryColor,
-                  ),
-                  SizedBox(height: 8.h),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(12.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withAlpha(10),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.circular(30.r),
+              ),
+              child: Row(
+                children: List.generate(teams.length, (index) {
+                  final isSelected = _selectedTeam == index;
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: () => setState(() => _selectedTeam = index),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        padding: EdgeInsets.symmetric(vertical: 10.h),
+                        decoration: BoxDecoration(
+                          color: isSelected ? AppColors.primaryColor : Colors.white,
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
-                      ],
-                    ),
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: group.players.length,
-                      separatorBuilder: (_, __) => Divider(
-                        color: AppColors.colorCCCCCC,
-                        height: 1,
-                        thickness: 1,
-                        indent: 16.w,
-                        endIndent: 16.w,
+                        child: CommonText(
+                          text: teams[index].toUpperCase(),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: isSelected ? AppColors.white : AppColors.primaryColor,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      itemBuilder: (context, playerIndex) {
-                        final player = group.players[playerIndex];
-                        return _PlayerRow(player: player);
-                      },
                     ),
-                  ),
-                ],
-              );
-            },
+                  );
+                }),
+              ),
+            ),
           ),
-        ),
 
+          SizedBox(height: 12.h),
 
-
-
-
-
-
-
-
-
-
-      ],
-    );
+          // Player list
+          Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              itemCount: _lineups.length,
+              itemBuilder: (context, groupIndex) {
+                final group = _lineups[groupIndex];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 16.h),
+                    CommonText(
+                      text: group.title,
+                      fontSize: 20.sp,
+                      fontWeight: const FontWeight(590),
+                      color: AppColors.primaryColor,
+                    ),
+                    SizedBox(height: 8.h),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(12.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.black.withAlpha(10),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: group.players.length,
+                        separatorBuilder: (_, __) => Divider(
+                          color: AppColors.colorCCCCCC,
+                          height: 1,
+                          thickness: 1,
+                          indent: 16.w,
+                          endIndent: 16.w,
+                        ),
+                        itemBuilder: (context, playerIndex) {
+                          final player = group.players[playerIndex];
+                          return _PlayerRow(player: player);
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
 
@@ -252,20 +243,16 @@ class _PlayerRow extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         child: Row(
           children: [
-            // Jersey number
             SizedBox(
               width: 28.w,
               child: CommonText(
                 text: '${player.number}',
                 fontSize: 15.sp,
-                fontWeight: FontWeight(590),
+                fontWeight: const FontWeight(590),
                 color: AppColors.primaryColor,
               ),
             ),
-
             SizedBox(width: 8.w),
-
-            // Player image
             ClipRRect(
               borderRadius: BorderRadius.circular(8.r),
               child: Image.asset(
@@ -275,38 +262,33 @@ class _PlayerRow extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
             ),
-
             SizedBox(width: 12.w),
-
-            // Name + nationality
             Expanded(
               child: Column(
-                mainAxisAlignment: .center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 3,
                 children: [
                   CommonText(
                     text: player.name,
                     fontSize: 15.sp,
-                    fontWeight: FontWeight(590),
+                    fontWeight: const FontWeight(590),
                     color: AppColors.primaryColor,
                   ),
+                  SizedBox(height: 3.h),
                   CommonText(
                     text: player.nationality,
                     fontSize: 14.sp,
-                    fontWeight: FontWeight(510),
+                    fontWeight: const FontWeight(510),
                     color: AppColors.color6B6B6B,
                   ),
                 ],
               ),
             ),
-
-            // Arrow
             SvgPicture.asset(
               AppIcons.arrowRight,
               colorFilter: ColorFilter.mode(
                 AppColors.primaryColor,
-                BlendMode.dstIn,
+                BlendMode.srcIn,
               ),
             ),
           ],

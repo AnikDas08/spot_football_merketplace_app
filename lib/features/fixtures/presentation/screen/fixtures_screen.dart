@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get.dart';
 import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixture_card.dart';
 import 'package:untitled/features/navbar/controller/navbar_controller.dart';
@@ -27,14 +25,13 @@ class FixturesScreen extends StatelessWidget {
       builder: (c) => Scaffold(
         backgroundColor: AppColors.background,
         appBar: CommonAppbar(title: AppString.fixture),
-        drawer: AppDrawer(),
+        drawer: const AppDrawer(),
         body: PopScope(
           canPop: false,
           onPopInvokedWithResult: (didPop, result) {
             navBarController.selectedIndex.value = 0;
           },
           child: Column(
-            spacing: 5,
             children: [
               SizedBox(height: 20.h),
               _TabRow(c: c),
@@ -78,7 +75,7 @@ class _TabRow extends StatelessWidget {
               child: CommonText(
                 text: c.tabs[i],
                 fontSize: 16.sp,
-                fontWeight: selected ? FontWeight.w700 : FontWeight(590),
+                fontWeight: selected ? FontWeight.w700 : const FontWeight(590),
                 color: selected ? AppColors.white : AppColors.primaryColor,
               ),
             ),
@@ -102,7 +99,6 @@ class _FilterBar extends StatelessWidget {
           GestureDetector(
             onTap: () => showFilterSheet(context, c),
             child: Row(
-              spacing: 8,
               children: [
                 Container(
                   width: 44.w,
@@ -117,11 +113,12 @@ class _FilterBar extends StatelessWidget {
                   ),
                   child: SvgPicture.asset(AppIcons.filterSvg),
                 ),
+                SizedBox(width: 8.w),
                 CommonText(
                   text: AppString.filterByLeague,
                   fontSize: 15.sp,
                   color: AppColors.primaryColor,
-                  fontWeight: FontWeight(590),
+                  fontWeight: const FontWeight(590),
                 ),
               ],
             ),
@@ -131,7 +128,7 @@ class _FilterBar extends StatelessWidget {
             text: '${c.filteredFixtures.length} ${AppString.matchesFound}',
             fontSize: 14.sp,
             color: AppColors.textSecondaryColor,
-            fontWeight: FontWeight(590),
+            fontWeight: const FontWeight(590),
           ),
         ],
       ),
@@ -145,26 +142,27 @@ class _FixtureList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final groups = c.groupedFixtures;
-    if (groups.isEmpty) {
+    if (c.filteredFixtures.isEmpty) {
       return Center(
         child: CommonText(text: AppString.noMatchesFound, fontSize: 14.sp),
       );
     }
     return ListView.separated(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      itemCount: c.filteredFixtures.length,
       itemBuilder: (BuildContext context, int index) {
+        final fixture = c.filteredFixtures[index];
         return UpcomingFixtureCard(
-          date: AppString.oct12,
-          homeTeam: AppString.titansSc,
-          awayTeam: AppString.vortexFc,
-          time: "2:00 am",
+          id: fixture.id,
+          date: fixture.date,
+          homeTeam: fixture.homeTeam,
+          awayTeam: fixture.awayTeam,
+          time: fixture.time,
         );
       },
       separatorBuilder: (BuildContext context, int index) {
         return SizedBox(height: 10.h);
       },
-      itemCount: 10,
     );
   }
 }
