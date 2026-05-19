@@ -29,4 +29,5 @@ class ApiEndPoint {
   static const transfersAvailable = '/match';
   static const match = '/match/';
   static const pointTable = '/point-table';
+  static const video = '/video';
 }
