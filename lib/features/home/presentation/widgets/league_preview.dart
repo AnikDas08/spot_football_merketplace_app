@@ -2,18 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
+import 'package:untitled/component/image/common_image.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
-import '../../data/league_preview_model.dart';
+import '../../data/point_table_model.dart';
 
 class LeaguePreview extends StatelessWidget {
   final bool isSeeAll;
-  const LeaguePreview({super.key, this.isSeeAll = false});
+  final List<PointTableModel> standings;
+  final bool isLoading;
+
+  const LeaguePreview({
+    super.key,
+    this.isSeeAll = false,
+    required this.standings,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,25 +59,10 @@ class LeaguePreview extends StatelessWidget {
               ],
             ),
           if (!isSeeAll) SizedBox(height: 12.h),
-          Column(
-            children: [
-              _StandingsTable(
-                standings: [
-                  ...List.generate(
-                    isSeeAll ? 15 : 5,
-                    (index) => LeaguePreviewModel(
-                      position: index + 1,
-                      clubName: AppString.arsenal,
-                      clubLogoUrl: TempImage.arsenalFlag,
-                      played: 20,
-                      goalDifference: 25,
-                      points: 45,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+          if (isLoading)
+            CustomShimmer.rectangular(height: 200.h)
+          else
+            _StandingsTable(standings: standings, isSeeAll: isSeeAll),
         ],
       ),
     );
@@ -76,12 +70,15 @@ class LeaguePreview extends StatelessWidget {
 }
 
 class _StandingsTable extends StatelessWidget {
-  final List<LeaguePreviewModel> standings;
+  final List<PointTableModel> standings;
+  final bool isSeeAll;
 
-  const _StandingsTable({required this.standings});
+  const _StandingsTable({required this.standings, this.isSeeAll = false});
 
   @override
   Widget build(BuildContext context) {
+    final displayList = isSeeAll ? standings : standings.take(5).toList();
+
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -97,7 +94,6 @@ class _StandingsTable extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Header row
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
             decoration: BoxDecoration(
@@ -116,35 +112,37 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'Pos',
                       fontSize: 14.sp,
-                      fontWeight: FontWeight(510),
+                      fontWeight: const FontWeight(510),
                       color: AppColors.white,
                     ),
                   ),
                   Expanded(
-                    child: CommonText(
-                      text: 'Club',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight(510),
-                      color: AppColors.white,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 22.w)  ,
+                      child: CommonText(
+                        text: 'Club',
+                        fontSize: 14.sp,
+                        fontWeight: const FontWeight(510),
+                        color: AppColors.white,
+                      ),
                     ),
                   ),
-                  SizedBox(width: 130.w),
                   SizedBox(
-                    width: 36.w,
+                    width: 30.w,
                     child: CommonText(
                       text: 'PL',
                       fontSize: 14.sp,
-                      fontWeight: FontWeight(510),
+                      fontWeight: const FontWeight(510),
                       color: AppColors.white,
                       textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(
-                    width: 40.w,
+                    width: 36.w,
                     child: CommonText(
                       text: 'GD',
                       fontSize: 14.sp,
-                      fontWeight: FontWeight(510),
+                      fontWeight: const FontWeight(510),
                       color: AppColors.white,
                       textAlign: TextAlign.center,
                     ),
@@ -154,7 +152,7 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'PTS',
                       fontSize: 14.sp,
-                      fontWeight: FontWeight(510),
+                      fontWeight: const FontWeight(510),
                       color: AppColors.white,
                       textAlign: TextAlign.center,
                     ),
@@ -163,16 +161,14 @@ class _StandingsTable extends StatelessWidget {
               ),
             ),
           ),
-
-          // Rows
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: standings.length,
-            separatorBuilder: (_, _) => SizedBox(height: 2.h),
+            itemCount: displayList.length,
+            separatorBuilder: (_, _) => Divider(height: 1, color: AppColors.background),
             itemBuilder: (context, index) {
-              final item = standings[index];
-              return _StandingRow(item: item);
+              final item = displayList[index];
+              return _StandingRow(item: item, position: index + 1);
             },
           ),
         ],
@@ -182,9 +178,10 @@ class _StandingsTable extends StatelessWidget {
 }
 
 class _StandingRow extends StatelessWidget {
-  final LeaguePreviewModel item;
+  final PointTableModel item;
+  final int position;
 
-  const _StandingRow({required this.item});
+  const _StandingRow({required this.item, required this.position});
 
   @override
   Widget build(BuildContext context) {
@@ -197,58 +194,53 @@ class _StandingRow extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: 36.w,
+            width: 30.w,
             child: CommonText(
-              text: '${item.position}.',
+              text: '$position.',
               fontSize: 16.sp,
-              fontWeight: FontWeight(510),
+              fontWeight: const FontWeight(510),
               color: AppColors.primaryColor,
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                SizedBox(width: 20.w),
-                Image.asset(
-                  item.clubLogoUrl,
-                  width: 17.w,
+                CommonImage(
+                  imageSrc: item.team.teamLogo ?? '',
+                  width: 20.w,
                   height: 20.h,
-                  fit: BoxFit.contain,
-                  errorBuilder: (_, _, _) => Container(
-                    width: 17.w,
-                    height: 20.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.colorCCCCCC,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
+                  fill: BoxFit.contain,
                 ),
                 SizedBox(width: 8.w),
-                CommonText(
-                  text: item.clubName,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight(510),
-                  color: AppColors.primaryColor,
+                Expanded(
+                  child: CommonText(
+                    text: item.team.teamName,
+                    fontSize: 14.sp,
+                    fontWeight: const FontWeight(510),
+                    color: AppColors.primaryColor,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
           ),
           SizedBox(
-            width: 36.w,
+            width: 30.w,
             child: CommonText(
               text: '${item.played}',
               fontSize: 16.sp,
-              fontWeight: FontWeight(510),
+              fontWeight: const FontWeight(510),
               color: AppColors.primaryColor,
               textAlign: TextAlign.center,
             ),
           ),
           SizedBox(
-            width: 40.w,
+            width: 36.w,
             child: CommonText(
               text: gdText,
               fontSize: 16.sp,
-              fontWeight: FontWeight(510),
+              fontWeight: const FontWeight(510),
               color: AppColors.primaryColor,
               textAlign: TextAlign.center,
             ),
@@ -258,7 +250,7 @@ class _StandingRow extends StatelessWidget {
             child: CommonText(
               text: '${item.points}',
               fontSize: 16.sp,
-              fontWeight: FontWeight(510),
+              fontWeight: const FontWeight(510),
               color: AppColors.primaryColor,
               textAlign: TextAlign.center,
             ),

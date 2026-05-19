@@ -1,21 +1,69 @@
 import 'package:flutter/material.dart';
-import '../../data/fixture_model.dart';
+import 'package:get/get.dart';
+import '../../../../config/api/api_end_point.dart';
+import '../../../../services/api/api_client.dart';
+import '../../../../services/api/api_service.dart';
+import '../../data/match_model.dart';
+import '../../data/point_table_model.dart';
 
-class ClubProfileController extends ChangeNotifier {
-  List<UpcomingFixtureModel> upcomingFixturesList = [];
+class ClubProfileController extends GetxController {
+  static ClubProfileController get to => Get.find();
+  final ApiClient apiClient = DioApiClient();
 
-  ClubProfileController() {
-    getUpcomingFixtures();
+  var isLoading = false.obs;
+  List<MatchModel> recentMatches = [];
+  List<MatchModel> upcomingMatches = [];
+  List<PointTableModel> pointTable = [];
+
+  @override
+  void onInit() {
+    fetchMatches();
+    fetchPointTable();
+    super.onInit();
   }
-  void getUpcomingFixtures() {
-    List<Map<String, dynamic>> dummyData = [
-      {"date": "OCT 12", "homeTeam": "Titans SC", "awayTeam": "Vortex FC", "time": "20:00 PM"},
-      {"date": "OCT 15", "homeTeam": "Phoenix UTDS", "awayTeam": "Warriors", "time": "18:00 PM"},
-      {"date": "OCT 20", "homeTeam": "Lions FC", "awayTeam": "Titans SC", "time": "21:00 PM"},
-      {"date": "OCT 24", "homeTeam": "Vortex FC", "awayTeam": "Phoenix UTDS", "time": "19:30 PM"},
-    ];
-    upcomingFixturesList = dummyData.map((e) => UpcomingFixtureModel.fromJson(e)).toList();
 
-    notifyListeners();
+  Future<void> fetchMatches() async {
+    try {
+      isLoading.value = true;
+      update();
+
+      final response = await apiClient.get(ApiEndPoint.match);
+
+      if (response.statusCode == 200) {
+        final matchResponse = MatchResponse.fromJson(response.data);
+        
+        recentMatches = matchResponse.data
+            .where((match) => match.status.toLowerCase() == 'finished')
+            .toList();
+            
+        upcomingMatches = matchResponse.data
+            .where((match) => match.status.toLowerCase() == 'upcoming')
+            .toList();
+      }
+    } catch (e) {
+      debugPrint('❌ fetchMatches error: $e');
+    } finally {
+      isLoading.value = false;
+      update();
+    }
+  }
+
+  Future<void> fetchPointTable() async {
+    try {
+      isLoading.value = true;
+      update();
+
+      final response = await apiClient.get(ApiEndPoint.pointTable);
+
+      if (response.statusCode == 200) {
+        final pointTableResponse = PointTableResponse.fromJson(response.data);
+        pointTable = pointTableResponse.data;
+      }
+    } catch (e) {
+      debugPrint('❌ fetchPointTable error: $e');
+    } finally {
+      isLoading.value = false;
+      update();
+    }
   }
 }

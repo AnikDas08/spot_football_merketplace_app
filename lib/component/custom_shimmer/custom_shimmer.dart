@@ -102,9 +102,7 @@ class ShimmerGridLoading extends StatelessWidget {
               SizedBox(height: 8.h),
               const Divider(),
               SizedBox(height: 8.h),
-              Expanded(
-                child: CustomShimmer.rectangular(height: 70.h),
-              ),
+              Expanded(child: CustomShimmer.rectangular(height: 70.h)),
               SizedBox(height: 12.h),
               CustomShimmer.rectangular(height: 14.h, width: 100.w),
               SizedBox(height: 10.h),
@@ -210,6 +208,38 @@ class TransferShimmer extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MatchInfoShimmer extends StatelessWidget {
+  const MatchInfoShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16.w),
+            child: CustomShimmer.rectangular(height: 220.h, width: double.infinity),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: CustomShimmer.rectangular(height: 50.h, width: double.infinity),
+          ),
+          SizedBox(height: 20.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              children: List.generate(3, (index) => Padding(
+                padding: EdgeInsets.only(bottom: 16.h),
+                child: CustomShimmer.rectangular(height: 100.h, width: double.infinity),
+              )),
             ),
           ),
         ],

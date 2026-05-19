@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +10,7 @@ import 'package:untitled/utils/constants/app_string.dart';
 import '../../../../utils/constants/app_colors.dart';
 
 class UpcomingFixtureCard extends StatelessWidget {
+  final String id;
   final String date;
   final String time;
   final String homeTeam;
@@ -18,6 +18,7 @@ class UpcomingFixtureCard extends StatelessWidget {
 
   const UpcomingFixtureCard({
     super.key,
+    required this.id,
     required this.date,
     required this.homeTeam,
     required this.awayTeam,
@@ -31,6 +32,7 @@ class UpcomingFixtureCard extends StatelessWidget {
         Get.toNamed(
           AppRoutes.matchInfo,
           arguments: {
+            'id': id,
             'isUpcoming': true,
             'time': time,
           },
