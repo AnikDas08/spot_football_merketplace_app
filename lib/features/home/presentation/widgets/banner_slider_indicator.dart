@@ -16,17 +16,16 @@ class BannerSliderIndicator extends StatelessWidget {
         () => Row(
           mainAxisSize: MainAxisSize.min,
           children: List.generate(
-            bannerController.heroSlides.length,
+            bannerController.bannerVideos.length,
             (index) => AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
-              margin: EdgeInsets.symmetric(horizontal: 4),
+              margin: const EdgeInsets.symmetric(horizontal: 4),
               width: 8.w,
               height: 8.h,
               decoration: BoxDecoration(
                 color: bannerController.currentPage.value == index
-                    ? AppColors
-                          .black // Gold for active
+                    ? AppColors.black
                     : AppColors.colorCCCCCC,
                 borderRadius: BorderRadius.circular(4),
               ),

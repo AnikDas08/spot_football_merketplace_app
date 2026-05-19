@@ -1,12 +1,48 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../../../config/api/api_end_point.dart';
+import '../../../../services/api/api_client.dart';
+import '../../../../services/api/api_service.dart';
+import '../../../home/data/video_model.dart';
 import '../../../../utils/constants/temp_image.dart';
 
-class  VideoStreamController extends GetxController{
-  RxString videoLink="https://github.com/mdarif3499/video/raw/refs/heads/main/videoplayback.mp4".obs;
+class VideoStreamController extends GetxController {
+  final ApiClient apiClient = DioApiClient();
+  var isLoading = false.obs;
+  var videoDetail = Rxn<VideoModel>();
+  RxString videoLink = "".obs;
 
-  // videoUrl: 'https://github.com/mdarif3499/video/raw/refs/heads/main/videoplayback.mp4'
-  // videoUrl: 'https://github.com/mdarif3499/video/raw/refs/heads/main/videoplayback.mp4'
+  @override
+  void onInit() {
+    super.onInit();
+    final String? videoId = Get.arguments;
+    if (videoId != null) {
+      fetchVideoById(videoId);
+    }
+  }
+
+  Future<void> fetchVideoById(String id) async {
+    try {
+      isLoading.value = true;
+      update();
+
+      final response = await apiClient.get("${ApiEndPoint.video}/$id");
+
+      if (response.statusCode == 200) {
+        if (response.data['success'] == true) {
+          videoDetail.value = VideoModel.fromJson(response.data['data']);
+          videoLink.value = "${ApiEndPoint.imageUrl}${videoDetail.value?.videoUrl}";
+        }
+      }
+    } catch (e) {
+      debugPrint('❌ fetchVideoById error: $e');
+    } finally {
+      isLoading.value = false;
+      update();
+    }
+  }
+
+  // Related videos list kept static as requested
   final List<Map<String, String>> videoList = [
     {
       "title": "Ref Cam: Brobbey's Dramatic Tyne-Wear Derby Goal",

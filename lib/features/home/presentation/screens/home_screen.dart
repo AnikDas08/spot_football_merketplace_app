@@ -6,6 +6,7 @@ import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
 import 'package:untitled/features/home/presentation/widgets/league_preview.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
 import '../../../../component/text/common_text.dart';
+import '../controllers/banner_controller.dart';
 import '../controllers/club_profile_controller.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/latest_news.dart';
@@ -21,6 +22,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ClubProfileController());
+    final bannerController = Get.put(BannerController());
+    
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: CommonAppbar(title: AppString.community),
@@ -28,6 +31,7 @@ class HomeScreen extends StatelessWidget {
         onRefresh: () async {
           await controller.fetchMatches();
           await controller.fetchPointTable();
+          await bannerController.fetchBannerVideos();
         },
         child: SafeArea(
           child: SingleChildScrollView(

@@ -1,6 +1,7 @@
 class ApiEndPoint {
   static const baseUrl = 'http://10.10.7.55:5005/api/v1';
   static const imageUrl = 'http://10.10.7.55:5005';
+  static const videoUrl = 'http://10.10.7.55:5005';
   static const socketUrl = 'http://103.145.138.74:3001';
 
   static const signUp = '/user/';
@@ -29,4 +30,5 @@ class ApiEndPoint {
   static const transfersAvailable = '/match';
   static const match = '/match/';
   static const pointTable = '/point-table';
+  static const video = '/video';
 }

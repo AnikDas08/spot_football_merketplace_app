@@ -28,74 +28,76 @@ class VideoStreamScreen extends StatelessWidget {
           physics: isLandscape
               ? const NeverScrollableScrollPhysics()
               : const ClampingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Obx(
-                () => CustomVideoPlayer(videoUrl: controller.videoLink.value),
-              ),
-              if (!isLandscape) ...[
-                SizedBox(height: 24.h),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildPlayerTag(
-                            name: "Richarlison",
-                            image: TempImage.playerProfile2,
-                            borderColor: AppColors.color6B6B6B,
-                          ),
-                          SizedBox(width: 6.h),
-                          _buildPlayerTag(
-                            name: "Virtu Arik",
-                            image: TempImage.stats3,
-                            borderColor: AppColors.color6B6B6B,
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 16.h),
-                      CommonText(
-                        text:
-                            "Watch: One moment of Salah magic from every season at Liverpool"
-                                .toUpperCase(),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: AppColors.primaryColor,
-                        maxLines: 3,
-                        textAlign: TextAlign.start,
-                      ),
-                      SizedBox(height: 8.h),
-                      CommonText(
-                        text:
-                            "Enjoy the Egyptian's best goals from his last nine seasons at Liverpool"
-                                .toUpperCase(),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        color: AppColors.color6B6B6B,
-                        maxLines: 3,
-                        textAlign: TextAlign.start,
-                      ),
-                      SizedBox(height: 12.h),
-                      CommonText(
-                        text: "21 Mar 2026".toUpperCase(),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        color: AppColors.color6B6B6B,
-                        maxLines: 3,
-                        textAlign: TextAlign.start,
-                      ),
-                      SizedBox(height: 24.h),
-                      _buildRelatedSection(controller),
-                    ],
+          child: Obx(() {
+            if (controller.isLoading.value) {
+              return SizedBox(
+                height: 1.sh,
+                child: const Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            final video = controller.videoDetail.value;
+            if (video == null) {
+              return const Center(child: CommonText(text: "Video not found"));
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomVideoPlayer(videoUrl: controller.videoLink.value),
+                if (!isLandscape) ...[
+                  SizedBox(height: 24.h),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildPlayerTag(
+                              name: video.category,
+                              image: TempImage.playerProfile2,
+                              borderColor: AppColors.color6B6B6B,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 16.h),
+                        CommonText(
+                          text: video.title.toUpperCase(),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: AppColors.primaryColor,
+                          maxLines: 3,
+                          textAlign: TextAlign.start,
+                        ),
+                        SizedBox(height: 8.h),
+                        CommonText(
+                          text: video.description.toUpperCase(),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14.sp,
+                          color: AppColors.color6B6B6B,
+                          maxLines: 10,
+                          textAlign: TextAlign.start,
+                        ),
+                        SizedBox(height: 12.h),
+                        CommonText(
+                          text: video.createdAt.toUpperCase(),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14.sp,
+                          color: AppColors.color6B6B6B,
+                          maxLines: 3,
+                          textAlign: TextAlign.start,
+                        ),
+                        SizedBox(height: 24.h),
+                        _buildRelatedSection(controller),
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ],
-            ],
-          ),
+            );
+          }),
         ),
       ),
     );
@@ -103,7 +105,7 @@ class VideoStreamScreen extends StatelessWidget {
 
   Widget _buildRelatedSection(VideoStreamController controller) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.r),
@@ -111,7 +113,7 @@ class VideoStreamScreen extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -133,21 +135,19 @@ class VideoStreamScreen extends StatelessWidget {
           ListView.builder(
             itemCount: controller.videoList.length,
             shrinkWrap: true,
-            physics:  NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.symmetric(vertical: 10.h),
             itemBuilder: (context, index) {
               final item = controller.videoList[index];
               return GestureDetector(
-                onTap: (){
+                onTap: () {
                   controller.videoLink.value = item["videoLink"]!;
-
                 },
                 child: VideoNewsCard(
                   title: item["title"]!,
                   description: item["description"]!,
                   timeAgo: item["timeAgo"]!,
                   imageUrl: item["image"]!,
-
                 ),
               );
             },
