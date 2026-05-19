@@ -12,6 +12,7 @@ class LatestVideoCard extends StatelessWidget {
   final String title;
   final String time;
   final String duration;
+  final String? videoId;
   final double? width;
   final double? imageHeight;
   final double? titleFontSize;
@@ -23,6 +24,7 @@ class LatestVideoCard extends StatelessWidget {
     required this.title,
     required this.time,
     required this.duration,
+    this.videoId,
     this.width,
     this.imageHeight,
     this.titleFontSize,
@@ -33,11 +35,12 @@ class LatestVideoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoutes.videoStreamScreen);
+        if (videoId != null) {
+          Get.toNamed(AppRoutes.videoStreamScreen, arguments: videoId);
+        }
       },
       child: ClipRRect(
-        borderRadius: .circular(8.r),
-
+        borderRadius: BorderRadius.circular(8.r),
         child: Container(
           color: AppColors.white.withAlpha(200),
           width: width ?? 170.w,
@@ -61,7 +64,7 @@ class LatestVideoCard extends StatelessWidget {
                       color: AppColors.white,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.play_arrow_rounded,
                       size: 20,
                       color: AppColors.black,
@@ -76,7 +79,7 @@ class LatestVideoCard extends StatelessWidget {
                         vertical: 4.h,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.black.withValues(alpha: 0.8),
+                        color: AppColors.black.withAlpha(204),
                         borderRadius: BorderRadius.circular(6.r),
                       ),
                       child: CommonText(
@@ -89,14 +92,13 @@ class LatestVideoCard extends StatelessWidget {
                   ),
                 ],
               ),
-
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: Column(
-                  crossAxisAlignment: .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CommonText(
-                      textAlign: .start,
+                      textAlign: TextAlign.start,
                       text: title,
                       fontSize: titleFontSize ?? 14.sp,
                       fontWeight: FontWeight.w700,
@@ -105,7 +107,7 @@ class LatestVideoCard extends StatelessWidget {
                     ),
                     SizedBox(height: 2.h),
                     CommonText(
-                      textAlign: .start,
+                      textAlign: TextAlign.start,
                       text: time,
                       fontSize: timeFontSize ?? 10.sp,
                       fontWeight: FontWeight.w400,
