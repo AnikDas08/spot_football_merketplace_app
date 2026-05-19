@@ -53,6 +53,7 @@ class VideoModel {
   final String category;
   final String description;
   final String videoUrl;
+  final String thumbnail;
   final String createdBy;
   final String status;
   final String publishDateTime;
@@ -65,6 +66,7 @@ class VideoModel {
     required this.category,
     required this.description,
     required this.videoUrl,
+    required this.thumbnail,
     required this.createdBy,
     required this.status,
     required this.publishDateTime,
@@ -79,6 +81,7 @@ class VideoModel {
       category: json['category'] ?? '',
       description: json['description'] ?? '',
       videoUrl: json['videoUrl'] ?? '',
+      thumbnail: json['thumbnail'] ?? '',
       createdBy: json['createdBy'] ?? '',
       status: json['status'] ?? '',
       publishDateTime: json['publishDateTime'] ?? '',
