@@ -31,7 +31,20 @@ class VideoStreamController extends GetxController {
       if (response.statusCode == 200) {
         if (response.data['success'] == true) {
           videoDetail.value = VideoModel.fromJson(response.data['data']);
-          videoLink.value = "${ApiEndPoint.imageUrl}${videoDetail.value?.videoUrl}";
+          
+          String rawPath = videoDetail.value?.videoUrl ?? "";
+          if (rawPath.isNotEmpty) {
+
+            String cleanPath = rawPath.startsWith('/') ? rawPath : '/$rawPath';
+            videoLink.value = "${ApiEndPoint.videoUrl}${Uri.encodeFull(cleanPath)}";
+
+
+
+            debugPrint("✅ Full Video Links: ${videoLink.value}");
+
+          }
+
+          debugPrint("✅ Full Video Link: ${videoLink.value}");
         }
       }
     } catch (e) {
@@ -42,7 +55,6 @@ class VideoStreamController extends GetxController {
     }
   }
 
-  // Related videos list kept static as requested
   final List<Map<String, String>> videoList = [
     {
       "title": "Ref Cam: Brobbey's Dramatic Tyne-Wear Derby Goal",
