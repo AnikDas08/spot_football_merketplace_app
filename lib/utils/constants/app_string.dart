@@ -255,6 +255,7 @@ class AppString {
   static const String duration7m = "7m";
   static const String skipForNow = "Skip for now";
   static const String all = "All";
+  static const String trialListAvailable = "Trial List";
 
 
 }

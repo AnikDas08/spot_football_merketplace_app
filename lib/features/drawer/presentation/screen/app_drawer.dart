@@ -52,7 +52,8 @@ class AppDrawer extends StatelessWidget {
                           icon: AppIcons
                               .myChildrenSvg, // Using a suitable placeholder icon
                           label: "Referee Dashboard",
-                          onTap: () => Get.toNamed(AppRoutes.refereeDashboardScreen),
+                          onTap: () =>
+                              Get.toNamed(AppRoutes.refereeDashboardScreen),
                         ),
                       ],
                       if (role == "PLAYER") ...[
@@ -81,7 +82,14 @@ class AppDrawer extends StatelessWidget {
                         _buildMenuItem(
                           icon: AppIcons.transferHistory,
                           label: AppString.myTransfersHistory,
-                          onTap: () => Get.toNamed(AppRoutes.transferRequestScreen),
+                          onTap: () =>
+                              Get.toNamed(AppRoutes.transferRequestScreen),
+                        ),
+                        _buildMenuItem(
+                          icon: AppIcons.transfersInActive,
+                          label: AppString.trialListAvailable,
+                          onTap: () =>
+                              Get.toNamed(AppRoutes.trialList),
                         ),
                       ],
                       _buildMenuItem(

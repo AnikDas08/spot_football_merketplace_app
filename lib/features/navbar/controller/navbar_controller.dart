@@ -21,23 +21,16 @@ class NavBarController extends GetxController {
   final List<Widget> screens = [
     HomeScreen(),
     FixturesScreen(),
-    TransferScreen(),
+
     EngTvScreen(),
     StatsScreen(),
   ];
 
-  final List<String> labels = const [
-    'Lastest',
-    'Fixtures',
-    'TRANSFERS',
-    "ENG TV",
-    "Stats",
-  ];
+  final List<String> labels = const ['Lastest', 'Fixtures', "ENG TV", "Stats"];
 
   final List<String> activeIcons = [
     AppIcons.homeInActive,
     AppIcons.fixturesInActive,
-    AppIcons.transfersInActive,
     AppIcons.engTvInActive,
     AppIcons.statsInactive,
   ];
@@ -45,7 +38,6 @@ class NavBarController extends GetxController {
   final List<String> inActiveIcons = [
     AppIcons.homeInActive,
     AppIcons.fixturesInActive,
-    AppIcons.transfersInActive,
     AppIcons.engTvInActive,
     AppIcons.statsInactive,
   ];
