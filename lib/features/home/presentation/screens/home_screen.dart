@@ -42,6 +42,7 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20.h),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: CommonText(
@@ -50,13 +51,21 @@ class HomeScreen extends StatelessWidget {
                         fontWeight: const FontWeight(590),
                       ),
                     ),
+
                     SizedBox(height: 20.h),
+
                     const BannerSlider(),
+
                     SizedBox(height: 12.h),
+
                     const LatestNews(),
+
                     SizedBox(height: 20.h),
+
                     const UpcomingEvents(),
+
                     SizedBox(height: 20.h),
+
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0),
                       child: CommonText(
@@ -66,22 +75,30 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16.h),
+
                     RecentResult(
                       matches: controller.recentMatches,
                       isLoading: controller.isLoading.value,
                     ),
+
                     SizedBox(height: 20.h),
+
                     UpcomingFixtures(
                       fixtures: controller.upcomingMatches,
                       isLoading: controller.isLoading.value,
                     ),
+
                     SizedBox(height: 20.h),
+
                     LeaguePreview(
                       standings: controller.pointTable,
                       isLoading: controller.isLoading.value,
                     ),
+
                     SizedBox(height: 20.h),
+
                     const LatestVideos(),
+
                     SizedBox(height: 20.h),
                   ],
                 );
