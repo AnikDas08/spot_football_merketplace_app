@@ -41,12 +41,6 @@ class AppDrawer extends StatelessWidget {
                         label: AppString.editProfile,
                         onTap: () => Get.toNamed(AppRoutes.editProfile),
                       ),
-                      _buildMenuItem(
-                        icon: AppIcons
-                            .league, // Using pro icon for league tables as a placeholder if no specific icon exists
-                        label: "League Tables",
-                        onTap: () => Get.toNamed(AppRoutes.leagueTable),
-                      ),
                       if (role == "REFEREE") ...[
                         _buildMenuItem(
                           icon: AppIcons

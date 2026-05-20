@@ -20,8 +20,8 @@ class TransferScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(TransferController());
     return Scaffold(
-      appBar: CommonAppbar(title: AppString.transfer.toUpperCase()),
-      drawer:  SecondaryAppBar(title: AppString.transfer.toUpperCase()),
+      appBar: SecondaryAppBar(title: AppString.transfer.toUpperCase()),
+      drawer: const AppDrawer(),
       body: SafeArea(
         child: GetBuilder<TransferController>(
           builder: (controller) {
