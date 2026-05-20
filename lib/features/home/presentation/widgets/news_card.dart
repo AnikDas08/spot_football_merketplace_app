@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:untitled/config/api/api_end_point.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/features/news/data/models/news_model.dart';
@@ -18,6 +19,7 @@ class NewsCard extends StatelessWidget {
   final double? width;
   final double? height;
   final NewsModel? newsModel;
+  final bool isLoading;
 
   const NewsCard({
     super.key,
@@ -27,9 +29,25 @@ class NewsCard extends StatelessWidget {
     this.width,
     this.height,
     this.newsModel,
+    this.isLoading = false,
   });
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Container(
+        width: width ?? double.infinity,
+        height: height ?? 248.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: CustomShimmer.rectangular(
+          height: height ?? 248.h,
+          width: width ?? double.infinity,
+        ),
+      );
+    }
+
     final displayImage = newsModel != null
         ? "${ApiEndPoint.imageUrl}${newsModel!.image}"
         : (imagePath ?? TempImage.news);
