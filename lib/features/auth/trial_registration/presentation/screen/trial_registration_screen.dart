@@ -184,7 +184,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
           bottom: 8,
         ),
         DropdownButtonFormField<String>(
-          value: controller.selectedTeam,
+          initialValue: controller.selectedTeam,
           isExpanded: true,
           icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
           style: TextStyle(fontSize: 14.sp, color: AppColors.black),
@@ -213,7 +213,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
           bottom: 8,
         ),
         DropdownButtonFormField<String>(
-          value: controller.selectedStrongFoot,
+          initialValue: controller.selectedStrongFoot,
           isExpanded: true,
           icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
           style: TextStyle(fontSize: 14.sp, color: AppColors.black),
