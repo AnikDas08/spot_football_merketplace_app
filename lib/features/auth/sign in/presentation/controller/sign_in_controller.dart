@@ -13,6 +13,7 @@ import '../../../../profile/presentation/controller/profile_controller.dart';
 
 class SignInController extends GetxController {
   /// Sign in Button Loading variable
+
   bool isLoading = false;
 
   final emailController = TextEditingController(
@@ -44,6 +45,7 @@ class SignInController extends GetxController {
           LocalStorageKeys.token,
           data["accessToken"],
         );
+
         await LocalStorage.setString(
           LocalStorageKeys.refreshToken,
           data["refreshToken"],
@@ -54,6 +56,7 @@ class SignInController extends GetxController {
 
         /// clear
         emailController.clear();
+
         passwordController.clear();
 
         /// navigate
