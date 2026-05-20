@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +35,7 @@ class SeassonStatsController extends GetxController{
   }
 
   void updateDataForSeason(String season) {
-    print("Data loading for: $season");
+    log("Data loading for: $season");
   }
 
 }
