@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixture_card.dart';
 import 'package:untitled/features/navbar/controller/navbar_controller.dart';
@@ -11,7 +12,6 @@ import '../../../../component/common_appbar/common_appbar.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_string.dart';
-import '../../data/model/fixture_model.dart';
 import '../controller/fixtures_controller.dart';
 import '../widget/fixtures_filter_sheet.dart';
 
@@ -53,7 +53,8 @@ class _TabRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Row(
         children: List.generate(c.tabs.length, (i) {
@@ -142,6 +143,9 @@ class _FixtureList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (c.isLoading.value) {
+      return const Center(child: CircularProgressIndicator());
+    }
     if (c.filteredFixtures.isEmpty) {
       return Center(
         child: CommonText(text: AppString.noMatchesFound, fontSize: 14.sp),
@@ -151,99 +155,22 @@ class _FixtureList extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       itemCount: c.filteredFixtures.length,
       itemBuilder: (BuildContext context, int index) {
-        final fixture = c.filteredFixtures[index];
+        final match = c.filteredFixtures[index];
         return UpcomingFixtureCard(
-          id: fixture.id,
-          date: fixture.date,
-          homeTeam: fixture.homeTeam,
-          awayTeam: fixture.awayTeam,
-          time: fixture.time,
+          id: match.id,
+          date: match.matchDate != null
+              ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()
+              : 'N/A',
+          homeTeam: match.homeTeam.teamName,
+          awayTeam: match.awayTeam.teamName,
+          time: match.matchDate != null
+              ? DateFormat('hh:mm a').format(match.matchDate!)
+              : 'N/A',
         );
       },
       separatorBuilder: (BuildContext context, int index) {
         return SizedBox(height: 10.h);
       },
-    );
-  }
-}
-
-class _FixtureCard extends StatelessWidget {
-  final FixtureModel fixture;
-  const _FixtureCard({required this.fixture});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 8.h),
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CommonText(
-                text: fixture.date,
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w700,
-              ),
-              CommonText(
-                text: fixture.time,
-                fontSize: 11.sp,
-                color: AppColors.textSecondaryColor,
-              ),
-            ],
-          ),
-          Container(
-            width: 1.w,
-            height: 32.h,
-            color: AppColors.textSecondaryColor,
-            margin: EdgeInsets.symmetric(horizontal: 12.w),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CommonText(
-                  text: fixture.homeTeam,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w600,
-                  textAlign: TextAlign.center,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w),
-                  child: CommonText(
-                    text: AppString.vs,
-                    fontSize: 12.sp,
-                    color: AppColors.textSecondaryColor,
-                  ),
-                ),
-                CommonText(
-                  text: fixture.awayTeam,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w600,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(8.r),
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Icon(
-              Icons.confirmation_number_outlined,
-              color: AppColors.white,
-              size: 16.r,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

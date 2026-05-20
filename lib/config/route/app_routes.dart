@@ -18,6 +18,7 @@ import 'package:untitled/features/match_info/presentation/screens/match_info_scr
 import 'package:untitled/features/news_details/presentation/screens/news_details_screen.dart';
 import 'package:untitled/features/player_profile/presentation/screens/player_profile_screen.dart';
 import 'package:untitled/features/profile/presentation/screens/my_children_screen.dart';
+import 'package:untitled/features/transferms_history/presentation/widgets/transfer_tab_widget.dart';
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
@@ -47,6 +48,7 @@ import '../../features/stats_flow/presentation/screen/player_comparison_screen.d
 import '../../features/stats_flow/presentation/screen/season_stats_screen.dart';
 import '../../features/transferms/presentation/screen/tranasfer_pending_approval.dart';
 import '../../features/transferms/presentation/screen/player_profile_details_screen.dart';
+import '../../features/transferms/presentation/screen/transferm_screen.dart';
 import '../../features/transferms_history/presentation/screens/transfers_history_screen.dart';
 
 class AppRoutes {
@@ -106,6 +108,7 @@ class AppRoutes {
   static const String recordGoalScreen = '/record_goal_screen';
   static const String transferRequestScreen = '/transfer_request_screen';
   static const String teamSheetScreen = '/team_sheet_screen';
+  static const String trialList = '/trial-list';
 
   static List<GetPage<String>> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -174,5 +177,6 @@ class AppRoutes {
     GetPage(name: transferRequestScreen, page: () => const TransferRequestScreen()),
     GetPage(name: teamSheetScreen, page: () => const TeamSheetScreen()),
     GetPage(name: clubProfileScreen, page: () =>  ClubProfileScreen()),
+    GetPage(name: trialList, page: () =>  TransferScreen()),
   ];
 }
