@@ -15,7 +15,6 @@ class SignInController extends GetxController {
   /// Sign in Button Loading variable
   bool isLoading = false;
 
-  /// email and password Controller here
   final emailController = TextEditingController(
     text: kDebugMode ? "rodefe4817@cadinr.com" : null,
   );
@@ -25,7 +24,6 @@ class SignInController extends GetxController {
 
   final ApiClient apiClient = DioApiClient();
 
-  /// Sign in Api call here
   Future<void> signInUser() async {
     if (isLoading) return;
 
@@ -52,7 +50,6 @@ class SignInController extends GetxController {
         );
         await LocalStorage.setBool(LocalStorageKeys.isLogIn, true);
 
-        // Fetch profile data immediately after login
         await Get.find<ProfileController>().getProfileData();
 
         /// clear
