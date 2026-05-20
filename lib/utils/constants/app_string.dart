@@ -254,6 +254,7 @@ class AppString {
   static const String threeHourAgoEngOriginal = "3h ago • ENG Original";
   static const String duration7m = "7m";
   static const String skipForNow = "Skip for now";
+  static const String all = "All";
 
 
 }

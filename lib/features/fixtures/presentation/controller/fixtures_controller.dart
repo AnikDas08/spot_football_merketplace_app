@@ -1,51 +1,73 @@
 // features/fixtures/presentation/controller/fixtures_controller.dart
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../data/model/fixture_model.dart';
+import '../../../../config/api/api_end_point.dart';
+import '../../../../services/api/api_client.dart';
+import '../../../../services/api/api_service.dart';
+import '../../../home/data/match_model.dart';
 
 class FixturesController extends GetxController {
-  // ── Tab (All / Today / Upcoming) ──
+  final ApiClient apiClient = DioApiClient();
+  var isLoading = false.obs;
+
+  // ── Tab (Status & Date Filtering) ──
   int selectedTab = 0;
-  final List<String> tabs = ['All', 'Today', 'Upcoming'];
+  final List<String> tabs = ['All', 'Today', 'Upcoming', 'Live', 'Finished', 'Cancelled'];
 
   // ── Filter Sheet ──
   int teamTab = 0; // 0 = All Teams, 1 = Specific
   String? selectedTeam;
-  int dateRangeTab = 0; // 0 = Today, 1 = This Week, 2 = This Month
-  DateTime focusedMonth = DateTime(2023, 3);
-  DateTime? selectedDate;
+  int dateRangeTab = 0; // 0 = All, 1 = Today, 2 = This Month
+  DateTime focusedMonth = DateTime.now();
+  DateTime? startDate;
+  DateTime? endDate;
 
   // ── Fixtures ──
-  List<FixtureModel> allFixtures = _dummyFixtures();
-  List<FixtureModel> filteredFixtures = [];
+  List<MatchModel> allMatches = [];
+  List<MatchModel> filteredFixtures = [];
 
-  final List<String> teams = ['Titans SC', 'Vortex FC', 'Storm FC', 'Eagle FC'];
+  List<String> teams = [];
 
   @override
   void onInit() {
     super.onInit();
-    filteredFixtures = List.from(allFixtures);
+    fetchMatches();
+  }
+
+  Future<void> fetchMatches() async {
+    try {
+      isLoading.value = true;
+      update();
+
+      final response = await apiClient.get(ApiEndPoint.match);
+
+      if (response.statusCode == 200) {
+        final matchResponse = MatchResponse.fromJson(response.data);
+        allMatches = matchResponse.data;
+        
+        // Extract unique teams
+        final teamSet = <String>{};
+        for (var match in allMatches) {
+          teamSet.add(match.homeTeam.teamName);
+          teamSet.add(match.awayTeam.teamName);
+        }
+        teams = teamSet.toList()..sort();
+        
+        applyFilters(isFromSheet: false);
+      }
+    } catch (e) {
+      debugPrint('❌ fetchMatches error: $e');
+    } finally {
+      isLoading.value = false;
+      update();
+    }
   }
 
   void selectTab(int index) {
     selectedTab = index;
-    _applyMainFilter();
+    applyFilters(isFromSheet: false);
     update();
-  }
-
-  void _applyMainFilter() {
-    final now = DateTime.now();
-    if (selectedTab == 0) {
-      filteredFixtures = List.from(allFixtures);
-    } else if (selectedTab == 1) {
-      filteredFixtures = allFixtures
-          .where((f) => f.groupLabel == 'TONIGHT')
-          .toList();
-    } else {
-      filteredFixtures = allFixtures
-          .where((f) => f.groupLabel == 'TOMORROW')
-          .toList();
-    }
   }
 
   // ── Filter Sheet Methods ──
@@ -62,12 +84,27 @@ class FixturesController extends GetxController {
 
   void selectDateRangeTab(int index) {
     dateRangeTab = index;
-    selectedDate = null;
+    startDate = null;
+    endDate = null;
     update();
   }
 
   void selectCalendarDate(DateTime date) {
-    selectedDate = date;
+    if (startDate == null || (startDate != null && endDate != null)) {
+      startDate = date;
+      endDate = null;
+    } else if (date.isBefore(startDate!)) {
+      startDate = date;
+      endDate = null;
+    } else if (date.isAtSameMomentAs(startDate!)) {
+      startDate = null;
+      endDate = null;
+    } else {
+      endDate = date;
+    }
+    
+    // When a date is picked, we deselect the general chips
+    dateRangeTab = -1; 
     update();
   }
 
@@ -81,15 +118,48 @@ class FixturesController extends GetxController {
     update();
   }
 
-  void applyFilters() {
-    filteredFixtures = allFixtures.where((f) {
-      if (teamTab == 1 && selectedTeam != null) {
-        if (f.homeTeam != selectedTeam && f.awayTeam != selectedTeam)
-          return false;
+  void applyFilters({bool isFromSheet = true}) {
+    List<MatchModel> results = List.from(allMatches);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+
+    // 1. Apply Status/Special Tab Filter (Top Tabs)
+    if (selectedTab == 1) { // Today Tab
+      results = results.where((m) => _isSameDay(m.matchDate, today)).toList();
+    } else if (selectedTab > 1) { // Status Tabs (Upcoming, Live, etc.)
+      final status = tabs[selectedTab].toLowerCase();
+      results = results.where((m) => m.status.toLowerCase() == status).toList();
+    }
+
+    // 2. Apply Team Filter (From Sheet)
+    if (teamTab == 1 && selectedTeam != null) {
+      results = results.where((m) => 
+        m.homeTeam.teamName == selectedTeam || m.awayTeam.teamName == selectedTeam
+      ).toList();
+    }
+
+    // 3. Apply Date Filter (From Sheet)
+    if (startDate != null) {
+      if (endDate == null) {
+        // Only one date selected, treat as single day
+        results = results.where((m) => _isSameDay(m.matchDate, startDate!)).toList();
+      } else {
+        // Range selected
+        results = results.where((m) => _isInRange(m.matchDate, startDate!, endDate!)).toList();
       }
-      return true;
-    }).toList();
-    Get.back();
+    } else {
+      if (dateRangeTab == 1) { // Today
+         results = results.where((m) => _isSameDay(m.matchDate, today)).toList();
+      } else if (dateRangeTab == 2) { // This Month
+        results = results.where((m) => _isThisMonth(m.matchDate)).toList();
+      }
+      // Note: dateRangeTab == 0 (All) requires no additional filtering
+    }
+
+    filteredFixtures = results;
+    if (isFromSheet) {
+      Get.back();
+    }
     update();
   }
 
@@ -97,66 +167,32 @@ class FixturesController extends GetxController {
     teamTab = 0;
     selectedTeam = null;
     dateRangeTab = 0;
-    selectedDate = null;
-    focusedMonth = DateTime(2023, 3);
-    filteredFixtures = List.from(allFixtures);
+    startDate = null;
+    endDate = null;
+    focusedMonth = DateTime.now();
+    applyFilters(isFromSheet: false);
     update();
   }
 
-  // ── Grouped fixtures ──
-  Map<String, List<FixtureModel>> get groupedFixtures {
-    final Map<String, List<FixtureModel>> map = {};
-    for (final f in filteredFixtures) {
-      map.putIfAbsent(f.date, () => []).add(f);
-    }
-    return map;
+  bool _isSameDay(DateTime? d1, DateTime d2) {
+    if (d1 == null) return false;
+    return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
   }
 
-  String groupSubLabel(String date) {
-    final items = allFixtures.where((f) => f.date == date);
-    return items.isNotEmpty ? items.first.groupLabel : '';
+  bool _isInRange(DateTime? date, DateTime start, DateTime end) {
+    if (date == null) return false;
+    // Normalize to date only (midnight)
+    final d = DateTime(date.year, date.month, date.day);
+    final s = DateTime(start.year, start.month, start.day);
+    final e = DateTime(end.year, end.month, end.day);
+    
+    return (d.isAtSameMomentAs(s) || d.isAfter(s)) && 
+           (d.isAtSameMomentAs(e) || d.isBefore(e));
+  }
+
+  bool _isThisMonth(DateTime? date) {
+    if (date == null) return false;
+    final now = DateTime.now();
+    return date.year == now.year && date.month == now.month;
   }
 }
-
-List<FixtureModel> _dummyFixtures() => [
-  FixtureModel(
-    id: '1',
-    date: 'OCT 24',
-    time: '20:00 PM',
-    homeTeam: 'TITANS SC',
-    awayTeam: 'VORTEX FC',
-    groupLabel: 'TONIGHT',
-  ),
-  FixtureModel(
-    id: '2',
-    date: 'OCT 24',
-    time: '21:00 PM',
-    homeTeam: 'TITANS SC',
-    awayTeam: 'VORTEX FC',
-    groupLabel: 'TONIGHT',
-  ),
-  FixtureModel(
-    id: '3',
-    date: 'OCT 24',
-    time: '21:30 PM',
-    homeTeam: 'TITANS SC',
-    awayTeam: 'VORTEX FC',
-    groupLabel: 'TONIGHT',
-  ),
-  FixtureModel(
-    id: '4',
-    date: 'OCT 25',
-    time: '20:00 PM',
-    homeTeam: 'TITANS SC',
-    awayTeam: 'VORTEX FC',
-    groupLabel: 'TOMORROW',
-  ),
-  FixtureModel(
-    id: '5',
-    date: 'OCT 25',
-    time: '21:00 PM',
-    homeTeam: 'TITANS SC',
-    awayTeam: 'VORTEX FC',
-    groupLabel: 'TOMORROW',
-  ),
-];

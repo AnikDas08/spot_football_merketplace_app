@@ -160,13 +160,13 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                   Row(
                     children: [
                       _DateChip(
-                        label: AppString.today,
+                        label: AppString.all,
                         selected: c.dateRangeTab == 0,
                         onTap: () => c.selectDateRangeTab(0),
                       ),
                       SizedBox(width: 8.w),
                       _DateChip(
-                        label: AppString.thisWeek,
+                        label: AppString.today,
                         selected: c.dateRangeTab == 1,
                         onTap: () => c.selectDateRangeTab(1),
                       ),
@@ -273,8 +273,6 @@ class _CalendarWidget extends StatelessWidget {
   final FixturesController c;
   const _CalendarWidget({required this.c});
 
-  // static const _weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
-
   @override
   Widget build(BuildContext context) {
     final first = DateTime(c.focusedMonth.year, c.focusedMonth.month, 1);
@@ -293,7 +291,6 @@ class _CalendarWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Month/Year header
           Row(
             mainAxisAlignment: .spaceBetween,
             children: [
@@ -322,7 +319,6 @@ class _CalendarWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8.h),
-          // Weekday labels (hidden, just grid)
           _buildGrid(daysInMonth, startWeekday),
         ],
       ),
@@ -331,7 +327,6 @@ class _CalendarWidget extends StatelessWidget {
 
   Widget _buildGrid(int daysInMonth, int startWeekday) {
     final cells = <Widget>[];
-    // leading empty cells (Mon=1, so offset = startWeekday-1)
     for (int i = 1; i < startWeekday; i++) {
       final prevMonth = DateTime(c.focusedMonth.year, c.focusedMonth.month - 1);
       final prevDays = DateUtils.getDaysInMonth(
@@ -350,23 +345,23 @@ class _CalendarWidget extends StatelessWidget {
     }
     for (int d = 1; d <= daysInMonth; d++) {
       final date = DateTime(c.focusedMonth.year, c.focusedMonth.month, d);
-      final isSelected =
-          c.selectedDate != null &&
-          c.selectedDate!.year == date.year &&
-          c.selectedDate!.month == date.month &&
-          c.selectedDate!.day == date.day;
+      final isSelected = (c.startDate != null && _isSameDay(c.startDate, date)) ||
+                        (c.endDate != null && _isSameDay(c.endDate, date));
+      final isInRange = c.startDate != null && c.endDate != null && 
+                        date.isAfter(c.startDate!) && date.isBefore(c.endDate!);
+      
       final isToday = _isToday(date);
       cells.add(
         _DayCell(
           day: d,
           isCurrentMonth: true,
           isSelected: isSelected,
+          isInRange: isInRange,
           isToday: isToday,
           onTap: () => c.selectCalendarDate(date),
         ),
       );
     }
-    // trailing
     final trailing = (7 - (cells.length % 7)) % 7;
     for (int i = 1; i <= trailing; i++) {
       cells.add(
@@ -396,6 +391,11 @@ class _CalendarWidget extends StatelessWidget {
         date.day == now.day;
   }
 
+  bool _isSameDay(DateTime? d1, DateTime? d2) {
+    if (d1 == null || d2 == null) return false;
+    return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
+  }
+
   String _monthName(int month) {
     const names = [
       'Jan',
@@ -419,6 +419,7 @@ class _DayCell extends StatelessWidget {
   final int day;
   final bool isCurrentMonth;
   final bool isSelected;
+  final bool isInRange;
   final bool isToday;
   final VoidCallback onTap;
 
@@ -426,6 +427,7 @@ class _DayCell extends StatelessWidget {
     required this.day,
     required this.isCurrentMonth,
     required this.isSelected,
+    this.isInRange = false,
     required this.onTap,
     this.isToday = false,
   });
@@ -442,6 +444,9 @@ class _DayCell extends StatelessWidget {
       bg = AppColors.primaryColor;
       textColor = AppColors.white;
       fw = FontWeight.w700;
+    } else if (isInRange) {
+      bg = AppColors.primaryColor.withAlpha(50);
+      textColor = AppColors.primaryColor;
     } else if (isToday) {
       bg = AppColors.textSecondaryColor.withAlpha(51);
       fw = FontWeight.w700;
@@ -450,7 +455,11 @@ class _DayCell extends StatelessWidget {
     return GestureDetector(
       onTap: isCurrentMonth ? onTap : null,
       child: Container(
-        decoration: BoxDecoration(color: bg, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: bg, 
+          shape: isSelected ? BoxShape.circle : BoxShape.rectangle,
+          borderRadius: !isSelected && isInRange ? BorderRadius.circular(0) : (isSelected ? null : BorderRadius.circular(12.r)),
+        ),
         alignment: Alignment.center,
         child: CommonText(
           text: '$day',
