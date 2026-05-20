@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -127,7 +128,7 @@ class VerifyPlayerController extends GetxController {
         ));
       }
 
-      print("${LocalStorage.token} xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxvf");
+      log("${LocalStorage.token} xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxvf");
 
       final response = await apiClient.multipart(
         url: ApiEndPoint.playerProfile,
