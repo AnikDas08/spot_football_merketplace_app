@@ -96,7 +96,7 @@ class StatsScreen extends StatelessWidget {
                                 color: Colors.black54,
                               ),
                               CommonText(
-                                text: controller.selectedAge.value, // Controller theke value ashche
+                                text: controller.selectedAge.value,
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,

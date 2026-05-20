@@ -27,8 +27,11 @@ class BannerCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(13),
           child: Stack(
+
             fit: StackFit.expand,
+
             children: [
+
               Image.network(
                 "${ApiEndPoint.imageUrl}${videoModel.thumbnail}", // Fallback or if videoUrl can be used for thumbnail
                 fit: BoxFit.cover,
@@ -37,6 +40,7 @@ class BannerCard extends StatelessWidget {
                    fit: BoxFit.cover,
                 ),
               ),
+
 
               Container(
                 decoration: BoxDecoration(
@@ -53,6 +57,7 @@ class BannerCard extends StatelessWidget {
                 ),
               ),
 
+
               Positioned(
                 left: 16,
                 right: 16,
@@ -61,27 +66,37 @@ class BannerCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
+
+
                     CommonText(
                       text: videoModel.title,
                       fontSize: 14.sp,
                       color: AppColors.white,
                       fontWeight: FontWeight.w800,
                     ),
+
                     SizedBox(height: 2.h),
+
+
                     CommonText(
                       text: videoModel.category,
                       color: AppColors.white,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
                     ),
+
+
                     SizedBox(height: 4.h),
+
                     CommonText(
                       text: videoModel.status,
                       color: AppColors.white,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w800,
                     ),
+
                     SizedBox(height: 12.h),
+
                     InkWell(
                       onTap: () {
                          Get.toNamed(AppRoutes.videoStreamScreen, arguments: videoModel.id);
@@ -107,9 +122,12 @@ class BannerCard extends StatelessWidget {
                         ),
                       ),
                     ),
+
+
                   ],
                 ),
               ),
+
             ],
           ),
         ),
