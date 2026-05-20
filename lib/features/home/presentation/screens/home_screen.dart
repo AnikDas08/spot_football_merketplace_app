@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
         },
         child: SafeArea(
           child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
+            physics: ClampingScrollPhysics(),
             child: GetBuilder<ClubProfileController>(
               builder: (controller) {
                 return Column(
@@ -76,7 +76,6 @@ class HomeScreen extends StatelessWidget {
                       isLoading: controller.isLoading.value,
                     ),
                     SizedBox(height: 20.h),
-                    // Point Table with API Data
                     LeaguePreview(
                       standings: controller.pointTable,
                       isLoading: controller.isLoading.value,
