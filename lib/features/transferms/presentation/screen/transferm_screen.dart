@@ -4,10 +4,8 @@ import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/common_appbar.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_string.dart';
-
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
 import '../controller/transfer_controller.dart';
