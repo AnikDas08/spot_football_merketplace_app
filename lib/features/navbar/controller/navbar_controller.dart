@@ -5,7 +5,6 @@ import 'package:untitled/features/home/presentation/screens/home_screen.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 import '../../eng_tv_flow/presentation/screen/eng_tv_screen.dart';
 import '../../stats_flow/presentation/screen/stats_screen.dart';
-import '../../transferms/presentation/screen/transferm_screen.dart';
 
 class NavBarController extends GetxController {
   final selectedIndex = 0.obs;
