@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class RewardResponse {
   final bool success;
