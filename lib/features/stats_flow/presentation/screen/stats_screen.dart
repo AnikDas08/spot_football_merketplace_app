@@ -73,14 +73,8 @@ class StatsScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.r),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0xFFF2F2F2),
-                            blurRadius: 10,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
+                        borderRadius: BorderRadius.circular(15.r),
+                        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

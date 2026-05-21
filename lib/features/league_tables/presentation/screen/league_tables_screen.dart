@@ -26,101 +26,112 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
     final controller = Get.put(ClubProfileController());
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
+      extendBody: true,
+      backgroundColor: AppColors.background,
       appBar: const SecondaryAppBar(title: 'LEAGUE TABLES'),
-      body: RefreshIndicator(
-        onRefresh: () => controller.fetchPointTable(),
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: CommonDropdownField<String>(
-                        hintText: 'Under 12',
-                        borderColor: Colors.transparent,
-                        fillColor: AppColors.white,
-                        borderRadius: 8,
-                        paddingVertical: 12,
-                        items: ['Under 12', 'Under 14', 'Under 16']
-                            .map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (value) {},
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () => controller.fetchPointTable(),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CommonDropdownField<String>(
+                          hintText: 'Under 12',
+                          borderColor: Colors.transparent,
+                          fillColor: AppColors.white,
+                          borderRadius: 8,
+                          paddingVertical: 12,
+                          items: ['Under 12', 'Under 14', 'Under 16']
+                              .map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (value) {},
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 12.w),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () async {
-                          final DateTime? picked = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2100),
-                          );
-                          if (picked != null) {
-                            setState(() {
-                              selectedDateText =
-                                  DateFormat('dd/MM/yyyy').format(picked);
-                            });
-                          }
-                        },
-                        child: AbsorbPointer(
-                          child: CommonDropdownField<String>(
-                            hintText: selectedDateText,
-                            borderColor: Colors.transparent,
-                            fillColor: AppColors.white,
-                            borderRadius: 8,
-                            paddingVertical: 12,
-                            items: [selectedDateText].map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (value) {},
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () async {
+                            final DateTime? picked = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2100),
+                            );
+                            if (picked != null) {
+                              setState(() {
+                                selectedDateText =
+                                    DateFormat('dd/MM/yyyy').format(picked);
+                              });
+                            }
+                          },
+                          child: AbsorbPointer(
+                            child: CommonDropdownField<String>(
+                              hintText: selectedDateText,
+                              borderColor: Colors.transparent,
+                              fillColor: AppColors.white,
+                              borderRadius: 8,
+                              paddingVertical: 12,
+                              items: [selectedDateText].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (value) {},
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20.h),
-              GetBuilder<ClubProfileController>(
-                builder: (controller) {
-                  return LeaguePreview(
-                    isSeeAll: true,
-                    standings: controller.pointTable,
-                    isLoading: controller.isLoading.value,
-                  );
-                },
-              ),
-              SizedBox(height: 20.h),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 16.h),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                child: Center(
-                  child: CommonText(
-                    text: 'Last updated: April 24, 2026 • Matchday 25',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.color6B6B6B,
+                    ],
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 20.h),
+                GetBuilder<ClubProfileController>(
+                  builder: (controller) {
+                    return Column(
+                      children: [
+                        LeaguePreview(
+                          isSeeAll: true,
+                          standings: controller.pointTable,
+                          isLoading: controller.isLoading.value,
+                        ),
+                        if (controller.pointTableMessage.isNotEmpty) ...[
+                          SizedBox(height: 20.h),
+                          Container(
+                            width: double.infinity,
+                            margin: EdgeInsets.symmetric(horizontal: 16.w),
+                            padding: EdgeInsets.symmetric(vertical: 16.h),
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                            child: Center(
+                              child: CommonText(
+                                text: controller.pointTableMessage,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.color6B6B6B,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    );
+                  },
+                ),
+                SizedBox(height: 100.h),
+              ],
+            ),
           ),
         ),
       ),

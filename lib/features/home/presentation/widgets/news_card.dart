@@ -63,7 +63,8 @@ class NewsCard extends StatelessWidget {
         width: width ?? double.infinity,
         height: height ?? 248.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(15.r),
+          border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         ),
         clipBehavior: Clip.antiAlias,
         child: Stack(
@@ -73,7 +74,7 @@ class NewsCard extends StatelessWidget {
               width: double.infinity,
               height: double.infinity,
               fill: BoxFit.cover,
-              borderRadius: 12.r,
+              borderRadius: 13.r,
             ),
             Positioned(
               bottom: 0,

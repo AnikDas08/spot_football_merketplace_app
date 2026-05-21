@@ -21,8 +21,8 @@ class BannerCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(left: 10, right: 5),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: AppColors.colorEABB00, width: 2.5.w),
+          borderRadius: BorderRadius.circular(15.r),
+          border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(13),

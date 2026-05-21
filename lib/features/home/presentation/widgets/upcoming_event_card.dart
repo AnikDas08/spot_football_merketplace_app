@@ -24,7 +24,8 @@ class UpcomingEventCard extends StatelessWidget {
       padding: EdgeInsets.all(8.r),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.08),

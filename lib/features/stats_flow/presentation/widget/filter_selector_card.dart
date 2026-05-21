@@ -26,8 +26,8 @@ class FilterSelectorCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(color: Colors.grey.shade200),
+          borderRadius: BorderRadius.circular(15.r),
+          border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
