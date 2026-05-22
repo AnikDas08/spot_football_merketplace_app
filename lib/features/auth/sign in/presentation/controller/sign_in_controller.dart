@@ -12,13 +12,8 @@ import '../../../../../services/storage/storage_services.dart';
 import '../../../../profile/presentation/controller/profile_controller.dart';
 
 class SignInController extends GetxController {
-  /// Sign in Button Loading variable
-
   bool isLoading = false;
-
-  final emailController = TextEditingController(
-    text: kDebugMode ? "rodefe4817@cadinr.com" : null,
-  );
+  final emailController = TextEditingController(text: kDebugMode ? "rodefe4817@cadinr.com" : null,);
   final passwordController = TextEditingController(
     text: kDebugMode ? "Aaaa@#+11" : null,
   );
@@ -54,12 +49,10 @@ class SignInController extends GetxController {
 
         await Get.find<ProfileController>().getProfileData();
 
-        /// clear
         emailController.clear();
 
         passwordController.clear();
 
-        /// navigate
         Get.offAllNamed(AppRoutes.navBarScreen);
         AppSnackbar.success(
           title: response.statusCode.toString(),
@@ -71,12 +64,15 @@ class SignInController extends GetxController {
           message: response.message,
         );
       }
-    } catch (e) {
+    }
+
+    catch (e) {
       AppSnackbar.error(title: 'Error', message: e.toString());
     } finally {
       isLoading = false;
       update();
     }
+
   }
 
   @override
