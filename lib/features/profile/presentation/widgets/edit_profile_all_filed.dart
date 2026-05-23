@@ -103,7 +103,7 @@ class EditProfileAllFiled extends StatelessWidget {
           /// Team Selection
           _buildLabel(role == 'MANAGER' ? "Your Team" : "Select Team"),
           DropdownButtonFormField<String>(
-            value: controller.teams.any((t) => t['_id'] == controller.selectedTeam)
+            initialValue: controller.teams.any((t) => t['_id'] == controller.selectedTeam)
                 ? controller.selectedTeam
                 : null,
             isExpanded: true,
@@ -125,7 +125,7 @@ class EditProfileAllFiled extends StatelessWidget {
           /// Age Group
           _buildLabel("Age Group"),
           DropdownButtonFormField<String>(
-            value: controller.selectedAgeGroup,
+            initialValue: controller.selectedAgeGroup,
             isExpanded: true,
             icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
             style: TextStyle(fontSize: 14.sp, color: AppColors.black),
@@ -143,7 +143,7 @@ class EditProfileAllFiled extends StatelessWidget {
           /// Position
           _buildLabel("Position"),
           DropdownButtonFormField<String>(
-            value: controller.selectedPosition,
+            initialValue: controller.selectedPosition,
             isExpanded: true,
             icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
             style: TextStyle(fontSize: 14.sp, color: AppColors.black),

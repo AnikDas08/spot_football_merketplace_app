@@ -6,7 +6,6 @@ import 'package:untitled/features/league_tables/presentation/screen/league_table
 import 'package:untitled/utils/constants/app_icons.dart';
 import '../../eng_tv_flow/presentation/screen/eng_tv_screen.dart';
 import '../../stats_flow/presentation/screen/stats_screen.dart';
-import '../../transferms/presentation/screen/transferm_screen.dart';
 
 class NavBarController extends GetxController {
   final selectedIndex = 0.obs;
@@ -23,6 +22,7 @@ class NavBarController extends GetxController {
     HomeScreen(),
     FixturesScreen(),
     LeagueTablesScreen(),
+
     EngTvScreen(),
     StatsScreen(),
   ];
@@ -34,6 +34,7 @@ class NavBarController extends GetxController {
     "ENG TV",
     "Stats"
   ];
+  final List<String> labels = const ['Lastest', 'Fixtures', "ENG TV", "Stats"];
 
   final List<String> activeIcons = [
     AppIcons.homeInActive,

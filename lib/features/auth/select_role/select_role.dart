@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,7 +11,7 @@ import '../../../../../component/text/common_text.dart';
 import '../sign in/presentation/widgets/signup_appbar.dart';
 
 class SelectRole extends StatelessWidget {
-  SelectRole({super.key});
+  const SelectRole({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -251,6 +253,6 @@ class RoleSelectController extends GetxController {
 
   void selectRole(int index) {
     selectedRole.value = index;
-    print("Role selected: $index");
+    log("Role selected: $index");
   }
 }
