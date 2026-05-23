@@ -18,6 +18,7 @@ import 'package:untitled/features/match_info/presentation/screens/match_info_scr
 import 'package:untitled/features/news_details/presentation/screens/news_details_screen.dart';
 import 'package:untitled/features/player_profile/presentation/screens/player_profile_screen.dart';
 import 'package:untitled/features/profile/presentation/screens/my_children_screen.dart';
+import 'package:untitled/features/transferms_history/presentation/widgets/transfer_tab_widget.dart';
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';

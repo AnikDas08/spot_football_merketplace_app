@@ -50,13 +50,16 @@ class EngTvScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              VideoThumbnailCard(
-                thumbnail: TempImage.thumbnail,
-                title: 'Voltage FC vs Titan Athletic',
-                duration: '1h 13m',
-                onWatchNow: () {
-                  Get.toNamed(AppRoutes.videoStreamScreen);
-                },
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                child: VideoThumbnailCard(
+                  thumbnail: TempImage.thumbnail,
+                  title: 'Voltage FC vs Titan Athletic',
+                  duration: '1h 13m',
+                  onWatchNow: () {
+                    Get.toNamed(AppRoutes.videoStreamScreen);
+                  },
+                ),
               ),
 
               SizedBox(height: 28.h),

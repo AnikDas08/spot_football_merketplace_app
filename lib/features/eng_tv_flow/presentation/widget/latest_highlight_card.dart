@@ -23,22 +23,24 @@ class LatestHighlightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: 160.w,
       height: 186.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
+      ),
+      clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(8.r)),
-                child: Image.asset(
-                  imagePath,
-                  height: 132.h,
-                  width: 160.w,
-                  fit: BoxFit.cover,
-                ),
+              Image.asset(
+                imagePath,
+                height: 125.h,
+                width: 160.w,
+                fit: BoxFit.cover,
               ),
               Positioned(
                 top: 8.h,
@@ -62,25 +64,34 @@ class LatestHighlightCard extends StatelessWidget {
 
           SizedBox(height: 2.h),
 
-          CommonText(
-            text: title,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            maxLines: 1,
-            color: AppColors.primaryColor,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: CommonText(
+              text: title,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+              maxLines: 1,
+              color: AppColors.primaryColor,
+            ),
           ),
 
-         isCheck? CommonText(
-            text: "$time - $source",
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w400,
-            color: AppColors.color6B6B6B,
-          ):CommonText(
-           text: leagueName??"",
-           fontSize: 14.sp,
-           fontWeight: FontWeight.w600,
-           color: AppColors.primaryColor,
-           maxLines: 1,
+         isCheck? Padding(
+           padding: EdgeInsets.symmetric(horizontal: 8.w),
+           child: CommonText(
+              text: "$time - $source",
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w400,
+              color: AppColors.color6B6B6B,
+            ),
+         ):Padding(
+           padding: EdgeInsets.symmetric(horizontal: 8.w),
+           child: CommonText(
+             text: leagueName??"",
+             fontSize: 14.sp,
+             fontWeight: FontWeight.w600,
+             color: AppColors.primaryColor,
+             maxLines: 1,
+           ),
          ),
         ],
       ),

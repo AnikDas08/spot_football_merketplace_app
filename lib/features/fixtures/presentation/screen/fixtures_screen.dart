@@ -23,6 +23,7 @@ class FixturesScreen extends StatelessWidget {
     final NavBarController navBarController = Get.find<NavBarController>();
     return GetBuilder<FixturesController>(
       builder: (c) => Scaffold(
+        extendBody: true,
         backgroundColor: AppColors.background,
         appBar: CommonAppbar(title: AppString.fixture),
         drawer: const AppDrawer(),
@@ -152,7 +153,7 @@ class _FixtureList extends StatelessWidget {
       );
     }
     return ListView.separated(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 150.h),
       itemCount: c.filteredFixtures.length,
       itemBuilder: (BuildContext context, int index) {
         final match = c.filteredFixtures[index];

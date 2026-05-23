@@ -21,15 +21,10 @@ class PlayerStatCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
       ),
+      clipBehavior: Clip.antiAlias,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -38,15 +33,11 @@ class PlayerStatCard extends StatelessWidget {
             height: 136.h,
             decoration: BoxDecoration(
               color:  Color(0xFFF5F5F5),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
-              child: FittedBox(
-                fit: BoxFit.cover,
-                alignment: Alignment.center,
-                child: Image.asset(playerImageUrl),
-              ),
+            child: FittedBox(
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+              child: Image.asset(playerImageUrl),
             ),
           ),
 

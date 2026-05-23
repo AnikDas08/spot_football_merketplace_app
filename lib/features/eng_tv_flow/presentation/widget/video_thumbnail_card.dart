@@ -31,6 +31,8 @@ class VideoThumbnailCard extends StatelessWidget {
       height: 250.h,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         image: DecorationImage(
           image: AssetImage(thumbnail),
           fit: BoxFit.cover,

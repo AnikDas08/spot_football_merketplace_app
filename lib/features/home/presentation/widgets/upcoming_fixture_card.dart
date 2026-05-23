@@ -41,8 +41,8 @@ class UpcomingFixtureCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.background, width: 1),
+          borderRadius: BorderRadius.circular(15.r),
+          border: Border.all(color: AppColors.colorEABB00, width: 1.w),
           boxShadow: [
             BoxShadow(
               color: AppColors.black.withAlpha(10),
