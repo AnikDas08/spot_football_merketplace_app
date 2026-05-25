@@ -31,4 +31,5 @@ class ApiEndPoint {
   static const match = '/match';
   static const pointTable = '/point-table';
   static const video = '/video';
+  static const packages = '/package';
 }

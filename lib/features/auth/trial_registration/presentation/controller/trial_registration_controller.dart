@@ -115,9 +115,17 @@ class TrialRegistrationController extends GetxController {
         MultipartFileItem(filePath: pickedDocument!.path, fileName: 'document')
       ];
 
+      final String? token = Get.arguments?['token'];
+      final Map<String, String> headers = {};
+      if (token != null) {
+        headers['Authorization'] = 'Bearer $token';
+      } else if (LocalStorage.token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer ${LocalStorage.token}';
+      }
+
       final response = await apiClient.multipart(
         url: ApiEndPoint.trialProfile,
-        headers: {'Authorization': LocalStorage.token},
+        headers: headers,
         body: body,
         files: files,
         onSendProgress: (sent, total) {
@@ -130,7 +138,16 @@ class TrialRegistrationController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         AppSnackbar.success(title: 'Success', message: response.message);
-        Get.offAllNamed(AppRoutes.successfulCreateAccount);
+        
+        // After submitting additional info, check payment status
+        if (!LocalStorage.paymentStatus) {
+          Get.offAllNamed(AppRoutes.mySubscription, arguments: {
+            'isFromRegistration': true,
+            'token': token,
+          });
+        } else {
+          Get.offAllNamed(AppRoutes.successfulCreateAccount);
+        }
       } else {
         AppSnackbar.error(title: 'Error', message: response.message);
       }

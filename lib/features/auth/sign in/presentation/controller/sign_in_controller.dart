@@ -40,17 +40,19 @@ class SignInController extends GetxController {
       final response = await apiClient.post(ApiEndPoint.signIn, body: body);
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = response.data['data'] ?? '';
+        final Map<String, dynamic> data = response.data['data'] ?? {};
         final userData = Jwt.parseJwt(data["accessToken"]);
-        await LocalStorage.setString(
-          LocalStorageKeys.token,
-          data["accessToken"],
-        );
-        await LocalStorage.setString(
-          LocalStorageKeys.refreshToken,
-          data["refreshToken"],
-        );
+
+        final String profileStatus = data['profileStatus'] ?? "INCOMPLETE";
+        final bool paymentStatus = data['paymentStatus'] ?? false;
+        final String role = userData['role'] ?? "";
+
+        await LocalStorage.setString(LocalStorageKeys.token, data["accessToken"]);
+        await LocalStorage.setString(LocalStorageKeys.refreshToken, data["refreshToken"]);
         await LocalStorage.setBool(LocalStorageKeys.isLogIn, true);
+        await LocalStorage.setString(LocalStorageKeys.profileStatus, profileStatus);
+        await LocalStorage.setBool(LocalStorageKeys.paymentStatus, paymentStatus);
+        await LocalStorage.setString(LocalStorageKeys.role, role);
 
         // Fetch profile data immediately after login
         await Get.find<ProfileController>().getProfileData();
@@ -60,7 +62,24 @@ class SignInController extends GetxController {
         passwordController.clear();
 
         /// navigate
-        Get.offAllNamed(AppRoutes.navBarScreen);
+        if (profileStatus == "INCOMPLETE") {
+          if (role == "PLAYER") {
+            Get.offAllNamed(AppRoutes.verifyPlayerScreen);
+          } else if (role == "MANAGER") {
+            Get.offAllNamed(AppRoutes.managerRegistrationScreen);
+          } else if (role == "REFEREE") {
+            Get.offAllNamed(AppRoutes.refereeInfoScreen);
+          } else if (role == "OTHER_CLUBS") {
+            Get.offAllNamed(AppRoutes.trialRegistrationScreen);
+          } else {
+            Get.offAllNamed(AppRoutes.navBarScreen);
+          }
+        } else if (!paymentStatus) {
+          Get.offAllNamed(AppRoutes.mySubscription);
+        } else {
+          Get.offAllNamed(AppRoutes.navBarScreen);
+        }
+
         AppSnackbar.success(
           title: response.statusCode.toString(),
           message: response.message,

@@ -137,17 +137,18 @@ class SignUpController extends GetxController {
 
       if (response.statusCode == 200) {
         final String token = response.data['data'] ?? '';
-        await LocalStorage.setString(LocalStorageKeys.token, token);
         AppSnackbar.success(title: 'Success', message: response.message);
         
+        final args = {'token': token};
+        
         if (selectRole.toUpperCase() == 'PLAYER') {
-          Get.offAllNamed(AppRoutes.verifyPlayerScreen);
+          Get.offAllNamed(AppRoutes.verifyPlayerScreen, arguments: args);
         } else if (selectRole.toUpperCase() == 'MANAGER') {
-          Get.offAllNamed(AppRoutes.managerRegistrationScreen);
+          Get.offAllNamed(AppRoutes.managerRegistrationScreen, arguments: args);
         } else if (selectRole.toUpperCase() == 'REFEREE') {
-          Get.offAllNamed(AppRoutes.refereeInfoScreen);
+          Get.offAllNamed(AppRoutes.refereeInfoScreen, arguments: args);
         } else if (selectRole.toUpperCase() == 'OTHER_CLUBS') {
-          Get.offAllNamed(AppRoutes.trialRegistrationScreen);
+          Get.offAllNamed(AppRoutes.trialRegistrationScreen, arguments: args);
         } else {
           Get.offAllNamed(AppRoutes.signIn);
         }

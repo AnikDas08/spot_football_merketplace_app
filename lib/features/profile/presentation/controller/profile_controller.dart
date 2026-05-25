@@ -96,6 +96,7 @@ class ProfileController extends GetxController {
         await LocalStorage.setString(LocalStorageKeys.myImage, data['profile'] ?? "");
         await LocalStorage.setString(LocalStorageKeys.role, data['role'] ?? "");
         await LocalStorage.setString(LocalStorageKeys.userId, data['_id'] ?? "");
+        await LocalStorage.setString(LocalStorageKeys.profileStatus, data['profileStatus'] ?? "");
       }
     } catch (e) {
       debugPrint("Error fetching profile: $e");
