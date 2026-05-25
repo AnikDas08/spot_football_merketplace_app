@@ -13,6 +13,9 @@ class ClubProfileController extends GetxController {
   var isLoading = false.obs;
   List<MatchModel> recentMatches = [];
   List<MatchModel> upcomingMatches = [];
+  
+  List<LeagueData> allLeagues = [];
+  int selectedLeagueIndex = 0;
   List<PointTableModel> pointTable = [];
   String pointTableMessage = '';
 
@@ -21,6 +24,14 @@ class ClubProfileController extends GetxController {
     fetchMatches();
     fetchPointTable();
     super.onInit();
+  }
+
+  void selectLeague(int index) {
+    if (index >= 0 && index < allLeagues.length) {
+      selectedLeagueIndex = index;
+      pointTable = allLeagues[index].standings;
+      update();
+    }
   }
 
   Future<void> fetchMatches() async {
@@ -58,9 +69,18 @@ class ClubProfileController extends GetxController {
 
       if (response.statusCode == 200) {
         final pointTableResponse = PointTableResponse.fromJson(response.data);
-        pointTable = pointTableResponse.data.isNotEmpty
-            ? pointTableResponse.data[0].standings
-            : [];
+        allLeagues = pointTableResponse.data;
+        
+        if (allLeagues.isNotEmpty) {
+          // Keep the previous selection if it's still valid, otherwise reset to 0
+          if (selectedLeagueIndex >= allLeagues.length) {
+            selectedLeagueIndex = 0;
+          }
+          pointTable = allLeagues[selectedLeagueIndex].standings;
+        } else {
+          pointTable = [];
+        }
+        
         pointTableMessage = pointTableResponse.message;
       }
     } catch (e) {

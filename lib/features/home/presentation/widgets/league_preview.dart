@@ -16,12 +16,16 @@ class LeaguePreview extends StatelessWidget {
   final bool isSeeAll;
   final List<PointTableModel> standings;
   final bool isLoading;
+  final String? leagueName;
+  final String? season;
 
   const LeaguePreview({
     super.key,
     this.isSeeAll = false,
     required this.standings,
     this.isLoading = false,
+    this.leagueName,
+    this.season,
   });
 
   @override
@@ -29,6 +33,7 @@ class LeaguePreview extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (!isSeeAll)
             Row(
@@ -58,6 +63,15 @@ class LeaguePreview extends StatelessWidget {
                 ),
               ],
             ),
+          if (leagueName != null) ...[
+            SizedBox(height: 8.h),
+            CommonText(
+              text: '$leagueName ${season ?? ""}',
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.color6B6B6B,
+            ),
+          ],
           if (!isSeeAll) SizedBox(height: 12.h),
           if (isLoading)
             CustomShimmer.rectangular(height: 200.h)

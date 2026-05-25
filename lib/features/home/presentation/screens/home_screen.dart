@@ -6,8 +6,10 @@ import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
 import 'package:untitled/features/home/presentation/widgets/league_preview.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../news/presentation/controller/news_controller.dart';
 import '../controllers/banner_controller.dart';
 import '../controllers/club_profile_controller.dart';
+import '../controllers/event_controller.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/latest_news.dart';
 import '../widgets/recent_result.dart';
@@ -23,15 +25,21 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ClubProfileController());
     final bannerController = Get.put(BannerController());
+    final newsController = Get.put(NewsController());
+    final eventController = Get.put(EventController());
     
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: CommonAppbar(title: AppString.community),
       body: RefreshIndicator(
         onRefresh: () async {
-          await controller.fetchMatches();
-          await controller.fetchPointTable();
-          await bannerController.fetchBannerVideos();
+          await Future.wait([
+            controller.fetchMatches(),
+            controller.fetchPointTable(),
+            bannerController.fetchBannerVideos(),
+            newsController.fetchNews(),
+            eventController.fetchEvents(),
+          ]);
         },
         child: SafeArea(
           child: SingleChildScrollView(
@@ -93,6 +101,12 @@ class HomeScreen extends StatelessWidget {
                     LeaguePreview(
                       standings: controller.pointTable,
                       isLoading: controller.isLoading.value,
+                      leagueName: controller.allLeagues.isNotEmpty 
+                          ? controller.allLeagues[controller.selectedLeagueIndex].league.leagueName 
+                          : null,
+                      season: controller.allLeagues.isNotEmpty 
+                          ? controller.allLeagues[controller.selectedLeagueIndex].league.season 
+                          : null,
                     ),
 
                     SizedBox(height: 20.h),
