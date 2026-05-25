@@ -3,10 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../controller/navbar_controller.dart';
-
-
 
 class NavBarScreen extends StatelessWidget {
   const NavBarScreen({super.key});
@@ -16,9 +15,9 @@ class NavBarScreen extends StatelessWidget {
     final controller = Get.find<NavBarController>();
 
     return Scaffold(
-      drawer: const Drawer(),
+      extendBody: true,
+      drawer: const AppDrawer(),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
-
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,

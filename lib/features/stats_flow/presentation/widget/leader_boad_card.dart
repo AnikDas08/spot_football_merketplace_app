@@ -48,15 +48,10 @@ class LeaderboardCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
       ),
+      clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
           Container(
@@ -66,7 +61,6 @@ class LeaderboardCard extends StatelessWidget {
                 image: AssetImage(AppImages.playerSeason),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,

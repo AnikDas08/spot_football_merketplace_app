@@ -32,7 +32,20 @@ class LatestNews extends StatelessWidget {
               if (controller.isLoading.value && controller.newsList.isEmpty) {
                 return SizedBox(
                   height: 248.h,
-                  child: const Center(child: CircularProgressIndicator()),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    padding: EdgeInsets.only(left: 16.w),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: NewsCard(
+                          width: 230.w,
+                          isLoading: true,
+                        ),
+                      );
+                    },
+                  ),
                 );
               }
               

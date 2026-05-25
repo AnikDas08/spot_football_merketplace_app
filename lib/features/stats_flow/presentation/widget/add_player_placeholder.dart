@@ -37,16 +37,10 @@ class AddPlayerPlaceholder extends StatelessWidget {
         height: height ?? defaultHeight,
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(standardRadius),
-
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
-            ),
-          ],
+          borderRadius: BorderRadius.circular(15.r),
+          border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         ),
+        clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
             Expanded(
@@ -61,13 +55,8 @@ class AddPlayerPlaceholder extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.black,
-
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(standardRadius),
-                  bottomRight: Radius.circular(standardRadius),
-                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
         },
         child: SafeArea(
           child: SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             child: GetBuilder<ClubProfileController>(
               builder: (controller) {
                 return Column(

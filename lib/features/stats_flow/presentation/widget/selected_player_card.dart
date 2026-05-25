@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../utils/constants/app_colors.dart';
 import '../model/player_model.dart';
 
 class SelectedPlayerCard extends StatelessWidget {
@@ -12,26 +13,23 @@ class SelectedPlayerCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))],
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
       ),
+      clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
-            child: Image.asset(
-              player.image,
-              height: 160.h,
-              width: double.infinity,
-              fit: BoxFit.fill,
-
-            ),          ),
+          Image.asset(
+            player.image,
+            height: 160.h,
+            width: double.infinity,
+            fit: BoxFit.fill,
+          ),
           Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 8.h),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.black,
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(12.r)),
             ),
             child: Text(
               player.name,
