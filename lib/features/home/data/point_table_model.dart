@@ -1,7 +1,7 @@
 class PointTableResponse {
   final bool success;
   final String message;
-  final List<PointTableModel> data;
+  final List<LeagueData> data;
 
   PointTableResponse({
     required this.success,
@@ -14,9 +14,49 @@ class PointTableResponse {
       success: json['success'] ?? false,
       message: json['message'] ?? '',
       data: json['data'] != null
-          ? List<PointTableModel>.from(
-              json['data'].map((x) => PointTableModel.fromJson(x)))
+          ? List<LeagueData>.from(
+              json['data'].map((x) => LeagueData.fromJson(x)))
           : [],
+    );
+  }
+}
+
+class LeagueData {
+  final League league;
+  final List<PointTableModel> standings;
+
+  LeagueData({
+    required this.league,
+    required this.standings,
+  });
+
+  factory LeagueData.fromJson(Map<String, dynamic> json) {
+    return LeagueData(
+      league: League.fromJson(json['league'] ?? {}),
+      standings: json['standings'] != null
+          ? List<PointTableModel>.from(
+              json['standings'].map((x) => PointTableModel.fromJson(x)))
+          : [],
+    );
+  }
+}
+
+class League {
+  final String id;
+  final String leagueName;
+  final String season;
+
+  League({
+    required this.id,
+    required this.leagueName,
+    required this.season,
+  });
+
+  factory League.fromJson(Map<String, dynamic> json) {
+    return League(
+      id: json['_id'] ?? '',
+      leagueName: json['leagueName'] ?? '',
+      season: json['season'] ?? '',
     );
   }
 }
