@@ -8,6 +8,7 @@ import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../drawer/presentation/screen/app_drawer.dart';
 import '../controller/transfer_controller.dart';
 import '../widget/player_card.dart';
 import '../widget/trial_offer_card.dart';
@@ -20,8 +21,6 @@ class TransferScreen extends StatelessWidget {
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.transfer.toUpperCase()),
       drawer: const AppDrawer(),
-      appBar: CommonAppbar(title: AppString.transfer.toUpperCase()),
-      drawer:  SecondaryAppBar(title: AppString.transfer.toUpperCase()),
       body: SafeArea(
         child: GetBuilder<TransferController>(
           builder: (controller) {

@@ -34,7 +34,6 @@ class NavBarController extends GetxController {
     "ENG TV",
     "Stats"
   ];
-  final List<String> labels = const ['Lastest', 'Fixtures', "ENG TV", "Stats"];
 
   final List<String> activeIcons = [
     AppIcons.homeInActive,
