@@ -15,7 +15,7 @@ class MatchInfoController extends GetxController {
       isLoading.value = true;
       update();
 
-      final response = await apiClient.get("${ApiEndPoint.match}$id");
+      final response = await apiClient.get("${ApiEndPoint.match}/$id");
 
       if (response.statusCode == 200) {
         if (response.data['success'] == true) {
