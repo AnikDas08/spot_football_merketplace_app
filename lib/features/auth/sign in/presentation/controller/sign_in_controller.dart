@@ -12,20 +12,14 @@ import '../../../../../services/storage/storage_services.dart';
 import '../../../../profile/presentation/controller/profile_controller.dart';
 
 class SignInController extends GetxController {
-  /// Sign in Button Loading variable
   bool isLoading = false;
-
-  /// email and password Controller here
-  final emailController = TextEditingController(
-    text: kDebugMode ? "rodefe4817@cadinr.com" : null,
-  );
+  final emailController = TextEditingController(text: kDebugMode ? "rodefe4817@cadinr.com" : null,);
   final passwordController = TextEditingController(
     text: kDebugMode ? "Aaaa@#+11" : null,
   );
 
   final ApiClient apiClient = DioApiClient();
 
-  /// Sign in Api call here
   Future<void> signInUser() async {
     if (isLoading) return;
 
@@ -46,20 +40,19 @@ class SignInController extends GetxController {
           LocalStorageKeys.token,
           data["accessToken"],
         );
+
         await LocalStorage.setString(
           LocalStorageKeys.refreshToken,
           data["refreshToken"],
         );
         await LocalStorage.setBool(LocalStorageKeys.isLogIn, true);
 
-        // Fetch profile data immediately after login
         await Get.find<ProfileController>().getProfileData();
 
-        /// clear
         emailController.clear();
+
         passwordController.clear();
 
-        /// navigate
         Get.offAllNamed(AppRoutes.navBarScreen);
         AppSnackbar.success(
           title: response.statusCode.toString(),
@@ -71,12 +64,15 @@ class SignInController extends GetxController {
           message: response.message,
         );
       }
-    } catch (e) {
+    }
+
+    catch (e) {
       AppSnackbar.error(title: 'Error', message: e.toString());
     } finally {
       isLoading = false;
       update();
     }
+
   }
 
   @override
