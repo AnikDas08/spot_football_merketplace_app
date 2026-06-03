@@ -5,7 +5,14 @@ import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
 class PlayerHeaderWidget extends StatelessWidget {
-  const PlayerHeaderWidget({super.key});
+  final String playerName;
+  final String position;
+
+  const PlayerHeaderWidget({
+    super.key,
+    this.playerName = 'Emerson Royal',
+    this.position = 'Forward',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +34,19 @@ class PlayerHeaderWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CommonText(
-                      text: 'Emerson Royal',
+                      text: playerName,
                       fontSize: 32,
                       fontWeight: FontWeight.w700,
                       color: AppColors.white,
                     ),
                     SizedBox(height: 4.h),
                     CommonText(
-                      text: 'Forward',
+                      text: position,
                       fontSize: 16.sp,
                       color: AppColors.white,
-                      fontWeight: FontWeight(510),
+                      fontWeight: const FontWeight(500),
                     ),
                     const Spacer(),
-                    // CommonText(
-                    //   text: '9',
-                    //   fontSize: 48.sp,
-                    //   fontWeight: FontWeight.w700,
-                    //   color: AppColors.white,
-                    // ),
                   ],
                 ),
               ),

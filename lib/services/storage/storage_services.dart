@@ -16,6 +16,7 @@ class LocalStorage {
   static String role = "";
   static String plan = "";
   static String profileStatus = "";
+  static String teamId = "";
   static bool paymentStatus = false;
 
   static bool get isUserApproved => profileStatus.toUpperCase() == "APPROVED";
@@ -46,6 +47,7 @@ class LocalStorage {
     role = localStorage.getString(LocalStorageKeys.role) ?? "";
     plan = localStorage.getString(LocalStorageKeys.plan) ?? "";
     profileStatus = localStorage.getString(LocalStorageKeys.profileStatus) ?? "";
+    teamId = localStorage.getString(LocalStorageKeys.teamId) ?? "";
     paymentStatus = localStorage.getBool(LocalStorageKeys.paymentStatus) ?? false;
 
     appLog(userId, source: "Local Storage");
@@ -93,6 +95,7 @@ class LocalStorage {
     localStorage.setString(LocalStorageKeys.role, "");
     localStorage.setString(LocalStorageKeys.plan, "");
     localStorage.setString(LocalStorageKeys.profileStatus, "");
+    localStorage.setString(LocalStorageKeys.teamId, "");
     localStorage.setBool(LocalStorageKeys.paymentStatus, false);
   }
 
@@ -111,6 +114,7 @@ class LocalStorage {
     if (key == LocalStorageKeys.role) role = value;
     if (key == LocalStorageKeys.plan) plan = value;
     if (key == LocalStorageKeys.profileStatus) profileStatus = value;
+    if (key == LocalStorageKeys.teamId) teamId = value;
   }
 
   static Future<void> setBool(String key, bool value) async {

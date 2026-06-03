@@ -9,6 +9,7 @@ import 'package:untitled/services/api/api_service.dart';
 import 'package:untitled/services/api/multipart_helper.dart';
 import 'package:untitled/utils/app_snackbar.dart';
 import '../../../../../../services/storage/storage_services.dart';
+import '../../../../../services/storage/storage_keys.dart';
 
 class RefereeInfoController extends GetxController {
   final ApiClient apiClient = DioApiClient();
@@ -102,6 +103,9 @@ class RefereeInfoController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         AppSnackbar.success(title: 'Success', message: response.message);
         
+        // Update local status so app knows info is submitted
+        await LocalStorage.setString(LocalStorageKeys.profileStatus, "PENDING");
+
         // After submitting additional info, check payment status
         if (!LocalStorage.paymentStatus) {
           Get.offAllNamed(AppRoutes.mySubscription, arguments: {

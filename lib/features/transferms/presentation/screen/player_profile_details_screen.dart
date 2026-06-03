@@ -16,41 +16,64 @@ class PlayerProfileDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Ensure controller is initialized
+    Get.put(PlayerProfileController());
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: SecondaryAppBar(title: AppString.playerProfile),
       body: GetBuilder<PlayerProfileController>(
         builder: (controller) {
+          if (controller.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (controller.playerData == null) {
+            return const Center(child: Text("No player details found"));
+          }
+
+          final data = controller.playerData!;
+          final firstName = data['firstName'] ?? "";
+          final lastName = data['lastName'] ?? "";
+          final fullName = "$firstName $lastName";
+
           return SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             child: Column(
-              crossAxisAlignment: .start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PlayerHeaderWidget(),
+                PlayerHeaderWidget(
+                  playerName: fullName,
+                  position: data['position'] ?? "N/A",
+                ),
                 SizedBox(height: 16.h),
                 CustomInfoCard(
                   title: 'Personal Details',
                   statusImage: AppImages.approved,
                   details: {
-                    'Player Name': 'Emerson Royal',
-                    'Date Of Birth': '04/03/2026',
-                    'Age Group': 'Under 12',
-                    'Previous Club': 'TITANS FC',
-                    'Position': 'Forward',
-                    'Strong Foot': 'Left',
+                    'Player Name': fullName,
+                    'Date Of Birth': data['dateOfBirth'] != null
+                        ? data['dateOfBirth'].toString().split('T')[0]
+                        : 'N/A',
+                    'Team': data['selectTeam'] ?? 'N/A',
+                    'Strong Foot': data['strongFoot'] ?? 'N/A',
+                    'Phone': data['phone'] ?? 'N/A',
+                    'Status': data['status'] ?? 'N/A',
                   },
                 ),
                 SizedBox(height: 16.h),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CommonButton(
                     titleText: "Offer Trial",
+                    isLoading: controller.isOfferingTrial,
                     buttonColor: AppColors.primaryColor,
-                  onTap: (){
-                      Get.toNamed(AppRoutes.transferPendingApproval);
-                  },),
+                    onTap: () {
+                      controller.offerTrial();
+                    },
+                  ),
                 ),
+                SizedBox(height: 24.h),
               ],
             ),
           );

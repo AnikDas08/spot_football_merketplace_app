@@ -35,43 +35,43 @@ class TransferScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-                      child: CommonText(
-                        text: AppString.trending.toUpperCase(),
-                        color: AppColors.primaryColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                    //   child: CommonText(
+                    //     text: AppString.trending.toUpperCase(),
+                    //     color: AppColors.primaryColor,
+                    //     fontSize: 20.sp,
+                    //     fontWeight: FontWeight.w600,
+                    //   ),
+                    // ),
                     SizedBox(height: 20.h),
-                    SizedBox(
-                      height: 200.h,
-                      child: ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: controller.playerList.length,
-                        itemBuilder: (context, index) {
-                          final player = controller.playerList[index];
-                          return Padding(
-                            padding: EdgeInsets.only(right: 12.w),
-                            child: PlayerCard(
-                              imageUrl: player.profile ?? '',
-                              status: player.verified ? 'VERIFIED' : 'PENDING',
-                              position: player.role,
-                              age: 22,
-                              playerName: player.userName,
-                              academyName: 'ENG ACADEMY',
-                              price: '8400',
-                              onTap: () {
-                                Get.toNamed(AppRoutes.playerProfileDetailsScreen);
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 32.h),
+                    // SizedBox(
+                    //   height: 200.h,
+                    //   child: ListView.builder(
+                    //     padding: const EdgeInsets.symmetric(horizontal: 16),
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemCount: controller.playerList.length,
+                    //     itemBuilder: (context, index) {
+                    //       final player = controller.playerList[index];
+                    //       return Padding(
+                    //         padding: EdgeInsets.only(right: 12.w),
+                    //         child: PlayerCard(
+                    //           imageUrl: player.profile ?? '',
+                    //           status: player.verified ? 'VERIFIED' : 'PENDING',
+                    //           position: player.role,
+                    //           age: 22,
+                    //           playerName: player.userName,
+                    //           academyName: 'ENG ACADEMY',
+                    //           price: '8400',
+                    //           onTap: () {
+                    //             Get.toNamed(AppRoutes.playerProfileDetailsScreen);
+                    //           },
+                    //         ),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
+                    // SizedBox(height: 32.h),
                     Padding(
                       padding: const EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: CommonText(
@@ -96,9 +96,10 @@ class TransferScreen extends StatelessWidget {
                             title: player.userName,
                             // matchPercentage: '92%',
                             description:
-                                'Available for transfer. Role: ${player.role.toLowerCase()}',
+                                'Personal terms agreed. Medical scheduled for final test',
                             onOfferTap: () {
-                              Get.toNamed(AppRoutes.playerProfileDetailsScreen);
+                              Get.toNamed(AppRoutes.playerProfileDetailsScreen,
+                                  arguments: player.id);
                             },
                           ),
                         );

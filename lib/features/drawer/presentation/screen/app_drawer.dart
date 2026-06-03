@@ -116,7 +116,7 @@ class AppDrawer extends StatelessWidget {
 
   Widget _buildProfile(ProfileController controller) {
     final data = controller.profileData;
-    final String name = data['userName'] ?? LocalStorage.myName;
+    final String name = data['fullName'] ?? LocalStorage.myName;
     final String email = data['email'] ?? LocalStorage.myEmail;
     final String image = data['profile'] ?? LocalStorage.myImage;
 

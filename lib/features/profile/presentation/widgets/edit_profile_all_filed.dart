@@ -51,6 +51,7 @@ class EditProfileAllFiled extends StatelessWidget {
           hintText: "Enter email",
           borderColor: AppColors.black,
           fillColor: AppColors.transparent,
+          readOnly: controller.emailController.text.isNotEmpty,
         ),
         20.height,
 
@@ -62,6 +63,7 @@ class EditProfileAllFiled extends StatelessWidget {
           hintText: "Enter phone number",
           borderColor: AppColors.black,
           fillColor: AppColors.transparent,
+          readOnly: controller.phoneController.text.isNotEmpty,
         ),
         20.height,
 

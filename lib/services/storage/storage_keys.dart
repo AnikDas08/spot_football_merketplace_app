@@ -10,4 +10,5 @@ class LocalStorageKeys {
   static const String myEmail = "myEmail";
   static const String profileStatus = "profileStatus";
   static const String paymentStatus = "paymentStatus";
+  static const String teamId = "teamId";
 }

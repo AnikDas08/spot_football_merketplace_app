@@ -43,7 +43,9 @@ class SignInController extends GetxController {
         final Map<String, dynamic> data = response.data['data'] ?? {};
         final userData = Jwt.parseJwt(data["accessToken"]);
 
-        final String profileStatus = data['profileStatus'] ?? "INCOMPLETE";
+        final String profileStatus = (data['profileStatus'] == null || data['profileStatus'].toString().isEmpty) 
+            ? "INCOMPLETE" 
+            : data['profileStatus'];
         final bool paymentStatus = data['paymentStatus'] ?? false;
         final String role = userData['role'] ?? "";
 
@@ -54,31 +56,35 @@ class SignInController extends GetxController {
         await LocalStorage.setBool(LocalStorageKeys.paymentStatus, paymentStatus);
         await LocalStorage.setString(LocalStorageKeys.role, role);
 
-        // Fetch profile data immediately after login
+        // Fetch profile data immediately after login to get latest statuses
         await Get.find<ProfileController>().getProfileData();
 
-        /// clear
-        emailController.clear();
-        passwordController.clear();
+        final String currentProfileStatus = LocalStorage.profileStatus;
+        final bool currentPaymentStatus = LocalStorage.paymentStatus;
+        final String currentRole = LocalStorage.role.toUpperCase();
 
         /// navigate
-        if (profileStatus == "INCOMPLETE") {
-          if (role == "PLAYER") {
+        if (currentProfileStatus == "INCOMPLETE" || currentProfileStatus.isEmpty) {
+          if (currentRole == "PLAYER") {
             Get.offAllNamed(AppRoutes.verifyPlayerScreen);
-          } else if (role == "MANAGER") {
+          } else if (currentRole == "MANAGER") {
             Get.offAllNamed(AppRoutes.managerRegistrationScreen);
-          } else if (role == "REFEREE") {
+          } else if (currentRole == "REFEREE") {
             Get.offAllNamed(AppRoutes.refereeInfoScreen);
-          } else if (role == "OTHER_CLUBS") {
+          } else if (currentRole == "OTHER_CLUBS" || currentRole == "TRIAL" || currentRole == "OTHER CLUBS") {
             Get.offAllNamed(AppRoutes.trialRegistrationScreen);
           } else {
             Get.offAllNamed(AppRoutes.navBarScreen);
           }
-        } else if (!paymentStatus) {
+        } else if (!currentPaymentStatus) {
           Get.offAllNamed(AppRoutes.mySubscription);
         } else {
           Get.offAllNamed(AppRoutes.navBarScreen);
         }
+
+        /// clear
+        emailController.clear();
+        passwordController.clear();
 
         AppSnackbar.success(
           title: response.statusCode.toString(),

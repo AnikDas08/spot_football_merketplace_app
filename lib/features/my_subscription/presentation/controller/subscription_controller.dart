@@ -74,7 +74,7 @@ class SubscriptionController extends GetxController {
   Future<void> fetchPackages() async {
     try {
       isLoading.value = true;
-      
+
       // Get role and token from arguments if available (registration flow)
       // Fallback to LocalStorage for logged-in users
       String role = Get.arguments?['role'] ?? LocalStorage.role;
@@ -93,9 +93,13 @@ class SubscriptionController extends GetxController {
       }
 
       if (role.isNotEmpty) {
-        role = role[0].toUpperCase() + role.substring(1).toLowerCase();
+        if (role == "OTHER_CLUBS") {
+          role = "Club";
+        } else {
+          role = role[0].toUpperCase() + role.substring(1).toLowerCase();
+        }
       }
-      
+
       final Map<String, String> headers = {};
       if (token != null) {
         headers['Authorization'] = 'Bearer $token';
