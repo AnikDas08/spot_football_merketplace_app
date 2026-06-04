@@ -45,6 +45,7 @@ class PlayerProfileDetailsScreen extends StatelessWidget {
                 PlayerHeaderWidget(
                   playerName: fullName,
                   position: data['position'] ?? "N/A",
+                  profileImage: data['profile'],
                 ),
                 SizedBox(height: 16.h),
                 CustomInfoCard(

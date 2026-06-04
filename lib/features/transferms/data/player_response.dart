@@ -24,6 +24,8 @@ class PlayerResponse {
 class PlayerModel {
   final String id;
   final String userName;
+  final String? firstName;
+  final String? lastName;
   final String role;
   final String email;
   final String? profile;
@@ -33,6 +35,8 @@ class PlayerModel {
   PlayerModel({
     required this.id,
     required this.userName,
+    this.firstName,
+    this.lastName,
     required this.role,
     required this.email,
     this.profile,
@@ -44,6 +48,8 @@ class PlayerModel {
     return PlayerModel(
       id: json['_id'] ?? '',
       userName: json['userName'] ?? '',
+      firstName: json['firstName'],
+      lastName: json['lastName'],
       role: json['role'] ?? '',
       email: json['email'] ?? '',
       profile: json['profile'],

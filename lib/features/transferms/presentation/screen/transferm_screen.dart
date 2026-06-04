@@ -89,11 +89,14 @@ class TransferScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final player = controller.playerList[index];
+                        final fullName = (player.firstName != null || player.lastName != null)
+                            ? "${player.firstName ?? ""} ${player.lastName ?? ""}".trim()
+                            : player.userName;
                         return Padding(
                           padding: EdgeInsets.only(bottom: 16.h),
                           child: TrialOfferCard(
                             playerImageUrl: player.profile ?? '',
-                            title: player.userName,
+                            title: fullName,
                             // matchPercentage: '92%',
                             description:
                                 'Personal terms agreed. Medical scheduled for final test',
