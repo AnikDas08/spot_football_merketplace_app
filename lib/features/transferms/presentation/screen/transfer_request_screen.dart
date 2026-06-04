@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
+import 'package:untitled/component/image/common_image.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../data/transfer_request_model.dart';
 import '../controller/transfer_request_controller.dart';
 
 class TransferRequestScreen extends StatelessWidget {
@@ -11,7 +14,7 @@ class TransferRequestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<TransferRequestController>();
+    final controller = Get.put(TransferRequestController());
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
@@ -22,13 +25,32 @@ class TransferRequestScreen extends StatelessWidget {
           SizedBox(height: 16.h),
           _buildTabs(controller),
           Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return Obx(() => _buildTransferCard(controller, index));
-              },
-            ),
+            child: Obx(() {
+              if (controller.isLoading.value &&
+                  (controller.isIncoming
+                      ? controller.incomingRequests.isEmpty
+                      : controller.outgoingRequests.isEmpty)) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final requests = controller.isIncoming
+                  ? controller.incomingRequests
+                  : controller.outgoingRequests;
+
+              return RefreshIndicator(
+                onRefresh: () => controller.fetchRequests(),
+                child: requests.isEmpty
+                    ? const Center(child: Text("No transfer requests found"))
+                    : ListView.builder(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 16.h),
+                        itemCount: requests.length,
+                        itemBuilder: (context, index) {
+                          return _buildTransferCard(controller, requests[index]);
+                        },
+                      ),
+              );
+            }),
           ),
         ],
       ),
@@ -126,18 +148,20 @@ class TransferRequestScreen extends StatelessWidget {
     });
   }
 
-  Widget _buildTransferCard(TransferRequestController controller, int index) {
-    const String playerName = 'Marcus Rashford';
-    final String status = controller.getActionStatus(index);
-    final bool actionTaken = controller.isActionTaken(index);
+  Widget _buildTransferCard(TransferRequestController controller, TransferRequestModel request) {
+    final String playerName = (request.player.firstName != null || request.player.lastName != null)
+        ? "${request.player.firstName ?? ""} ${request.player.lastName ?? ""}".trim()
+        : request.player.userName;
+    final String status = request.status;
+    final bool actionTaken = status != 'PENDING';
 
     Color statusColor;
-    if (status == 'Accepted' || status == 'Active') {
+    if (status == 'APPROVED' || status == 'ACCEPTED') {
       statusColor = const Color(0xFF19CA77);
-    } else if (status == 'Rejected' || status == 'Withdrawn') {
+    } else if (status == 'REJECTED' || status == 'WITHDRAWN') {
       statusColor = const Color(0xFFEF5350);
     } else {
-      statusColor = const Color(0xFF424242);
+      statusColor = const Color(0xFFFBC02D); // Pending yellow
     }
 
     return Container(
@@ -153,11 +177,11 @@ class TransferRequestScreen extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.r),
-                child: Image.asset(
-                  TempImage.player,
+                child: CommonImage(
+                  imageSrc: request.player.profile ?? "",
                   width: 60.w,
                   height: 60.w,
-                  fit: BoxFit.cover,
+                  fill: BoxFit.cover,
                 ),
               ),
               SizedBox(width: 12.w),
@@ -168,10 +192,15 @@ class TransferRequestScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CommonText(
-                          text: playerName,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
+                        Expanded(
+                          child: CommonText(
+                            text: playerName,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w700,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                          ),
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
@@ -194,7 +223,9 @@ class TransferRequestScreen extends StatelessWidget {
                         const Icon(Icons.shield, size: 14, color: Colors.grey),
                         SizedBox(width: 4.w),
                         CommonText(
-                          text: controller.isIncoming ? 'United FC' : 'To: Madrid Kings',
+                          text: controller.isIncoming 
+                            ? (request.fromTeam?.teamName ?? 'Free Agent') 
+                            : 'To: ${request.toTeam?.teamName ?? 'N/A'}',
                           fontSize: 12.sp,
                           color: Colors.grey,
                         ),
@@ -216,7 +247,7 @@ class TransferRequestScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CommonText(
-                  text: 'MARCUS VANE',
+                  text: request.transferType.replaceAll('_', ' '),
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w700,
                   color: Colors.black54,
@@ -230,19 +261,19 @@ class TransferRequestScreen extends StatelessWidget {
                       textBaseline: TextBaseline.alphabetic,
                       children: [
                         CommonText(
-                          text: '12,000,000',
-                          fontSize: 20.sp,
+                          text: request.toTeam?.teamName ?? "",
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w700,
                         ),
                         SizedBox(width: 4.w),
                         CommonText(
-                          text: 'ENG Coins',
+                          text: 'Requested Team',
                           fontSize: 12.sp,
                           color: Colors.grey,
                         ),
                       ],
                     ),
-                    const Icon(Icons.wallet, color: Color(0xFF0056D2), size: 20),
+                    const Icon(Icons.compare_arrows, color: Color(0xFF0056D2), size: 20),
                   ],
                 ),
               ],
@@ -255,7 +286,7 @@ class TransferRequestScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => controller.acceptTransfer(index, playerName),
+                      onTap: () => controller.acceptTransfer(request.id, playerName),
                       child: _buildActionButton(
                         'Accept',
                         Colors.black,
@@ -266,7 +297,7 @@ class TransferRequestScreen extends StatelessWidget {
                   SizedBox(width: 12.w),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => controller.rejectTransfer(index, playerName),
+                      onTap: () => controller.rejectTransfer(request.id, playerName),
                       child: _buildActionButton(
                         'Reject',
                         const Color(0xFFFFEBEE),
@@ -278,13 +309,16 @@ class TransferRequestScreen extends StatelessWidget {
               )
             else
               GestureDetector(
-                onTap: () => controller.withdrawOffer(index, playerName),
-                child: _buildActionButton(
+                onTap: () => controller.withdrawingId.value.isEmpty 
+                    ? controller.withdrawOffer(request.id, playerName) 
+                    : null,
+                child: Obx(() => _buildActionButton(
                   'Withdraw Offer',
                   Colors.white,
                   const Color(0xFFEF5350),
                   borderColor: const Color(0xFFEF5350),
-                ),
+                  isLoading: controller.withdrawingId.value == request.id,
+                )),
               ),
           ],
         ],
@@ -292,7 +326,7 @@ class TransferRequestScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButton(String text, Color bgColor, Color textColor, {Color? borderColor}) {
+  Widget _buildActionButton(String text, Color bgColor, Color textColor, {Color? borderColor, bool isLoading = false}) {
     return Container(
       height: 48.h,
       width: double.infinity,
@@ -302,12 +336,21 @@ class TransferRequestScreen extends StatelessWidget {
         border: borderColor != null ? Border.all(color: borderColor) : null,
       ),
       alignment: Alignment.center,
-      child: CommonText(
-        text: text,
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w700,
-        color: textColor,
-      ),
+      child: isLoading 
+        ? SizedBox(
+            height: 20.r,
+            width: 20.r,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: textColor,
+            ),
+          )
+        : CommonText(
+            text: text,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w700,
+            color: textColor,
+          ),
     );
   }
 }

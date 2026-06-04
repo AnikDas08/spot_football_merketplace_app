@@ -102,41 +102,45 @@ class SelectRole extends StatelessWidget {
               SizedBox(height: 40.h),
 
               // --- Continue Button ---
-              Obx(
-                () => CommonButton(
-                  onTap: () async {
-                    final signUpController = Get.find<SignUpController>();
-                    if (controller.selectedRole.value != 0) {
-                      String role = "";
-                      switch (controller.selectedRole.value) {
-                        case 1:
-                          role = "PLAYER";
-                          break;
-                        case 2:
-                          role = "MANAGER";
-                          break;
-                        case 3:
-                          role = "OTHER_CLUBS";
-                          break;
-                        case 4:
-                          role = "REFEREE";
-                          break;
-                      }
-                      signUpController.setSelectedRole(role);
-                      signUpController.signUpUser();
-                    } else {
-                      Get.snackbar(
-                        "Selection Required",
-                        "Please select a role to continue",
-                      );
-                    }
-                  },
-                  buttonColor: controller.selectedRole.value == 0
-                      ? Colors.grey.shade400
-                      : AppColors.black,
-                  titleText: "Continue",
-                  titleColor: AppColors.white,
-                ),
+              GetBuilder<SignUpController>(
+                builder: (signUpController) {
+                  return Obx(
+                    () => CommonButton(
+                      isLoading: signUpController.isLoading,
+                      onTap: () async {
+                        if (controller.selectedRole.value != 0) {
+                          String role = "";
+                          switch (controller.selectedRole.value) {
+                            case 1:
+                              role = "PLAYER";
+                              break;
+                            case 2:
+                              role = "MANAGER";
+                              break;
+                            case 3:
+                              role = "OTHER_CLUBS";
+                              break;
+                            case 4:
+                              role = "REFEREE";
+                              break;
+                          }
+                          signUpController.setSelectedRole(role);
+                          signUpController.signUpUser();
+                        } else {
+                          Get.snackbar(
+                            "Selection Required",
+                            "Please select a role to continue",
+                          );
+                        }
+                      },
+                      buttonColor: controller.selectedRole.value == 0
+                          ? Colors.grey.shade400
+                          : AppColors.black,
+                      titleText: "Continue",
+                      titleColor: AppColors.white,
+                    ),
+                  );
+                }
               ),
 
               SizedBox(height: 24.h),
