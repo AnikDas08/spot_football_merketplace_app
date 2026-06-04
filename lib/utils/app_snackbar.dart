@@ -11,7 +11,7 @@ class AppSnackbar {
       title: kDebugMode ? title : 'Success',
       message: message,
       backgroundColor: AppColors.black,
-      position: .BOTTOM,
+      position: SnackPosition.BOTTOM,
     );
   }
 

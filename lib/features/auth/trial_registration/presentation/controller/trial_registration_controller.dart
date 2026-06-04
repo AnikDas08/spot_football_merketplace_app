@@ -25,11 +25,13 @@ class TrialRegistrationController extends GetxController {
   String? selectedDob;
   String? selectedTeam;
   String? selectedStrongFoot;
+  String? selectedPosition = "Forward";
   File? pickedDocument;
 
   // Data Lists
   List<Map<String, dynamic>> teams = [];
   final List<String> strongFeet = ["LEFT", "RIGHT", "BOTH"];
+  final List<String> positions = ["Goalkeeper", "Defender", "Midfielder", "Forward"];
 
   @override
   void onInit() {
@@ -58,6 +60,11 @@ class TrialRegistrationController extends GetxController {
 
   void setStrongFoot(String value) {
     selectedStrongFoot = value;
+    update();
+  }
+
+  void setPosition(String value) {
+    selectedPosition = value;
     update();
   }
 
@@ -109,6 +116,7 @@ class TrialRegistrationController extends GetxController {
         'dateOfBirth': selectedDob!,
         'selectTeam': selectedTeam!,
         'strongFoot': selectedStrongFoot!,
+        'position': selectedPosition ?? "",
         'phone': phoneController.text.trim(),
       };
 

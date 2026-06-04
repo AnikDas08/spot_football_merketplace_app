@@ -89,16 +89,20 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                   ),
                   SizedBox(height: 24.h),
 
-                  /// Team Selection and Strong Foot
+                  /// Team Selection
+                  _buildTeamDropdown(controller),
+                  SizedBox(height: 24.h),
+
+                  /// Strong Foot and Position
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: _buildTeamDropdown(controller),
+                        child: _buildStrongFootDropdown(controller),
                       ),
                       SizedBox(width: 12.w),
                       Expanded(
-                        child: _buildStrongFootDropdown(controller),
+                        child: _buildPositionDropdown(controller),
                       ),
                     ],
                   ),
@@ -225,6 +229,35 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
             );
           }).toList(),
           onChanged: (val) => controller.setStrongFoot(val!),
+          validator: (value) => value == null ? 'Field is required' : null,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPositionDropdown(TrialRegistrationController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CommonText(
+          text: "Position",
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500,
+          bottom: 8,
+        ),
+        DropdownButtonFormField<String>(
+          initialValue: controller.selectedPosition,
+          isExpanded: true,
+          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+          style: TextStyle(fontSize: 14.sp, color: AppColors.black),
+          decoration: _dropdownDecoration("Select position..."),
+          items: controller.positions.map((pos) {
+            return DropdownMenuItem<String>(
+              value: pos,
+              child: Text(pos, overflow: TextOverflow.ellipsis),
+            );
+          }).toList(),
+          onChanged: (val) => controller.setPosition(val!),
           validator: (value) => value == null ? 'Field is required' : null,
         ),
       ],
