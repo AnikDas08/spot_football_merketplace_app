@@ -18,6 +18,8 @@ class ProfileController extends GetxController {
   String? image;
   bool isLoading = false;
   bool isProfileLoading = false;
+  double uploadProgress = 0.0;
+  bool isUploadingImage = false;
 
   /// Profile Data
   var profileData = {}.obs;
@@ -177,10 +179,62 @@ class ProfileController extends GetxController {
     }
   }
 
-  /// Pick profile image
+  /// Pick and Upload profile image immediately
   Future<void> getProfileImage() async {
-    image = await OtherHelper.pickImage();
-    update();
+    final pickedPath = await OtherHelper.pickImage();
+    if (pickedPath == null) return;
+
+    try {
+      isUploadingImage = true;
+      uploadProgress = 0.0;
+      update();
+      
+      final files = [MultipartFileItem(fileName: 'image', filePath: pickedPath)];
+      
+      final response = await apiClient.multipart(
+        url: ApiEndPoint.signUp, // This is /user/ as per your config
+        body: {},
+        files: files,
+        method: 'PATCH',
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+        onSendProgress: (sent, total) {
+          if (total > 0) {
+            uploadProgress = sent / total;
+            update();
+          }
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final newData = response.data['data'];
+        final newImageUrl = newData['profile'] ?? "";
+        
+        // Ensure image URL is handled by CommonImage logic (will prepend baseUrl if needed)
+        await LocalStorage.setString(LocalStorageKeys.myImage, newImageUrl);
+        
+        // Update local state immediately for this screen
+        image = pickedPath; 
+
+        // Update profileData object for global listeners (Drawer, etc)
+        profileData['profile'] = newImageUrl;
+        profileData.refresh();
+        
+        update();
+        
+        AppSnackbar.success(
+          title: 'Success',
+          message: 'Profile image updated successfully',
+        );
+      } else {
+        throw Exception(response.message);
+      }
+    } catch (e) {
+      AppSnackbar.error(title: 'Upload Failed', message: e.toString());
+    } finally {
+      isUploadingImage = false;
+      uploadProgress = 0.0;
+      update();
+    }
   }
 
   /// Select language

@@ -100,6 +100,26 @@ class EditProfile extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: AppColors.primaryColor,
                   ),
+                  
+                  if (controller.isUploadingImage) ...[
+                    8.height,
+                    SizedBox(
+                      width: 120.w,
+                      child: LinearProgressIndicator(
+                        value: controller.uploadProgress,
+                        backgroundColor: Colors.grey.shade200,
+                        color: AppColors.primaryColor,
+                        minHeight: 4,
+                      ),
+                    ),
+                    4.height,
+                    CommonText(
+                      text: "${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primaryColor,
+                    ),
+                  ],
                   32.height,
 
                   /// Fields

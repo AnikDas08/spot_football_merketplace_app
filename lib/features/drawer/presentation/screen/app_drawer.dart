@@ -10,6 +10,7 @@ import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
+import '../../../../component/image/common_image.dart';
 import '../../../auth/sign in/presentation/controller/sign_in_controller.dart';
 import '../../../profile/presentation/controller/profile_controller.dart';
 
@@ -129,9 +130,14 @@ class AppDrawer extends StatelessWidget {
             CircleAvatar(
               radius: 50.r,
               backgroundColor: AppColors.color6B6B6B.withValues(alpha: 0.1),
-              backgroundImage: image.isNotEmpty
-                  ? NetworkImage(image) as ImageProvider
-                  : const AssetImage(TempImage.profile),
+              child: ClipOval(
+                child: CommonImage(
+                  imageSrc: image.isEmpty ? TempImage.profile : image,
+                  height: 100.r,
+                  width: 100.r,
+                  fill: BoxFit.cover,
+                ),
+              ),
             ),
             Positioned(
               bottom: 0,
