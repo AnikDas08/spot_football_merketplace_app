@@ -21,6 +21,15 @@ class WebViewScreen extends StatefulWidget {
 class _WebViewScreenState extends State<WebViewScreen> {
   late final WebViewController _controller;
   bool isLoading = true;
+  bool _successTriggered = false;
+
+  void _handleSuccess() {
+    if (_successTriggered) return;
+    _successTriggered = true;
+    if (widget.onPaymentSuccess != null) {
+      widget.onPaymentSuccess!();
+    }
+  }
 
   @override
   void initState() {
@@ -30,6 +39,11 @@ class _WebViewScreenState extends State<WebViewScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (String url) {
+            // Stripe success URL detection - early detection
+            if (url.contains('success') || url.contains('checkout-success')) {
+              _handleSuccess();
+              return;
+            }
             setState(() {
               isLoading = true;
             });
@@ -38,12 +52,14 @@ class _WebViewScreenState extends State<WebViewScreen> {
             setState(() {
               isLoading = false;
             });
+          },
+          onNavigationRequest: (NavigationRequest request) {
             // Stripe success URL detection - common patterns
-            if (url.contains('success') || url.contains('checkout-success')) {
-              if (widget.onPaymentSuccess != null) {
-                widget.onPaymentSuccess!();
-              }
+            if (request.url.contains('success') || request.url.contains('checkout-success')) {
+              _handleSuccess();
+              return NavigationDecision.prevent; // Don't even load the success page
             }
+            return NavigationDecision.navigate;
           },
           onWebResourceError: (WebResourceError error) {
             debugPrint('WebView error: ${error.description}');

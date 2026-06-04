@@ -16,14 +16,21 @@ class SignInController extends GetxController {
   bool isLoading = false;
 
   /// email and password Controller here
-  final emailController = TextEditingController(
-    text: kDebugMode ? "rodefe4817@cadinr.com" : null,
-  );
-  final passwordController = TextEditingController(
-    text: kDebugMode ? "Aaaa@#+11" : null,
-  );
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
 
   final ApiClient apiClient = DioApiClient();
+
+  @override
+  void onInit() {
+    super.onInit();
+    emailController = TextEditingController(
+      text: kDebugMode ? "rodefe4817@cadinr.com" : null,
+    );
+    passwordController = TextEditingController(
+      text: kDebugMode ? "Aaaa@#+11" : null,
+    );
+  }
 
   /// Sign in Api call here
   Future<void> signInUser() async {
@@ -129,8 +136,8 @@ class SignInController extends GetxController {
 
   @override
   void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
+    // emailController.dispose(); // Commenting these out to avoid "used after disposed" error on rapid logout/login transitions
+    // passwordController.dispose();
     super.onClose();
   }
 }

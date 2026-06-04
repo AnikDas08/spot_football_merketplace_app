@@ -10,6 +10,7 @@ import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
+import '../../../auth/sign in/presentation/controller/sign_in_controller.dart';
 import '../../../profile/presentation/controller/profile_controller.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -252,6 +253,7 @@ class AppDrawer extends StatelessWidget {
                 TextButton(
                   onPressed: () async {
                     await LocalStorage.removeAllPrefData();
+                    Get.delete<SignInController>(force: true);
                     Get.offAllNamed(AppRoutes.signIn);
                   },
                   child: const Text(

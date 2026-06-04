@@ -16,6 +16,7 @@ class VerifyPlayerController extends GetxController {
   final ApiClient apiClient = DioApiClient();
   final playerFirstName = TextEditingController();
   final playerLastName = TextEditingController();
+  final phoneController = TextEditingController();
 
   bool isLoading = false;
   double uploadProgress = 0.0;
@@ -119,6 +120,7 @@ class VerifyPlayerController extends GetxController {
         'ageGroup': selectedAgeGroup ?? "",
         'selectTeam': selectedTeam ?? "",
         'position': selectedPosition ?? "",
+        'phone': phoneController.text.trim(),
       };
 
       List<MultipartFileItem> files = [];
@@ -183,6 +185,7 @@ class VerifyPlayerController extends GetxController {
   void onClose() {
     playerFirstName.dispose();
     playerLastName.dispose();
+    phoneController.dispose();
     super.onClose();
   }
 }
