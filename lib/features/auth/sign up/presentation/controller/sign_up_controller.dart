@@ -34,6 +34,15 @@ class SignUpController extends GetxController {
   final confirmPasswordController = TextEditingController(text: kDebugMode ? "Aaaa@#+11" : null);
   final otpController = TextEditingController();
 
+  @override
+  void onInit() {
+    super.onInit();
+    final args = Get.arguments;
+    if (args != null && args['email'] != null) {
+      emailController.text = args['email'];
+    }
+  }
+
   /// Get formatted timer text (mm:ss)
   String get time {
     final minutes = (_seconds ~/ 60).toString().padLeft(2, '0');

@@ -91,6 +91,29 @@ class SignInController extends GetxController {
           message: response.message,
         );
       } else {
+        if (response.statusCode == 403 && response.message.contains("verify your account")) {
+          // Trigger Resend OTP
+          await apiClient.post(
+            ApiEndPoint.resendOtp,
+            body: {'email': emailController.text.trim()},
+          );
+          
+          // Navigate to Verify Email Screen
+          Get.toNamed(
+            AppRoutes.verifyEmail, 
+            arguments: {
+              'isSignUp': true, 
+              'email': emailController.text.trim()
+            }
+          );
+          
+          AppSnackbar.success(
+            title: 'Verification Required',
+            message: 'OTP has been sent to your email. Please verify first.',
+          );
+          return;
+        }
+
         AppSnackbar.error(
           title: response.statusCode.toString(),
           message: response.message,
