@@ -61,7 +61,10 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                                         controller.allLeagues.length,
                                         (index) => DropdownMenuItem<int>(
                                           value: index,
-                                          child: Text(controller.allLeagues[index].league.leagueName),
+                                          child: Text(
+                                            controller.allLeagues[index].league.leagueName,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ),
                                       onChanged: (value) {
@@ -83,7 +86,10 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                                       items: controller.allLeagues.isNotEmpty 
                                           ? [DropdownMenuItem<String>(
                                               value: currentLeague?.season,
-                                              child: Text(currentLeague?.season ?? ""),
+                                              child: Text(
+                                                currentLeague?.season ?? "",
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                             )]
                                           : [],
                                       onChanged: (value) {},
