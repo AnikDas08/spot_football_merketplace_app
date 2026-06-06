@@ -31,6 +31,7 @@ class ApiEndPoint {
   static const transfersAvailable = '/transfers/available';
   static const transfers = '/transfers';
   static const myRequests = '/transfers/my-requests';
+  static const managerRequests = '/transfers/manager-requests';
   static const playerDetails = '/user/player-details/';
   static const match = '/match';
   static const pointTable = '/point-table';

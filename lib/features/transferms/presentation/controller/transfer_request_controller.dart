@@ -15,6 +15,8 @@ class TransferRequestController extends GetxController {
 
   final RxBool isLoading = false.obs;
   final RxString withdrawingId = "".obs;
+  final RxString acceptingId = "".obs;
+  final RxString rejectingId = "".obs;
   final RxList<TransferRequestModel> outgoingRequests = <TransferRequestModel>[].obs;
   final RxList<TransferRequestModel> incomingRequests = <TransferRequestModel>[].obs;
 
@@ -35,8 +37,7 @@ class TransferRequestController extends GetxController {
       update();
 
       if (isIncoming) {
-        // Handle incoming requests if endpoint exists, for now just outgoing
-        // fetchIncomingRequests();
+        await fetchIncomingRequests();
       } else {
         await fetchOutgoingRequests();
       }
@@ -61,6 +62,22 @@ class TransferRequestController extends GetxController {
       }
     } catch (e) {
       debugPrint("Error fetching outgoing requests: $e");
+    }
+  }
+
+  Future<void> fetchIncomingRequests() async {
+    try {
+      final response = await apiClient.get(
+        ApiEndPoint.managerRequests,
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+
+      if (response.statusCode == 200) {
+        final transferResponse = TransferRequestResponse.fromJson(response.data);
+        incomingRequests.assignAll(transferResponse.data);
+      }
+    } catch (e) {
+      debugPrint("Error fetching incoming requests: $e");
     }
   }
 
@@ -92,18 +109,59 @@ class TransferRequestController extends GetxController {
     }
   }
 
-  // Placeholder for acceptance/rejection until endpoints are provided
-  void acceptTransfer(String transferId, String playerName) {
-    AppSnackbar.success(
-      title: 'Success',
-      message: 'Transfer request for $playerName accepted.',
-    );
+  Future<void> acceptTransfer(String transferId, String playerName) async {
+    try {
+      acceptingId.value = transferId;
+      update();
+
+      final response = await apiClient.patch(
+        "${ApiEndPoint.transfers}/$transferId/approve",
+        body: {},
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+
+      if (response.statusCode == 200) {
+        AppSnackbar.success(
+          title: 'Success',
+          message: 'Transfer request for $playerName approved.',
+        );
+        fetchRequests();
+      } else {
+        throw Exception(response.data['message'] ?? 'Failed to approve transfer');
+      }
+    } catch (e) {
+      AppSnackbar.error(title: 'Error', message: e.toString());
+    } finally {
+      acceptingId.value = "";
+      update();
+    }
   }
 
-  void rejectTransfer(String transferId, String playerName) {
-    AppSnackbar.success(
-      title: 'Rejected',
-      message: 'Transfer request for $playerName rejected.',
-    );
+  Future<void> rejectTransfer(String transferId, String playerName) async {
+    try {
+      rejectingId.value = transferId;
+      update();
+
+      final response = await apiClient.patch(
+        "${ApiEndPoint.transfers}/$transferId/reject",
+        body: {"rejectReason": "No reason provided"},
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+
+      if (response.statusCode == 200) {
+        AppSnackbar.success(
+          title: 'Rejected',
+          message: 'Transfer request for $playerName rejected.',
+        );
+        fetchRequests();
+      } else {
+        throw Exception(response.data['message'] ?? 'Failed to reject transfer');
+      }
+    } catch (e) {
+      AppSnackbar.error(title: 'Error', message: e.toString());
+    } finally {
+      rejectingId.value = "";
+      update();
+    }
   }
 }

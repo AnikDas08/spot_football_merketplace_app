@@ -286,23 +286,29 @@ class TransferRequestScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => controller.acceptTransfer(request.id, playerName),
-                      child: _buildActionButton(
+                      onTap: () => (controller.acceptingId.value.isEmpty && controller.rejectingId.value.isEmpty)
+                          ? controller.acceptTransfer(request.id, playerName)
+                          : null,
+                      child: Obx(() => _buildActionButton(
                         'Accept',
                         Colors.black,
                         Colors.white,
-                      ),
+                        isLoading: controller.acceptingId.value == request.id,
+                      )),
                     ),
                   ),
                   SizedBox(width: 12.w),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => controller.rejectTransfer(request.id, playerName),
-                      child: _buildActionButton(
+                      onTap: () => (controller.acceptingId.value.isEmpty && controller.rejectingId.value.isEmpty)
+                          ? controller.rejectTransfer(request.id, playerName)
+                          : null,
+                      child: Obx(() => _buildActionButton(
                         'Reject',
                         const Color(0xFFFFEBEE),
                         const Color(0xFFEF5350),
-                      ),
+                        isLoading: controller.rejectingId.value == request.id,
+                      )),
                     ),
                   ),
                 ],
