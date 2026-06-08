@@ -12,8 +12,10 @@ import '../../../../utils/constants/app_colors.dart';
 class ScoreCard extends StatelessWidget {
   final String homeTeam;
   final String? homeLogo;
+  final String? homeTeamId;
   final String awayTeam;
   final String? awayLogo;
+  final String? awayTeamId;
   final String homeScore;
   final String awayScore;
   final String status;
@@ -24,8 +26,10 @@ class ScoreCard extends StatelessWidget {
     super.key,
     required this.homeTeam,
     this.homeLogo,
+    this.homeTeamId,
     required this.awayTeam,
     this.awayLogo,
+    this.awayTeamId,
     required this.homeScore,
     required this.awayScore,
     required this.status,
@@ -92,7 +96,9 @@ class ScoreCard extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed(AppRoutes.clubProfileScreen);
+                        if (homeTeamId != null) {
+                          Get.toNamed(AppRoutes.clubProfileScreen, arguments: homeTeamId);
+                        }
                       },
                       child: Column(
                         children: [
@@ -158,7 +164,9 @@ class ScoreCard extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed(AppRoutes.clubProfileScreen);
+                        if (awayTeamId != null) {
+                          Get.toNamed(AppRoutes.clubProfileScreen, arguments: awayTeamId);
+                        }
                       },
                       child: Column(
                         children: [

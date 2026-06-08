@@ -39,16 +39,21 @@ class LeaguePreview extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CommonText(
-                  text: AppString.leaguePreview.toUpperCase(),
-                  fontWeight: const FontWeight(600),
-                  fontSize: 20.sp,
+                Expanded(
+                  child: CommonText(
+                    text: AppString.leaguePreview.toUpperCase(),
+                    fontWeight: const FontWeight(600),
+                    fontSize: 20.sp,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 InkWell(
                   onTap: () {
                     Get.toNamed(AppRoutes.leaguePreview);
                   },
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       CommonText(
                         text: AppString.viewAll,

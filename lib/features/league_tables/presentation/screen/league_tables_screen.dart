@@ -3,10 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/common_dropdown_field/common_dropdown_field.dart';
+import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:untitled/component/image/common_image.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/features/home/presentation/controllers/club_profile_controller.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
+import '../../../../config/route/app_routes.dart';
 import '../../../home/data/point_table_model.dart';
 
 class LeagueTablesScreen extends StatefulWidget {
@@ -63,6 +65,7 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                                           child: Text(
                                             controller.allLeagues[index].league.leagueName,
                                             overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
                                           ),
                                         ),
                                       ),
@@ -88,6 +91,7 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                                               child: Text(
                                                 currentLeague?.season ?? "",
                                                 overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
                                               ),
                                             )]
                                           : [],
@@ -115,7 +119,7 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                             SizedBox(height: 12.h),
 
                             if (controller.isLoading.value)
-                              const Center(child: CircularProgressIndicator(color: AppColors.primaryColor))
+                              const TableShimmer()
                             else if (controller.pointTable.isEmpty)
                               _buildNoData(controller.pointTableMessage)
                             else
@@ -242,73 +246,78 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                     ? '+${item.goalDifference}'
                     : '${item.goalDifference}';
 
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 30.w,
-                        child: CommonText(
-                          text: '${index + 1}.',
-                          fontSize: 16.sp,
-                          fontWeight: const FontWeight(510),
-                          color: AppColors.primaryColor,
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.clubProfileScreen, arguments: item.team.id);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 30.w,
+                          child: CommonText(
+                            text: '${index + 1}.',
+                            fontSize: 16.sp,
+                            fontWeight: const FontWeight(510),
+                            color: AppColors.primaryColor,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            CommonImage(
-                              imageSrc: item.team.teamLogo ?? '',
-                              width: 20.w,
-                              height: 20.h,
-                              fill: BoxFit.contain,
-                            ),
-                            SizedBox(width: 8.w),
-                            Expanded(
-                              child: CommonText(
-                                text: item.team.teamName,
-                                fontSize: 14.sp,
-                                fontWeight: const FontWeight(510),
-                                color: AppColors.primaryColor,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                        Expanded(
+                          child: Row(
+                            children: [
+                              CommonImage(
+                                imageSrc: item.team.teamLogo ?? '',
+                                width: 20.w,
+                                height: 20.h,
+                                fill: BoxFit.contain,
                               ),
-                            ),
-                          ],
+                              SizedBox(width: 8.w),
+                              Expanded(
+                                child: CommonText(
+                                  text: item.team.teamName,
+                                  fontSize: 14.sp,
+                                  fontWeight: const FontWeight(510),
+                                  color: AppColors.primaryColor,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 30.w,
-                        child: CommonText(
-                          text: '${item.played}',
-                          fontSize: 16.sp,
-                          fontWeight: const FontWeight(510),
-                          color: AppColors.primaryColor,
-                          textAlign: TextAlign.center,
+                        SizedBox(
+                          width: 30.w,
+                          child: CommonText(
+                            text: '${item.played}',
+                            fontSize: 16.sp,
+                            fontWeight: const FontWeight(510),
+                            color: AppColors.primaryColor,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 36.w,
-                        child: CommonText(
-                          text: gdText,
-                          fontSize: 16.sp,
-                          fontWeight: const FontWeight(510),
-                          color: AppColors.primaryColor,
-                          textAlign: TextAlign.center,
+                        SizedBox(
+                          width: 36.w,
+                          child: CommonText(
+                            text: gdText,
+                            fontSize: 16.sp,
+                            fontWeight: const FontWeight(510),
+                            color: AppColors.primaryColor,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 36.w,
-                        child: CommonText(
-                          text: '${item.points}',
-                          fontSize: 16.sp,
-                          fontWeight: const FontWeight(510),
-                          color: AppColors.primaryColor,
-                          textAlign: TextAlign.center,
+                        SizedBox(
+                          width: 36.w,
+                          child: CommonText(
+                            text: '${item.points}',
+                            fontSize: 16.sp,
+                            fontWeight: const FontWeight(510),
+                            color: AppColors.primaryColor,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },

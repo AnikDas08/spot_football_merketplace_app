@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
+import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 import 'package:untitled/component/image/common_image.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../data/transfer_request_model.dart';
 import '../controller/transfer_request_controller.dart';
@@ -30,7 +32,7 @@ class TransferRequestScreen extends StatelessWidget {
                   (controller.isIncoming
                       ? controller.incomingRequests.isEmpty
                       : controller.outgoingRequests.isEmpty)) {
-                return const Center(child: CircularProgressIndicator());
+                return const TransferRequestShimmer();
               }
 
               final requests = controller.isIncoming
@@ -173,68 +175,73 @@ class TransferRequestScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.r),
-                child: CommonImage(
-                  imageSrc: request.player.profile ?? "",
-                  width: 60.w,
-                  height: 60.w,
-                  fill: BoxFit.cover,
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRoutes.playerProfile, arguments: request.player.id);
+            },
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.r),
+                  child: CommonImage(
+                    imageSrc: request.player.profile ?? "",
+                    width: 60.w,
+                    height: 60.w,
+                    fill: BoxFit.cover,
+                  ),
                 ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: CommonText(
-                            text: playerName,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w700,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.start,
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: CommonText(
+                              text: playerName,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w700,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                          decoration: BoxDecoration(
-                            color: statusColor,
-                            borderRadius: BorderRadius.circular(20.r),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                            decoration: BoxDecoration(
+                              color: statusColor,
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
+                            child: CommonText(
+                              text: status,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
                           ),
-                          child: CommonText(
-                            text: status,
+                        ],
+                      ),
+                      SizedBox(height: 4.h),
+                      Row(
+                        children: [
+                          const Icon(Icons.shield, size: 14, color: Colors.grey),
+                          SizedBox(width: 4.w),
+                          CommonText(
+                            text: controller.isIncoming 
+                              ? (request.fromTeam?.teamName ?? 'Free Agent') 
+                              : 'To: ${request.toTeam?.teamName ?? 'N/A'}',
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                            color: Colors.grey,
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 4.h),
-                    Row(
-                      children: [
-                        const Icon(Icons.shield, size: 14, color: Colors.grey),
-                        SizedBox(width: 4.w),
-                        CommonText(
-                          text: controller.isIncoming 
-                            ? (request.fromTeam?.teamName ?? 'Free Agent') 
-                            : 'To: ${request.toTeam?.teamName ?? 'N/A'}',
-                          fontSize: 12.sp,
-                          color: Colors.grey,
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: 16.h),
           Container(

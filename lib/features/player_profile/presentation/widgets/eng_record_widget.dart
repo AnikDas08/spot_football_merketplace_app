@@ -4,14 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
-
 import '../../../../utils/constants/app_string.dart';
 
 class EngRecordWidget extends StatelessWidget {
-  const EngRecordWidget({super.key});
+  final Map<String, dynamic>? stats;
+
+  const EngRecordWidget({super.key, this.stats});
 
   @override
   Widget build(BuildContext context) {
+    if (stats == null) return const SizedBox.shrink();
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       padding: EdgeInsets.all(16.w),
@@ -25,7 +28,7 @@ class EngRecordWidget extends StatelessWidget {
           CommonText(
             text: AppString.engRecord,
             fontSize: 20.sp,
-            fontWeight: FontWeight(650),
+            fontWeight: const FontWeight(650),
             color: AppColors.primaryColor,
           ),
           SizedBox(height: 16.h),
@@ -36,36 +39,35 @@ class EngRecordWidget extends StatelessWidget {
             mainAxisSpacing: 12.h,
             crossAxisSpacing: 12.w,
             childAspectRatio: 1.2,
-            children: const [
+            children: [
               _RecordCard(
                 svgIcon: AppImages.goal,
                 title: 'GOALS',
-                value: '24',
-                sub: '+3 this month',
+                value: '${stats!['goals'] ?? 0}',
+                sub: 'Lifetime',
                 color: AppColors.yellow,
               ),
               _RecordCard(
                 title: 'ASSISTS',
-                value: '12',
-                sub: 'Top 5% League',
+                value: '${stats!['assists'] ?? 0}',
+                sub: 'Lifetime',
                 color: AppColors.yellow,
                 svgIcon: AppImages.assist,
               ),
               _RecordCard(
                 svgIcon: AppImages.matches,
-
-                title: 'MATCHES',
-                value: '18',
-                sub: '1,620 mins',
+                title: 'YELLOW CARDS',
+                value: '${stats!['yellowCards'] ?? 0}',
+                sub: 'Total',
                 color: AppColors.yellow,
               ),
               _RecordCard(
                 svgIcon: AppImages.rating,
-                title: 'AVG RATING',
-                value: '8.5',
-                sub: 'MVP Form',
-                color: AppColors.green,
-                textColor: AppColors.yellow,
+                title: 'RED CARDS',
+                value: '${stats!['redCards'] ?? 0}',
+                sub: 'Total',
+                color: AppColors.red,
+                textColor: AppColors.red,
               ),
             ],
           ),
@@ -95,21 +97,19 @@ class _RecordCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: .bottomRight,
+      alignment: Alignment.bottomRight,
       children: [
         Positioned(
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: SizedBox(
-              child: SvgPicture.asset(
-                svgIcon,
-                colorFilter: ColorFilter.mode(
-                  AppColors.background,
-                  BlendMode.srcIn,
-                ),
-                width: 80.w,
-                height: 80.h,
+            child: SvgPicture.asset(
+              svgIcon,
+              colorFilter: const ColorFilter.mode(
+                AppColors.background,
+                BlendMode.srcIn,
               ),
+              width: 80.w,
+              height: 80.h,
             ),
           ),
         ),
@@ -128,14 +128,14 @@ class _RecordCard extends StatelessWidget {
             children: [
               CommonText(
                 text: title,
-                fontSize: 12.sp,
+                fontSize: 10.sp,
                 color: AppColors.textSecondaryColor,
-                fontWeight: FontWeight(590),
+                fontWeight: const FontWeight(590),
               ),
               SizedBox(height: 6.h),
               CommonText(
                 text: value,
-                fontSize: 36.sp,
+                fontSize: 32.sp,
                 fontWeight: FontWeight.w700,
                 color: textColor ?? AppColors.primaryColor,
               ),
@@ -143,8 +143,8 @@ class _RecordCard extends StatelessWidget {
               CommonText(
                 text: sub,
                 fontSize: 12.sp,
-                fontWeight: FontWeight(590),
-                color: AppColors.yellow,
+                fontWeight: const FontWeight(590),
+                color: color,
               ),
             ],
           ),

@@ -216,6 +216,90 @@ class TransferShimmer extends StatelessWidget {
   }
 }
 
+class TransferRequestShimmer extends StatelessWidget {
+  const TransferRequestShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      itemCount: 4,
+      itemBuilder: (_, __) => Padding(
+        padding: EdgeInsets.only(bottom: 16.h),
+        child: Container(
+          padding: EdgeInsets.all(16.w),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16.r),
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  CustomShimmer.rectangular(height: 60.w, width: 60.w),
+                  SizedBox(width: 12.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomShimmer.rectangular(height: 18.h, width: 120.w),
+                            CustomShimmer.rectangular(height: 22.h, width: 80.w),
+                          ],
+                        ),
+                        SizedBox(height: 8.h),
+                        CustomShimmer.rectangular(height: 14.h, width: 100.w),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.h),
+              CustomShimmer.rectangular(height: 60.h, width: double.infinity),
+              SizedBox(height: 16.h),
+              Row(
+                children: [
+                  Expanded(child: CustomShimmer.rectangular(height: 48.h)),
+                  SizedBox(width: 12.w),
+                  Expanded(child: CustomShimmer.rectangular(height: 48.h)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TableShimmer extends StatelessWidget {
+  const TableShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Column(
+        children: [
+          CustomShimmer.rectangular(height: 50.h, width: double.infinity),
+          SizedBox(height: 12.h),
+          Column(
+            children: List.generate(
+              8,
+              (index) => Padding(
+                padding: EdgeInsets.only(bottom: 8.h),
+                child: CustomShimmer.rectangular(height: 50.h, width: double.infinity),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class MatchInfoShimmer extends StatelessWidget {
   const MatchInfoShimmer({super.key});
 

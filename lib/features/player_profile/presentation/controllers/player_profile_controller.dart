@@ -15,13 +15,36 @@ class PlayerProfileController extends GetxController {
   bool isLoading = false;
   bool isOfferingTrial = false;
   Map<String, dynamic>? playerData;
+  Map<String, dynamic>? dashboardData;
 
   @override
   void onInit() {
     super.onInit();
     final String? playerId = Get.arguments;
     if (playerId != null) {
-      fetchPlayerDetails(playerId);
+      fetchPlayerDashboard(playerId);
+    }
+  }
+
+  Future<void> fetchPlayerDashboard(String playerId) async {
+    try {
+      isLoading = true;
+      update();
+
+      final response = await apiClient.get(
+        "${ApiEndPoint.playerDashboard}$playerId",
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+
+      if (response.statusCode == 200) {
+        dashboardData = response.data['data'];
+        playerData = dashboardData?['player'];
+      }
+    } catch (e) {
+      debugPrint("Error fetching player dashboard: $e");
+    } finally {
+      isLoading = false;
+      update();
     }
   }
 

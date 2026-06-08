@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/component/image/common_image.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
 
 class LeagueHeaderWidget extends StatelessWidget {
-  const LeagueHeaderWidget({super.key});
+  final String? teamName;
+  final String? teamLogo;
+  final String? subtitle;
+
+  const LeagueHeaderWidget({
+    super.key,
+    this.teamName,
+    this.teamLogo,
+    this.subtitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +36,19 @@ class LeagueHeaderWidget extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
-            child: Image.asset(
-              TempImage.league,
-              width: 88.w,
-              height: 88.h,
-              fit: BoxFit.cover,
-            ),
+            child: teamLogo != null && teamLogo!.isNotEmpty
+                ? CommonImage(
+                    imageSrc: teamLogo!,
+                    width: 88.w,
+                    height: 88.h,
+                    fill: BoxFit.cover,
+                  )
+                : Image.asset(
+                    TempImage.league,
+                    width: 88.w,
+                    height: 88.h,
+                    fit: BoxFit.cover,
+                  ),
           ),
           SizedBox(width: 16.w),
 
@@ -41,10 +58,12 @@ class LeagueHeaderWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CommonText(
-                  text: 'PHOENIX UTDS',
-                  fontSize: 32.sp,
+                  text: (teamName ?? 'PHOENIX UTDS').toUpperCase(),
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.w700,
                   color: AppColors.white,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: 8.h),
                 Row(
@@ -57,8 +76,8 @@ class LeagueHeaderWidget extends StatelessWidget {
                     SizedBox(width: 6.w),
                     Expanded(
                       child: CommonText(
-                        text: 'The writes, founded 1902',
-                        fontSize: 18.sp,
+                        text: subtitle ?? 'Founded 1902',
+                        fontSize: 16.sp,
                         color: AppColors.white.withValues(alpha: 0.9),
                         fontWeight: FontWeight.w400,
                       ),

@@ -4,71 +4,71 @@ import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 
 class LeagueContextWidget extends StatelessWidget {
-  const LeagueContextWidget({super.key});
+  final int position;
+  final int points;
+  final int gd;
+
+  const LeagueContextWidget({
+    super.key,
+    required this.position,
+    required this.points,
+    required this.gd,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
-
-
         CommonText(
           text: 'LEAGUE CONTEXT',
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.w600,
           color: AppColors.primaryColor,
         ),
-
-
-
         SizedBox(height: 6.h),
-
-
-
         Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(vertical: 16.h),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16.r),
-
           ),
           child: Row(
             children: [
               Expanded(
                 child: _buildContextItem(
-                  value: '1st',
+                  value: _formatPosition(position),
                   label: 'POSITION',
                 ),
               ),
-
               _buildVerticalDivider(),
-
               Expanded(
                 child: _buildContextItem(
-                  value: '82',
+                  value: '$points',
                   label: 'POINTS',
                 ),
               ),
-
               _buildVerticalDivider(),
-
               Expanded(
                 child: _buildContextItem(
-                  value: '+54',
+                  value: '${gd >= 0 ? '+' : ''}$gd',
                   label: 'GD',
                 ),
               ),
             ],
           ),
         ),
-
-
-
       ],
     );
+  }
+
+  String _formatPosition(int pos) {
+    if (pos <= 0) return 'N/A';
+    if (pos == 1) return '1st';
+    if (pos == 2) return '2nd';
+    if (pos == 3) return '3rd';
+    return '${pos}th';
   }
 
   Widget _buildContextItem({required String value, required String label}) {

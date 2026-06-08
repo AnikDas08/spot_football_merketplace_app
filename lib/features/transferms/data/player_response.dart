@@ -10,13 +10,22 @@ class PlayerResponse {
   });
 
   factory PlayerResponse.fromJson(Map<String, dynamic> json) {
+    List<PlayerModel> players = [];
+    
+    if (json['data'] != null) {
+      if (json['data'] is List) {
+        players = List<PlayerModel>.from(
+            json['data'].map((x) => PlayerModel.fromJson(x)));
+      } else if (json['data'] is Map && json['data']['data'] != null) {
+        players = List<PlayerModel>.from(
+            json['data']['data'].map((x) => PlayerModel.fromJson(x)));
+      }
+    }
+
     return PlayerResponse(
       success: json['success'] ?? false,
       message: json['message'] ?? '',
-      data: json['data'] != null
-          ? List<PlayerModel>.from(
-              json['data'].map((x) => PlayerModel.fromJson(x)))
-          : [],
+      data: players,
     );
   }
 }

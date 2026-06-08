@@ -101,7 +101,7 @@ class TransferScreen extends StatelessWidget {
                             description:
                                 'Personal terms agreed. Medical scheduled for final test',
                             onOfferTap: () {
-                              Get.toNamed(AppRoutes.playerProfileDetailsScreen,
+                              Get.toNamed(AppRoutes.playerProfile,
                                   arguments: player.id);
                             },
                           ),

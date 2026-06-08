@@ -54,8 +54,10 @@ class _MatchInfoScreenState extends State<MatchInfoScreen> {
             ScoreCard(
               homeTeam: match.homeTeam.teamName,
               homeLogo: match.homeTeam.teamLogo,
+              homeTeamId: match.homeTeam.id,
               awayTeam: match.awayTeam.teamName,
               awayLogo: match.awayTeam.teamLogo,
+              awayTeamId: match.awayTeam.id,
               homeScore: "${match.homeScore}",
               awayScore: "${match.awayScore}",
               status: match.status.toUpperCase(),
