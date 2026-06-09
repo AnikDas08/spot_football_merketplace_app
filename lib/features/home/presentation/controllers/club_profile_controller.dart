@@ -25,6 +25,7 @@ class ClubProfileController extends GetxController {
 
   Future<void> fetchMatches() async {
     try {
+
       isLoading.value = true;
       update();
 
@@ -41,6 +42,8 @@ class ClubProfileController extends GetxController {
             .where((match) => match.status.toLowerCase() == 'upcoming')
             .toList();
       }
+
+
     } catch (e) {
       debugPrint('❌ fetchMatches error: $e');
     } finally {
