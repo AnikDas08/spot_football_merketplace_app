@@ -198,73 +198,78 @@ class _StandingRow extends StatelessWidget {
         ? '+${item.goalDifference}'
         : '${item.goalDifference}';
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 30.w,
-            child: CommonText(
-              text: '$position.',
-              fontSize: 16.sp,
-              fontWeight: const FontWeight(510),
-              color: AppColors.primaryColor,
+    return InkWell(
+      onTap: () {
+        Get.toNamed(AppRoutes.clubProfileScreen, arguments: item.team.id);
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 30.w,
+              child: CommonText(
+                text: '$position.',
+                fontSize: 16.sp,
+                fontWeight: const FontWeight(510),
+                color: AppColors.primaryColor,
+              ),
             ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                CommonImage(
-                  imageSrc: item.team.teamLogo ?? '',
-                  width: 20.w,
-                  height: 20.h,
-                  fill: BoxFit.contain,
-                ),
-                SizedBox(width: 8.w),
-                Expanded(
-                  child: CommonText(
-                    text: item.team.teamName,
-                    fontSize: 14.sp,
-                    fontWeight: const FontWeight(510),
-                    color: AppColors.primaryColor,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+            Expanded(
+              child: Row(
+                children: [
+                  CommonImage(
+                    imageSrc: item.team.teamLogo ?? '',
+                    width: 20.w,
+                    height: 20.h,
+                    fill: BoxFit.contain,
                   ),
-                ),
-              ],
+                  SizedBox(width: 8.w),
+                  Expanded(
+                    child: CommonText(
+                      text: item.team.teamName,
+                      fontSize: 14.sp,
+                      fontWeight: const FontWeight(510),
+                      color: AppColors.primaryColor,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            width: 30.w,
-            child: CommonText(
-              text: '${item.played}',
-              fontSize: 16.sp,
-              fontWeight: const FontWeight(510),
-              color: AppColors.primaryColor,
-              textAlign: TextAlign.center,
+            SizedBox(
+              width: 30.w,
+              child: CommonText(
+                text: '${item.played}',
+                fontSize: 16.sp,
+                fontWeight: const FontWeight(510),
+                color: AppColors.primaryColor,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 36.w,
-            child: CommonText(
-              text: gdText,
-              fontSize: 16.sp,
-              fontWeight: const FontWeight(510),
-              color: AppColors.primaryColor,
-              textAlign: TextAlign.center,
+            SizedBox(
+              width: 36.w,
+              child: CommonText(
+                text: gdText,
+                fontSize: 16.sp,
+                fontWeight: const FontWeight(510),
+                color: AppColors.primaryColor,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 36.w,
-            child: CommonText(
-              text: '${item.points}',
-              fontSize: 16.sp,
-              fontWeight: const FontWeight(510),
-              color: AppColors.primaryColor,
-              textAlign: TextAlign.center,
+            SizedBox(
+              width: 36.w,
+              child: CommonText(
+                text: '${item.points}',
+                fontSize: 16.sp,
+                fontWeight: const FontWeight(510),
+                color: AppColors.primaryColor,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

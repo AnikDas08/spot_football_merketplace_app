@@ -32,6 +32,7 @@ class PlayerResponse {
 
 class PlayerModel {
   final String id;
+  final String? userId;
   final String userName;
   final String? firstName;
   final String? lastName;
@@ -43,6 +44,7 @@ class PlayerModel {
 
   PlayerModel({
     required this.id,
+    this.userId,
     required this.userName,
     this.firstName,
     this.lastName,
@@ -56,6 +58,7 @@ class PlayerModel {
   factory PlayerModel.fromJson(Map<String, dynamic> json) {
     return PlayerModel(
       id: json['_id'] ?? '',
+      userId: json['userId'],
       userName: json['userName'] ?? '',
       firstName: json['firstName'],
       lastName: json['lastName'],

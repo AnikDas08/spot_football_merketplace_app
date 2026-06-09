@@ -64,6 +64,7 @@ class TransferRequestModel {
 
 class PlayerInfo {
   final String id;
+  final String? userId;
   final String userName;
   final String? firstName;
   final String? lastName;
@@ -71,6 +72,7 @@ class PlayerInfo {
 
   PlayerInfo({
     required this.id,
+    this.userId,
     required this.userName,
     this.firstName,
     this.lastName,
@@ -80,6 +82,7 @@ class PlayerInfo {
   factory PlayerInfo.fromJson(Map<String, dynamic> json) {
     return PlayerInfo(
       id: json['_id'] ?? '',
+      userId: json['userId'],
       userName: json['userName'] ?? '',
       firstName: json['firstName'],
       lastName: json['lastName'],

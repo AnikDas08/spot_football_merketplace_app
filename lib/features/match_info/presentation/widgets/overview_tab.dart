@@ -19,8 +19,12 @@ class OverviewTab extends StatelessWidget {
 
     return Obx(() {
       final match = matchController.match.value;
+      final selection = matchController.selectionData.value;
       if (match == null) return const SizedBox.shrink();
 
+      final displayMatch = selection != null ? selection['match'] : null;
+      final venue = displayMatch != null ? displayMatch['venueName'] : match.venueName;
+      
       return SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
@@ -40,7 +44,7 @@ class OverviewTab extends StatelessWidget {
                   SizedBox(height: 12.h),
                   _InfoRow(
                     label: "Venue",
-                    value: match.venueName ?? "Unknown Venue",
+                    value: venue ?? "Unknown Venue",
                     icon: Icons.location_on_outlined,
                   ),
                   const Divider(),
@@ -132,37 +136,7 @@ class OverviewTab extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _PlayerNode(initial: 'S', name: 'Striker', position: 'ST'),
-                                  _PlayerNode(initial: 'S', name: 'Striker', position: 'ST'),
-                                  _PlayerNode(initial: 'S', name: 'Striker', position: 'ST'),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _PlayerNode(initial: 'M', name: 'Mid', position: 'CM'),
-                                  _PlayerNode(initial: 'M', name: 'Mid', position: 'CM'),
-                                  _PlayerNode(initial: 'M', name: 'Mid', position: 'CM'),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _PlayerNode(initial: 'D', name: 'Def', position: 'CB'),
-                                  _PlayerNode(initial: 'D', name: 'Def', position: 'CB'),
-                                  _PlayerNode(initial: 'D', name: 'Def', position: 'CB'),
-                                  _PlayerNode(initial: 'D', name: 'Def', position: 'CB'),
-                                ],
-                              ),
-                              _PlayerNode(initial: 'G', name: 'Keeper', position: 'GK'),
-                            ],
-                          ),
+                          _buildFormation(selection),
                         ],
                       ),
                     ),
@@ -175,6 +149,57 @@ class OverviewTab extends StatelessWidget {
         ),
       );
     });
+  }
+
+  Widget _buildFormation(Map<String, dynamic>? selection) {
+    if (selection == null) return const SizedBox.shrink();
+
+    final homePlayers = selection['homeTeam']?['players'] as List? ?? [];
+    
+    // Grouping home team players for simple formation display
+    final goalkeepers = homePlayers.where((p) => p['selectedPosition'] == 'GK').toList();
+    final defenders = homePlayers.where((p) => p['selectedPosition']?.toString().startsWith('D') ?? false).toList();
+    final midfielders = homePlayers.where((p) => p['selectedPosition']?.toString().startsWith('M') ?? false).toList();
+    final forwards = homePlayers.where((p) => p['selectedPosition']?.toString().startsWith('F') ?? false).toList();
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        if (forwards.isNotEmpty)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: forwards.map((p) => _PlayerNode(
+              initial: (p['firstName']?[0] ?? 'P'), 
+              name: p['firstName'] ?? 'Player', 
+              position: p['selectedPosition'] ?? 'FW'
+            )).toList(),
+          ),
+        if (midfielders.isNotEmpty)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: midfielders.map((p) => _PlayerNode(
+              initial: (p['firstName']?[0] ?? 'P'), 
+              name: p['firstName'] ?? 'Player', 
+              position: p['selectedPosition'] ?? 'MF'
+            )).toList(),
+          ),
+        if (defenders.isNotEmpty)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: defenders.map((p) => _PlayerNode(
+              initial: (p['firstName']?[0] ?? 'P'), 
+              name: p['firstName'] ?? 'Player', 
+              position: p['selectedPosition'] ?? 'DF'
+            )).toList(),
+          ),
+        if (goalkeepers.isNotEmpty)
+          _PlayerNode(
+            initial: (goalkeepers[0]['firstName']?[0] ?? 'G'), 
+            name: goalkeepers[0]['firstName'] ?? 'Keeper', 
+            position: 'GK'
+          ),
+      ],
+    );
   }
 }
 

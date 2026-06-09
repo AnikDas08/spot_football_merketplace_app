@@ -9,6 +9,7 @@ import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 
+import '../../../../services/storage/storage_services.dart';
 import '../controllers/player_profile_controller.dart';
 import '../widgets/eng_record_widget.dart';
 import '../widgets/personal_details_widget.dart';
@@ -44,6 +45,10 @@ class PlayerProfileScreen extends StatelessWidget {
           final lastName = player?['lastName'] ?? "";
           final fullName = "$firstName $lastName".trim();
 
+          final bool isManager = LocalStorage.role.toUpperCase() == "MANAGER";
+          final dynamic args = Get.arguments;
+          final bool isFromMyChildren = (args is Map) && (args['isFromMyChildren'] ?? false);
+
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,24 +61,29 @@ class PlayerProfileScreen extends StatelessWidget {
                 SizedBox(height: 16.h),
                 PersonalDetailsWidget(playerData: player),
                 
-                // Submit Offer Button for Managers
-                Padding(
-                  padding: EdgeInsets.all(16.w),
-                  child: CommonButton(
-                    titleText: "Submit Offer",
-                    isLoading: controller.isOfferingTrial,
-                    onTap: () => controller.offerTrial(),
+                // Submit Offer Button for Managers only
+                if (isManager)
+                  Padding(
+                    padding: EdgeInsets.all(16.w),
+                    child: CommonButton(
+                      titleText: "Submit Offer",
+                      isLoading: controller.isOfferingTrial,
+                      onTap: () => controller.offerTrial(),
+                    ),
                   ),
-                ),
 
                 SizedBox(height: 16.h),
                 EngRecordWidget(stats: stats),
                 SizedBox(height: 16.h),
                 RecentPerformance(matches: matches),
-                SizedBox(height: 16.h),
-                const LatestNews(),
+                
+                if (!isFromMyChildren) ...[
+                  SizedBox(height: 16.h),
+                  const LatestNews(),
+                  SizedBox(height: 24.h),
+                  const LatestVideos(),
+                ],
                 SizedBox(height: 24.h),
-                const LatestVideos(),
               ],
             ),
           );

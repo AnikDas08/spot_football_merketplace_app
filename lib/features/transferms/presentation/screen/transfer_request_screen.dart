@@ -177,7 +177,7 @@ class TransferRequestScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Get.toNamed(AppRoutes.playerProfile, arguments: request.player.id);
+              Get.toNamed(AppRoutes.playerProfile, arguments: request.player.userId ?? request.player.id);
             },
             child: Row(
               children: [

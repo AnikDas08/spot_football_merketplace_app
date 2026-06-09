@@ -9,18 +9,31 @@ class MatchInfoController extends GetxController {
   final ApiClient apiClient = DioApiClient();
   var isLoading = false.obs;
   var match = Rxn<MatchModel>();
+  var selectionData = Rxn<Map<String, dynamic>>();
 
   Future<void> fetchMatchDetails(String id) async {
     try {
       isLoading.value = true;
       update();
 
-      final response = await apiClient.get("${ApiEndPoint.match}/$id");
-
-      if (response.statusCode == 200) {
-        if (response.data['success'] == true) {
-          match.value = MatchModel.fromJson(response.data['data']);
+      // Fetch match details
+      try {
+        final matchResponse = await apiClient.get("${ApiEndPoint.match}/$id");
+        if (matchResponse.statusCode == 200 && matchResponse.data['success'] == true) {
+          match.value = MatchModel.fromJson(matchResponse.data['data']);
         }
+      } catch (e) {
+        debugPrint('❌ match fetch error: $e');
+      }
+
+      // Fetch selection data
+      try {
+        final selectionResponse = await apiClient.get("${ApiEndPoint.playerSelection}$id");
+        if (selectionResponse.statusCode == 200 && selectionResponse.data['success'] == true) {
+          selectionData.value = selectionResponse.data['data'];
+        }
+      } catch (e) {
+        debugPrint('❌ playerSelection fetch error: $e');
       }
     } catch (e) {
       debugPrint('❌ fetchMatchDetails error: $e');

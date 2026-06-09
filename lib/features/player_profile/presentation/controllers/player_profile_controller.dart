@@ -20,7 +20,15 @@ class PlayerProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    final String? playerId = Get.arguments;
+    final dynamic args = Get.arguments;
+    String? playerId;
+    
+    if (args is String) {
+      playerId = args;
+    } else if (args is Map) {
+      playerId = args['userId'];
+    }
+
     if (playerId != null) {
       fetchPlayerDashboard(playerId);
     }

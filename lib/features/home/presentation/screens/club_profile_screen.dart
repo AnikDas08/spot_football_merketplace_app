@@ -108,15 +108,7 @@ class ClubProfileScreen extends StatelessWidget {
                   ],
                   
                   if (controller.upcomingMatches.isNotEmpty) ...[
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: CommonText(
-                        text: 'UPCOMING FIXTURES',
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
+
                     SizedBox(height: 12.h),
                     UpcomingFixtures(fixtures: controller.upcomingMatches),
                     SizedBox(height: 20.h),
@@ -179,7 +171,7 @@ class ClubProfileScreen extends StatelessWidget {
                               itemBuilder: (context, playerIndex) {
                                 final player = players[playerIndex];
                                 return _PlayerRow(
-                                  id: player['_id'],
+                                  id: player['userId'] ?? player['_id'],
                                   name: "${player['firstName'] ?? ""} ${player['lastName'] ?? ""}".trim(),
                                   imageUrl: player['profile'],
                                   position: player['position'] ?? "",
