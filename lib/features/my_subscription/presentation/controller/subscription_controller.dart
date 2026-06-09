@@ -60,11 +60,16 @@ class SubscriptionController extends GetxController {
   var packages = <PackageModel>[].obs;
   var isLoading = false.obs;
   var selectedPackage = Rx<PackageModel?>(null);
+  var isChangingPlan = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchPackages();
+  }
+
+  void toggleChangingPlan(bool value) {
+    isChangingPlan.value = value;
   }
 
   void selectPackage(PackageModel package) {

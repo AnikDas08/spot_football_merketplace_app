@@ -12,6 +12,7 @@ import '../../../../services/storage/storage_keys.dart';
 import '../../../../services/storage/storage_services.dart';
 import '../../../../utils/app_snackbar.dart';
 import '../../../auth/sign in/presentation/widgets/signup_appbar.dart';
+import '../../../profile/presentation/controller/profile_controller.dart';
 import '../controller/subscription_controller.dart';
 
 class MySubscriptionScreen extends StatelessWidget {
@@ -20,6 +21,7 @@ class MySubscriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<SubscriptionController>();
+    final profileController = Get.find<ProfileController>();
     final bool isFromRegistration =
         Get.arguments?['isFromRegistration'] ?? false;
 
@@ -36,6 +38,13 @@ class MySubscriptionScreen extends StatelessWidget {
           return const Center(
             child: CircularProgressIndicator(color: AppColors.primaryColor),
           );
+        }
+
+        final subscription = profileController.profileData['subscription'];
+        final hasSubscription = subscription != null;
+
+        if (hasSubscription && !controller.isChangingPlan.value && !isFromRegistration) {
+          return _buildSubscriptionDetails(controller, subscription);
         }
 
         if (controller.packages.isEmpty) {
@@ -77,21 +86,45 @@ class MySubscriptionScreen extends StatelessWidget {
                   itemCount: controller.packages.length,
                   itemBuilder: (context, index) {
                     final package = controller.packages[index];
+                    final bool isCurrentPlan = hasSubscription && 
+                        subscription['package']?['_id'] == package.id;
+                    
                     return _RegistrationPlanCard(
                       package: package,
                       isSelected:
                           controller.selectedPackage.value?.id == package.id,
+                      isCurrentPlan: isCurrentPlan,
                       icon: _getIconForPackage(package.title ?? ""),
                       onSelect: () => controller.selectPackage(package),
                     );
                   },
                 ),
 
+                if (controller.selectedPackage.value != null &&
+                    hasSubscription &&
+                    subscription['package']?['_id'] == controller.selectedPackage.value?.id)
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    child: Center(
+                      child: CommonText(
+                        text: "You are currently subscribed to this plan",
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                  ),
+
                 SizedBox(height: 24.h),
 
                 CommonButton(
                   titleText: 'Continue',
-                  onTap: controller.selectedPackage.value != null
+                  buttonColor: (controller.selectedPackage.value == null || 
+                               (hasSubscription && subscription['package']?['_id'] == controller.selectedPackage.value?.id))
+                      ? Colors.grey.shade400
+                      : AppColors.black,
+                  onTap: (controller.selectedPackage.value != null && 
+                         (!hasSubscription || subscription['package']?['_id'] != controller.selectedPackage.value?.id))
                       ? () {
                           final selected = controller.selectedPackage.value!;
                           if (selected.paymentLink != null &&
@@ -109,6 +142,8 @@ class MySubscriptionScreen extends StatelessWidget {
                                     );
                                   } else {
                                     await LocalStorage.setBool(LocalStorageKeys.paymentStatus, true);
+                                    await profileController.getProfileData();
+                                    controller.toggleChangingPlan(false);
                                     Get.offAllNamed(AppRoutes.navBarScreen);
                                     AppSnackbar.success(
                                       title: "Success",
@@ -127,25 +162,112 @@ class MySubscriptionScreen extends StatelessWidget {
                         }
                       : null,
                 ),
-
-                SizedBox(height: 24.h),
-                Center(
-                  child: CommonText(
-                    text: 'You can switch your primary role\nlater in settings',
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    color: Color(0xFF6B6B6B),
-                    bottom: 32.h,
-                  ),
-                ),
                 SizedBox(height: 24.h),
               ],
             ),
           ),
         );
       }),
+    );
+  }
+
+  Widget _buildSubscriptionDetails(SubscriptionController controller, dynamic subscription) {
+    final package = subscription['package'];
+    final String title = package?['title'] ?? "Unknown Plan";
+    final dynamic price = package?['price'] ?? 0;
+    final String paymentType = package?['paymentType'] ?? "Season";
+    final String description = package?['description'] ?? "";
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 20.h),
+          CommonText(
+            text: 'SUBSCRIPTION DETAILS',
+            fontSize: 24.sp,
+            fontWeight: FontWeight.w700,
+            color: AppColors.black,
+            bottom: 32.h,
+          ),
+          Container(
+            padding: EdgeInsets.all(24.r),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(16.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SvgPicture.asset(_getIconForPackage(title), height: 24.r, width: 24.r),
+                    SizedBox(width: 12.w),
+                    CommonText(
+                      text: title.toUpperCase(),
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.black,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 24.h),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          _FeatureItem(text: description, isIncluded: true),
+                          SizedBox(height: 8.h),
+                          _FeatureItem(text: "Login Limit: ${package?['loginLimit'] ?? 0}", isIncluded: true),
+                          SizedBox(height: 8.h),
+                          _FeatureItem(
+                            text: "Credits: ${package?['credit'] ?? 0}",
+                            isIncluded: (package?['credit'] ?? 0) > 0,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          '£$price',
+                          style: TextStyle(
+                            fontSize: 32.sp,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFFEABB00),
+                          ),
+                        ),
+                        CommonText(
+                          text: '/$paymentType',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xFF6B6B6B),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 32.h),
+                CommonButton(
+                  titleText: 'Change Your Subscriptions Plan',
+                  onTap: () => controller.toggleChangingPlan(true),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -161,12 +283,14 @@ class MySubscriptionScreen extends StatelessWidget {
 class _RegistrationPlanCard extends StatelessWidget {
   final PackageModel package;
   final bool isSelected;
+  final bool isCurrentPlan;
   final String icon;
   final VoidCallback onSelect;
 
   const _RegistrationPlanCard({
     required this.package,
     required this.isSelected,
+    this.isCurrentPlan = false,
     required this.icon,
     required this.onSelect,
   });
@@ -260,20 +384,22 @@ class _RegistrationPlanCard extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             GestureDetector(
-              onTap: onSelect,
+              onTap: isCurrentPlan ? null : onSelect,
               child: Container(
                 width: double.infinity,
                 height: 48.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: AppColors.black,
+                  color: isCurrentPlan ? Colors.grey.shade300 : AppColors.black,
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: CommonText(
-                  text: 'SELECT ${package.title?.toUpperCase() ?? ""}',
+                  text: isCurrentPlan 
+                      ? 'CURRENT PLAN' 
+                      : 'SELECT ${package.title?.toUpperCase() ?? ""}',
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.white,
+                  color: isCurrentPlan ? Colors.grey.shade600 : AppColors.white,
                 ),
               ),
             ),
