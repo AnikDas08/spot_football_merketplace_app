@@ -15,6 +15,15 @@ class EngRecordWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     if (stats == null) return const SizedBox.shrink();
 
+    final int goals = stats!['goals'] ?? 0;
+    final int assists = stats!['assists'] ?? 0;
+    final int yellowCards = stats!['yellowCards'] ?? 0;
+    final int redCards = stats!['redCards'] ?? 0;
+
+    if (goals == 0 && assists == 0 && yellowCards == 0 && redCards == 0) {
+      return const SizedBox.shrink();
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       padding: EdgeInsets.all(16.w),

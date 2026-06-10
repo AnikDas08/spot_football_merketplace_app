@@ -17,21 +17,17 @@ class LatestVideos extends StatelessWidget {
   Widget build(BuildContext context) {
     final BannerController bannerController = Get.find<BannerController>();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: CommonText(
-            text: AppString.latestVideos.toUpperCase(),
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(height: 16.h),
-        Obx(() {
-          if (bannerController.isLoading.value) {
-            return SizedBox(
+    return Obx(() {
+      if (bannerController.isLoading.value) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: CustomShimmer.rectangular(height: 24.h, width: 150.w),
+            ),
+            SizedBox(height: 16.h),
+            SizedBox(
               height: 220.h,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
@@ -43,14 +39,28 @@ class LatestVideos extends StatelessWidget {
                   width: 170.w,
                 ),
               ),
-            );
-          }
+            ),
+          ],
+        );
+      }
 
-          if (bannerController.bannerVideos.isEmpty) {
-            return const SizedBox.shrink();
-          }
+      if (bannerController.bannerVideos.isEmpty) {
+        return const SizedBox.shrink();
+      }
 
-          return SizedBox(
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: CommonText(
+              text: AppString.latestVideos.toUpperCase(),
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 16.h),
+          SizedBox(
             height: 220.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
@@ -75,9 +85,9 @@ class LatestVideos extends StatelessWidget {
                 return SizedBox(width: 12.w);
               },
             ),
-          );
-        }),
-      ],
-    );
+          ),
+        ],
+      );
+    });
   }
 }

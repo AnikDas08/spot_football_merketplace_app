@@ -41,7 +41,9 @@ class MySubscriptionScreen extends StatelessWidget {
         }
 
         final subscription = profileController.profileData['subscription'];
-        final hasSubscription = subscription != null;
+        final bool hasSubscription = subscription != null && 
+                                   subscription is Map && 
+                                   subscription['package'] != null;
 
         if (hasSubscription && !controller.isChangingPlan.value && !isFromRegistration) {
           return _buildSubscriptionDetails(controller, subscription);

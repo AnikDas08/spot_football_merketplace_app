@@ -64,56 +64,93 @@ class HomeScreen extends StatelessWidget {
 
                     const BannerSlider(),
 
-                    SizedBox(height: 12.h),
+                    GetBuilder<NewsController>(
+                      builder: (newsController) {
+                        return Obx(() {
+                          if (newsController.isLoading.value || newsController.newsList.isNotEmpty) {
+                            return Column(
+                              children: [
+                                SizedBox(height: 12.h),
+                                const LatestNews(),
+                              ],
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        });
+                      }
+                    ),
 
-                    const LatestNews(),
+                    GetBuilder<EventController>(
+                      builder: (eventController) {
+                        if (eventController.isLoading.value || eventController.eventList.isNotEmpty) {
+                          return Column(
+                            children: [
+                              SizedBox(height: 20.h),
+                              const UpcomingEvents(),
+                            ],
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      }
+                    ),
 
                     SizedBox(height: 20.h),
 
-                    const UpcomingEvents(),
-
-                    SizedBox(height: 20.h),
-
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: CommonText(
-                        text: AppString.recentResult.toUpperCase(),
-                        fontSize: 20.sp,
-                        fontWeight: const FontWeight(590),
+                    if (controller.isLoading.value || controller.recentMatches.isNotEmpty) ...[
+                      RecentResult(
+                        matches: controller.recentMatches,
+                        isLoading: controller.isLoading.value,
                       ),
+                      SizedBox(height: 20.h),
+                    ],
+
+                    if (controller.isLoading.value || controller.upcomingMatches.isNotEmpty) ...[
+                      UpcomingFixtures(
+                        fixtures: controller.upcomingMatches,
+                        isLoading: controller.isLoading.value,
+                      ),
+                      SizedBox(height: 20.h),
+                    ],
+
+                    if (controller.isLoading.value) ...[
+                      LeaguePreview(
+                        standings: const [],
+                        isLoading: true,
+                      ),
+                      SizedBox(height: 20.h),
+                    ] else ...[
+                      ...controller.allLeagues.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        var leagueData = entry.value;
+                        return Column(
+                          children: [
+                            LeaguePreview(
+                              standings: leagueData.standings,
+                              leagueName: leagueData.league.leagueName,
+                              season: leagueData.league.season,
+                              showHeader: index == 0,
+                            ),
+                            SizedBox(height: 20.h),
+                          ],
+                        );
+                      }),
+                    ],
+
+                    GetBuilder<BannerController>(
+                      builder: (bannerController) {
+                        return Obx(() {
+                          if (bannerController.isLoading.value || bannerController.bannerVideos.isNotEmpty) {
+                            return Column(
+                              children: [
+                                const LatestVideos(),
+                                SizedBox(height: 20.h),
+                              ],
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        });
+                      }
                     ),
-                    SizedBox(height: 16.h),
-
-                    RecentResult(
-                      matches: controller.recentMatches,
-                      isLoading: controller.isLoading.value,
-                    ),
-
-                    SizedBox(height: 20.h),
-
-                    UpcomingFixtures(
-                      fixtures: controller.upcomingMatches,
-                      isLoading: controller.isLoading.value,
-                    ),
-
-                    SizedBox(height: 20.h),
-
-                    LeaguePreview(
-                      standings: controller.pointTable,
-                      isLoading: controller.isLoading.value,
-                      leagueName: controller.allLeagues.isNotEmpty 
-                          ? controller.allLeagues[controller.selectedLeagueIndex].league.leagueName 
-                          : null,
-                      season: controller.allLeagues.isNotEmpty 
-                          ? controller.allLeagues[controller.selectedLeagueIndex].league.season 
-                          : null,
-                    ),
-
-                    SizedBox(height: 20.h),
-
-                    const LatestVideos(),
-
-                    SizedBox(height: 20.h),
                   ],
                 );
               },

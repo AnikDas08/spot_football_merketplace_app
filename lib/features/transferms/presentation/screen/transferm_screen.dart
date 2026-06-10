@@ -72,42 +72,44 @@ class TransferScreen extends StatelessWidget {
                     //   ),
                     // ),
                     // SizedBox(height: 32.h),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, top: 0),
-                      child: CommonText(
-                        text: AppString.recentOffers.toUpperCase(),
-                        color: AppColors.primaryColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
+                    if (controller.isLoading.value || controller.playerList.isNotEmpty) ...[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, right: 16, top: 0),
+                        child: CommonText(
+                          text: AppString.recentOffers.toUpperCase(),
+                          color: AppColors.primaryColor,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.h),
-                    ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: controller.playerList.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final player = controller.playerList[index];
-                        final fullName = (player.firstName != null || player.lastName != null)
-                            ? "${player.firstName ?? ""} ${player.lastName ?? ""}".trim()
-                            : player.userName;
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 16.h),
-                          child: TrialOfferCard(
-                            playerImageUrl: player.profile ?? '',
-                            title: fullName,
-                            // matchPercentage: '92%',
-                            description:
-                                'Personal terms agreed. Medical scheduled for final test',
-                            onOfferTap: () {
-                              Get.toNamed(AppRoutes.playerProfile,
-                                  arguments: player.userId ?? player.id);
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                      SizedBox(height: 16.h),
+                      ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: controller.playerList.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final player = controller.playerList[index];
+                          final fullName = (player.firstName != null || player.lastName != null)
+                              ? "${player.firstName ?? ""} ${player.lastName ?? ""}".trim()
+                              : player.userName;
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 16.h),
+                            child: TrialOfferCard(
+                              playerImageUrl: player.profile ?? '',
+                              title: fullName,
+                              // matchPercentage: '92%',
+                              description:
+                                  'Personal terms agreed. Medical scheduled for final test',
+                              onOfferTap: () {
+                                Get.toNamed(AppRoutes.playerProfile,
+                                    arguments: player.userId ?? player.id);
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ],
                 ),
               ),

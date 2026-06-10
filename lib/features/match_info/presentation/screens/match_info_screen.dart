@@ -10,6 +10,7 @@ import 'package:untitled/features/match_info/presentation/controllers/match_info
 import 'package:untitled/features/match_info/presentation/controllers/tabs_controller.dart';
 import 'package:untitled/features/match_info/presentation/widgets/line_up_tab.dart';
 import 'package:untitled/features/match_info/presentation/widgets/overview_tab.dart';
+import 'package:untitled/features/news/presentation/controller/news_controller.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import '../../../../component/common_appbar/secondary_appbar.dart';
@@ -116,30 +117,35 @@ class _MatchInfoScreenState extends State<MatchInfoScreen> {
                 children: [
                   const SizedBox.expand(child: OverviewTab()),
                   const SizedBox.expand(child: LineupsTab()),
-                  SizedBox.expand(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const LatestNews(),
-                          const SizedBox(height: 16),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: CommonButton(
-                              buttonColor: AppColors.transparent,
-                              titleColor: AppColors.primaryColor,
-                              borderColor: AppColors.primaryColor,
-                              onTap: () {},
-                              titleSize: 18.sp,
-                              titleText: AppString.moreNews,
-                              titleWeight: const FontWeight(510),
+                  GetBuilder<NewsController>(
+                    init: NewsController(),
+                    builder: (newsController) {
+                      return Obx(() {
+                        if (newsController.newsList.isEmpty) return const SizedBox.shrink();
+                        
+                        return Column(
+                          children: [
+                            const LatestNews(),
+                            const SizedBox(height: 16),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              child: CommonButton(
+                                buttonColor: AppColors.transparent,
+                                titleColor: AppColors.primaryColor,
+                                borderColor: AppColors.primaryColor,
+                                onTap: () {},
+                                titleSize: 18.sp,
+                                titleText: AppString.moreNews,
+                                titleWeight: const FontWeight(510),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 20.h),
-                          const LatestVideos(),
-                        ],
-                      ),
-                    ),
+                            SizedBox(height: 20.h),
+                          ],
+                        );
+                      });
+                    }
                   ),
+                  const LatestVideos(),
                 ],
               ),
             ),

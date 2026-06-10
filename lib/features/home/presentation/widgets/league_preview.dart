@@ -18,6 +18,7 @@ class LeaguePreview extends StatelessWidget {
   final bool isLoading;
   final String? leagueName;
   final String? season;
+  final bool showHeader;
 
   const LeaguePreview({
     super.key,
@@ -26,16 +27,19 @@ class LeaguePreview extends StatelessWidget {
     this.isLoading = false,
     this.leagueName,
     this.season,
+    this.showHeader = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (!isLoading && standings.isEmpty) return const SizedBox.shrink();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (!isSeeAll)
+          if (!isSeeAll && showHeader)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -69,7 +73,7 @@ class LeaguePreview extends StatelessWidget {
               ],
             ),
           if (leagueName != null) ...[
-            SizedBox(height: 8.h),
+            if (showHeader) SizedBox(height: 8.h),
             CommonText(
               text: '$leagueName ${season ?? ""}',
               fontSize: 14.sp,
@@ -77,7 +81,8 @@ class LeaguePreview extends StatelessWidget {
               color: AppColors.color6B6B6B,
             ),
           ],
-          if (!isSeeAll) SizedBox(height: 12.h),
+          if (!isSeeAll && showHeader) SizedBox(height: 12.h),
+          if (!showHeader) SizedBox(height: 8.h),
           if (isLoading)
             CustomShimmer.rectangular(height: 200.h)
           else

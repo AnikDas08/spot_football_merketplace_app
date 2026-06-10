@@ -92,39 +92,24 @@ class ClubProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 28.h),
 
-                  if (controller.recentMatches.isNotEmpty) ...[
+                  RecentResult(matches: controller.recentMatches),
+                  SizedBox(height: 20.h),
+                  
+                  UpcomingFixtures(fixtures: controller.upcomingMatches),
+                  SizedBox(height: 20.h),
+
+                  if (sortedPositions.isNotEmpty) ...[
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: CommonText(
-                        text: 'RECENT RESULTS',
+                        text: 'TOTAL SQUADS',
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primaryColor,
                       ),
                     ),
                     SizedBox(height: 12.h),
-                    RecentResult(matches: controller.recentMatches),
-                    SizedBox(height: 20.h),
                   ],
-                  
-                  if (controller.upcomingMatches.isNotEmpty) ...[
-
-                    SizedBox(height: 12.h),
-                    UpcomingFixtures(fixtures: controller.upcomingMatches),
-                    SizedBox(height: 20.h),
-                  ],
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: CommonText(
-                      text: 'TOTAL SQUADS',
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.primaryColor,
-                    ),
-                  ),
-
-                  SizedBox(height: 12.h),
 
                   ListView.builder(
                     shrinkWrap: true,

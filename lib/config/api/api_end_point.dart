@@ -32,10 +32,12 @@ class ApiEndPoint {
   static const transfers = '/transfers';
   static const myRequests = '/transfers/my-requests';
   static const managerRequests = '/transfers/manager-requests';
+  static const managerUpcomingMatches = '/match/manager-upcoming-matches';
   static const playerDashboard = '/player-dashboard/';
   static const playerDetails = '/user/player-details/';
   static const match = '/match';
   static const playerSelection = '/player-selection/';
+  static const playerSelectionFilter = '/player-selection/filter';
   static const pointTable = '/point-table';
   static const teamDashboard = '/team-dashboard/';
   static const video = '/video';

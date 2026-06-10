@@ -5,9 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
+import 'package:untitled/component/image/common_image.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
+import 'package:intl/intl.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../controller/team_sheet_controller.dart';
 
 class TeamSheetScreen extends StatelessWidget {
@@ -20,82 +23,106 @@ class TeamSheetScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
       appBar: const SecondaryAppBar(title: 'TEAM SHEET'),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Obx(() => _buildHeroBanner(controller)),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CommonText(
-                              text: 'SELECT TEAM',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black87,
-                            ),
-                            SizedBox(height: 8.h),
-                            Obx(() => _buildDropdown(
-                                controller.selectedTeam.value,
-                                controller.teams,
-                                    (val) => controller.updateTeam(val!))),
-                          ],
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+        }
+
+        if (controller.upcomingMatches.isEmpty) {
+          return const Center(child: Text("No upcoming matches found."));
+        }
+
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildHeroBanner(controller),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CommonText(
+                                text: 'SELECT TEAM',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black87,
+                              ),
+                              SizedBox(height: 8.h),
+                              _buildTeamDropdown(controller),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 16.w),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CommonText(
-                              text: 'FORMATION SETUP',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black87,
-                            ),
-                            SizedBox(height: 8.h),
-                            Obx(() => _buildDropdown(
-                                controller.selectedFormation.value,
-                                controller.formations,
-                                    (val) => controller.updateFormation(val!))),
-                          ],
+                        SizedBox(width: 12.w),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CommonText(
+                                text: 'SELECT VENUE',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black87,
+                              ),
+                              SizedBox(height: 8.h),
+                              _buildVenueDropdown(controller),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 24.h),
-                  Obx(() => _buildFormationCard(controller)),
-                  SizedBox(height: 24.h),
-                  CommonText(
-                    text: 'SUBSTITUTES',
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  SizedBox(height: 16.h),
-                  Obx(() => _buildSubstitutesList(context, controller)),
-                  SizedBox(height: 32.h),
-                  _buildConfirmButton(controller),
-                  SizedBox(height: 24.h),
-                ],
+                      ],
+                    ),
+                    SizedBox(height: 16.h),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CommonText(
+                          text: 'TEAM FORMAT (ASIDE)',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black87,
+                        ),
+                        SizedBox(height: 8.h),
+                        _buildFormationDropdown(controller),
+                      ],
+                    ),
+                    SizedBox(height: 24.h),
+                    _buildFormationCard(controller),
+                    SizedBox(height: 24.h),
+                    CommonText(
+                      text: 'SUBSTITUTES',
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    SizedBox(height: 16.h),
+                    _buildSubstitutesList(context, controller),
+                    SizedBox(height: 32.h),
+                    _buildConfirmButton(controller),
+                    SizedBox(height: 24.h),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 
   Widget _buildHeroBanner(TeamSheetController controller) {
+    final currentMatch = controller.upcomingMatches.firstWhereOrNull(
+      (m) => m.id == controller.selectedMatchId.value,
+    );
+
+    if (currentMatch == null) return const SizedBox.shrink();
+
     return Container(
       width: double.infinity,
-      height: 220.h,
+      height: 200.h,
       margin: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
@@ -120,15 +147,10 @@ class TeamSheetScreen extends StatelessWidget {
                 width: double.infinity,
                 padding: EdgeInsets.all(12.r),
                 decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12.r),
                     topRight: Radius.circular(12.r),
-                  ),
-                  border: Border(
-                    top: BorderSide(
-                      color: AppColors.white.withAlpha(400),
-                      width: 1.5.w,
-                    ),
                   ),
                 ),
                 child: Column(
@@ -136,18 +158,18 @@ class TeamSheetScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     CommonText(
-                      text: 'Team Sheet',
+                      text: currentMatch.venueName,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w700,
                       color: AppColors.white,
                     ),
                     SizedBox(height: 4.h),
                     CommonText(
-                      text: controller.selectedFormation.value,
+                      text: "${currentMatch.homeTeam.teamName} vs ${currentMatch.awayTeam.teamName}",
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.white,
-                      maxLines: 2,
+                      maxLines: 1,
                       textAlign: TextAlign.start,
                     ),
                   ],
@@ -160,7 +182,14 @@ class TeamSheetScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDropdown(String value, List<String> items, ValueChanged<String?> onChanged) {
+  Widget _buildTeamDropdown(TeamSheetController controller) {
+    // Extract unique teams from matches
+    final Map<String, String> teamMap = {};
+    for (var m in controller.upcomingMatches) {
+      teamMap[m.homeTeam.id] = m.homeTeam.teamName;
+      teamMap[m.awayTeam.id] = m.awayTeam.teamName;
+    }
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       decoration: BoxDecoration(
@@ -169,16 +198,85 @@ class TeamSheetScreen extends StatelessWidget {
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          value: value,
+          value: controller.selectedTeamId.value,
           isExpanded: true,
           icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black),
-          items: items.map((String item) {
+          items: teamMap.entries.map((e) {
             return DropdownMenuItem<String>(
-              value: item,
-              child: CommonText(text: item, fontSize: 14.sp, color: Colors.black),
+              value: e.key,
+              child: Text(
+                e.value,
+                style: TextStyle(fontSize: 13.sp, color: Colors.black, fontWeight: FontWeight.w600),
+                overflow: TextOverflow.ellipsis,
+              ),
             );
           }).toList(),
-          onChanged: onChanged,
+          onChanged: (val) {
+            if (val != null) {
+              controller.updateTeam(val);
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildVenueDropdown(TeamSheetController controller) {
+    final teamMatches = controller.upcomingMatches.where(
+      (m) => m.homeTeam.id == controller.selectedTeamId.value || m.awayTeam.id == controller.selectedTeamId.value
+    ).toList();
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          value: controller.selectedMatchId.value,
+          isExpanded: true,
+          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black),
+          items: teamMatches.map((match) {
+            final date = match.matchDate != null ? DateFormat('MMM dd').format(match.matchDate!) : "TBA";
+            return DropdownMenuItem<String>(
+              value: match.id,
+              child: Text(
+                "${match.venueName} ($date)",
+                style: TextStyle(fontSize: 13.sp, color: Colors.black, fontWeight: FontWeight.w600),
+                overflow: TextOverflow.ellipsis,
+              ),
+            );
+          }).toList(),
+          onChanged: (val) {
+            if (val != null) {
+              controller.updateVenue(val);
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFormationDropdown(TeamSheetController controller) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          value: controller.selectedFormation.value,
+          isExpanded: true,
+          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black),
+          items: controller.formations.map((String item) {
+            return DropdownMenuItem<String>(
+              value: item,
+              child: CommonText(text: "$item aside", fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.w600),
+            );
+          }).toList(),
+          onChanged: (val) => controller.updateFormation(val!),
         ),
       ),
     );
@@ -204,7 +302,7 @@ class TeamSheetScreen extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
             color: Colors.black,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -216,7 +314,7 @@ class TeamSheetScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
                 CommonText(
-                  text: controller.selectedFormation.value,
+                  text: "${controller.selectedFormation.value} aside",
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
@@ -246,11 +344,12 @@ class TeamSheetScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: row.map((pos) {
                           final currentIndex = globalIndex++;
-                          final playerData = controller.currentLineup[currentIndex];
+                          final playerData = controller.fieldPlayers[currentIndex];
                           return _buildPlayerNode(
                             playerData?['initial'],
                             pos,
                             name: playerData?['name'],
+                            imageUrl: playerData?['profile'],
                             onTap: () => _showPlayerSelection(controller, pos, index: currentIndex),
                           );
                         }).toList(),
@@ -266,7 +365,7 @@ class TeamSheetScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPlayerNode(String? initial, String position, {String? name, required VoidCallback onTap}) {
+  Widget _buildPlayerNode(String? initial, String position, {String? name, String? imageUrl, required VoidCallback onTap}) {
     bool isEmpty = initial == null;
 
     return GestureDetector(
@@ -277,36 +376,44 @@ class TeamSheetScreen extends StatelessWidget {
           CustomPaint(
             painter: isEmpty ? DashedCirclePainter(color: Colors.white) : null,
             child: Container(
-              width: 48.w,
-              height: 48.w,
+              width: 45.w,
+              height: 45.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: isEmpty ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFF57C00),
                 border: isEmpty ? null : Border.all(color: Colors.white, width: 1.5),
               ),
               child: isEmpty
-                  ? const Icon(Icons.add, color: Colors.white, size: 22)
-                  : Center(
-                child: CommonText(
-                  text: initial,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
+                  ? const Icon(Icons.add, color: Colors.white, size: 20)
+                  : ClipOval(
+                      child: imageUrl != null && imageUrl.isNotEmpty
+                          ? CommonImage(imageSrc: imageUrl, width: 45.w, height: 45.w, fill: BoxFit.cover)
+                          : Center(
+                              child: CommonText(
+                                text: initial,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                    ),
             ),
           ),
           SizedBox(height: 4.h),
-          CommonText(
-            text: name ?? '',
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-            maxLines: 1,
+          SizedBox(
+            width: 70.w,
+            child: CommonText(
+              text: name ?? '',
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           CommonText(
             text: position,
-            fontSize: 10.sp,
+            fontSize: 9.sp,
             fontWeight: FontWeight.w500,
             color: Colors.white.withValues(alpha: 0.9),
           ),
@@ -316,16 +423,17 @@ class TeamSheetScreen extends StatelessWidget {
   }
 
   Widget _buildSubstitutesList(BuildContext context, TeamSheetController controller) {
-    final List<String> subPos = ['ST', 'CM', 'CB', 'GK'];
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: List.generate(subPos.length, (index) {
+      children: List.generate(4, (index) {
         final playerData = controller.substitutes[index];
+        final String subPos = playerData?['pos'] ?? (index == 0 ? 'GK' : 'ST');
+        
         return GestureDetector(
-          onTap: () => _showPlayerSelection(controller, subPos[index], isSub: true, index: index),
+          onTap: () => _showPlayerSelection(controller, subPos, isSub: true, index: index),
           child: Container(
             width: (MediaQuery.of(context).size.width - 32.w - 36.w) / 4,
-            height: 100.h,
+            height: 90.h,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12.r),
@@ -337,36 +445,39 @@ class TeamSheetScreen extends StatelessWidget {
                   CustomPaint(
                     painter: DashedCirclePainter(color: Colors.grey.shade400),
                     child: Container(
-                      width: 40.w,
-                      height: 40.w,
+                      width: 36.w,
+                      height: 36.w,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.grey.shade100,
                       ),
-                      child: const Icon(Icons.add, color: Colors.black54, size: 20),
+                      child: const Icon(Icons.add, color: Colors.black54, size: 18),
                     ),
                   ),
                   SizedBox(height: 8.h),
-                  CommonText(text: subPos[index], fontSize: 13.sp, fontWeight: FontWeight.w700),
+                  CommonText(text: subPos, fontSize: 11.sp, fontWeight: FontWeight.w700),
                 ] else ...[
                   CircleAvatar(
                     radius: 18.r,
                     backgroundColor: const Color(0xFFF57C00),
-                    child: CommonText(
-                      text: playerData['initial']!,
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
+                    child: ClipOval(
+                      child: CommonImage(
+                        imageSrc: playerData['profile'] ?? "",
+                        width: 36.r,
+                        height: 36.r,
+                        fill: BoxFit.cover,
+                      ),
                     ),
                   ),
                   SizedBox(height: 4.h),
                   CommonText(
                     text: playerData['name']!,
-                    fontSize: 12.sp,
+                    fontSize: 11.sp,
                     fontWeight: FontWeight.w700,
                     maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  CommonText(text: playerData['pos']!, fontSize: 10.sp, color: Colors.grey),
+                  CommonText(text: playerData['pos']!, fontSize: 9.sp, color: Colors.grey),
                 ],
               ],
             ),
@@ -382,19 +493,21 @@ class TeamSheetScreen extends StatelessWidget {
       height: 54.h,
       margin: EdgeInsets.only(bottom: 20.h),
       child: ElevatedButton(
-        onPressed: () => controller.confirmLineup(),
+        onPressed: controller.isSubmitting.value ? null : () => controller.confirmLineup(),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
           elevation: 0,
         ),
-        child: CommonText(
-          text: 'Confirm Lineup',
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w700,
-          color: Colors.white,
-        ),
+        child: controller.isSubmitting.value
+            ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+            : CommonText(
+                text: controller.existingSelectionId.isNotEmpty ? 'Update Selection' : 'Confirm Selection',
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
       ),
     );
   }
@@ -402,6 +515,7 @@ class TeamSheetScreen extends StatelessWidget {
   void _showPlayerSelection(TeamSheetController controller, String position, {bool isSub = false, required int index}) {
     Get.bottomSheet(
       Container(
+        height: Get.height * 0.65,
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -424,27 +538,57 @@ class TeamSheetScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20.h),
-            Flexible(
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemCount: controller.roster.length,
-                separatorBuilder: (context, i) => Divider(height: 1.h, color: Colors.grey.withValues(alpha: 0.2)),
-                itemBuilder: (context, i) {
-                  return ListTile(
-                    contentPadding: EdgeInsets.symmetric(vertical: 4.h),
-                    leading: CircleAvatar(
-                      backgroundColor: AppColors.iconBgYellow,
-                      child: CommonText(text: controller.roster[i]['initial']!, fontWeight: FontWeight.w700, color: Colors.black87),
-                    ),
-                    title: CommonText(text: controller.roster[i]['name']!, textAlign: TextAlign.start, fontWeight: FontWeight.w600, fontSize: 15.sp),
-                    subtitle: CommonText(text: 'Position: ${controller.roster[i]['pos']}', textAlign: TextAlign.start, fontSize: 12.sp, color: Colors.grey),
-                    onTap: () {
-                      controller.assignPlayer(index, controller.roster[i], isSub: isSub);
-                      Get.back();
-                    },
-                  );
-                },
-              ),
+            Expanded(
+              child: Obx(() {
+                if (controller.isSquadLoading.value) {
+                  return const ShimmerListLoading();
+                }
+
+                if (controller.filteredSquad.isEmpty) {
+                  return const Center(child: Text("No players found in squad."));
+                }
+
+                return ListView.separated(
+                  itemCount: controller.filteredSquad.length,
+                  separatorBuilder: (context, i) => Divider(height: 1.h, color: Colors.grey.withValues(alpha: 0.2)),
+                  itemBuilder: (context, i) {
+                    final p = controller.filteredSquad[i];
+                    final fullName = "${p['firstName'] ?? ""} ${p['lastName'] ?? ""}".trim();
+                    final image = p['profile'] ?? "";
+                    
+                    return ListTile(
+                      contentPadding: EdgeInsets.symmetric(vertical: 4.h),
+                      leading: CircleAvatar(
+                        backgroundColor: AppColors.iconBgYellow,
+                        child: ClipOval(
+                          child: CommonImage(
+                            imageSrc: image,
+                            width: 40.w,
+                            height: 40.w,
+                            fill: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      title: CommonText(
+                        text: fullName.isNotEmpty ? fullName : (p['userName'] ?? "Player"), 
+                        textAlign: TextAlign.start, 
+                        fontWeight: FontWeight.w600, 
+                        fontSize: 15.sp,
+                      ),
+                      subtitle: CommonText(
+                        text: 'Position: ${p['position'] ?? "N/A"}', 
+                        textAlign: TextAlign.start, 
+                        fontSize: 12.sp, 
+                        color: Colors.grey,
+                      ),
+                      onTap: () {
+                        controller.assignPlayer(index, p, isSub: isSub);
+                        Get.back();
+                      },
+                    );
+                  },
+                );
+              }),
             ),
           ],
         ),

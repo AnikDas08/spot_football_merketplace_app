@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:untitled/features/home/presentation/widgets/recent_result_card.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
 import '../../data/match_model.dart';
 
 class RecentResult extends StatelessWidget {
@@ -33,34 +35,46 @@ class RecentResult extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: matches.length,
-        itemBuilder: (context, index) {
-          final match = matches[index];
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CommonText(
+            text: "RECENT RESULTS",
+            fontSize: 20.sp,
+            fontWeight: const FontWeight(590),
+            color: AppColors.primaryColor,
+          ),
+          SizedBox(height: 12.h),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: matches.length,
+            itemBuilder: (context, index) {
+              final match = matches[index];
 
-          // Formatting Date and Time
-          String formattedDate = match.matchDate != null 
-              ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()
-              : 'TBA';
-          String formattedTime = match.matchDate != null 
-              ? DateFormat('HH:mm a').format(match.matchDate!)
-              : '';
+              // Formatting Date and Time
+              String formattedDate = match.matchDate != null 
+                  ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()
+                  : 'TBA';
+              String formattedTime = match.matchDate != null 
+                  ? DateFormat('HH:mm a').format(match.matchDate!)
+                  : '';
 
-          return Padding(
-            padding: EdgeInsets.only(bottom: 14.h),
-            child: RecentResultCard(
-              id: match.id, // সঠিক ID পাস করা হলো
-              time: formattedTime,
-              date: formattedDate,
-              homeTeam: match.homeTeam.teamName,
-              awayTeam: match.awayTeam.teamName,
-              homeScore: match.homeScore,
-              awayScore: match.awayScore,
-            ),
-          );
-        },
+              return Padding(
+                padding: EdgeInsets.only(bottom: 14.h),
+                child: RecentResultCard(
+                  id: match.id, // সঠিক ID পাস করা হলো
+                  time: formattedTime,
+                  date: formattedDate,
+                  homeTeam: match.homeTeam.teamName,
+                  awayTeam: match.awayTeam.teamName,
+                  homeScore: match.homeScore,
+                  awayScore: match.awayScore,
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
