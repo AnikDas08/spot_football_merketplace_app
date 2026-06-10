@@ -44,6 +44,8 @@ class ClubProfileController extends GetxController {
       }
 
 
+
+
     } catch (e) {
       debugPrint('❌ fetchMatches error: $e');
     } finally {
