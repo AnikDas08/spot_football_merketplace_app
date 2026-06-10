@@ -130,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                               season: leagueData.league.season,
                               showHeader: index == 0,
                             ),
-                            SizedBox(height: 20.h),
+                            SizedBox(height: 10.h),
                           ],
                         );
                       }),
