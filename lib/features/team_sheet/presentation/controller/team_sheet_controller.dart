@@ -216,6 +216,15 @@ class TeamSheetController extends GetxController {
     update();
   }
 
+  void removePlayer(int index, {bool isSub = false}) {
+    if (isSub) {
+      substitutes[index] = null;
+    } else {
+      fieldPlayers[index] = null;
+    }
+    update();
+  }
+
   List<dynamic> get filteredSquad {
     final Set<String> selectedIds = {};
     fieldPlayers.forEach((_, p) { if (p != null) selectedIds.add(p['id']); });

@@ -36,6 +36,7 @@ class ApiEndPoint {
   static const playerDashboard = '/player-dashboard/';
   static const playerDetails = '/user/player-details/';
   static const match = '/match';
+  static const myMatches = '/match/my-matches';
   static const playerSelection = '/player-selection/';
   static const playerSelectionFilter = '/player-selection/filter';
   static const pointTable = '/point-table';

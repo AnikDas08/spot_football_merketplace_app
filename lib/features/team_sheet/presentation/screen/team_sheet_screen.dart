@@ -337,25 +337,26 @@ class TeamSheetScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: layout.map((row) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: row.map((pos) {
-                          final currentIndex = globalIndex++;
-                          final playerData = controller.fieldPlayers[currentIndex];
-                          return _buildPlayerNode(
-                            playerData?['initial'],
-                            pos,
-                            name: playerData?['name'],
-                            imageUrl: playerData?['profile'],
-                            onTap: () => _showPlayerSelection(controller, pos, index: currentIndex),
-                          );
-                        }).toList(),
-                      );
-                    }).toList(),
-                  ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: layout.map((row) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: row.map((pos) {
+                                  final currentIndex = globalIndex++;
+                                  final playerData = controller.fieldPlayers[currentIndex];
+                                  return _buildPlayerNode(
+                                    playerData?['initial'],
+                                    pos,
+                                    name: playerData?['name'],
+                                    imageUrl: playerData?['profile'],
+                                    index: currentIndex,
+                                    controller: controller,
+                                  );
+                                }).toList(),
+                              );
+                            }).toList(),
+                          ),
                 ],
               ),
             ),
@@ -365,60 +366,88 @@ class TeamSheetScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPlayerNode(String? initial, String position, {String? name, String? imageUrl, required VoidCallback onTap}) {
+  Widget _buildPlayerNode(String? initial, String position, {String? name, String? imageUrl, required int index, required TeamSheetController controller}) {
     bool isEmpty = initial == null;
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CustomPaint(
-            painter: isEmpty ? DashedCirclePainter(color: Colors.white) : null,
-            child: Container(
-              width: 45.w,
-              height: 45.w,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isEmpty ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFF57C00),
-                border: isEmpty ? null : Border.all(color: Colors.white, width: 1.5),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            GestureDetector(
+              onTap: () => _showPlayerSelection(controller, position, index: index),
+              child: CustomPaint(
+                painter: isEmpty ? DashedCirclePainter(color: Colors.white) : null,
+                child: Container(
+                  width: 45.w,
+                  height: 45.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isEmpty ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFF57C00),
+                    border: isEmpty ? null : Border.all(color: Colors.white, width: 1.5),
+                  ),
+                  child: isEmpty
+                      ? const Icon(Icons.add, color: Colors.white, size: 20)
+                      : ClipOval(
+                          child: imageUrl != null && imageUrl.isNotEmpty
+                              ? CommonImage(imageSrc: imageUrl, width: 45.w, height: 45.w, fill: BoxFit.cover)
+                              : Center(
+                                  child: CommonText(
+                                    text: initial,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                        ),
+                ),
               ),
-              child: isEmpty
-                  ? const Icon(Icons.add, color: Colors.white, size: 20)
-                  : ClipOval(
-                      child: imageUrl != null && imageUrl.isNotEmpty
-                          ? CommonImage(imageSrc: imageUrl, width: 45.w, height: 45.w, fill: BoxFit.cover)
-                          : Center(
-                              child: CommonText(
-                                text: initial,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                            ),
+            ),
+            if (!isEmpty)
+              Positioned(
+                top: -8.r,
+                right: -8.r,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => controller.removePlayer(index),
+                  child: Container(
+                    padding: EdgeInsets.all(6.r), // Hit area increase
+                    child: Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(Icons.close, color: Colors.white, size: 12.sp),
                     ),
-            ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+        SizedBox(height: 4.h),
+        SizedBox(
+          width: 70.w,
+          child: CommonText(
+            text: name ?? '',
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 4.h),
-          SizedBox(
-            width: 70.w,
-            child: CommonText(
-              text: name ?? '',
-              fontSize: 10.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          CommonText(
-            text: position,
-            fontSize: 9.sp,
-            fontWeight: FontWeight.w500,
-            color: Colors.white.withValues(alpha: 0.9),
-          ),
-        ],
-      ),
+        ),
+        CommonText(
+          text: position,
+          fontSize: 9.sp,
+          fontWeight: FontWeight.w500,
+          textAlign: TextAlign.center,
+          color: Colors.white.withValues(alpha: 0.9),
+        ),
+      ],
     );
   }
 
@@ -429,58 +458,85 @@ class TeamSheetScreen extends StatelessWidget {
         final playerData = controller.substitutes[index];
         final String subPos = playerData?['pos'] ?? (index == 0 ? 'GK' : 'ST');
         
-        return GestureDetector(
-          onTap: () => _showPlayerSelection(controller, subPos, isSub: true, index: index),
-          child: Container(
-            width: (MediaQuery.of(context).size.width - 32.w - 36.w) / 4,
-            height: 90.h,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (playerData == null) ...[
-                  CustomPaint(
-                    painter: DashedCirclePainter(color: Colors.grey.shade400),
-                    child: Container(
-                      width: 36.w,
-                      height: 36.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey.shade100,
+        return Container(
+          width: (MediaQuery.of(context).size.width - 32.w - 36.w) / 4,
+          height: 90.h,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  GestureDetector(
+                    onTap: () => _showPlayerSelection(controller, subPos, isSub: true, index: index),
+                    child: (playerData == null) 
+                      ? CustomPaint(
+                          painter: DashedCirclePainter(color: Colors.grey.shade400),
+                          child: Container(
+                            width: 36.w,
+                            height: 36.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.shade100,
+                            ),
+                            child: const Icon(Icons.add, color: Colors.black54, size: 18),
+                          ),
+                        )
+                      : CircleAvatar(
+                          radius: 18.r,
+                          backgroundColor: const Color(0xFFF57C00),
+                          child: ClipOval(
+                            child: CommonImage(
+                              imageSrc: playerData['profile'] ?? "",
+                              width: 36.r,
+                              height: 36.r,
+                              fill: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                  ),
+                  if (playerData != null)
+                    Positioned(
+                      top: -8.r,
+                      right: -8.r,
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => controller.removePlayer(index, isSub: true),
+                        child: Container(
+                          padding: EdgeInsets.all(6.r), // Hit area increase
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.close, color: Colors.white, size: 10.sp),
+                          ),
+                        ),
                       ),
-                      child: const Icon(Icons.add, color: Colors.black54, size: 18),
                     ),
-                  ),
-                  SizedBox(height: 8.h),
-                  CommonText(text: subPos, fontSize: 11.sp, fontWeight: FontWeight.w700),
-                ] else ...[
-                  CircleAvatar(
-                    radius: 18.r,
-                    backgroundColor: const Color(0xFFF57C00),
-                    child: ClipOval(
-                      child: CommonImage(
-                        imageSrc: playerData['profile'] ?? "",
-                        width: 36.r,
-                        height: 36.r,
-                        fill: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 4.h),
-                  CommonText(
-                    text: playerData['name']!,
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w700,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  CommonText(text: playerData['pos']!, fontSize: 9.sp, color: Colors.grey),
                 ],
-              ],
-            ),
+              ),
+              SizedBox(height: 4.h),
+              CommonText(
+                text: playerData?['name'] ?? subPos,
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w700,
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+              ),
+              CommonText(
+                text: playerData != null ? (playerData['pos'] ?? '') : '', 
+                fontSize: 9.sp, 
+                color: Colors.grey,
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         );
       }),
