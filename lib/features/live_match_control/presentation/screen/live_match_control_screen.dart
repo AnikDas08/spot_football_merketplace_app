@@ -44,6 +44,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                         match.homeTeam.teamName,
                         match.homeTeam.id,
                         match.id,
+                        match.league ?? "",
                         const Color(0xFFFFD54F),
                       ),
                     ),
@@ -53,6 +54,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                         match.awayTeam.teamName,
                         match.awayTeam.id,
                         match.id,
+                        match.league ?? "",
                         const Color(0xFF19CA77),
                       ),
                     ),
@@ -61,18 +63,21 @@ class LiveMatchControlScreen extends StatelessWidget {
                 SizedBox(height: 16.h),
                 _buildConductRatingCard(),
                 SizedBox(height: 24.h),
-                _buildReportButton(
-                  'FULL-TIME REPORT',
-                  AppColors.black,
-                  AppColors.white,
-                  onTap: () => controller.finishMatch(),
-                ),
+                if (match.status.toLowerCase() == 'half_time')
+                  _buildReportButton(
+                    'FULL-TIME REPORT',
+                    AppColors.black,
+                    AppColors.white,
+                    onTap: () => controller.toggleMatchStatus(),
+                  )
+                else if (match.status.toLowerCase() == 'live')
+                  _buildReportButton(
+                    'HALF-TIME REPORT',
+                    const Color(0xFFCCCCCC),
+                    AppColors.black,
+                    onTap: () => controller.toggleMatchStatus(),
+                  ),
                 SizedBox(height: 12.h),
-                _buildReportButton(
-                  'HALF-TIME REPORT',
-                  const Color(0xFFCCCCCC),
-                  AppColors.black,
-                ),
               ],
             ),
           ),
@@ -203,12 +208,13 @@ class LiveMatchControlScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTeamActionCard(String teamName, String teamId, String matchId, Color accentColor) {
+  Widget _buildTeamActionCard(String teamName, String teamId, String matchId, String leagueId, Color accentColor) {
     return GestureDetector(
       onTap: () => Get.toNamed(AppRoutes.recordGoalScreen, arguments: {
         'matchId': matchId,
         'teamId': teamId,
         'teamName': teamName,
+        'leagueId': leagueId,
       }),
       child: Container(
         padding: EdgeInsets.all(20.w),

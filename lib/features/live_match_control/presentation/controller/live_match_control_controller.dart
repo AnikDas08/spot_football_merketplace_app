@@ -43,7 +43,7 @@ class LiveMatchControlController extends GetxController {
     }
   }
 
-  Future<void> finishMatch() async {
+  Future<void> toggleMatchStatus() async {
     final matchId = match.value?.id;
     if (matchId == null) return;
 
@@ -58,14 +58,23 @@ class LiveMatchControlController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        AppSnackbar.success(
-          title: 'Success',
-          message: response.data['message'] ?? 'Match finished successfully',
-        );
-        Get.back(); // Go back to dashboard
+        final newStatus = response.data['data']['status'];
+        if (newStatus == 'finished') {
+          Get.back(); // Go back to dashboard if finished
+          AppSnackbar.success(
+            title: 'Success',
+            message: response.data['message'] ?? 'Match finished successfully',
+          );
+        } else {
+          AppSnackbar.success(
+            title: 'Success',
+            message: response.data['message'] ?? 'Status updated to ${newStatus.toUpperCase()}',
+          );
+          await fetchMatchDetails(matchId); // Refresh details for current screen
+        }
       }
     } catch (e) {
-      debugPrint('❌ finishMatch error: $e');
+      debugPrint('❌ toggleMatchStatus error: $e');
       AppSnackbar.error(title: 'Error', message: e.toString());
     } finally {
       isLoading.value = false;

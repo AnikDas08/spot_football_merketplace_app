@@ -58,11 +58,11 @@ class RefereeDashboardController extends GetxController {
       );
 
       if (response.statusCode == 200) {
+        await fetchMyMatches(); // Refresh the list
         AppSnackbar.success(
           title: 'Success',
           message: response.data['message'] ?? 'Match status updated',
         );
-        await fetchMyMatches(); // Refresh the list
       }
     } catch (e) {
       debugPrint('❌ toggleMatchStatus error: $e');

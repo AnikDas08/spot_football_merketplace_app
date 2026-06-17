@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:untitled/config/api/api_end_point.dart';
 import 'package:untitled/services/api/api_client.dart';
 import 'package:untitled/services/api/api_service.dart';
@@ -15,9 +12,11 @@ class RecordGoalController extends GetxController {
   final selectedTeam = ''.obs;
   final selectedTeamId = ''.obs;
   final selectedMatchId = ''.obs;
+  final selectedLeagueId = ''.obs;
   
   final selectedPlayerIndex = 0.obs;
   final selectedGoalType = 'goal'.obs; // Default to enum value
+  final selectedGoalSubType = 'normal'.obs;
   final selectedAssistPlayerId = RxnString();
   
   final RxList<dynamic> teamPlayers = <dynamic>[].obs;
@@ -31,6 +30,7 @@ class RecordGoalController extends GetxController {
       selectedMatchId.value = args['matchId'] ?? '';
       selectedTeamId.value = args['teamId'] ?? '';
       selectedTeam.value = args['teamName'] ?? '';
+      selectedLeagueId.value = args['leagueId'] ?? '';
       
       if (selectedTeamId.isNotEmpty && selectedMatchId.isNotEmpty) {
         fetchMatchLineup();
@@ -88,21 +88,49 @@ class RecordGoalController extends GetxController {
     selectedAssistPlayerId.value = playerId;
   }
 
+  void updateGoalSubType(String subType) {
+    selectedGoalSubType.value = subType;
+  }
+
   Future<void> submitEvent({String? eventId}) async {
-    if (teamPlayers.isEmpty || selectedPlayerIndex.value >= teamPlayers.length) return;
+    if (teamPlayers.isEmpty) {
+      AppSnackbar.error(message: "No players available to select.");
+      return;
+    }
+    
+    if (selectedPlayerIndex.value < 0 || selectedPlayerIndex.value >= teamPlayers.length) {
+      AppSnackbar.error(message: "Please select a player first.");
+      return;
+    }
 
     try {
       isLoading.value = true;
       update();
 
       final player = teamPlayers[selectedPlayerIndex.value];
-      final body = {
+      final Map<String, dynamic> body = {
+        "league": selectedLeagueId.value,
         "match": selectedMatchId.value,
         "team": selectedTeamId.value,
         "player": player['userId'] ?? player['_id'],
         "eventType": selectedGoalType.value,
         "minute": 0, // Placeholder, usually would be from a timer
+        "addedBy": LocalStorage.userId,
       };
+
+      if (selectedGoalType.value == 'goal') {
+        body['eventMeta'] = {
+          "goalType": selectedGoalSubType.value,
+        };
+      } else if (selectedGoalType.value == 'yellow_card') {
+        body['eventMeta'] = {
+          "cardType": "yellow",
+        };
+      } else if (selectedGoalType.value == 'red_card') {
+        body['eventMeta'] = {
+          "cardType": "red",
+        };
+      }
 
       final response = eventId != null 
           ? await apiClient.patch(
@@ -117,11 +145,11 @@ class RecordGoalController extends GetxController {
             );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.back();
         AppSnackbar.success(
           title: 'Success',
           message: response.data['message'] ?? 'Match event recorded',
         );
-        Get.back();
       }
     } catch (e) {
       debugPrint('❌ submitEvent error: $e');

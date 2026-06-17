@@ -60,6 +60,24 @@ class RecordGoalScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 _buildGoalTypeGrid(controller),
+                Obx(() {
+                  if (controller.selectedGoalType.value == 'goal') {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 24.h),
+                        CommonText(
+                          text: 'GOAL TYPE DETAILS',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        SizedBox(height: 16.h),
+                        _buildGoalSubTypeGrid(controller),
+                      ],
+                    );
+                  }
+                  return const SizedBox.shrink();
+                }),
                 SizedBox(height: 32.h),
                 SizedBox(
                   width: double.infinity,
@@ -166,7 +184,6 @@ class RecordGoalScreen extends StatelessWidget {
         _buildGoalTypeButton(controller, 'Yellow Card', 'yellow_card', Icons.square),
         _buildGoalTypeButton(controller, 'Red Card', 'red_card', Icons.square),
         _buildGoalTypeButton(controller, 'Foul', 'foul', Icons.front_hand),
-        _buildGoalTypeButton(controller, 'Substitution', 'substitution', Icons.sync),
       ],
     );
   }
@@ -199,6 +216,52 @@ class RecordGoalScreen extends StatelessWidget {
                 ),
                 child: Icon(icon, size: 20, color: iconColor),
               ),
+              SizedBox(width: 8.w),
+              CommonText(text: label, fontSize: 13.sp, fontWeight: FontWeight(590)),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+  Widget _buildGoalSubTypeGrid(RecordGoalController controller) {
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      mainAxisSpacing: 12.h,
+      crossAxisSpacing: 12.w,
+      childAspectRatio: 2.8,
+      children: [
+        _buildGoalSubTypeButton(controller, 'Normal', 'normal', Icons.sports_soccer),
+        _buildGoalSubTypeButton(controller, 'Penalty', 'penalty', Icons.adjust),
+        _buildGoalSubTypeButton(controller, 'Header', 'header', Icons.accessibility_new),
+        _buildGoalSubTypeButton(controller, 'Own Goal', 'own_goal', Icons.error_outline),
+        _buildGoalSubTypeButton(controller, 'Free Kick', 'free_kick', Icons.sports_handball),
+      ],
+    );
+  }
+
+  Widget _buildGoalSubTypeButton(RecordGoalController controller, String label, String value, IconData icon) {
+    return Obx(() {
+      final isSelected = controller.selectedGoalSubType.value == value;
+      return GestureDetector(
+        onTap: () => controller.updateGoalSubType(value),
+        child: Container(
+          height: 56,
+          decoration: BoxDecoration(
+            color: isSelected ? const Color(0xFFEABB00).withValues(alpha: 0.2) : Colors.white,
+            borderRadius: BorderRadius.circular(8.r),
+            border: Border.all(
+              color: isSelected ? const Color(0xFFEABB00) : Colors.transparent,
+              width: 1,
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Row(
+            children: [
+              Icon(icon, size: 20, color: isSelected ? const Color(0xFFEABB00) : Colors.black),
               SizedBox(width: 8.w),
               CommonText(text: label, fontSize: 13.sp, fontWeight: FontWeight(590)),
             ],

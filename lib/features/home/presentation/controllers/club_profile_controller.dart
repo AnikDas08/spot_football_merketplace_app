@@ -11,6 +11,7 @@ class ClubProfileController extends GetxController {
   final ApiClient apiClient = DioApiClient();
 
   var isLoading = false.obs;
+  List<MatchModel> liveMatches = [];
   List<MatchModel> recentMatches = [];
   List<MatchModel> upcomingMatches = [];
   
@@ -57,6 +58,10 @@ class ClubProfileController extends GetxController {
       if (response.statusCode == 200) {
         final matchResponse = MatchResponse.fromJson(response.data);
         
+        liveMatches = matchResponse.data
+            .where((match) => match.status.toLowerCase() == 'live' || match.status.toLowerCase() == 'half_time')
+            .toList();
+
         recentMatches = matchResponse.data
             .where((match) => match.status.toLowerCase() == 'finished')
             .toList();

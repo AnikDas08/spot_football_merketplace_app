@@ -358,36 +358,71 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
 
                   return Column(
                     children: [
-                      if (status == 'upcoming' || status == 'live')
+                      if (status == 'upcoming')
                         SizedBox(
                           width: double.infinity,
                           height: 48.h,
                           child: ElevatedButton(
                             onPressed: isToggling
                                 ? null
-                                : () {
-                                    if (status == 'upcoming') {
-                                      controller.toggleMatchStatus(match.id);
-                                    } else {
-                                      Get.toNamed(AppRoutes.liveMatchControlScreen, arguments: match.id);
-                                    }
-                                  },
+                                : () => controller.toggleMatchStatus(match.id),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: status == 'live' ? AppColors.black : const Color(0xFF19CA77),
+                              backgroundColor: const Color(0xFF19CA77),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
                               elevation: 0,
                             ),
-                            child: isToggling && status == 'upcoming'
+                            child: isToggling
                                 ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                                : CommonText(
-                                    text: status == 'live' ? 'Manage Match' : 'Start Match',
+                                : const CommonText(
+                                    text: 'Start Match',
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.white,
                                   ),
                           ),
                         ),
+                      if (status == 'live' || status == 'half_time')
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: () => Get.toNamed(AppRoutes.liveMatchControlScreen, arguments: match.id),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.black,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                              elevation: 0,
+                            ),
+                            child: const CommonText(
+                              text: 'Manage Match',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ),
                       if (status == 'live') ...[
+                        SizedBox(height: 12.h),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: isToggling ? null : () => controller.toggleMatchStatus(match.id),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFFFD54F), // Yellow for Half Time
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                              elevation: 0,
+                            ),
+                            child: isToggling
+                                ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                                : const CommonText(
+                                    text: 'Half Time',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.black,
+                                  ),
+                          ),
+                        ),
+                      ] else if (status == 'half_time') ...[
                         SizedBox(height: 12.h),
                         SizedBox(
                           width: double.infinity,

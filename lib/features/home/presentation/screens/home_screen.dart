@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
 import 'package:untitled/features/home/presentation/widgets/league_preview.dart';
+import 'package:untitled/features/home/presentation/widgets/live_matches.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../news/presentation/controller/news_controller.dart';
@@ -95,6 +96,14 @@ class HomeScreen extends StatelessWidget {
                     ),
 
                     SizedBox(height: 20.h),
+
+                    if (controller.isLoading.value || controller.liveMatches.isNotEmpty) ...[
+                      LiveMatches(
+                        matches: controller.liveMatches,
+                        isLoading: controller.isLoading.value,
+                      ),
+                      SizedBox(height: 20.h),
+                    ],
 
                     if (controller.isLoading.value || controller.recentMatches.isNotEmpty) ...[
                       RecentResult(
