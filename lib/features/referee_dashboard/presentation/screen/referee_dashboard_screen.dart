@@ -62,8 +62,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
 
   Widget _buildMatchList() {
     List<MatchModel> currentMatches = [];
-    if (activeTabIndex == 0) currentMatches = controller.allMatches;
-    else if (activeTabIndex == 1) currentMatches = controller.todayMatches;
+    if (activeTabIndex == 0) {
+      currentMatches = controller.allMatches;
+    } else if (activeTabIndex == 1) currentMatches = controller.todayMatches;
     else if (activeTabIndex == 2) currentMatches = controller.upcomingMatches;
     else currentMatches = controller.historyMatches;
 
@@ -331,32 +332,87 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                   ),
                 ),
                 SizedBox(height: 16.h),
-                SizedBox(
-                  width: double.infinity,
-                  height: 48.h,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (isLive || match.status.toLowerCase() == 'upcoming') {
-                        Get.toNamed(AppRoutes.liveMatchControlScreen, arguments: match.id);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: isLive
-                          ? AppColors.black
-                          : const Color(0xFF19CA77),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r),
+                Obx(() {
+                  final bool isToggling = controller.togglingId.value == match.id;
+                  final String status = match.status.toLowerCase();
+
+                  if (status == 'finished') {
+                    return SizedBox(
+                      width: double.infinity,
+                      height: 48.h,
+                      child: OutlinedButton(
+                        onPressed: null,
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Colors.grey),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                        ),
+                        child: const CommonText(
+                          text: 'Match Finished',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey,
+                        ),
                       ),
-                      elevation: 0,
-                    ),
-                    child: CommonText(
-                      text: isLive ? 'Manage Match' : 'Start Match',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
+                    );
+                  }
+
+                  return Column(
+                    children: [
+                      if (status == 'upcoming' || status == 'live')
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: isToggling
+                                ? null
+                                : () {
+                                    if (status == 'upcoming') {
+                                      controller.toggleMatchStatus(match.id);
+                                    } else {
+                                      Get.toNamed(AppRoutes.liveMatchControlScreen, arguments: match.id);
+                                    }
+                                  },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: status == 'live' ? AppColors.black : const Color(0xFF19CA77),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                              elevation: 0,
+                            ),
+                            child: isToggling && status == 'upcoming'
+                                ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                                : CommonText(
+                                    text: status == 'live' ? 'Manage Match' : 'Start Match',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.white,
+                                  ),
+                          ),
+                        ),
+                      if (status == 'live') ...[
+                        SizedBox(height: 12.h),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: isToggling ? null : () => controller.toggleMatchStatus(match.id),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFE53935), // Red for Full Time
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                              elevation: 0,
+                            ),
+                            child: isToggling
+                                ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                                : const CommonText(
+                                    text: 'Full Time',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.white,
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  );
+                }),
               ],
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
+import '../../../../component/image/common_image.dart';
 import '../controller/record_goal_controller.dart';
 
 class RecordGoalScreen extends StatelessWidget {
@@ -15,85 +16,77 @@ class RecordGoalScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SecondaryAppBar(title: 'RECORD GOAL'),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonText(
-                    text: 'SCORING PLAYER',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8.r),
+      appBar: const SecondaryAppBar(title: 'RECORD MATCH EVENT'),
+      body: Obx(() {
+        if (controller.isLoading.value && controller.teamPlayers.isEmpty) {
+          return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+        }
+
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CommonText(
+                      text: 'SELECTED TEAM',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
                     ),
-                    child: DropdownButtonHideUnderline(
-                      child: Obx(() => DropdownButton<String>(
-                            value: controller.selectedTeam.value,
-                            items: ['Tigers FC', 'Lions FC'].map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: CommonText(
-                                  text: value,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight(510),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (val) {
-                              if (val != null) controller.updateTeam(val);
-                            },
-                            icon: const Icon(Icons.keyboard_arrow_down, size: 20),
-                          )),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: CommonText(
+                        text: controller.selectedTeam.value,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16.h),
-              _buildPlayerList(controller),
-              SizedBox(height: 24.h),
-              CommonText(
-                text: 'GOAL TYPE',
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-              SizedBox(height: 16.h),
-              _buildGoalTypeGrid(controller),
-              SizedBox(height: 24.h),
-              _buildAssistSection(controller),
-              SizedBox(height: 32.h),
-              SizedBox(
-                width: double.infinity,
-                height: 52.h,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
+                  ],
+                ),
+                SizedBox(height: 16.h),
+                _buildPlayerList(controller),
+                SizedBox(height: 24.h),
+                CommonText(
+                  text: 'EVENT TYPE',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+                SizedBox(height: 16.h),
+                _buildGoalTypeGrid(controller),
+                SizedBox(height: 32.h),
+                SizedBox(
+                  width: double.infinity,
+                  height: 52.h,
+                  child: ElevatedButton(
+                    onPressed: controller.isLoading.value ? null : () => controller.submitEvent(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
                     ),
-                  ),
-                  child: CommonText(
-                    text: 'Confirm Goal',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
+                    child: controller.isLoading.value
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : CommonText(
+                            text: 'Confirm Event',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -102,8 +95,12 @@ class RecordGoalScreen extends StatelessWidget {
       height: 100.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: controller.players.length,
+        itemCount: controller.teamPlayers.length,
         itemBuilder: (context, index) {
+          final player = controller.teamPlayers[index];
+          final name = "${player['firstName'] ?? ""} ${player['lastName'] ?? ""}".trim();
+          final initial = (player['firstName']?[0] ?? player['userName']?[0] ?? "P").toUpperCase();
+
           return Obx(() {
             final isSelected = controller.selectedPlayerIndex.value == index;
             return GestureDetector(
@@ -112,56 +109,33 @@ class RecordGoalScreen extends StatelessWidget {
                 padding: EdgeInsets.only(right: 16.w),
                 child: Column(
                   children: [
-                    Stack(
-                      children: [
-                        Container(
-                          width: 64,
-                          height: 64,
-                          padding: EdgeInsets.all(3.r),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: isSelected
-                                  ? const Color(0xFF0056D2)
-                                  : Colors.transparent,
-                              width: 2,
-                            ),
-                          ),
-                          child: CircleAvatar(
-                            radius: 28.r,
-                            backgroundImage:
-                                AssetImage(controller.players[index]['image']!),
+                    Container(
+                      width: 64,
+                      height: 64,
+                      padding: EdgeInsets.all(3.r),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: isSelected
+                              ? const Color(0xFF0056D2)
+                              : Colors.transparent,
+                          width: 2,
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        radius: 28.r,
+                        backgroundColor: Colors.grey.shade200,
+                        child: ClipOval(
+                          child: CommonImage(
+                            imageSrc: player['profile'] ?? "",
+                            fill: BoxFit.cover,
                           ),
                         ),
-                        Positioned(
-                          bottom: 4,
-                          right: 0,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? const Color(0xFFFFD54F)
-                                  : Color(0xFFF2F1FF),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: CommonText(
-                              color: isSelected
-                                  ? AppColors.white
-                                  : AppColors.black,
-                              text: controller.players[index]['number']!,
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                     SizedBox(height: 8.h),
                     CommonText(
-                      text: controller.players[index]['name']!,
+                      text: name.isNotEmpty ? name : (player['userName'] ?? "Player"),
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w700,
                       color: isSelected
@@ -187,19 +161,25 @@ class RecordGoalScreen extends StatelessWidget {
       crossAxisSpacing: 12.w,
       childAspectRatio: 2.8,
       children: [
-        _buildGoalTypeButton(controller, 'Regular Goal', Icons.sports_soccer),
-        _buildGoalTypeButton(controller, 'Header', Icons.accessibility_new),
-        _buildGoalTypeButton(controller, 'Penalty', Icons.adjust),
-        _buildGoalTypeButton(controller, 'Free Kick', Icons.sports_handball),
+        _buildGoalTypeButton(controller, 'Goal', 'goal', Icons.sports_soccer),
+        _buildGoalTypeButton(controller, 'Assist', 'assist', Icons.handshake),
+        _buildGoalTypeButton(controller, 'Yellow Card', 'yellow_card', Icons.square),
+        _buildGoalTypeButton(controller, 'Red Card', 'red_card', Icons.square),
+        _buildGoalTypeButton(controller, 'Foul', 'foul', Icons.front_hand),
+        _buildGoalTypeButton(controller, 'Substitution', 'substitution', Icons.sync),
       ],
     );
   }
 
-  Widget _buildGoalTypeButton(RecordGoalController controller, String type, IconData icon) {
+  Widget _buildGoalTypeButton(RecordGoalController controller, String label, String value, IconData icon) {
     return Obx(() {
-      final isSelected = controller.selectedGoalType.value == type;
+      final isSelected = controller.selectedGoalType.value == value;
+      Color iconColor = Colors.black;
+      if (value == 'yellow_card') iconColor = Colors.yellow;
+      if (value == 'red_card') iconColor = Colors.red;
+
       return GestureDetector(
-        onTap: () => controller.updateGoalType(type),
+        onTap: () => controller.updateGoalType(value),
         child: Container(
           height: 56,
           decoration: BoxDecoration(
@@ -217,73 +197,14 @@ class RecordGoalScreen extends StatelessWidget {
                   color: isSelected ? Colors.white : const Color(0xFFF5F5F5),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, size: 20, color: Colors.black),
+                child: Icon(icon, size: 20, color: iconColor),
               ),
               SizedBox(width: 8.w),
-              CommonText(text: type, fontSize: 16, fontWeight: FontWeight(590)),
+              CommonText(text: label, fontSize: 13.sp, fontWeight: FontWeight(590)),
             ],
           ),
         ),
       );
     });
-  }
-
-  Widget _buildAssistSection(RecordGoalController controller) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF9F6ED),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CommonText(
-            text: 'ASSIST (OPTIONAL)',
-            fontSize: 16,
-            fontWeight: FontWeight(590),
-          ),
-          SizedBox(height: 12.h),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: const Color(0xFFEEEEEE)),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: Obx(() => DropdownButton<String>(
-                    isExpanded: true,
-                    value: controller.selectedAssistPlayer.value,
-                    hint: CommonText(
-                      text: 'Select player who assisted...',
-                      fontSize: 15,
-                      color: const Color(0xFF9E9E9E),
-                    ),
-                    items: controller.players.map((player) {
-                      String displayName =
-                          "${player['name']} (${player['number']})";
-                      return DropdownMenuItem<String>(
-                        value: displayName,
-                        child: CommonText(
-                          text: displayName,
-                          fontSize: 15,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (val) => controller.updateAssistPlayer(val),
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Color(0xFF9E9E9E),
-                    ),
-                  )),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

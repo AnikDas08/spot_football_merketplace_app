@@ -4,6 +4,7 @@ import '../../../../config/api/api_end_point.dart';
 import '../../../../services/api/api_client.dart';
 import '../../../../services/api/api_service.dart';
 import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/app_snackbar.dart';
 import '../../../home/data/match_model.dart';
 
 class RefereeDashboardController extends GetxController {
@@ -14,6 +15,7 @@ class RefereeDashboardController extends GetxController {
   final RxList<MatchModel> upcomingMatches = <MatchModel>[].obs;
   final RxList<MatchModel> historyMatches = <MatchModel>[].obs;
   final RxBool isLoading = false.obs;
+  final RxString togglingId = "".obs;
 
   @override
   void onInit() {
@@ -40,6 +42,33 @@ class RefereeDashboardController extends GetxController {
       debugPrint('❌ fetchMyMatches error: $e');
     } finally {
       isLoading.value = false;
+      update();
+    }
+  }
+
+  Future<void> toggleMatchStatus(String matchId) async {
+    try {
+      togglingId.value = matchId;
+      update();
+
+      final response = await apiClient.patch(
+        "${ApiEndPoint.toggleMatchStatus}$matchId",
+        body: {},
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+
+      if (response.statusCode == 200) {
+        AppSnackbar.success(
+          title: 'Success',
+          message: response.data['message'] ?? 'Match status updated',
+        );
+        await fetchMyMatches(); // Refresh the list
+      }
+    } catch (e) {
+      debugPrint('❌ toggleMatchStatus error: $e');
+      AppSnackbar.error(title: 'Error', message: e.toString());
+    } finally {
+      togglingId.value = "";
       update();
     }
   }
