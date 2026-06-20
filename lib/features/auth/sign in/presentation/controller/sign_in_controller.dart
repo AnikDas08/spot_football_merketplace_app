@@ -12,7 +12,6 @@ import '../../../../../services/storage/storage_services.dart';
 import '../../../../profile/presentation/controller/profile_controller.dart';
 
 class SignInController extends GetxController {
-  /// Sign in Button Loading variable
   bool isLoading = false;
 
   /// email and password Controller here
@@ -91,6 +90,7 @@ class SignInController extends GetxController {
 
         /// clear
         emailController.clear();
+
         passwordController.clear();
 
         AppSnackbar.success(
@@ -126,12 +126,15 @@ class SignInController extends GetxController {
           message: response.message,
         );
       }
-    } catch (e) {
+    }
+
+    catch (e) {
       AppSnackbar.error(title: 'Error', message: e.toString());
     } finally {
       isLoading = false;
       update();
     }
+
   }
 
   @override

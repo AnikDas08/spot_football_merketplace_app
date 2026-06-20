@@ -29,6 +29,8 @@ class TransferController extends GetxController {
         final playerResponse = PlayerResponse.fromJson(response.data);
         playerList = playerResponse.data;
       }
+
+
     } catch (e) {
       debugPrint('❌ fetchPlayers error: $e');
     } finally {
@@ -36,4 +38,7 @@ class TransferController extends GetxController {
       update();
     }
   }
+
+
+
 }
