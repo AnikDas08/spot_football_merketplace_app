@@ -61,14 +61,17 @@ class LiveMatchControlScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 16.h),
-                _buildConductRatingCard(),
+                _buildConductRatingCard(controller, match),
                 SizedBox(height: 24.h),
                 if (match.status.toLowerCase() == 'half_time')
                   _buildReportButton(
                     'FULL-TIME REPORT',
                     AppColors.black,
                     AppColors.white,
-                    onTap: () => controller.toggleMatchStatus(),
+                    onTap: () async {
+                      await controller.submitRefereeReport();
+                      await controller.toggleMatchStatus();
+                    },
                   )
                 else if (match.status.toLowerCase() == 'live')
                   _buildReportButton(
@@ -247,10 +250,10 @@ class LiveMatchControlScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildConductRatingCard() {
+  Widget _buildConductRatingCard(LiveMatchControlController controller, MatchModel match) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
         color: const Color(0xFFF9F6ED),
         borderRadius: BorderRadius.circular(12.r),
@@ -270,34 +273,81 @@ class LiveMatchControlScreen extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16.h),
+          
+          // Home Team Marks
+          CommonText(text: "add ${match.homeTeam.teamName} Marks", fontSize: 14.sp, fontWeight: FontWeight.w600, bottom: 8),
+          _buildMarkDropdown(controller.homeTeamRating),
+          
+          SizedBox(height: 16.h),
+          
+          // Away Team Marks
+          CommonText(text: "add ${match.awayTeam.teamName} Marks", fontSize: 14.sp, fontWeight: FontWeight.w600, bottom: 8),
+          _buildMarkDropdown(controller.awayTeamRating),
+          
+          SizedBox(height: 16.h),
+
+          // Player Of The Day
+          CommonText(text: 'add Player Of The Day', fontSize: 14.sp, fontWeight: FontWeight.w600, bottom: 8),
           Container(
-            height: 48.h,
-            width: .infinity,
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: const Color(0xFFEEEEEE)),
             ),
-            child: CommonText(
-              text: 'Marks 0-100: [85]',
-              fontSize: 15.sp,
-              fontWeight: FontWeight(510),
-              color: const Color(0xFF9E9E9E),
+            child: DropdownButtonHideUnderline(
+              child: Obx(() => DropdownButton<String>(
+                value: controller.manOfTheMatchId.value.isEmpty ? null : controller.manOfTheMatchId.value,
+                isExpanded: true,
+                hint: Text("Enter Player Of The Day Name Here...", style: TextStyle(fontSize: 13.sp, color: Colors.grey)),
+                items: controller.allMatchPlayers.map((p) {
+                  final details = p['player'] ?? p;
+                  final name = "${details['firstName'] ?? ""} ${details['lastName'] ?? ""}".trim();
+                  return DropdownMenuItem(
+                    value: details['userId']?.toString() ?? details['_id']?.toString(),
+                    child: Text(name.isNotEmpty ? name : (details['userName'] ?? "Player")),
+                  );
+                }).toList(),
+                onChanged: (val) => controller.manOfTheMatchId.value = val ?? "",
+              )),
             ),
           ),
-          SizedBox(height: 12.h),
+          
+          SizedBox(height: 16.h),
           CommonText(
-            text:
-                'RATING AFFECTS SEASON FAIR-PLAY BONUSES AND DISCIPLINARY REVIEW PRIORITY.',
-            fontSize: 12.sp,
-            fontWeight: FontWeight(510),
+            text: 'RATING AFFECTS SEASON FAIR-PLAY BONUSES AND DISCIPLINARY REVIEW PRIORITY.',
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w500,
             color: const Color(0xFF424242),
+            textAlign: TextAlign.start,
           ),
         ],
       ),
     );
   }
+
+  Widget _buildMarkDropdown(RxString value) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: Obx(() => DropdownButton<String>(
+          value: value.value,
+          isExpanded: true,
+          items: List.generate(101, (index) => index.toString()).map((val) {
+            return DropdownMenuItem(
+              value: val,
+              child: Text("Marks 0-100: [$val]", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
+            );
+          }).toList(),
+          onChanged: (val) => value.value = val ?? "85",
+        )),
+      ),
+    );
+  }
+}
 
   Widget _buildReportButton(String text, Color bgColor, Color textColor, {VoidCallback? onTap}) {
     return SizedBox(
@@ -321,4 +371,4 @@ class LiveMatchControlScreen extends StatelessWidget {
       ),
     );
   }
-}
+

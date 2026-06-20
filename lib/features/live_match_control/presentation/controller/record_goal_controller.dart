@@ -121,6 +121,7 @@ class RecordGoalController extends GetxController {
       if (selectedGoalType.value == 'goal') {
         body['eventMeta'] = {
           "goalType": selectedGoalSubType.value,
+          if (selectedAssistPlayerId.value != null) "assist": selectedAssistPlayerId.value,
         };
       } else if (selectedGoalType.value == 'yellow_card') {
         body['eventMeta'] = {

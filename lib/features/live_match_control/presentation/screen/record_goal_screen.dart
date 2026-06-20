@@ -73,6 +73,14 @@ class RecordGoalScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 16.h),
                         _buildGoalSubTypeGrid(controller),
+                        SizedBox(height: 24.h),
+                        CommonText(
+                          text: 'ASSIST BY (OPTIONAL)',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        SizedBox(height: 12.h),
+                        _buildAssistDropdown(controller),
                       ],
                     );
                   }
@@ -180,7 +188,6 @@ class RecordGoalScreen extends StatelessWidget {
       childAspectRatio: 2.8,
       children: [
         _buildGoalTypeButton(controller, 'Goal', 'goal', Icons.sports_soccer),
-        _buildGoalTypeButton(controller, 'Assist', 'assist', Icons.handshake),
         _buildGoalTypeButton(controller, 'Yellow Card', 'yellow_card', Icons.square),
         _buildGoalTypeButton(controller, 'Red Card', 'red_card', Icons.square),
         _buildGoalTypeButton(controller, 'Foul', 'foul', Icons.front_hand),
@@ -223,6 +230,52 @@ class RecordGoalScreen extends StatelessWidget {
         ),
       );
     });
+  }
+
+  Widget _buildAssistDropdown(RecordGoalController controller) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(color: const Color(0xFFEEEEEE)),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: Obx(() => DropdownButton<String>(
+              isExpanded: true,
+              value: controller.selectedAssistPlayerId.value,
+              hint: const CommonText(
+                text: 'Select player who assisted...',
+                fontSize: 15,
+                color: Color(0xFF9E9E9E),
+              ),
+              items: [
+                const DropdownMenuItem<String>(
+                  value: null,
+                  child: CommonText(text: "No Assist", fontSize: 15),
+                ),
+                ...controller.teamPlayers.map((player) {
+                  final name = "${player['firstName'] ?? ""} ${player['lastName'] ?? ""}".trim();
+                  final String playerId = player['userId'] ?? player['_id'];
+                  return DropdownMenuItem<String>(
+                    value: playerId,
+                    child: CommonText(
+                      text: name.isNotEmpty ? name : (player['userName'] ?? "Player"),
+                      fontSize: 15,
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                }),
+              ],
+              onChanged: (val) => controller.updateAssistPlayer(val),
+              icon: const Icon(
+                Icons.keyboard_arrow_down,
+                color: Color(0xFF9E9E9E),
+              ),
+            )),
+      ),
+    );
   }
 
   Widget _buildGoalSubTypeGrid(RecordGoalController controller) {
