@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixture_card.dart';
+import '../../../../utils/constants/app_colors.dart';
 import '../../data/match_model.dart';
 
 class UpcomingFixtures extends StatelessWidget {
@@ -51,6 +52,7 @@ class UpcomingFixtures extends StatelessWidget {
             text: "UPCOMING FIXTURES",
             fontSize: 20.sp,
             fontWeight: const FontWeight(590),
+            color: AppColors.primaryColor,
           ),
           SizedBox(height: 12.h),
           ListView.builder(

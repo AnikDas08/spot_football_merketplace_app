@@ -14,21 +14,17 @@ class UpcomingEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(EventController());
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: CommonText(
-            text: AppString.upcomingEvents.toUpperCase(),
-            fontSize: 20.sp,
-            fontWeight: const FontWeight(590),
-          ),
-        ),
-        GetBuilder<EventController>(
-          builder: (controller) {
-            if (controller.isLoading.value && controller.eventList.isEmpty) {
-              return Padding(
+    return GetBuilder<EventController>(
+      builder: (controller) {
+        if (controller.isLoading.value && controller.eventList.isEmpty) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: CustomShimmer.rectangular(height: 24.h, width: 180.w),
+              ),
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                 child: Column(
                   children: List.generate(
@@ -39,14 +35,28 @@ class UpcomingEvents extends StatelessWidget {
                     ),
                   ),
                 ),
-              );
-            }
+              ),
+            ],
+          );
+        }
 
-            if (controller.eventList.isEmpty) {
-              return const SizedBox.shrink();
-            }
+        if (controller.eventList.isEmpty) {
+          return const SizedBox.shrink();
+        }
 
-            return ListView.builder(
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: CommonText(
+                text: AppString.upcomingEvents.toUpperCase(),
+                fontSize: 20.sp,
+                fontWeight: const FontWeight(590),
+              ),
+            ),
+            SizedBox(height: 12.h),
+            ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -54,10 +64,10 @@ class UpcomingEvents extends StatelessWidget {
               itemBuilder: (context, index) {
                 return UpcomingEventCard(event: controller.eventList[index]);
               },
-            );
-          },
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

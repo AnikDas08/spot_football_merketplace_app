@@ -34,6 +34,15 @@ class SignUpController extends GetxController {
   final confirmPasswordController = TextEditingController(text: kDebugMode ? "Aaaa@#+11" : null);
   final otpController = TextEditingController();
 
+  @override
+  void onInit() {
+    super.onInit();
+    final args = Get.arguments;
+    if (args != null && args['email'] != null) {
+      emailController.text = args['email'];
+    }
+  }
+
   /// Get formatted timer text (mm:ss)
   String get time {
     final minutes = (_seconds ~/ 60).toString().padLeft(2, '0');
@@ -137,17 +146,18 @@ class SignUpController extends GetxController {
 
       if (response.statusCode == 200) {
         final String token = response.data['data'] ?? '';
-        await LocalStorage.setString(LocalStorageKeys.token, token);
         AppSnackbar.success(title: 'Success', message: response.message);
         
+        final args = {'token': token};
+        
         if (selectRole.toUpperCase() == 'PLAYER') {
-          Get.offAllNamed(AppRoutes.verifyPlayerScreen);
+          Get.offAllNamed(AppRoutes.verifyPlayerScreen, arguments: args);
         } else if (selectRole.toUpperCase() == 'MANAGER') {
-          Get.offAllNamed(AppRoutes.managerRegistrationScreen);
+          Get.offAllNamed(AppRoutes.managerRegistrationScreen, arguments: args);
         } else if (selectRole.toUpperCase() == 'REFEREE') {
-          Get.offAllNamed(AppRoutes.refereeInfoScreen);
+          Get.offAllNamed(AppRoutes.refereeInfoScreen, arguments: args);
         } else if (selectRole.toUpperCase() == 'OTHER_CLUBS') {
-          Get.offAllNamed(AppRoutes.trialRegistrationScreen);
+          Get.offAllNamed(AppRoutes.trialRegistrationScreen, arguments: args);
         } else {
           Get.offAllNamed(AppRoutes.signIn);
         }

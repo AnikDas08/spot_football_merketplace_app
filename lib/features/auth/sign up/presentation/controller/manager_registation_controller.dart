@@ -8,6 +8,7 @@ import 'package:untitled/services/api/api_client.dart';
 import 'package:untitled/services/api/api_service.dart';
 import 'package:untitled/services/api/multipart_helper.dart';
 import 'package:untitled/utils/app_snackbar.dart';
+import '../../../../../../services/storage/storage_keys.dart';
 import '../../../../../../services/storage/storage_services.dart';
 
 class ManagerRegistationController extends GetxController {
@@ -130,9 +131,17 @@ class ManagerRegistationController extends GetxController {
         ));
       }
 
+      final String? token = Get.arguments?['token'];
+      final Map<String, String> headers = {};
+      if (token != null) {
+        headers['Authorization'] = 'Bearer $token';
+      } else if (LocalStorage.token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer ${LocalStorage.token}';
+      }
+
       final response = await apiClient.multipart(
         url: ApiEndPoint.managerProfile,
-        headers: {'Authorization': LocalStorage.token},
+        headers: headers,
         body: body,
         files: files,
         onSendProgress: (sent, total) {
@@ -145,7 +154,19 @@ class ManagerRegistationController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         AppSnackbar.success(title: 'Success', message: response.message);
-        Get.toNamed(AppRoutes.managerSubscriptionScreen);
+        
+        // Update local status so app knows info is submitted
+        await LocalStorage.setString(LocalStorageKeys.profileStatus, "PENDING");
+        
+        // After submitting additional info, check payment status
+        if (!LocalStorage.paymentStatus) {
+          Get.offAllNamed(AppRoutes.mySubscription, arguments: {
+            'isFromRegistration': true,
+            'token': token,
+          });
+        } else {
+          Get.offAllNamed(AppRoutes.successfulCreateAccount);
+        }
       }
       else {
         final String errorMessage = response.message;

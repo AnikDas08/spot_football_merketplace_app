@@ -10,20 +10,32 @@ class PlayerResponse {
   });
 
   factory PlayerResponse.fromJson(Map<String, dynamic> json) {
+    List<PlayerModel> players = [];
+    
+    if (json['data'] != null) {
+      if (json['data'] is List) {
+        players = List<PlayerModel>.from(
+            json['data'].map((x) => PlayerModel.fromJson(x)));
+      } else if (json['data'] is Map && json['data']['data'] != null) {
+        players = List<PlayerModel>.from(
+            json['data']['data'].map((x) => PlayerModel.fromJson(x)));
+      }
+    }
+
     return PlayerResponse(
       success: json['success'] ?? false,
       message: json['message'] ?? '',
-      data: json['data'] != null
-          ? List<PlayerModel>.from(
-              json['data'].map((x) => PlayerModel.fromJson(x)))
-          : [],
+      data: players,
     );
   }
 }
 
 class PlayerModel {
   final String id;
+  final String? userId;
   final String userName;
+  final String? firstName;
+  final String? lastName;
   final String role;
   final String email;
   final String? profile;
@@ -32,7 +44,10 @@ class PlayerModel {
 
   PlayerModel({
     required this.id,
+    this.userId,
     required this.userName,
+    this.firstName,
+    this.lastName,
     required this.role,
     required this.email,
     this.profile,
@@ -43,7 +58,10 @@ class PlayerModel {
   factory PlayerModel.fromJson(Map<String, dynamic> json) {
     return PlayerModel(
       id: json['_id'] ?? '',
+      userId: json['userId'],
       userName: json['userName'] ?? '',
+      firstName: json['firstName'],
+      lastName: json['lastName'],
       role: json['role'] ?? '',
       email: json['email'] ?? '',
       profile: json['profile'],

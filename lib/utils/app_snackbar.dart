@@ -8,19 +8,21 @@ class AppSnackbar {
 
   static void success({required String title, required String message}) {
     _showSnackbar(
-      title: kDebugMode ? title : 'Success',
+      title: title,
       message: message,
       backgroundColor: AppColors.black,
-      position: .BOTTOM,
+      position: SnackPosition.BOTTOM,
+      icon: const Icon(Icons.check_circle, color: Color(0xFF19CA77), size: 24),
     );
   }
 
   static void error({String? title, required String message}) {
     _showSnackbar(
-      title: kDebugMode ? (title ?? 'Error') : 'Oops',
+      title: title ?? 'Error',
       message: message,
-      backgroundColor: AppColors.red,
-      position: .TOP,
+      backgroundColor: AppColors.black,
+      position: SnackPosition.TOP,
+      icon: const Icon(Icons.error, color: Color(0xFFEF5350), size: 24),
     );
   }
 
@@ -29,15 +31,27 @@ class AppSnackbar {
     required String message,
     required Color backgroundColor,
     required SnackPosition position,
+    Widget? icon,
   }) {
-    Get.snackbar(
-      title,
-      message,
-      colorText: AppColors.white,
-      backgroundColor: backgroundColor,
+    Get.rawSnackbar(
+      titleText: Text(
+        title,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      messageText: Text(
+        message,
+        style: const TextStyle(color: Colors.white70, fontSize: 14),
+      ),
       snackPosition: position,
-      margin: const .all(12),
-      borderRadius: 8,
+      backgroundColor: backgroundColor.withValues(alpha: 0.95),
+      margin: const EdgeInsets.all(16),
+      borderRadius: 12,
+      icon: icon,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      duration: const Duration(seconds: 3),
+      barBlur: 10,
+      isDismissible: true,
+      leftBarIndicatorColor: icon != null ? (icon as Icon).color : null,
     );
   }
 }

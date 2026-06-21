@@ -27,7 +27,9 @@ class LeaguePreviewController extends GetxController {
 
       if (response.statusCode == 200) {
         final pointTableResponse = PointTableResponse.fromJson(response.data);
-        pointTable = pointTableResponse.data;
+        pointTable = pointTableResponse.data.isNotEmpty
+            ? pointTableResponse.data[0].standings
+            : [];
         pointTableMessage = pointTableResponse.message;
       }
     } catch (e) {

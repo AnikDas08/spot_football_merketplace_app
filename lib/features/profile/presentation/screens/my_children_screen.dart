@@ -4,9 +4,13 @@ import 'package:get/get.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/route/app_routes.dart';
+import 'package:untitled/features/profile/presentation/controller/profile_controller.dart';
+import 'package:untitled/services/storage/storage_services.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
+
+import '../../../../component/image/common_image.dart';
 
 class MyChildrenScreen extends StatelessWidget {
   const MyChildrenScreen({super.key});
@@ -16,15 +20,37 @@ class MyChildrenScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: const SecondaryAppBar(title: AppString.myPlayer),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-        child: Column(
-          children: [
-            _buildActiveAthletesHeader(),
-            SizedBox(height: 24.h),
-            _buildChildCard(),
-          ],
-        ),
+      body: GetBuilder<ProfileController>(
+        builder: (controller) {
+          if (controller.isProfileLoading) {
+            return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+          }
+
+          final data = controller.profileData;
+          final String firstName = controller.firstNameController.text;
+          final String lastName = controller.lastNameController.text;
+          final String fullName = "$firstName $lastName".trim();
+          final String imageUrl = data['profile'] ?? "";
+          final String clubName = controller.teamController.text;
+          final String position = controller.positionController.text;
+
+          return SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            child: Column(
+              children: [
+                _buildActiveAthletesHeader(),
+                SizedBox(height: 24.h),
+                _buildChildCard(
+                  userId: data['userId'] ?? LocalStorage.userId,
+                  name: fullName.isEmpty ? (data['userName'] ?? "Player") : fullName,
+                  image: imageUrl,
+                  club: clubName.isEmpty ? "No Club" : clubName,
+                  position: position.isEmpty ? "N/A" : position,
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -60,7 +86,13 @@ class MyChildrenScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildChildCard() {
+  Widget _buildChildCard({
+    required String userId,
+    required String name,
+    required String image,
+    required String club,
+    required String position,
+  }) {
     return Container(
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
@@ -73,7 +105,15 @@ class MyChildrenScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 35.r,
-                backgroundImage: const AssetImage(TempImage.profile),
+                backgroundColor: Colors.grey.shade200,
+                child: ClipOval(
+                  child: CommonImage(
+                    imageSrc: image.isEmpty ? TempImage.profile : image,
+                    width: 70.r,
+                    height: 70.r,
+                    fill: BoxFit.cover,
+                  ),
+                ),
               ),
               SizedBox(width: 16.w),
               Expanded(
@@ -81,7 +121,7 @@ class MyChildrenScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CommonText(
-                      text: "Emerson Royal",
+                      text: name,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w700,
                       color: AppColors.black,
@@ -89,9 +129,9 @@ class MyChildrenScreen extends StatelessWidget {
                     SizedBox(height: 8.h),
                     Row(
                       children: [
-                        _buildBadge("John Doe"),
+                        _buildBadge(position),
                         SizedBox(width: 8.w),
-                        _buildBadge("Tigers FC", isTeam: true),
+                        _buildBadge(club, isTeam: true),
                       ],
                     ),
                   ],
@@ -119,7 +159,7 @@ class MyChildrenScreen extends StatelessWidget {
                       color: AppColors.textSecondaryColor,
                     ),
                     CommonText(
-                      text: "Sat, 10:00 AM",
+                      text: "TBA",
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.primaryColor,
@@ -127,7 +167,12 @@ class MyChildrenScreen extends StatelessWidget {
                   ],
                 ),
                 InkWell(
-                  onTap: () => Get.toNamed(AppRoutes.myProfile),
+                  onTap: () {
+                    Get.toNamed(AppRoutes.playerProfile, arguments: {
+                      'userId': userId,
+                      'isFromMyChildren': true,
+                    });
+                  },
                   child: Row(
                     children: [
                       CommonText(

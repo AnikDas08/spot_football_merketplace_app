@@ -58,6 +58,14 @@ class VerifyPlayerScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 24.h),
 
+                  CommonTextField(
+                    title: "Phone Number",
+                    controller: controller.phoneController,
+                    hintText: 'Enter your phone number here...',
+                    keyboardType: TextInputType.phone,
+                  ),
+                  SizedBox(height: 24.h),
+
                   Row(
                     children: [
                       Expanded(

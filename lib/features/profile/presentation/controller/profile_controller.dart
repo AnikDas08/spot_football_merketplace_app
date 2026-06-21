@@ -18,6 +18,8 @@ class ProfileController extends GetxController {
   String? image;
   bool isLoading = false;
   bool isProfileLoading = false;
+  double uploadProgress = 0.0;
+  bool isUploadingImage = false;
 
   /// Profile Data
   var profileData = {}.obs;
@@ -58,44 +60,116 @@ class ProfileController extends GetxController {
       isProfileLoading = true;
       update();
 
-      final response = await apiClient.get(
-        ApiEndPoint.profile, // Assuming ApiEndPoint.profile is "/user/profile"
+      // 1. Fetch Generic Profile
+      final genericResponse = await apiClient.get(
+        ApiEndPoint.profile,
         headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
       );
 
-      if (response.statusCode == 200) {
-        final data = response.data['data'];
-        profileData.value = data;
+      if (genericResponse.statusCode == 200) {
+        final genericData = genericResponse.data['data'];
+        
+        // Populate display name immediately from generic data fallback to prevent flicker
+        String fallbackName = genericData['userName'] ?? "";
+        String initialFirstName = genericData['firstName'] ?? (fallbackName.isNotEmpty ? fallbackName.split(' ').first : "");
+        String initialLastName = genericData['lastName'] ?? (fallbackName.contains(' ') ? fallbackName.split(' ').last : "");
+        
+        firstNameController.text = initialFirstName;
+        lastNameController.text = initialLastName;
+        
+        String fullName = "$initialFirstName $initialLastName".trim();
+        if (fullName.isEmpty) fullName = fallbackName;
+        
+        genericData['fullName'] = fullName;
+        profileData.value = genericData;
+        await LocalStorage.setString(LocalStorageKeys.myName, fullName);
 
-        // Populate controllers
-        firstNameController.text = data['firstName'] ?? data['userName']?.split(' ').first ?? "";
-        lastNameController.text = data['lastName'] ?? (data['userName']?.contains(' ') == true ? data['userName']?.split(' ').last : "") ?? "";
-        emailController.text = data['email'] ?? "";
-        phoneController.text = data['phone'] ?? "";
-        dobController.text = data['dateOfBirth'] != null ? data['dateOfBirth'].toString().split('T')[0] : "";
+        // Basic Info
+        emailController.text = genericData['email'] ?? "";
+        await LocalStorage.setString(LocalStorageKeys.myEmail, genericData['email'] ?? "");
+        await LocalStorage.setString(LocalStorageKeys.myImage, genericData['profile'] ?? "");
+        await LocalStorage.setString(LocalStorageKeys.role, genericData['role'] ?? "");
+        await LocalStorage.setString(LocalStorageKeys.userId, genericData['_id'] ?? "");
+        String status = genericData['profileStatus'] ?? "";
+        await LocalStorage.setString(LocalStorageKeys.profileStatus, status);
+
+        // 2. Fetch Role Specific Profile
+        final role = (genericData['role'] ?? "").toString().toUpperCase();
+        String? roleEndpoint;
+        if (role == 'PLAYER') roleEndpoint = ApiEndPoint.playerProfile;
+        else if (role == 'MANAGER') roleEndpoint = ApiEndPoint.managerProfile;
+        else if (role == 'REFEREE') roleEndpoint = ApiEndPoint.refereeProfile;
+        else if (role == 'OTHER_CLUBS' || role == 'TRIAL') roleEndpoint = ApiEndPoint.trialProfile;
+
+        if (roleEndpoint != null) {
+          final roleResponse = await apiClient.get(
+            roleEndpoint,
+            headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+          );
+
+          if (roleResponse.statusCode == 200) {
+            final roleData = roleResponse.data['data'];
+            debugPrint("📊 Fetched Specific Profile Data: $roleData");
+            
+            // Merge or override with specific data
+            firstNameController.text = roleData['firstName'] ?? genericData['userName']?.split(' ').first ?? "";
+            lastNameController.text = roleData['lastName'] ?? (genericData['userName']?.contains(' ') == true ? genericData['userName']?.split(' ').last : "") ?? "";
+            phoneController.text = roleData['phone'] ?? "";
+            dobController.text = roleData['dateOfBirth'] != null ? roleData['dateOfBirth'].toString().split('T')[0] : "";
+            
+            // Team Handling - check multiple possible fields
+            if (roleData['selectTeam'] is Map) {
+              selectedTeam = roleData['selectTeam']['id'] ?? roleData['selectTeam']['_id'];
+              teamController.text = roleData['selectTeam']['teamName'] ?? "";
+            } else {
+              selectedTeam = roleData['selectTeam'] ?? roleData['teamId'] ?? roleData['selectGroup'];
+              teamController.text = roleData['selectTeam'] ?? roleData['selectGroup'] ?? "";
+            }
+
+            debugPrint("📌 Identified Team ID: $selectedTeam");
+
+            if (selectedTeam != null && selectedTeam!.isNotEmpty) {
+              await LocalStorage.setString(LocalStorageKeys.teamId, selectedTeam!);
+            }
+
+            selectedPosition = roleData['position'];
+            selectedAgeGroup = roleData['ageGroup'];
+
+            // Update profileStatus from specific role data (often 'status' field)
+            String specificStatus = roleData['status'] ?? "";
+            if (specificStatus.isNotEmpty) {
+              await LocalStorage.setString(LocalStorageKeys.profileStatus, specificStatus);
+            }
+
+            // Update display name again with specific data
+            String updatedFullName = "${firstNameController.text} ${lastNameController.text}".trim();
+            if (updatedFullName.isNotEmpty) {
+              genericData['fullName'] = updatedFullName;
+              profileData.value = genericData;
+              profileData.refresh();
+              await LocalStorage.setString(LocalStorageKeys.myName, updatedFullName);
+            }
+
+            // Update controllers
+            ageGroupController.text = roleData['ageGroup'] ?? "";
+            positionController.text = roleData['position'] ?? "";
+          }
+        } else {
+          // Fallback if no specific role profile exists yet
+          firstNameController.text = genericData['userName']?.split(' ').first ?? "";
+          lastNameController.text = (genericData['userName']?.contains(' ') == true ? genericData['userName']?.split(' ').last : "") ?? "";
+        }
+
+        await LocalStorage.setString(LocalStorageKeys.myName, "${firstNameController.text} ${lastNameController.text}");
         
-        // Populate dropdown selections
-        selectedAgeGroup = data['ageGroup'];
-        selectedTeam = data['selectTeam'] ?? data['selectGroup'] ?? data['teamId'];
-        selectedPosition = data['position'];
-        
-        // Update controllers just in case they are used as fallbacks or for non-dropdown display
-        ageGroupController.text = data['ageGroup'] ?? "";
-        teamController.text = data['selectTeam'] ?? data['selectGroup'] ?? "";
-        positionController.text = data['position'] ?? "";
+        // Update profileData with formatted name to prevent drawer flicker
+        profileData['fullName'] = "${firstNameController.text} ${lastNameController.text}";
+        profileData.refresh();
 
         // Fetch teams if role requires it
-        final role = (data['role'] ?? "").toString().toUpperCase();
         if (role == 'PLAYER' || role == 'MANAGER' || role == 'OTHER_CLUBS' || role == 'TRIAL') {
           fetchTeams();
         }
-
-        // Save basic info to LocalStorage
-        await LocalStorage.setString(LocalStorageKeys.myName, "${firstNameController.text} ${lastNameController.text}");
-        await LocalStorage.setString(LocalStorageKeys.myEmail, data['email'] ?? "");
-        await LocalStorage.setString(LocalStorageKeys.myImage, data['profile'] ?? "");
-        await LocalStorage.setString(LocalStorageKeys.role, data['role'] ?? "");
-        await LocalStorage.setString(LocalStorageKeys.userId, data['_id'] ?? "");
       }
     } catch (e) {
       debugPrint("Error fetching profile: $e");
@@ -105,10 +179,62 @@ class ProfileController extends GetxController {
     }
   }
 
-  /// Pick profile image
+  /// Pick and Upload profile image immediately
   Future<void> getProfileImage() async {
-    image = await OtherHelper.pickImage();
-    update();
+    final pickedPath = await OtherHelper.pickImage();
+    if (pickedPath == null) return;
+
+    try {
+      isUploadingImage = true;
+      uploadProgress = 0.0;
+      update();
+      
+      final files = [MultipartFileItem(fileName: 'image', filePath: pickedPath)];
+      
+      final response = await apiClient.multipart(
+        url: ApiEndPoint.signUp, // This is /user/ as per your config
+        body: {},
+        files: files,
+        method: 'PATCH',
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+        onSendProgress: (sent, total) {
+          if (total > 0) {
+            uploadProgress = sent / total;
+            update();
+          }
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final newData = response.data['data'];
+        final newImageUrl = newData['profile'] ?? "";
+        
+        // Ensure image URL is handled by CommonImage logic (will prepend baseUrl if needed)
+        await LocalStorage.setString(LocalStorageKeys.myImage, newImageUrl);
+        
+        // Update local state immediately for this screen
+        image = pickedPath; 
+
+        // Update profileData object for global listeners (Drawer, etc)
+        profileData['profile'] = newImageUrl;
+        profileData.refresh();
+        
+        update();
+        
+        AppSnackbar.success(
+          title: 'Success',
+          message: 'Profile image updated successfully',
+        );
+      } else {
+        throw Exception(response.message);
+      }
+    } catch (e) {
+      AppSnackbar.error(title: 'Upload Failed', message: e.toString());
+    } finally {
+      isUploadingImage = false;
+      uploadProgress = 0.0;
+      update();
+    }
   }
 
   /// Select language

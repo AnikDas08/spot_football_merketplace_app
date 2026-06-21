@@ -23,6 +23,7 @@ class MatchResponse {
 
 class MatchModel {
   final String id;
+  final String? league;
   final TeamModel homeTeam;
   final TeamModel awayTeam;
   final DateTime? matchDate;
@@ -45,12 +46,13 @@ class MatchModel {
     required this.status,
     required this.homeScore,
     required this.awayScore,
-    this.notes,
+    this.notes, this.league,
   });
 
   factory MatchModel.fromJson(Map<String, dynamic> json) {
     return MatchModel(
       id: json['_id'] ?? '',
+      league: json['league'] is String ? json['league'] : json['league']?['_id'],
       homeTeam: TeamModel.fromJson(json['homeTeam'] ?? {}),
       awayTeam: TeamModel.fromJson(json['awayTeam'] ?? {}),
       matchDate: json['matchDate'] != null ? DateTime.parse(json['matchDate']) : null,

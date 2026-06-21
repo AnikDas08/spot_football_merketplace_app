@@ -16,34 +16,48 @@ class LeaguePreview extends StatelessWidget {
   final bool isSeeAll;
   final List<PointTableModel> standings;
   final bool isLoading;
+  final String? leagueName;
+  final String? season;
+  final bool showHeader;
 
   const LeaguePreview({
     super.key,
     this.isSeeAll = false,
     required this.standings,
     this.isLoading = false,
+    this.leagueName,
+    this.season,
+    this.showHeader = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (!isLoading && standings.isEmpty) return const SizedBox.shrink();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (!isSeeAll)
+          if (!isSeeAll && showHeader)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CommonText(
-                  text: AppString.leaguePreview.toUpperCase(),
-                  fontWeight: const FontWeight(600),
-                  fontSize: 20.sp,
+                Expanded(
+                  child: CommonText(
+                    text: AppString.leaguePreview.toUpperCase(),
+                    fontWeight: const FontWeight(600),
+                    fontSize: 20.sp,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 InkWell(
                   onTap: () {
                     Get.toNamed(AppRoutes.leaguePreview);
                   },
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       CommonText(
                         text: AppString.viewAll,
@@ -58,7 +72,17 @@ class LeaguePreview extends StatelessWidget {
                 ),
               ],
             ),
-          if (!isSeeAll) SizedBox(height: 12.h),
+          if (leagueName != null) ...[
+            if (showHeader) SizedBox(height: 8.h),
+            CommonText(
+              text: '$leagueName ${season ?? ""}',
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.color6B6B6B,
+            ),
+          ],
+          if (!isSeeAll && showHeader) SizedBox(height: 12.h),
+          if (!showHeader) SizedBox(height: 8.h),
           if (isLoading)
             CustomShimmer.rectangular(height: 200.h)
           else
@@ -179,73 +203,78 @@ class _StandingRow extends StatelessWidget {
         ? '+${item.goalDifference}'
         : '${item.goalDifference}';
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 30.w,
-            child: CommonText(
-              text: '$position.',
-              fontSize: 16.sp,
-              fontWeight: const FontWeight(510),
-              color: AppColors.primaryColor,
+    return InkWell(
+      onTap: () {
+        Get.toNamed(AppRoutes.clubProfileScreen, arguments: item.team.id);
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 30.w,
+              child: CommonText(
+                text: '$position.',
+                fontSize: 16.sp,
+                fontWeight: const FontWeight(510),
+                color: AppColors.primaryColor,
+              ),
             ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                CommonImage(
-                  imageSrc: item.team.teamLogo ?? '',
-                  width: 20.w,
-                  height: 20.h,
-                  fill: BoxFit.contain,
-                ),
-                SizedBox(width: 8.w),
-                Expanded(
-                  child: CommonText(
-                    text: item.team.teamName,
-                    fontSize: 14.sp,
-                    fontWeight: const FontWeight(510),
-                    color: AppColors.primaryColor,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+            Expanded(
+              child: Row(
+                children: [
+                  CommonImage(
+                    imageSrc: item.team.teamLogo ?? '',
+                    width: 20.w,
+                    height: 20.h,
+                    fill: BoxFit.contain,
                   ),
-                ),
-              ],
+                  SizedBox(width: 8.w),
+                  Expanded(
+                    child: CommonText(
+                      text: item.team.teamName,
+                      fontSize: 14.sp,
+                      fontWeight: const FontWeight(510),
+                      color: AppColors.primaryColor,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            width: 30.w,
-            child: CommonText(
-              text: '${item.played}',
-              fontSize: 16.sp,
-              fontWeight: const FontWeight(510),
-              color: AppColors.primaryColor,
-              textAlign: TextAlign.center,
+            SizedBox(
+              width: 30.w,
+              child: CommonText(
+                text: '${item.played}',
+                fontSize: 16.sp,
+                fontWeight: const FontWeight(510),
+                color: AppColors.primaryColor,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 36.w,
-            child: CommonText(
-              text: gdText,
-              fontSize: 16.sp,
-              fontWeight: const FontWeight(510),
-              color: AppColors.primaryColor,
-              textAlign: TextAlign.center,
+            SizedBox(
+              width: 36.w,
+              child: CommonText(
+                text: gdText,
+                fontSize: 16.sp,
+                fontWeight: const FontWeight(510),
+                color: AppColors.primaryColor,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 36.w,
-            child: CommonText(
-              text: '${item.points}',
-              fontSize: 16.sp,
-              fontWeight: const FontWeight(510),
-              color: AppColors.primaryColor,
-              textAlign: TextAlign.center,
+            SizedBox(
+              width: 36.w,
+              child: CommonText(
+                text: '${item.points}',
+                fontSize: 16.sp,
+                fontWeight: const FontWeight(510),
+                color: AppColors.primaryColor,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

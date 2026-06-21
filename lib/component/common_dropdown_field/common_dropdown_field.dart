@@ -55,6 +55,7 @@ class CommonDropdownField<T> extends StatelessWidget {
         ],
 
         DropdownButtonFormField<T>(
+          isExpanded: true,
           initialValue: value,
           items: items,
           onChanged: onChanged,

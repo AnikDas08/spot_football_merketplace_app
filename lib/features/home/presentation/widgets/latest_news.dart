@@ -5,6 +5,7 @@ import 'package:untitled/features/home/presentation/widgets/news_card.dart';
 import 'package:untitled/features/news/presentation/controller/news_controller.dart';
 
 
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_string.dart';
 
@@ -16,21 +17,17 @@ class LatestNews extends StatelessWidget {
     return GetBuilder<NewsController>(
       init: NewsController(),
       builder: (controller) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CommonText(
-                text: AppString.latestNews.toUpperCase(),
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 16.h),
-            Obx(() {
-              if (controller.isLoading.value && controller.newsList.isEmpty) {
-                return SizedBox(
+        return Obx(() {
+          if (controller.isLoading.value && controller.newsList.isEmpty) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: CustomShimmer.rectangular(height: 24.h, width: 150.w),
+                ),
+                SizedBox(height: 16.h),
+                SizedBox(
                   height: 248.h,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -46,17 +43,28 @@ class LatestNews extends StatelessWidget {
                       );
                     },
                   ),
-                );
-              }
-              
-              if (controller.newsList.isEmpty) {
-                return SizedBox(
-                  height: 248.h,
-                  child: const Center(child: CommonText(text: "No News Available")),
-                );
-              }
+                ),
+              ],
+            );
+          }
+          
+          if (controller.newsList.isEmpty) {
+            return const SizedBox.shrink();
+          }
 
-              return SizedBox(
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: CommonText(
+                  text: AppString.latestNews.toUpperCase(),
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(height: 16.h),
+              SizedBox(
                 height: 248.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -73,10 +81,10 @@ class LatestNews extends StatelessWidget {
                     );
                   },
                 ),
-              );
-            }),
-          ],
-        );
+              ),
+            ],
+          );
+        });
       },
     );
   }

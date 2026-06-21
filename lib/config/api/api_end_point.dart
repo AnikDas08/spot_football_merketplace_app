@@ -1,13 +1,15 @@
 class ApiEndPoint {
-  static const baseUrl = 'http://10.10.7.55:5005/api/v1';
-  static const imageUrl = 'http://10.10.7.55:5005';
-  static const videoUrl = 'http://10.10.7.55:5005';
+  // static const baseUrl = 'http://31.97.117.41:5005/api/v1';
+  static const baseUrl = 'http://10.10.26.208:5005/api/v1';
+  static const imageUrl = 'http://10.10.26.208:5005';
+  static const videoUrl = 'http://10.10.26.208:5005';
   static const socketUrl = 'http://103.145.138.74:3001';
 
   static const signUp = '/user/';
   static const playerProfile = '/user/player';
   static const managerProfile = '/user/manager';
   static const refereeProfile = '/user/referee';
+  static const refereeReport = '/referee';
   static const trialProfile = '/user/other-clubs';
   static const teams = '/team/';
   static const verifyEmail = '/auth/verify-email';
@@ -28,7 +30,20 @@ class ApiEndPoint {
   static const rewardProducts = '/reward-products';
   static const event = '/event/';
   static const transfersAvailable = '/transfers/available';
+  static const transfers = '/transfers';
+  static const myRequests = '/transfers/my-requests';
+  static const managerRequests = '/transfers/manager-requests';
+  static const managerUpcomingMatches = '/match/manager-upcoming-matches';
+  static const playerDashboard = '/player-dashboard/';
+  static const playerDetails = '/user/player-details/';
   static const match = '/match';
+  static const myMatches = '/match/my-matches';
+  static const toggleMatchStatus = '/match/toggle-status/';
+  static const playerSelection = '/player-selection/';
+  static const playerSelectionFilter = '/player-selection/filter';
   static const pointTable = '/point-table';
+  static const matchResult = '/match-result/';
+  static const teamDashboard = '/team-dashboard/';
   static const video = '/video';
+  static const packages = '/package';
 }

@@ -35,75 +35,81 @@ class TransferScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-                      child: CommonText(
-                        text: AppString.trending.toUpperCase(),
-                        color: AppColors.primaryColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                    //   child: CommonText(
+                    //     text: AppString.trending.toUpperCase(),
+                    //     color: AppColors.primaryColor,
+                    //     fontSize: 20.sp,
+                    //     fontWeight: FontWeight.w600,
+                    //   ),
+                    // ),
                     SizedBox(height: 20.h),
-                    SizedBox(
-                      height: 200.h,
-                      child: ListView.builder(
+                    // SizedBox(
+                    //   height: 200.h,
+                    //   child: ListView.builder(
+                    //     padding: const EdgeInsets.symmetric(horizontal: 16),
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemCount: controller.playerList.length,
+                    //     itemBuilder: (context, index) {
+                    //       final player = controller.playerList[index];
+                    //       return Padding(
+                    //         padding: EdgeInsets.only(right: 12.w),
+                    //         child: PlayerCard(
+                    //           imageUrl: player.profile ?? '',
+                    //           status: player.verified ? 'VERIFIED' : 'PENDING',
+                    //           position: player.role,
+                    //           age: 22,
+                    //           playerName: player.userName,
+                    //           academyName: 'ENG ACADEMY',
+                    //           price: '8400',
+                    //           onTap: () {
+                    //             Get.toNamed(AppRoutes.playerProfileDetailsScreen);
+                    //           },
+                    //         ),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
+                    // SizedBox(height: 32.h),
+                    if (controller.isLoading.value || controller.playerList.isNotEmpty) ...[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, right: 16, top: 0),
+                        child: CommonText(
+                          text: AppString.recentOffers.toUpperCase(),
+                          color: AppColors.primaryColor,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 16.h),
+                      ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        scrollDirection: Axis.horizontal,
                         itemCount: controller.playerList.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           final player = controller.playerList[index];
+                          final fullName = (player.firstName != null || player.lastName != null)
+                              ? "${player.firstName ?? ""} ${player.lastName ?? ""}".trim()
+                              : player.userName;
                           return Padding(
-                            padding: EdgeInsets.only(right: 12.w),
-                            child: PlayerCard(
-                              imageUrl: player.profile ?? '',
-                              status: player.verified ? 'VERIFIED' : 'PENDING',
-                              position: player.role,
-                              age: 22,
-                              playerName: player.userName,
-                              academyName: 'ENG ACADEMY',
-                              price: '8400',
-                              onTap: () {
-                                Get.toNamed(AppRoutes.playerProfileDetailsScreen);
+                            padding: EdgeInsets.only(bottom: 16.h),
+                            child: TrialOfferCard(
+                              playerImageUrl: player.profile ?? '',
+                              title: fullName,
+                              // matchPercentage: '92%',
+                              description:
+                                  'Personal terms agreed. Medical scheduled for final test',
+                              onOfferTap: () {
+                                Get.toNamed(AppRoutes.playerProfile,
+                                    arguments: player.userId ?? player.id);
                               },
                             ),
                           );
                         },
                       ),
-                    ),
-                    SizedBox(height: 32.h),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, top: 0),
-                      child: CommonText(
-                        text: AppString.recentOffers.toUpperCase(),
-                        color: AppColors.primaryColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                    ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: controller.playerList.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final player = controller.playerList[index];
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 16.h),
-                          child: TrialOfferCard(
-                            playerImageUrl: player.profile ?? '',
-                            title: player.userName,
-                            // matchPercentage: '92%',
-                            description:
-                                'Available for transfer. Role: ${player.role.toLowerCase()}',
-                            onOfferTap: () {
-                              Get.toNamed(AppRoutes.playerProfileDetailsScreen);
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                    ],
                   ],
                 ),
               ),

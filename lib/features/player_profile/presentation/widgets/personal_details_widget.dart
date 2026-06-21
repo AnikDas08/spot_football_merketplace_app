@@ -5,10 +5,22 @@ import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
 
 class PersonalDetailsWidget extends StatelessWidget {
-  const PersonalDetailsWidget({super.key});
+  final Map<String, dynamic>? playerData;
+
+  const PersonalDetailsWidget({super.key, this.playerData});
 
   @override
   Widget build(BuildContext context) {
+    if (playerData == null) return const SizedBox.shrink();
+
+    final selectTeam = playerData!['selectTeam'];
+    String clubName = 'N/A';
+    if (selectTeam is Map) {
+      clubName = selectTeam['teamName'] ?? 'N/A';
+    } else if (selectTeam is String) {
+      clubName = selectTeam;
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       padding: EdgeInsets.all(16.w),
@@ -20,27 +32,42 @@ class PersonalDetailsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: .spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonText(
                 text: 'PERSONAL DETAILS',
                 fontSize: 20.sp,
-                fontWeight: FontWeight(590),
+                fontWeight: const FontWeight(590),
                 color: AppColors.primaryColor,
               ),
-              Image.asset(AppImages.approved, width: 54.w, height: 32.h),
+              if (playerData!['status'] == 'APPROVED')
+                Image.asset(AppImages.approved, width: 54.w, height: 32.h),
             ],
           ),
           SizedBox(height: 16.h),
-          _item('Nationality', 'Italy'),
-          _item('Club', 'TITANS FC'),
-          _item('Position', 'Forward'),
-          _item('ENG Debut', '7 August 2025'),
-          _item('ENG Coins', '100000'),
-          _item('Market Value', "1000 million"),
+          _item('Nationality', playerData!['country'] ?? 'N/A'),
+          _item('Club', clubName),
+          _item('Position', playerData!['position'] ?? 'N/A'),
+          _item('ENG Debut', _formatDate(playerData!['createdAt'])),
+          _item('Strong Foot', playerData!['strongFoot'] ?? 'N/A'),
+          // _item('Market Value', "N/A"),
         ],
       ),
     );
+  }
+
+  String _formatDate(String? dateStr) {
+    if (dateStr == null) return 'N/A';
+    try {
+      final date = DateTime.parse(dateStr);
+      final months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+      return "${date.day} ${months[date.month - 1]} ${date.year}";
+    } catch (e) {
+      return dateStr;
+    }
   }
 
   Widget _item(String title, String value) {
@@ -52,31 +79,16 @@ class PersonalDetailsWidget extends StatelessWidget {
             child: CommonText(
               text: title,
               fontSize: 15.sp,
-              fontWeight: FontWeight(510),
+              fontWeight: const FontWeight(510),
               color: AppColors.color373737,
               textAlign: TextAlign.start,
             ),
           ),
-          Row(
-            mainAxisAlignment: .spaceBetween,
-            spacing: 5,
-            children: [
-              if (title == 'ENG Coins') ...[
-                SizedBox(
-                  width: 20.w,
-                  height: 20.w,
-                  child: Image.asset(AppImages.coin),
-                ),
-              ] else ...[
-                SizedBox(width: 0, height: 0),
-              ],
-              CommonText(
-                text: value,
-                fontSize: 15.sp,
-                fontWeight: FontWeight(510),
-                color: AppColors.primaryColor,
-              ),
-            ],
+          CommonText(
+            text: value,
+            fontSize: 15.sp,
+            fontWeight: const FontWeight(510),
+            color: AppColors.primaryColor,
           ),
         ],
       ),

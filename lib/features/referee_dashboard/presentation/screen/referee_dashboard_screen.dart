@@ -7,6 +7,10 @@ import 'package:untitled/services/storage/storage_services.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 import 'package:untitled/utils/extensions/extension.dart';
+import 'package:intl/intl.dart';
+import '../../../../component/image/common_image.dart';
+import '../../../home/data/match_model.dart';
+import '../controller/referee_dashboard_controller.dart';
 
 class RefereeDashboardScreen extends StatefulWidget {
   const RefereeDashboardScreen({super.key});
@@ -17,45 +21,83 @@ class RefereeDashboardScreen extends StatefulWidget {
 
 class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
   int activeTabIndex = 0;
+  final controller = Get.put(RefereeDashboardController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      body: Column(
-        children: [
-          _buildProfileHeader(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildTabRow(),
-                    SizedBox(height: 20.h),
-                    if (activeTabIndex == 0) ...[
-                      _buildMatchCard(isLive: true),
-                      SizedBox(height: 16.h),
-                      _buildMatchCard(isLive: false),
-                      SizedBox(height: 16.h),
-                      _buildMatchCard(isLive: false),
-                    ] else if (activeTabIndex == 1) ...[
-                      const Center(
-                        child: CommonText(text: 'No Upcoming Matches'),
-                      ),
-                    ] else ...[
-                      const Center(
-                        child: CommonText(text: 'No History Available'),
-                      ),
-                    ],
-                  ],
+      body: Obx(() {
+        if (controller.isLoading.value && controller.allMatches.isEmpty) {
+          return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+        }
+
+        return Column(
+          children: [
+            _buildProfileHeader(),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () => controller.fetchMyMatches(),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildTabRow(),
+                        SizedBox(height: 20.h),
+                        _buildMatchList(),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
+          ],
+        );
+      }),
+    );
+  }
+
+  Widget _buildMatchList() {
+    List<MatchModel> currentMatches = [];
+    if (activeTabIndex == 0) {
+      currentMatches = controller.allMatches;
+    } else if (activeTabIndex == 1) currentMatches = controller.todayMatches;
+    else if (activeTabIndex == 2) currentMatches = controller.upcomingMatches;
+    else currentMatches = controller.historyMatches;
+
+    if (currentMatches.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.only(top: 50.h),
+          child: CommonText(
+            text: activeTabIndex == 0 
+                ? 'No Matches Found'
+                : activeTabIndex == 1 
+                    ? 'No Matches Today' 
+                    : activeTabIndex == 2 
+                        ? 'No Upcoming Matches' 
+                        : 'No History Available',
+            fontSize: 16.sp,
+            color: Colors.grey,
           ),
-        ],
-      ),
+        ),
+      );
+    }
+
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: currentMatches.length,
+      itemBuilder: (context, index) {
+        final match = currentMatches[index];
+        return Padding(
+          padding: EdgeInsets.only(bottom: 16.h),
+          child: _buildMatchCard(match),
+        );
+      },
     );
   }
 
@@ -85,7 +127,15 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
               10.width,
               CircleAvatar(
                 radius: 24.r,
-                backgroundImage: const AssetImage(TempImage.profile),
+                backgroundColor: Colors.white,
+                child: ClipOval(
+                  child: CommonImage(
+                    imageSrc: LocalStorage.myImage,
+                    width: 48.r,
+                    height: 48.r,
+                    fill: BoxFit.cover,
+                  ),
+                ),
               ),
               SizedBox(width: 12.w),
               Expanded(
@@ -114,9 +164,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
           SizedBox(height: 24.h),
           Row(
             children: [
-              Expanded(child: _buildStatCard('5', 'Matches Today')),
+              Expanded(child: _buildStatCard('${controller.todayMatches.length}', 'Matches Today')),
               SizedBox(width: 16.w),
-              Expanded(child: _buildStatCard('42', 'Total Officiated')),
+              Expanded(child: _buildStatCard('${controller.historyMatches.length}', 'Total Officiated')),
             ],
           ),
         ],
@@ -156,11 +206,13 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _buildTab('Today\'s Matches', 0),
+          _buildTab('All', 0),
           SizedBox(width: 12.w),
-          _buildTab('Upcoming', 1),
+          _buildTab('Today\'s Matches', 1),
           SizedBox(width: 12.w),
-          _buildTab('History', 2),
+          _buildTab('Upcoming', 2),
+          SizedBox(width: 12.w),
+          _buildTab('History', 3),
         ],
       ),
     );
@@ -190,7 +242,10 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
     );
   }
 
-  Widget _buildMatchCard({required bool isLive}) {
+  Widget _buildMatchCard(MatchModel match) {
+    final bool isLive = match.status.toLowerCase() == 'live';
+    final String formattedTime = match.matchDate != null ? DateFormat('hh:mm a').format(match.matchDate!) : 'TBA';
+
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -243,14 +298,14 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildTeamInfo(TempImage.arsenalFlag, 'TITANS FC'),
+                    _buildTeamInfo(match.homeTeam.teamLogo, match.homeTeam.teamName),
                     const CommonText(
                       text: 'VS',
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFF9E9E9E),
                     ),
-                    _buildTeamInfo(TempImage.arsenalFlag, 'PHOENIX UTDS'),
+                    _buildTeamInfo(match.awayTeam.teamLogo, match.awayTeam.teamName),
                   ],
                 ),
                 SizedBox(height: 16.h),
@@ -265,44 +320,134 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                       _buildInfoRow(
                         Icons.watch_later_outlined,
                         'Time: ',
-                        '2:00 PM',
+                        formattedTime,
                       ),
                       SizedBox(height: 8.h),
                       _buildInfoRow(
                         Icons.location_on_outlined,
                         'Venue: ',
-                        'Main Ground',
+                        match.venueName,
                       ),
                     ],
                   ),
                 ),
                 SizedBox(height: 16.h),
-                SizedBox(
-                  width: double.infinity,
-                  height: 48.h,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (isLive) {
-                        Get.toNamed(AppRoutes.liveMatchControlScreen);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: isLive
-                          ? AppColors.black
-                          : const Color(0xFF19CA77),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r),
+                Obx(() {
+                  final bool isToggling = controller.togglingId.value == match.id;
+                  final String status = match.status.toLowerCase();
+
+                  if (status == 'finished') {
+                    return SizedBox(
+                      width: double.infinity,
+                      height: 48.h,
+                      child: OutlinedButton(
+                        onPressed: null,
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Colors.grey),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                        ),
+                        child: const CommonText(
+                          text: 'Match Finished',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey,
+                        ),
                       ),
-                      elevation: 0,
-                    ),
-                    child: CommonText(
-                      text: isLive ? 'Manage Match' : 'Start Match',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
+                    );
+                  }
+
+                  return Column(
+                    children: [
+                      if (status == 'upcoming')
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: isToggling
+                                ? null
+                                : () => controller.toggleMatchStatus(match.id),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF19CA77),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                              elevation: 0,
+                            ),
+                            child: isToggling
+                                ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                                : const CommonText(
+                                    text: 'Start Match',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.white,
+                                  ),
+                          ),
+                        ),
+                      if (status == 'live' || status == 'half_time')
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: () => Get.toNamed(AppRoutes.liveMatchControlScreen, arguments: match.id),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.black,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                              elevation: 0,
+                            ),
+                            child: const CommonText(
+                              text: 'Manage Match',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ),
+                      if (status == 'live') ...[
+                        SizedBox(height: 12.h),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: isToggling ? null : () => controller.toggleMatchStatus(match.id),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFFFD54F), // Yellow for Half Time
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                              elevation: 0,
+                            ),
+                            child: isToggling
+                                ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                                : const CommonText(
+                                    text: 'Half Time',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.black,
+                                  ),
+                          ),
+                        ),
+                      ] else if (status == 'half_time') ...[
+                        SizedBox(height: 12.h),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: isToggling ? null : () => controller.toggleMatchStatus(match.id),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFE53935), // Red for Full Time
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                              elevation: 0,
+                            ),
+                            child: isToggling
+                                ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                                : const CommonText(
+                                    text: 'Full Time',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.white,
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  );
+                }),
               ],
             ),
           ),
@@ -311,7 +456,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
     );
   }
 
-  Widget _buildTeamInfo(String logo, String name) {
+  Widget _buildTeamInfo(String? logo, String name) {
     return Column(
       children: [
         Container(
@@ -320,7 +465,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
             color: const Color(0xFFF5F5F5),
             borderRadius: BorderRadius.circular(12.r),
           ),
-          child: Image.asset(logo, width: 56.w, height: 56.h),
+          child: logo != null && logo.isNotEmpty
+              ? CommonImage(imageSrc: logo, width: 56.w, height: 56.h, fill: BoxFit.contain)
+              : Image.asset(TempImage.arsenalFlag, width: 56.w, height: 56.h),
         ),
         SizedBox(height: 8.h),
         SizedBox(

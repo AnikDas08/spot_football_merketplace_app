@@ -15,6 +15,14 @@ class LocalStorage {
   static String myEmail = "";
   static String role = "";
   static String plan = "";
+  static String profileStatus = "";
+  static String teamId = "";
+  static bool paymentStatus = false;
+
+  static bool get isUserApproved => profileStatus.toUpperCase() == "APPROVED";
+  static bool get isUserPending => profileStatus.toUpperCase() == "PENDING";
+  static bool get isUserIncomplete => profileStatus.toUpperCase() == "INCOMPLETE";
+  static bool get hasPaid => paymentStatus;
 
   // Create Local Storage Instance
   static SharedPreferences? preferences;
@@ -38,6 +46,9 @@ class LocalStorage {
     myEmail = localStorage.getString(LocalStorageKeys.myEmail) ?? "";
     role = localStorage.getString(LocalStorageKeys.role) ?? "";
     plan = localStorage.getString(LocalStorageKeys.plan) ?? "";
+    profileStatus = localStorage.getString(LocalStorageKeys.profileStatus) ?? "";
+    teamId = localStorage.getString(LocalStorageKeys.teamId) ?? "";
+    paymentStatus = localStorage.getBool(LocalStorageKeys.paymentStatus) ?? false;
 
     appLog(userId, source: "Local Storage");
   }
@@ -67,7 +78,6 @@ class LocalStorage {
     final localStorage = await _getStorage();
     await localStorage.clear();
     _resetLocalStorageData();
-    Get.offAllNamed(AppRoutes.signIn);
     await getAllPrefData();
   }
 
@@ -83,6 +93,9 @@ class LocalStorage {
     localStorage.setBool(LocalStorageKeys.isLogIn, false);
     localStorage.setString(LocalStorageKeys.role, "");
     localStorage.setString(LocalStorageKeys.plan, "");
+    localStorage.setString(LocalStorageKeys.profileStatus, "");
+    localStorage.setString(LocalStorageKeys.teamId, "");
+    localStorage.setBool(LocalStorageKeys.paymentStatus, false);
   }
 
   // Save Data To SharedPreferences
@@ -99,12 +112,15 @@ class LocalStorage {
     if (key == LocalStorageKeys.myEmail) myEmail = value;
     if (key == LocalStorageKeys.role) role = value;
     if (key == LocalStorageKeys.plan) plan = value;
+    if (key == LocalStorageKeys.profileStatus) profileStatus = value;
+    if (key == LocalStorageKeys.teamId) teamId = value;
   }
 
   static Future<void> setBool(String key, bool value) async {
     final localStorage = await _getStorage();
     await localStorage.setBool(key, value);
     if (key == LocalStorageKeys.isLogIn) isLogIn = value;
+    if (key == LocalStorageKeys.paymentStatus) paymentStatus = value;
   }
 
   static Future<void> setInt(String key, int value) async {

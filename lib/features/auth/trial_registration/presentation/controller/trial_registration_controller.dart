@@ -9,6 +9,7 @@ import 'package:untitled/services/api/api_service.dart';
 import 'package:untitled/services/api/multipart_helper.dart';
 import 'package:untitled/utils/app_snackbar.dart';
 import '../../../../../../services/storage/storage_services.dart';
+import '../../../../../services/storage/storage_keys.dart';
 
 class TrialRegistrationController extends GetxController {
   final ApiClient apiClient = DioApiClient();
@@ -24,11 +25,13 @@ class TrialRegistrationController extends GetxController {
   String? selectedDob;
   String? selectedTeam;
   String? selectedStrongFoot;
+  String? selectedPosition = "Forward";
   File? pickedDocument;
 
   // Data Lists
   List<Map<String, dynamic>> teams = [];
   final List<String> strongFeet = ["LEFT", "RIGHT", "BOTH"];
+  final List<String> positions = ["Goalkeeper", "Defender", "Midfielder", "Forward"];
 
   @override
   void onInit() {
@@ -57,6 +60,11 @@ class TrialRegistrationController extends GetxController {
 
   void setStrongFoot(String value) {
     selectedStrongFoot = value;
+    update();
+  }
+
+  void setPosition(String value) {
+    selectedPosition = value;
     update();
   }
 
@@ -108,6 +116,7 @@ class TrialRegistrationController extends GetxController {
         'dateOfBirth': selectedDob!,
         'selectTeam': selectedTeam!,
         'strongFoot': selectedStrongFoot!,
+        'position': selectedPosition ?? "",
         'phone': phoneController.text.trim(),
       };
 
@@ -115,9 +124,17 @@ class TrialRegistrationController extends GetxController {
         MultipartFileItem(filePath: pickedDocument!.path, fileName: 'document')
       ];
 
+      final String? token = Get.arguments?['token'];
+      final Map<String, String> headers = {};
+      if (token != null) {
+        headers['Authorization'] = 'Bearer $token';
+      } else if (LocalStorage.token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer ${LocalStorage.token}';
+      }
+
       final response = await apiClient.multipart(
         url: ApiEndPoint.trialProfile,
-        headers: {'Authorization': LocalStorage.token},
+        headers: headers,
         body: body,
         files: files,
         onSendProgress: (sent, total) {
@@ -130,7 +147,19 @@ class TrialRegistrationController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         AppSnackbar.success(title: 'Success', message: response.message);
-        Get.offAllNamed(AppRoutes.successfulCreateAccount);
+        
+        // Update local status so app knows info is submitted
+        await LocalStorage.setString(LocalStorageKeys.profileStatus, "PENDING");
+
+        // After submitting additional info, check payment status
+        if (!LocalStorage.paymentStatus) {
+          Get.offAllNamed(AppRoutes.mySubscription, arguments: {
+            'isFromRegistration': true,
+            'token': token,
+          });
+        } else {
+          Get.offAllNamed(AppRoutes.successfulCreateAccount);
+        }
       } else {
         AppSnackbar.error(title: 'Error', message: response.message);
       }

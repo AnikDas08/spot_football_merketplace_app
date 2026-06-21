@@ -9,6 +9,7 @@ import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
+import '../../../team_sheet/data/team_sheet_models.dart';
 
 class OverviewTab extends StatelessWidget {
   const OverviewTab({super.key});
@@ -19,13 +20,61 @@ class OverviewTab extends StatelessWidget {
 
     return Obx(() {
       final match = matchController.match.value;
+      final currentSelection = matchController.selectedTeamIndex.value == 0
+          ? matchController.homeSelection.value
+          : matchController.awaySelection.value;
+          
       if (match == null) return const SizedBox.shrink();
 
+      final List<String> teams = [match.homeTeam.teamName, match.awayTeam.teamName];
+      final venue = currentSelection?.match != null 
+          ? (currentSelection!.match is Map ? currentSelection.match['venueName'] : match.venueName)
+          : match.venueName;
+      
       return SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
           children: [
             SizedBox(height: 12.h),
+
+            // Team toggle
+            Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.circular(30.r),
+              ),
+              child: Row(
+                children: List.generate(teams.length, (index) {
+                  final isSelected = matchController.selectedTeamIndex.value == index;
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: () => matchController.changeSelectedTeam(index),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        padding: EdgeInsets.symmetric(vertical: 10.h),
+                        decoration: BoxDecoration(
+                          color: isSelected ? AppColors.primaryColor : Colors.white,
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: CommonText(
+                          text: teams[index].toUpperCase(),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: isSelected ? AppColors.white : AppColors.primaryColor,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
+
+            SizedBox(height: 16.h),
+
             // Match Details (Venue & Referee)
             _SectionCard(
               child: Column(
@@ -40,7 +89,7 @@ class OverviewTab extends StatelessWidget {
                   SizedBox(height: 12.h),
                   _InfoRow(
                     label: "Venue",
-                    value: match.venueName ?? "Unknown Venue",
+                    value: venue ?? "Unknown Venue",
                     icon: Icons.location_on_outlined,
                   ),
                   const Divider(),
@@ -108,7 +157,7 @@ class OverviewTab extends StatelessWidget {
                           color: AppColors.white,
                         ),
                         CommonText(
-                          text: '4-3-3',
+                          text: '${currentSelection?.teamFormation ?? "9"} aside',
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white,
@@ -132,37 +181,7 @@ class OverviewTab extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _PlayerNode(initial: 'S', name: 'Striker', position: 'ST'),
-                                  _PlayerNode(initial: 'S', name: 'Striker', position: 'ST'),
-                                  _PlayerNode(initial: 'S', name: 'Striker', position: 'ST'),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _PlayerNode(initial: 'M', name: 'Mid', position: 'CM'),
-                                  _PlayerNode(initial: 'M', name: 'Mid', position: 'CM'),
-                                  _PlayerNode(initial: 'M', name: 'Mid', position: 'CM'),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _PlayerNode(initial: 'D', name: 'Def', position: 'CB'),
-                                  _PlayerNode(initial: 'D', name: 'Def', position: 'CB'),
-                                  _PlayerNode(initial: 'D', name: 'Def', position: 'CB'),
-                                  _PlayerNode(initial: 'D', name: 'Def', position: 'CB'),
-                                ],
-                              ),
-                              _PlayerNode(initial: 'G', name: 'Keeper', position: 'GK'),
-                            ],
-                          ),
+                          _buildFormation(currentSelection),
                         ],
                       ),
                     ),
@@ -175,6 +194,47 @@ class OverviewTab extends StatelessWidget {
         ),
       );
     });
+  }
+
+  Widget _buildFormation(SelectionData? selection) {
+    if (selection == null) return const SizedBox.shrink();
+
+    final starters = selection.players.where((p) => !p.substitute).toList();
+    final String formation = selection.teamFormation;
+    
+    final layout = _getLayout(formation);
+    int globalIndex = 0;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: layout.map((row) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: row.map((pos) {
+            final nodeIdx = globalIndex++;
+            final p = starters.firstWhereOrNull((player) => player.positionIndex == nodeIdx);
+            
+            return _PlayerNode(
+              initial: p != null ? (p.player.firstName?[0] ?? "P").toUpperCase() : "", 
+              name: p != null ? (p.player.firstName ?? "Player") : "", 
+              position: pos,
+              imageUrl: p?.player.profile,
+            );
+          }).toList(),
+        );
+      }).toList(),
+    );
+  }
+
+  List<List<String>> _getLayout(String formation) {
+    final count = int.tryParse(formation) ?? 9;
+    if (count == 5) {
+      return [['Forward'], ['Midfielder', 'Midfielder'], ['Defender'], ['Goalkeeper']];
+    } else if (count == 7) {
+      return [['Forward'], ['Midfielder', 'Midfielder', 'Midfielder'], ['Defender', 'Defender'], ['Goalkeeper']];
+    } else {
+      return [['Forward', 'Forward'], ['Midfielder', 'Midfielder', 'Midfielder'], ['Defender', 'Defender', 'Defender'], ['Goalkeeper']];
+    }
   }
 }
 
@@ -314,49 +374,61 @@ class _PlayerNode extends StatelessWidget {
   final String initial;
   final String name;
   final String position;
+  final String? imageUrl;
 
   const _PlayerNode({
     required this.initial,
     required this.name,
     required this.position,
+    this.imageUrl,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           width: 45.w,
           height: 45.w,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            gradient: const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xFFFFA726), Color(0xFFFB8C00)],
-            ),
-            border: Border.all(color: AppColors.white, width: 2),
+            color: name.isEmpty ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFF57C00),
+            border: name.isEmpty ? null : Border.all(color: AppColors.white, width: 2),
           ),
-          child: Center(
-            child: CommonText(
-              text: initial,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w700,
-              color: AppColors.white,
-            ),
-          ),
+          child: name.isEmpty 
+              ? const SizedBox.shrink() 
+              : ClipOval(
+                  child: imageUrl != null && imageUrl!.isNotEmpty
+                      ? CommonImage(imageSrc: imageUrl!, width: 45.w, height: 45.w, fill: BoxFit.cover)
+                      : Center(
+                          child: CommonText(
+                            text: initial,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.white,
+                          ),
+                        ),
+                ),
         ),
         SizedBox(height: 4.h),
-        CommonText(
-          text: name,
-          fontSize: 10.sp,
-          fontWeight: FontWeight.w700,
-          color: AppColors.white,
+        SizedBox(
+          width: 70.w,
+          child: CommonText(
+            text: name,
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w700,
+            color: AppColors.white,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         CommonText(
           text: position,
           fontSize: 8.sp,
+          textAlign: TextAlign.center,
           color: AppColors.white.withValues(alpha: 0.8),
         ),
       ],

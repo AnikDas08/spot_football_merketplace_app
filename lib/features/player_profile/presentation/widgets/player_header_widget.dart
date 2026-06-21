@@ -4,8 +4,19 @@ import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
+import 'package:untitled/component/image/common_image.dart';
+
 class PlayerHeaderWidget extends StatelessWidget {
-  const PlayerHeaderWidget({super.key});
+  final String playerName;
+  final String position;
+  final String? profileImage;
+
+  const PlayerHeaderWidget({
+    super.key,
+    this.playerName = 'Emerson Royal',
+    this.position = 'Forward',
+    this.profileImage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +38,19 @@ class PlayerHeaderWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CommonText(
-                      text: 'Emerson Royal',
+                      text: playerName,
                       fontSize: 32,
                       fontWeight: FontWeight.w700,
                       color: AppColors.white,
                     ),
                     SizedBox(height: 4.h),
                     CommonText(
-                      text: 'Forward',
+                      text: position,
                       fontSize: 16.sp,
                       color: AppColors.white,
-                      fontWeight: FontWeight(510),
+                      fontWeight: const FontWeight(500),
                     ),
                     const Spacer(),
-                    // CommonText(
-                    //   text: '9',
-                    //   fontSize: 48.sp,
-                    //   fontWeight: FontWeight.w700,
-                    //   color: AppColors.white,
-                    // ),
                   ],
                 ),
               ),
@@ -55,11 +60,18 @@ class PlayerHeaderWidget extends StatelessWidget {
         Positioned(
           right: 0,
           bottom: 0,
-          child: Image.asset(
-            TempImage.playerWithFootball,
-            height: 230.h,
-            fit: .fill,
-          ),
+          child: profileImage != null && profileImage!.isNotEmpty
+              ? CommonImage(
+                  imageSrc: profileImage!,
+                  height: 230.h,
+                  width: 200.w,
+                  fill: BoxFit.contain,
+                )
+              : Image.asset(
+                  TempImage.playerWithFootball,
+                  height: 230.h,
+                  fit: BoxFit.fill,
+                ),
         ),
       ],
     );
