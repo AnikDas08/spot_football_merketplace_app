@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:untitled/features/home/presentation/widgets/recent_result_card.dart';
 import '../../../../component/text/common_text.dart';
-import '../../../../utils/constants/app_colors.dart';
 import '../../data/match_model.dart';
 
 class LiveMatches extends StatelessWidget {
@@ -38,14 +36,11 @@ class LiveMatches extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              CommonText(
-                text: "LIVE MATCHES",
-                fontSize: 20.sp,
-                fontWeight: const FontWeight(590),
-              ),
-            ],
+          CommonText(
+            text: "LIVE MATCHES",
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Montserrat',
           ),
           SizedBox(height: 12.h),
           ListView.builder(
@@ -65,6 +60,8 @@ class LiveMatches extends StatelessWidget {
                   awayTeam: match.awayTeam.teamName,
                   homeScore: match.homeScore,
                   awayScore: match.awayScore,
+                  homeLogo: match.homeTeam.teamLogo,
+                  awayLogo: match.awayTeam.teamLogo,
                 ),
               );
             },

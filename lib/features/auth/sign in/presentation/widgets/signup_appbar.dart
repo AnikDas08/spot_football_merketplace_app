@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_images.dart';
 
@@ -23,7 +24,13 @@ class SignupAppbar extends StatelessWidget implements PreferredSizeWidget {
 
           /// ⬅️ Custom Back Button
           GestureDetector(
-            onTap: () => Get.back(),
+            onTap: () {
+              if (Navigator.canPop(context)) {
+                Get.back();
+              } else {
+                Get.offAllNamed(AppRoutes.navBarScreen);
+              }
+            },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
               decoration: BoxDecoration(

@@ -22,6 +22,7 @@ class CommonText extends StatelessWidget {
     this.height, // line height support
     this.decoration, // underline / strikethrough
     this.softWrap = true, // enables wrapping
+    this.fontFamily,
   });
 
   final double left;
@@ -39,18 +40,28 @@ class CommonText extends StatelessWidget {
   final double? height;
   final TextDecoration? decoration;
   final bool softWrap;
+  final String? fontFamily;
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
+    TextStyle textStyle = TextStyle(
       letterSpacing: letterSpacing,
       fontSize: fontSize.sp,
       fontWeight: fontWeight,
       color: color,
       height: height,
       decoration: decoration,
-      fontFamily: defaultTargetPlatform == TargetPlatform.iOS ? 'SFPro' : null,
     );
+
+    if (fontFamily == 'Montserrat') {
+      textStyle = GoogleFonts.montserrat(textStyle: textStyle);
+    } else if (fontFamily == 'Poppins') {
+      textStyle = GoogleFonts.poppins(textStyle: textStyle);
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      textStyle = textStyle.copyWith(fontFamily: 'SFPro');
+    } else if (defaultTargetPlatform == TargetPlatform.android) {
+      textStyle = GoogleFonts.poppins(textStyle: textStyle);
+    }
 
     return Padding(
       padding: EdgeInsets.only(
@@ -69,9 +80,7 @@ class CommonText extends StatelessWidget {
             ? TextOverflow.visible
             : overflow,
         softWrap: softWrap,
-        style: defaultTargetPlatform == TargetPlatform.android
-            ? GoogleFonts.poppins(textStyle: textStyle)
-            : textStyle,
+        style: textStyle,
       ),
     );
   }

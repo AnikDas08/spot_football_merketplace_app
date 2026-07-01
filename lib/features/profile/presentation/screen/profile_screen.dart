@@ -19,6 +19,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (LocalStorage.isGuest) {
+      return const Scaffold(body: Center(child: Text("Login Required")));
+    }
     return Scaffold(
       /// App bar
       appBar: AppBar(

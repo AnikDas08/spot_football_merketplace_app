@@ -10,7 +10,6 @@ import 'package:untitled/utils/constants/app_colors.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_icons.dart';
-import '../../../../utils/constants/temp_image.dart';
 import '../widget/player_statcard.dart';
 import '../widget/season_stats_button.dart';
 
@@ -20,7 +19,6 @@ class StatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String selectedAge = "12";
     return Scaffold(
       appBar: CommonAppbar(title: 'STATS'),
       drawer: AppDrawer(),
@@ -120,48 +118,86 @@ class StatsScreen extends StatelessWidget {
 
 
               SizedBox(height: 16.h),
-              Row(
-                children: [
-                  Expanded(
-                    child: PlayerStatCard(
-                      playerImageUrl: TempImage.stats1,
-                      statLabel: "Goals",
-                      statValue: "21",
-                    ),
-                  ),
-                  SizedBox(width: 16.h),
+              Obx(() {
+                if (controller.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+                }
 
-                  Expanded(
-                    child: PlayerStatCard(
-                      playerImageUrl: TempImage.stats2,
-                      statLabel: "Most Assists",
-                      statValue: "8",
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16.h),
+                final data = controller.summaryData.value;
+                if (data == null) return const SizedBox.shrink();
 
-              Row(
-                children: [
-                  Expanded(
-                    child: PlayerStatCard(
-                      playerImageUrl: TempImage.stats3,
-                      statLabel: "Goals",
-                      statValue: "65",
-                    ),
-                  ),
-                  SizedBox(width: 16.h),
+                // Top Goal Scorer
+                final topScorer = data['topGoalScorer'];
+                final String scorerName = topScorer is Map ? "${topScorer['firstName'] ?? ""} ${topScorer['lastName'] ?? ""}".trim() : "N/A";
+                final String scorerGoals = topScorer is Map ? (topScorer['totalGoals']?.toString() ?? "0") : "0";
+                final String scorerImage = topScorer is Map ? (topScorer['profile'] ?? "") : "";
 
-                  Expanded(
-                    child: PlayerStatCard(
-                      playerImageUrl: TempImage.stats4,
-                      statLabel: "Clean Sheets",
-                      statValue: "120",
+                // Top Assist Player
+                final topAssist = data['topAssistPlayer'];
+                final String assistName = topAssist is Map ? "${topAssist['firstName'] ?? ""} ${topAssist['lastName'] ?? ""}".trim() : "N/A";
+                final String assistCount = topAssist is Map ? (topAssist['totalAssists']?.toString() ?? "0") : "0";
+                final String assistImage = topAssist is Map ? (topAssist['profile'] ?? "") : "";
+
+                // Top Goal Team
+                final topGoalTeam = data['topGoalTeam'];
+                final String goalTeamName = topGoalTeam is Map ? (topGoalTeam['teamName'] ?? "N/A") : "N/A";
+                final String goalTeamCount = topGoalTeam is Map ? (topGoalTeam['totalGoals']?.toString() ?? "0") : "0";
+                final String goalTeamImage = topGoalTeam is Map ? (topGoalTeam['teamLogo'] ?? "") : "";
+
+                // Top Assist Team
+                final topAssistTeam = data['topAssistTeam'];
+                final String assistTeamName = topAssistTeam is Map ? (topAssistTeam['teamName'] ?? "N/A") : "N/A";
+                final String assistTeamCount = topAssistTeam is Map ? (topAssistTeam['totalAssists']?.toString() ?? "0") : "0";
+                final String assistTeamImage = topAssistTeam is Map ? (topAssistTeam['teamLogo'] ?? "") : "";
+
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: PlayerStatCard(
+                            playerImageUrl: scorerImage.isNotEmpty ? scorerImage : "assets/images/temporary/stats1.png",
+                            playerName: scorerName,
+                            statLabel: "TOP SCORER",
+                            statValue: scorerGoals,
+                          ),
+                        ),
+                        SizedBox(width: 16.h),
+                        Expanded(
+                          child: PlayerStatCard(
+                            playerImageUrl: assistImage.isNotEmpty ? assistImage : "assets/images/temporary/stats2.png",
+                            playerName: assistName,
+                            statLabel: "ASSISTS",
+                            statValue: assistCount,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
+                    SizedBox(height: 16.h),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: PlayerStatCard(
+                            playerImageUrl: goalTeamImage.isNotEmpty ? goalTeamImage : "assets/images/temporary/stats3.png",
+                            playerName: goalTeamName,
+                            statLabel: "CLEAN SHEETS",
+                            statValue: "0", // Placeholder
+                          ),
+                        ),
+                        SizedBox(width: 16.h),
+                        Expanded(
+                          child: PlayerStatCard(
+                            playerImageUrl: assistTeamImage.isNotEmpty ? assistTeamImage : "assets/images/temporary/stats4.png",
+                            playerName: assistTeamName,
+                            statLabel: "OVERALL",
+                            statValue: "100%", // Placeholder
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              }),
               SizedBox(height: 24.h),
 
               SeasonStatsButton(

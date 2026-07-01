@@ -56,8 +56,10 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
         Get.offAllNamed(AppRoutes.navBarScreen);
       }
+    } else if (LocalStorage.isGuest) {
+      Get.offAllNamed(AppRoutes.navBarScreen);
     } else {
-      Get.offAllNamed(AppRoutes.signIn);
+      Get.offAllNamed(AppRoutes.onboarding);
     }
   }
 

@@ -18,7 +18,6 @@ import '../../../../utils/constants/app_string.dart';
 import '../../../../component/common_appbar/common_appbar.dart';
 import '../widgets/upcoming_events.dart';
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -28,7 +27,7 @@ class HomeScreen extends StatelessWidget {
     final bannerController = Get.put(BannerController());
     final newsController = Get.put(NewsController());
     final eventController = Get.put(EventController());
-    
+
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: CommonAppbar(title: AppString.community),
@@ -52,23 +51,13 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     SizedBox(height: 20.h),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: CommonText(
-                        text: AppString.home,
-                        fontSize: 20.sp,
-                        fontWeight: const FontWeight(590),
-                      ),
-                    ),
-
-                    SizedBox(height: 20.h),
-
                     const BannerSlider(),
 
                     GetBuilder<NewsController>(
                       builder: (newsController) {
                         return Obx(() {
-                          if (newsController.isLoading.value || newsController.newsList.isNotEmpty) {
+                          if (newsController.isLoading.value ||
+                              newsController.newsList.isNotEmpty) {
                             return Column(
                               children: [
                                 SizedBox(height: 12.h),
@@ -78,12 +67,13 @@ class HomeScreen extends StatelessWidget {
                           }
                           return const SizedBox.shrink();
                         });
-                      }
+                      },
                     ),
 
                     GetBuilder<EventController>(
                       builder: (eventController) {
-                        if (eventController.isLoading.value || eventController.eventList.isNotEmpty) {
+                        if (eventController.isLoading.value ||
+                            eventController.eventList.isNotEmpty) {
                           return Column(
                             children: [
                               SizedBox(height: 20.h),
@@ -92,12 +82,13 @@ class HomeScreen extends StatelessWidget {
                           );
                         }
                         return const SizedBox.shrink();
-                      }
+                      },
                     ),
 
                     SizedBox(height: 20.h),
 
-                    if (controller.isLoading.value || controller.liveMatches.isNotEmpty) ...[
+                    if (controller.isLoading.value ||
+                        controller.liveMatches.isNotEmpty) ...[
                       LiveMatches(
                         matches: controller.liveMatches,
                         isLoading: controller.isLoading.value,
@@ -105,7 +96,8 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 20.h),
                     ],
 
-                    if (controller.isLoading.value || controller.recentMatches.isNotEmpty) ...[
+                    if (controller.isLoading.value ||
+                        controller.recentMatches.isNotEmpty) ...[
                       RecentResult(
                         matches: controller.recentMatches,
                         isLoading: controller.isLoading.value,
@@ -113,7 +105,8 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 20.h),
                     ],
 
-                    if (controller.isLoading.value || controller.upcomingMatches.isNotEmpty) ...[
+                    if (controller.isLoading.value ||
+                        controller.upcomingMatches.isNotEmpty) ...[
                       UpcomingFixtures(
                         fixtures: controller.upcomingMatches,
                         isLoading: controller.isLoading.value,
@@ -122,10 +115,7 @@ class HomeScreen extends StatelessWidget {
                     ],
 
                     if (controller.isLoading.value) ...[
-                      LeaguePreview(
-                        standings: const [],
-                        isLoading: true,
-                      ),
+                      LeaguePreview(standings: const [], isLoading: true),
                       SizedBox(height: 20.h),
                     ] else ...[
                       ...controller.allLeagues.asMap().entries.map((entry) {
@@ -148,7 +138,8 @@ class HomeScreen extends StatelessWidget {
                     GetBuilder<BannerController>(
                       builder: (bannerController) {
                         return Obx(() {
-                          if (bannerController.isLoading.value || bannerController.bannerVideos.isNotEmpty) {
+                          if (bannerController.isLoading.value ||
+                              bannerController.bannerVideos.isNotEmpty) {
                             return Column(
                               children: [
                                 const LatestVideos(),
@@ -158,7 +149,7 @@ class HomeScreen extends StatelessWidget {
                           }
                           return const SizedBox.shrink();
                         });
-                      }
+                      },
                     ),
                   ],
                 );

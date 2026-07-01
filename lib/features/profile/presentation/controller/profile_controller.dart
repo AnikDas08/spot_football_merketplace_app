@@ -49,7 +49,7 @@ class ProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (LocalStorage.token.isNotEmpty) {
+    if (LocalStorage.token.isNotEmpty && !LocalStorage.isGuest) {
       getProfileData();
     }
   }

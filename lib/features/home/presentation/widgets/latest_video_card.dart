@@ -48,7 +48,7 @@ class LatestVideoCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(13.r),
           child: Container(
             color: AppColors.white.withAlpha(200),
-            width: width ?? 170.w,
+            width: width ?? 180.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -59,7 +59,7 @@ class LatestVideoCard extends StatelessWidget {
                       imageSrc: imagePath,
                       width: width ?? MediaQuery.of(context).size.width,
                       height: imageHeight ?? 220.h,
-                      fill: BoxFit.cover,
+                      fill: BoxFit.contain,
                       borderRadius: 0,
                     ),
                     Container(

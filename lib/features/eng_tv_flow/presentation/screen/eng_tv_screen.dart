@@ -14,12 +14,26 @@ import '../../../home/presentation/widgets/latest_video_card.dart';
 import '../widget/upcoming_match_card.dart';
 import '../widget/video_thumbnail_card.dart';
 import 'package:get/get.dart';
+import '../../../home/presentation/controllers/banner_controller.dart';
+import '../../../../component/image/common_image.dart';
+import 'package:intl/intl.dart';
+
+String timeago(DateTime date) {
+  Duration diff = DateTime.now().difference(date);
+  if (diff.inDays > 365) return "${(diff.inDays / 365).floor()}y ago";
+  if (diff.inDays > 30) return "${(diff.inDays / 30).floor()}mo ago";
+  if (diff.inDays > 0) return "${diff.inDays}d ago";
+  if (diff.inHours > 0) return "${diff.inHours}h ago";
+  if (diff.inMinutes > 0) return "${diff.inMinutes}m ago";
+  return "just now";
+}
 
 class EngTvScreen extends StatelessWidget {
   const EngTvScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(BannerController());
     final List<Map<String, String>> upcomingMatches = [
       {
         'date': 'Oct 24',
@@ -45,118 +59,149 @@ class EngTvScreen extends StatelessWidget {
       appBar: CommonAppbar(title: "ENG TV"),
       drawer: AppDrawer(),
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                child: VideoThumbnailCard(
-                  thumbnail: TempImage.thumbnail,
-                  title: 'Voltage FC vs Titan Athletic',
-                  duration: '1h 13m',
-                  onWatchNow: () {
-                    Get.toNamed(AppRoutes.videoStreamScreen);
-                  },
+        child: GetBuilder<BannerController>(
+          builder: (controller) {
+            if (controller.isLoading.value && controller.bannerVideos.isEmpty) {
+              return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+            }
+
+            final videos = controller.bannerVideos;
+            if (videos.isEmpty) {
+              return RefreshIndicator(
+                onRefresh: () => controller.fetchBannerVideos(),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: SizedBox(
+                    height: 0.8.sh,
+                    child: const Center(child: CommonText(text: "No videos available")),
+                  ),
                 ),
-              ),
+              );
+            }
 
-              SizedBox(height: 28.h),
-              _buildSectionHeader("Latest Highlights", () {}),
+            final firstVideo = videos.first;
 
-              SizedBox(height: 10.h),
-
-              SizedBox(
-                height: 195.h,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  padding: EdgeInsets.only(left: 16.w),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: 12.w),
-                      child: LatestVideoCard(
-                        imageHeight: 130.h,
-                        titleFontSize: 14.sp,
-                        timeFontSize: 10.sp,
-                        imagePath: TempImage.stats1,
-                        title: AppString.top10GoalsWeek24,
-                        time: AppString.threeHourAgoEngOriginal,
-                        duration: AppString.duration7m,
-                      ),
-                    );
-                  },
-                ),
-              ),
-
-              _buildSectionHeader("Goal Countdowns", () {}),
-
-              SizedBox(height: 10.h),
-
-              SizedBox(
-                height: 190.h,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  padding: EdgeInsets.only(left: 16.w),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: 12.w),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.videoStreamScreen);
+            return RefreshIndicator(
+              onRefresh: () => controller.fetchBannerVideos(),
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                      child: VideoThumbnailCard(
+                        thumbnail: firstVideo.thumbnail,
+                        title: firstVideo.title,
+                        duration: 'LIVE', 
+                        onWatchNow: () {
+                          Get.toNamed(AppRoutes.videoStreamScreen, arguments: firstVideo.id);
                         },
-                        child: LatestHighlightCard(
-                          isCheck: false,
-                          imagePath: TempImage.player2,
-                          title: 'Top 20 late ENG ',
-                          time: '3h ago',
-                          source: '',
-                          leagueName: 'league Levellers',
-                          duration: '10m',
-                        ),
                       ),
-                    );
-                  },
-                ),
-              ),
-
-              SizedBox(height: 16.h),
-
-              Container(
-                margin: EdgeInsets.only(left: 16.w),
-                child: CommonText(
-                  text: "Scheduled Broadcasts",
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                  maxLines: 2,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-              SizedBox(height: 8.h),
-
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: upcomingMatches.length,
-                itemBuilder: (context, index) {
-                  final match = upcomingMatches[index];
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5),
-                    child: UpcomingMatchCard(
-                      date: match['date']!,
-                      time: match['time']!,
-                      matchTitle: match['matchTitle']!,
-                      coverageTime: match['coverageTime']!,
-                      onNotificationTap: () {},
                     ),
-                  );
-                },
+
+                    SizedBox(height: 28.h),
+                    _buildSectionHeader("Latest Highlights", () {}),
+                    SizedBox(height: 10.h),
+                    SizedBox(
+                      height: 195.h,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: videos.length,
+                        padding: EdgeInsets.only(left: 16.w),
+                        itemBuilder: (context, index) {
+                          final video = videos[index];
+                          final DateTime publishDate = DateTime.tryParse(video.publishDateTime) ?? DateTime.now();
+                          final String timeAgo = timeago(publishDate);
+
+                          return Padding(
+                            padding: EdgeInsets.only(right: 12.w),
+                            child: LatestVideoCard(
+                              imageHeight: 130.h,
+                              titleFontSize: 14.sp,
+                              timeFontSize: 10.sp,
+                              imagePath: video.thumbnail,
+                              title: video.title,
+                              time: timeAgo,
+                              duration: '0m',
+                              videoId: video.id,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                    SizedBox(height: 20.h),
+                    _buildSectionHeader("Goal Countdowns", () {}),
+                    SizedBox(height: 10.h),
+                    SizedBox(
+                      height: 190.h,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: videos.length,
+                        padding: EdgeInsets.only(left: 16.w),
+                        itemBuilder: (context, index) {
+                          final video = videos[index];
+                          final DateTime publishDate = DateTime.tryParse(video.publishDateTime) ?? DateTime.now();
+                          final String timeAgo = timeago(publishDate);
+
+                          return Padding(
+                            padding: EdgeInsets.only(right: 12.w),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.videoStreamScreen, arguments: video.id);
+                              },
+                              child: LatestHighlightCard(
+                                isCheck: false,
+                                imagePath: video.thumbnail,
+                                title: video.title,
+                                time: timeAgo,
+                                source: '',
+                                leagueName: video.category,
+                                duration: '0m',
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                    SizedBox(height: 16.h),
+                    Container(
+                      margin: EdgeInsets.only(left: 16.w),
+                      child: CommonText(
+                        text: "Scheduled Broadcasts",
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                        maxLines: 2,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: upcomingMatches.length,
+                      itemBuilder: (context, index) {
+                        final match = upcomingMatches[index];
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5),
+                          child: UpcomingMatchCard(
+                            date: match['date']!,
+                            time: match['time']!,
+                            matchTitle: match['matchTitle']!,
+                            coverageTime: match['coverageTime']!,
+                            onNotificationTap: () {},
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 16.h),
+                  ],
+                ),
               ),
-              SizedBox(height: 16.h),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

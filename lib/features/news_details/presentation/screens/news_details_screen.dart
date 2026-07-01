@@ -159,7 +159,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                           return Padding(
                             padding: EdgeInsets.only(right: 12.w),
                             child: LatestVideoCard(
-                              imageHeight: 130.h,
+                              imageHeight: 160.h,
                               titleFontSize: 14.sp,
                               timeFontSize: 10.sp,
                               imagePath: index % 2 == 0

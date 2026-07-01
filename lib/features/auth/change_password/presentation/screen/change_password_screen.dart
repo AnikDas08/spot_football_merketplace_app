@@ -7,6 +7,7 @@ import '../../../../../../../utils/extensions/extension.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
+import '../../../../../services/storage/storage_services.dart';
 import '../../../../../utils/helpers/validation.dart';
 import '../controller/change_password_controller.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
@@ -19,6 +20,9 @@ class ChangePasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (LocalStorage.isGuest) {
+      return const Scaffold(body: Center(child: Text("Login Required")));
+    }
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.changePassword),
       body: GetBuilder<ChangePasswordController>(

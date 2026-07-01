@@ -51,35 +51,42 @@ class UpcomingFixtures extends StatelessWidget {
           CommonText(
             text: "UPCOMING FIXTURES",
             fontSize: 20.sp,
-            fontWeight: const FontWeight(590),
+            fontWeight: FontWeight.w600,
             color: AppColors.primaryColor,
+            fontFamily: 'Montserrat',
           ),
           SizedBox(height: 12.h),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: fixtures.length,
-            itemBuilder: (context, index) {
-              final fixture = fixtures[index];
+          SizedBox(
+            height: 250.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: fixtures.length,
+              itemBuilder: (context, index) {
+                final fixture = fixtures[index];
 
-              String formattedDate = fixture.matchDate != null
-                  ? DateFormat('MMM dd').format(fixture.matchDate!).toUpperCase()
-                  : 'TBA';
-              String formattedTime = fixture.matchDate != null
-                  ? DateFormat('HH:mm a').format(fixture.matchDate!)
-                  : '';
+                String formattedDate = fixture.matchDate != null
+                    ? DateFormat('MMM dd').format(fixture.matchDate!).toUpperCase()
+                    : 'TBA';
+                String formattedTime = fixture.matchDate != null
+                    ? DateFormat('HH:mm a').format(fixture.matchDate!)
+                    : '';
 
-              return Padding(
-                padding: EdgeInsets.only(bottom: 10.h),
-                child: UpcomingFixtureCard(
-                  id: fixture.id,
-                  date: formattedDate,
-                  homeTeam: fixture.homeTeam.teamName,
-                  awayTeam: fixture.awayTeam.teamName,
-                  time: formattedTime,
-                ),
-              );
-            },
+                return Padding(
+                  padding: EdgeInsets.only(right: 12.w),
+                  child: UpcomingFixtureCard(
+                    id: fixture.id,
+                    date: formattedDate,
+                    homeTeam: fixture.homeTeam.teamName,
+                    awayTeam: fixture.awayTeam.teamName,
+                    time: formattedTime,
+                    homeLogo: fixture.homeTeam.teamLogo,
+                    awayLogo: fixture.awayTeam.teamLogo,
+                    venue: fixture.venueName,
+                    width: 320.w,
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

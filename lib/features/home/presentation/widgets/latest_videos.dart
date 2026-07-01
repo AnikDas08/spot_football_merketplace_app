@@ -57,6 +57,7 @@ class LatestVideos extends StatelessWidget {
               text: AppString.latestVideos.toUpperCase(),
               fontSize: 20.sp,
               fontWeight: FontWeight.w600,
+              fontFamily: 'Montserrat',
             ),
           ),
           SizedBox(height: 16.h),
@@ -70,7 +71,7 @@ class LatestVideos extends StatelessWidget {
                 final video = bannerController.bannerVideos[index];
                 return LatestVideoCard(
                   videoId: video.id,
-                  imageHeight: 130.h,
+                  imageHeight: 180.h,
                   titleFontSize: 14.sp,
                   timeFontSize: 14.sp,
                   imagePath: video.videoUrl.isNotEmpty 
@@ -78,7 +79,7 @@ class LatestVideos extends StatelessWidget {
                       : 'https://images.unsplash.com/photo-1551958219-acbc630e2914?w=600',
                   title: video.title,
                   time: video.publishDateTime, // Or format it if needed
-                  duration: "7:00", // Hardcoded as API doesn't provide it
+                  duration: "0:00", // Hardcoded as API doesn't provide it
                 );
               },
               separatorBuilder: (BuildContext context, int index) {

@@ -53,17 +53,25 @@ class UpcomingEvents extends StatelessWidget {
                 text: AppString.upcomingEvents.toUpperCase(),
                 fontSize: 20.sp,
                 fontWeight: const FontWeight(590),
+                fontFamily: 'Montserrat',
               ),
             ),
-            SizedBox(height: 12.h),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              itemCount: controller.eventList.length,
-              itemBuilder: (context, index) {
-                return UpcomingEventCard(event: controller.eventList[index]);
-              },
+            SizedBox(
+              height: 430.h,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.only(left: 16.w),
+                itemCount: controller.eventList.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(right: 12.w),
+                    child: SizedBox(
+                      width: 0.7.sw,
+                      child: UpcomingEventCard(event: controller.eventList[index]),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         );

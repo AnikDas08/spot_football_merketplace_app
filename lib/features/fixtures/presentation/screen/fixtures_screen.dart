@@ -167,6 +167,9 @@ class _FixtureList extends StatelessWidget {
           time: match.matchDate != null
               ? DateFormat('hh:mm a').format(match.matchDate!)
               : 'N/A',
+          homeLogo: match.homeTeam.teamLogo,
+          awayLogo: match.awayTeam.teamLogo,
+          venue: match.venueName,
         );
       },
       separatorBuilder: (BuildContext context, int index) {

@@ -44,12 +44,7 @@ class UpcomingEventCard extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: imageUrl,
                   width: double.infinity,
-                  height: 270.h,
                   fit: BoxFit.cover,
-                  placeholder: (context, url) => CustomShimmer.rectangular(
-                    height: 270.h,
-                    width: double.infinity,
-                  ),
                   errorWidget: (context, url, error) => Container(
                     height: 270.h,
                     width: double.infinity,

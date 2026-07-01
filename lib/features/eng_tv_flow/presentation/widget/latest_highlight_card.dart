@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import '../../../../component/text/common_text.dart'; // Apnar project-er common text
+
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
 
 class LatestHighlightCard extends StatelessWidget {
   final String imagePath;
@@ -18,7 +21,9 @@ class LatestHighlightCard extends StatelessWidget {
     required this.title,
     required this.time,
     required this.source,
-    required this.duration, required this.isCheck, this.leagueName,
+    required this.duration, 
+    required this.isCheck, 
+    this.leagueName,
   });
 
   @override
@@ -36,11 +41,11 @@ class LatestHighlightCard extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.asset(
-                imagePath,
+              CommonImage(
+                imageSrc: imagePath,
                 height: 125.h,
                 width: 160.w,
-                fit: BoxFit.cover,
+                fill: BoxFit.cover,
               ),
               Positioned(
                 top: 8.h,

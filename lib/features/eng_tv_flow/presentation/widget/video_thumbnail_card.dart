@@ -7,14 +7,13 @@ import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import '../../../../component/text/common_text.dart';
 
+import '../../../../component/image/common_image.dart';
+
 class VideoThumbnailCard extends StatelessWidget {
   final String thumbnail;
   final String title;
   final String duration;
   final VoidCallback onWatchNow;
-
-  // Hard-coded strings converted to constant variables
-
 
   const VideoThumbnailCard({
     super.key,
@@ -33,13 +32,15 @@ class VideoThumbnailCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.r),
         border: Border.all(color: AppColors.colorEABB00, width: 1.w),
-        image: DecorationImage(
-          image: AssetImage(thumbnail),
-          fit: BoxFit.cover,
-        ),
       ),
       child: Stack(
         children: [
+          Positioned.fill(
+            child: CommonImage(
+              imageSrc: thumbnail,
+              fill: BoxFit.cover,
+            ),
+          ),
           // Gradient Overlay
           Positioned.fill(
             child: Container(

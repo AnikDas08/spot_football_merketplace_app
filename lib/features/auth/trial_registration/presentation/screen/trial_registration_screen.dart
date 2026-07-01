@@ -344,14 +344,8 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
          CommonText(text: "Date Of Birth", fontSize: 16.sp, fontWeight: FontWeight.w500, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
-          child: Container(
-            height: 56.h,
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: Colors.grey.shade200),
-            ),
+          child: InputDecorator(
+            decoration: _dropdownDecoration("dd/mm/yyyy"),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

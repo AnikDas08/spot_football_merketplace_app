@@ -41,38 +41,43 @@ class RecentResult extends StatelessWidget {
           CommonText(
             text: "RECENT RESULTS",
             fontSize: 20.sp,
-            fontWeight: const FontWeight(590),
+            fontWeight: FontWeight.w600,
             color: AppColors.primaryColor,
+            fontFamily: 'Montserrat',
           ),
           SizedBox(height: 12.h),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: matches.length,
-            itemBuilder: (context, index) {
-              final match = matches[index];
+          SizedBox(
+            height: 130.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: matches.length,
+              itemBuilder: (context, index) {
+                final match = matches[index];
 
-              // Formatting Date and Time
-              String formattedDate = match.matchDate != null 
-                  ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()
-                  : 'TBA';
-              String formattedTime = match.matchDate != null 
-                  ? DateFormat('HH:mm a').format(match.matchDate!)
-                  : '';
+                String formattedDate = match.matchDate != null 
+                    ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()
+                    : 'TBA';
+                String formattedTime = match.matchDate != null 
+                    ? DateFormat('HH:mm a').format(match.matchDate!)
+                    : '';
 
-              return Padding(
-                padding: EdgeInsets.only(bottom: 14.h),
-                child: RecentResultCard(
-                  id: match.id, // সঠিক ID পাস করা হলো
-                  time: formattedTime,
-                  date: formattedDate,
-                  homeTeam: match.homeTeam.teamName,
-                  awayTeam: match.awayTeam.teamName,
-                  homeScore: match.homeScore,
-                  awayScore: match.awayScore,
-                ),
-              );
-            },
+                return Padding(
+                  padding: EdgeInsets.only(right: 12.w),
+                  child: RecentResultCard(
+                    id: match.id,
+                    time: formattedTime,
+                    date: formattedDate,
+                    homeTeam: match.homeTeam.teamName,
+                    awayTeam: match.awayTeam.teamName,
+                    homeScore: match.homeScore,
+                    awayScore: match.awayScore,
+                    homeLogo: match.homeTeam.teamLogo,
+                    awayLogo: match.awayTeam.teamLogo,
+                    width: 320.w,
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

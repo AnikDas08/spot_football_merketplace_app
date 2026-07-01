@@ -51,6 +51,7 @@ class AppIcons {
   static const String filterSvg = "$baseurl/filter_svg.svg";
   static const String myChildrenSvg = "$baseurl/my_children.svg";
   static const String league = "$baseurl/league.svg";
+  static const String profile = "assets/images/profile.png";
 
 
 

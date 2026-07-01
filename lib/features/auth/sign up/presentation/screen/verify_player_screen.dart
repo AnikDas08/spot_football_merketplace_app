@@ -286,13 +286,19 @@ class VerifyPlayerScreen extends StatelessWidget {
         const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
-          child: Container(
-            height: 56.h,
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: Colors.grey.shade200),
+          child: InputDecorator(
+            decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide: BorderSide(color: Colors.grey.shade200),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide: const BorderSide(color: Colors.black),
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

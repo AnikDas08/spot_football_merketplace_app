@@ -6,12 +6,16 @@ import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 
 import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../services/storage/storage_services.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    if (LocalStorage.isGuest) {
+      return const Scaffold(body: Center(child: Text("Login Required")));
+    }
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.notifications),
       body: RefreshIndicator(

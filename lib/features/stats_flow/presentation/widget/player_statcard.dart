@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../component/text/common_text.dart';
-import '../../../../utils/constants/app_colors.dart';
+import 'package:untitled/component/image/common_image.dart';
+import 'package:untitled/component/text/common_text.dart';
+import 'package:untitled/utils/constants/app_colors.dart';
 
 class PlayerStatCard extends StatelessWidget {
   final String playerImageUrl;
   final String statLabel;
   final String statValue;
+  final String? playerName;
 
   const PlayerStatCard({
     super.key,
     required this.playerImageUrl,
     required this.statLabel,
     required this.statValue,
+    this.playerName,
   });
 
   @override
@@ -32,12 +34,13 @@ class PlayerStatCard extends StatelessWidget {
             width: double.infinity,
             height: 136.h,
             decoration: BoxDecoration(
-              color:  Color(0xFFF5F5F5),
+              color: const Color(0xFFF5F5F5),
             ),
-            child: FittedBox(
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-              child: Image.asset(playerImageUrl),
+            child: CommonImage(
+              imageSrc: playerImageUrl,
+              width: double.infinity,
+              height: 136.h,
+              fill: BoxFit.cover,
             ),
           ),
 
@@ -45,11 +48,22 @@ class PlayerStatCard extends StatelessWidget {
 
           Column(
             children: [
+              if (playerName != null)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: CommonText(
+                    text: playerName!,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primaryColor,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               CommonText(
                 text: statLabel,
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
-
                 color: AppColors.color6B6B6B,
               ),
 

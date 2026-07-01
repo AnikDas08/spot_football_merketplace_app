@@ -11,6 +11,7 @@ import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 
 import '../../../../component/image/common_image.dart';
+import '../../../../services/storage/storage_keys.dart';
 import '../../../auth/sign in/presentation/controller/sign_in_controller.dart';
 import '../../../profile/presentation/controller/profile_controller.dart';
 
@@ -36,63 +37,67 @@ class AppDrawer extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Obx(() => _buildProfile(profileController)),
+                      _buildProfile(profileController),
                       SizedBox(height: 36.h),
-                      _buildMenuItem(
-                        icon: AppIcons.editProfile,
-                        label: AppString.editProfile,
-                        onTap: () => Get.toNamed(AppRoutes.editProfile),
-                      ),
-                      if (role == "REFEREE") ...[
+                      if (!LocalStorage.isGuest) ...[
                         _buildMenuItem(
-                          icon: AppIcons
-                              .myChildrenSvg, // Using a suitable placeholder icon
-                          label: "Referee Dashboard",
-                          onTap: () =>
-                              Get.toNamed(AppRoutes.refereeDashboardScreen),
+                          icon: AppIcons.editProfile,
+                          label: AppString.editProfile,
+                          onTap: () => Get.toNamed(AppRoutes.editProfile),
                         ),
                       ],
-                      if (role == "PLAYER") ...[
+                      if (!LocalStorage.isGuest) ...[
+                        if (role == "REFEREE") ...[
+                          _buildMenuItem(
+                            icon: AppIcons
+                                .myChildrenSvg, // Using a suitable placeholder icon
+                            label: "Referee Dashboard",
+                            onTap: () =>
+                                Get.toNamed(AppRoutes.refereeDashboardScreen),
+                          ),
+                        ],
+                        if (role == "PLAYER") ...[
+                          _buildMenuItem(
+                            icon: AppIcons.myChildrenSvg,
+                            label: AppString.myPlayer,
+                            onTap: () => Get.toNamed(AppRoutes.myChildren),
+                          ),
+                          _buildMenuItem(
+                            icon: AppIcons.rewards,
+                            label: AppString.rewardsRedemption,
+                            onTap: () => Get.toNamed(AppRoutes.shopScreen),
+                          ),
+                          _buildMenuItem(
+                            icon: AppIcons.subscription,
+                            label: AppString.mySubscriptions,
+                            onTap: () => Get.toNamed(AppRoutes.mySubscription),
+                          ),
+                        ],
+                        if (role == "MANAGER") ...[
+                          _buildMenuItem(
+                            icon: AppIcons.pro,
+                            label: "Team Sheet",
+                            onTap: () => Get.toNamed(AppRoutes.teamSheetScreen),
+                          ),
+                          _buildMenuItem(
+                            icon: AppIcons.transferHistory,
+                            label: AppString.myTransfersHistory,
+                            onTap: () =>
+                                Get.toNamed(AppRoutes.transferRequestScreen),
+                          ),
+                          _buildMenuItem(
+                            icon: AppIcons.transfersInActive,
+                            label: AppString.trialListAvailable,
+                            onTap: () =>
+                                Get.toNamed(AppRoutes.trialList),
+                          ),
+                        ],
                         _buildMenuItem(
-                          icon: AppIcons.myChildrenSvg,
-                          label: AppString.myPlayer,
-                          onTap: () => Get.toNamed(AppRoutes.myChildren),
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.rewards,
-                          label: AppString.rewardsRedemption,
-                          onTap: () => Get.toNamed(AppRoutes.shopScreen),
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.subscription,
-                          label: AppString.mySubscriptions,
-                          onTap: () => Get.toNamed(AppRoutes.mySubscription),
+                          icon: AppIcons.lockPassword,
+                          label: AppString.changePassword,
+                          onTap: () => Get.toNamed(AppRoutes.changePassword),
                         ),
                       ],
-                      if (role == "MANAGER") ...[
-                        _buildMenuItem(
-                          icon: AppIcons.pro,
-                          label: "Team Sheet",
-                          onTap: () => Get.toNamed(AppRoutes.teamSheetScreen),
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.transferHistory,
-                          label: AppString.myTransfersHistory,
-                          onTap: () =>
-                              Get.toNamed(AppRoutes.transferRequestScreen),
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.transfersInActive,
-                          label: AppString.trialListAvailable,
-                          onTap: () =>
-                              Get.toNamed(AppRoutes.trialList),
-                        ),
-                      ],
-                      _buildMenuItem(
-                        icon: AppIcons.lockPassword,
-                        label: AppString.changePassword,
-                        onTap: () => Get.toNamed(AppRoutes.changePassword),
-                      ),
                       _buildMenuItem(
                         icon: AppIcons.infoPolicy,
                         label: AppString.privacyPolicy,
@@ -118,9 +123,11 @@ class AppDrawer extends StatelessWidget {
 
   Widget _buildProfile(ProfileController controller) {
     final data = controller.profileData;
-    final String name = data['fullName'] ?? LocalStorage.myName;
-    final String email = data['email'] ?? LocalStorage.myEmail;
-    final String image = data['profile'] ?? LocalStorage.myImage;
+    final bool isGuest = LocalStorage.isGuest;
+    
+    final String name = isGuest ? "Guest User" : (data['fullName'] ?? LocalStorage.myName);
+    final String email = isGuest ? "" : (data['email'] ?? LocalStorage.myEmail);
+    final String image = isGuest ? "" : (data['profile'] ?? LocalStorage.myImage);
 
     return Column(
       children: [
@@ -139,22 +146,23 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                padding: EdgeInsets.all(6.r),
-                decoration: const BoxDecoration(
-                  color: AppColors.primaryColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Image.asset(
-                  AppIcons.editPencil,
-                  width: 12.w,
-                  height: 12.h,
+            if (!isGuest)
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  padding: EdgeInsets.all(6.r),
+                  decoration: const BoxDecoration(
+                    color: AppColors.primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset(
+                    AppIcons.editPencil,
+                    width: 12.w,
+                    height: 12.h,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
         SizedBox(height: 14.h),
@@ -169,7 +177,7 @@ class AppDrawer extends StatelessWidget {
         ),
         SizedBox(height: 4.h),
         CommonText(
-          text: email.isEmpty ? 'user@gmail.com' : email,
+          text: email.isEmpty ? '' : email,
           fontSize: 13,
           fontWeight: FontWeight.w400,
           color: AppColors.textSecondaryColor,
@@ -242,11 +250,18 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget _buildLogoutButton() {
+    final bool isGuest = LocalStorage.isGuest;
+    
     return SizedBox(
       width: double.infinity,
       height: 52.h,
       child: ElevatedButton.icon(
         onPressed: () {
+          if (isGuest) {
+             LocalStorage.setBool(LocalStorageKeys.isGuest, false);
+             Get.offAllNamed(AppRoutes.signIn);
+             return;
+          }
           Get.dialog(
             AlertDialog(
               title: const Text('Logout'),
@@ -272,20 +287,22 @@ class AppDrawer extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.logoutRed,
+          backgroundColor: isGuest ? AppColors.primaryColor : AppColors.logoutRed,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),
           ),
           elevation: 0,
         ),
-        icon: SvgPicture.asset(
-          AppIcons.logoutIcon,
-          width: 20.w,
-          height: 20.h,
-          colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
-        ),
+        icon: isGuest 
+          ? const Icon(Icons.login, color: Colors.white, size: 20)
+          : SvgPicture.asset(
+              AppIcons.logoutIcon,
+              width: 20.w,
+              height: 20.h,
+              colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
+            ),
         label: CommonText(
-          text: AppString.logout,
+          text: isGuest ? "Login / Sign Up" : AppString.logout,
           fontSize: 16,
           fontWeight: FontWeight.w600,
           color: AppColors.white,

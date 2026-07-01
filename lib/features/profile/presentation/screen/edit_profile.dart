@@ -21,6 +21,9 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (LocalStorage.isGuest) {
+       return const Scaffold(body: Center(child: Text("Login Required")));
+    }
     return GetBuilder<ProfileController>(
       builder: (controller) {
         final userImage = LocalStorage.myImage;

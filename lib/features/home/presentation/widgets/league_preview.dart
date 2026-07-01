@@ -50,6 +50,7 @@ class LeaguePreview extends StatelessWidget {
                     fontSize: 20.sp,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                    fontFamily: 'Montserrat',
                   ),
                 ),
                 InkWell(
@@ -126,7 +127,7 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'Pos',
                       fontSize: 14.sp,
-                      fontWeight: const FontWeight(510),
+                      fontWeight: FontWeight.w500,
                       color: AppColors.white,
                     ),
                   ),
@@ -136,7 +137,7 @@ class _StandingsTable extends StatelessWidget {
                       child: CommonText(
                         text: 'Club',
                         fontSize: 14.sp,
-                        fontWeight: const FontWeight(510),
+                        fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),
                     ),
@@ -146,7 +147,7 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'PL',
                       fontSize: 14.sp,
-                      fontWeight: const FontWeight(510),
+                      fontWeight: FontWeight.w500,
                       color: AppColors.white,
                       textAlign: TextAlign.center,
                     ),
@@ -156,7 +157,7 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'GD',
                       fontSize: 14.sp,
-                      fontWeight: const FontWeight(510),
+                      fontWeight: FontWeight.w500,
                       color: AppColors.white,
                       textAlign: TextAlign.center,
                     ),
@@ -166,7 +167,7 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'PTS',
                       fontSize: 14.sp,
-                      fontWeight: const FontWeight(510),
+                      fontWeight: FontWeight.w500,
                       color: AppColors.white,
                       textAlign: TextAlign.center,
                     ),
@@ -216,7 +217,7 @@ class _StandingRow extends StatelessWidget {
               child: CommonText(
                 text: '$position.',
                 fontSize: 16.sp,
-                fontWeight: const FontWeight(510),
+                fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
               ),
             ),
@@ -234,7 +235,7 @@ class _StandingRow extends StatelessWidget {
                     child: CommonText(
                       text: item.team.teamName,
                       fontSize: 14.sp,
-                      fontWeight: const FontWeight(510),
+                      fontWeight: FontWeight.w400,
                       color: AppColors.primaryColor,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -248,7 +249,7 @@ class _StandingRow extends StatelessWidget {
               child: CommonText(
                 text: '${item.played}',
                 fontSize: 16.sp,
-                fontWeight: const FontWeight(510),
+                fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,
               ),
@@ -258,7 +259,7 @@ class _StandingRow extends StatelessWidget {
               child: CommonText(
                 text: gdText,
                 fontSize: 16.sp,
-                fontWeight: const FontWeight(510),
+                fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,
               ),
@@ -268,7 +269,7 @@ class _StandingRow extends StatelessWidget {
               child: CommonText(
                 text: '${item.points}',
                 fontSize: 16.sp,
-                fontWeight: const FontWeight(510),
+                fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,
               ),

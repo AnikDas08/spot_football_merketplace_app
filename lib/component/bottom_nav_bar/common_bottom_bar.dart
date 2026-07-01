@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import '../../../config/route/app_routes.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/log/app_log.dart';
+import '../../services/storage/storage_keys.dart';
+import '../../services/storage/storage_services.dart';
 
 final List<Widget> _unselectedIcons = [
   const Icon(Icons.settings_outlined, color: AppColors.black),
@@ -62,6 +64,30 @@ class CommonBottomNavBar extends StatelessWidget {
     appLog(currentIndex, source: 'common bottom bar');
 
     if (index == currentIndex) return;
+
+    if (LocalStorage.isGuest) {
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Login Required'),
+          content: const Text('Please login to access this feature.'),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                LocalStorage.setBool(LocalStorageKeys.isGuest, false);
+                Get.offAllNamed(AppRoutes.signIn);
+              },
+              child: const Text('Login'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
     switch (index) {
       case 0:
         Get.toNamed(AppRoutes.setting);

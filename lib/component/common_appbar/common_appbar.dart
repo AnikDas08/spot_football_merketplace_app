@@ -28,6 +28,8 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
         text: title.toUpperCase(),
         color: AppColors.white,
         fontSize: 21.sp,
+        fontFamily: 'Montserrat',
+        fontWeight: FontWeight.w700,
       ),
 
       actions: [
