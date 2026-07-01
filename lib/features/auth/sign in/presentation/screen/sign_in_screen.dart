@@ -33,7 +33,6 @@ class SignInScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// ── Title ──
                   const CommonText(
                     text: 'Login',
                     fontSize: 40,
@@ -43,7 +42,6 @@ class SignInScreen extends StatelessWidget {
                     bottom: 10,
                   ),
 
-                  /// ── Subtitle ──
                   const CommonText(
                     text:
                         'Welcome back to the ENG. Access your stats and roster.',
@@ -55,7 +53,6 @@ class SignInScreen extends StatelessWidget {
                     bottom: 32,
                   ),
 
-                  /// ── Email Field ──
                   CommonTextField(
                     title: "Email Address",
                     controller: controller.emailController,
@@ -63,7 +60,6 @@ class SignInScreen extends StatelessWidget {
                     validator: AppValidation.email,
                   ),
 
-                  /// ── Password Field ──
                   SizedBox(height: 24.h),
                   CommonTextField(
                     title: "Password",
@@ -74,7 +70,6 @@ class SignInScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 12.h),
 
-                  /// ── Forgot Password ──
                   Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
@@ -96,7 +91,6 @@ class SignInScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
 
-                  /// ── Login Button ──
                   CommonButton(
                     titleText: 'Login',
                     isLoading: controller.isLoading,
@@ -109,7 +103,6 @@ class SignInScreen extends StatelessWidget {
 
                   40.height,
 
-                  /// ── Divider with "or" ──
                   Row(
                     children: [
                       Expanded(
@@ -139,7 +132,6 @@ class SignInScreen extends StatelessWidget {
 
                   40.height,
 
-                  /// ── Google Button ──
                   _SocialButton(
                     icon: 'assets/images/google.png',
                     label: 'Log In With Google',
@@ -148,7 +140,6 @@ class SignInScreen extends StatelessWidget {
 
                   12.height,
 
-                  /// ── Apple Button ──
                   _SocialButton(
                     icon: 'assets/images/apple.png',
                     label: 'Log In With Apple',
@@ -157,7 +148,6 @@ class SignInScreen extends StatelessWidget {
 
                   32.height,
 
-                  /// ── Don't have an account ──
                   const DoNotHaveAccount(),
 
                   20.height,
@@ -189,7 +179,6 @@ class SignInScreen extends StatelessWidget {
   }
 }
 
-/// ── Social Login Button ──────────────────────────────────────────────────────
 class _SocialButton extends StatelessWidget {
   const _SocialButton({
     required this.icon,
