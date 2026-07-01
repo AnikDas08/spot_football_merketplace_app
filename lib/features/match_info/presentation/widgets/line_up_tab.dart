@@ -59,10 +59,10 @@ class _LineupsTabState extends State<LineupsTab> {
         });
 
       final formation = currentSelection?.teamFormation ?? "9";
-      final layout = _getLayout(formation);
-      int globalIndex = 0;
       final starters = currentSelection?.players.where((p) => !p.substitute).toList() ?? [];
-
+      
+      final horizontalLayout = _getHorizontalLayout(formation);
+ 
       return Column(
         children: [
           // Team toggle
@@ -111,7 +111,7 @@ class _LineupsTabState extends State<LineupsTab> {
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               children: [
-                // Stadium Visual
+                // Stadium Visual (Horizontal)
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -137,29 +137,30 @@ class _LineupsTabState extends State<LineupsTab> {
                       Container(
                         padding: EdgeInsets.all(12.r),
                         child: AspectRatio(
-                          aspectRatio: 335 / 440,
+                          aspectRatio: 335 / 220,
                           child: Stack(
                             children: [
                               Positioned.fill(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12.r),
-                                  child: SvgPicture.asset(AppImages.stadium, fit: BoxFit.cover),
+                                  child: Image.asset(AppImages.stadium, fit: BoxFit.cover),
                                 ),
                               ),
-                              Column(
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: layout.map((row) {
-                                  return Row(
+                                children: horizontalLayout.map((column) {
+                                  return Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: row.map((pos) {
-                                      final nodeIdx = globalIndex++;
+                                    children: column.map((posInfo) {
+                                      final int nodeIdx = posInfo['index'] as int;
+                                      final String posLabel = posInfo['label'] as String;
                                       final p = starters.firstWhereOrNull((player) => player.positionIndex == nodeIdx);
                                       
                                       return _PitchNode(
                                         name: p != null ? "${p.player.firstName ?? ""} ${p.player.lastName ?? ""}".trim() : "",
-                                        initial: p != null ? (p.player.firstName?[0] ?? p.player.userName?[0] ?? "P").toUpperCase() : "",
+                                        initial: p != null ? (p.player.firstName?[0] ?? p.player.userName?[0] ?? "P").toUpperCase() : posLabel.substring(0, 1),
                                         imageUrl: p?.player.profile,
-                                        position: pos,
+                                        position: posLabel,
                                         id: p?.player.id,
                                       );
                                     }).toList(),
@@ -249,14 +250,30 @@ class _LineupsTabState extends State<LineupsTab> {
     });
   }
 
-  List<List<String>> _getLayout(String formation) {
+  List<List<Map<String, dynamic>>> _getHorizontalLayout(String formation) {
     final count = int.tryParse(formation) ?? 9;
     if (count == 5) {
-      return [['Forward'], ['Midfielder', 'Midfielder'], ['Defender'], ['Goalkeeper']];
+      return [
+        [{'label': 'Goalkeeper', 'index': 4}],
+        [{'label': 'Defender', 'index': 3}],
+        [{'label': 'Midfielder', 'index': 1}, {'label': 'Midfielder', 'index': 2}],
+        [{'label': 'Forward', 'index': 0}],
+      ];
     } else if (count == 7) {
-      return [['Forward'], ['Midfielder', 'Midfielder', 'Midfielder'], ['Defender', 'Defender'], ['Goalkeeper']];
+      return [
+        [{'label': 'Goalkeeper', 'index': 6}],
+        [{'label': 'Defender', 'index': 4}, {'label': 'Defender', 'index': 5}],
+        [{'label': 'Midfielder', 'index': 1}, {'label': 'Midfielder', 'index': 2}, {'label': 'Midfielder', 'index': 3}],
+        [{'label': 'Forward', 'index': 0}],
+      ];
     } else {
-      return [['Forward', 'Forward'], ['Midfielder', 'Midfielder', 'Midfielder'], ['Defender', 'Defender', 'Defender'], ['Goalkeeper']];
+      // 9 Aside
+      return [
+        [{'label': 'Goalkeeper', 'index': 8}],
+        [{'label': 'Defender', 'index': 5}, {'label': 'Defender', 'index': 6}, {'label': 'Defender', 'index': 7}],
+        [{'label': 'Midfielder', 'index': 2}, {'label': 'Midfielder', 'index': 3}, {'label': 'Midfielder', 'index': 4}],
+        [{'label': 'Forward', 'index': 0}, {'label': 'Forward', 'index': 1}],
+      ];
     }
   }
 }

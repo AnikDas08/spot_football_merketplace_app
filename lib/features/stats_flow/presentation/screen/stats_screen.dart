@@ -42,8 +42,9 @@ class StatsScreen extends StatelessWidget {
                       CommonText(
                         text: "Statistics",
                         fontSize: 24.sp,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w700,
                         color: AppColors.primaryColor,
+                        fontFamily: 'Montserrat',
                       ),
                       SizedBox(height: 4.h),
                       CommonText(
@@ -51,6 +52,7 @@ class StatsScreen extends StatelessWidget {
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColors.color373737,
+                        fontFamily: 'Montserrat',
                       ),
                     ],
                   ),

@@ -13,6 +13,7 @@ import 'package:untitled/utils/constants/temp_image.dart';
 import '../../../../component/image/common_image.dart';
 import '../../../../services/storage/storage_keys.dart';
 import '../../../auth/sign in/presentation/controller/sign_in_controller.dart';
+import '../../../navbar/controller/navbar_controller.dart';
 import '../../../profile/presentation/controller/profile_controller.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -96,6 +97,23 @@ class AppDrawer extends StatelessWidget {
                           icon: AppIcons.lockPassword,
                           label: AppString.changePassword,
                           onTap: () => Get.toNamed(AppRoutes.changePassword),
+                        ),
+                      ],
+                      if (LocalStorage.isGuest) ...[
+                        _buildMenuItem(
+                          icon: AppIcons.fixturesInActive,
+                          label: "Fixtures",
+                          onTap: () => Get.toNamed(AppRoutes.fixtures),
+                        ),
+                        _buildMenuItem(
+                          icon: AppIcons.league,
+                          label: "League Tables",
+                          onTap: () => Get.toNamed(AppRoutes.leagueTable),
+                        ),
+                        _buildMenuItem(
+                          icon: AppIcons.statsInactive,
+                          label: "Statistics",
+                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 4,
                         ),
                       ],
                       _buildMenuItem(
@@ -259,7 +277,7 @@ class AppDrawer extends StatelessWidget {
         onPressed: () {
           if (isGuest) {
              LocalStorage.setBool(LocalStorageKeys.isGuest, false);
-             Get.offAllNamed(AppRoutes.signIn);
+             Get.offAllNamed(AppRoutes.onboarding);
              return;
           }
           Get.dialog(
@@ -275,7 +293,7 @@ class AppDrawer extends StatelessWidget {
                   onPressed: () async {
                     await LocalStorage.removeAllPrefData();
                     Get.delete<SignInController>(force: true);
-                    Get.offAllNamed(AppRoutes.signIn);
+                    Get.offAllNamed(AppRoutes.onboarding);
                   },
                   child: const Text(
                     'Logout',

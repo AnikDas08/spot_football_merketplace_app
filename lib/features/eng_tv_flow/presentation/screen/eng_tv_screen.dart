@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled/component/common_appbar/common_appbar.dart';
+import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 import 'package:untitled/utils/constants/temp_image.dart';
 import '../../../../component/text/common_text.dart';
@@ -100,71 +101,12 @@ class EngTvScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 28.h),
-                    _buildSectionHeader("Latest Highlights", () {}),
                     SizedBox(height: 10.h),
-                    SizedBox(
-                      height: 195.h,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: videos.length,
-                        padding: EdgeInsets.only(left: 16.w),
-                        itemBuilder: (context, index) {
-                          final video = videos[index];
-                          final DateTime publishDate = DateTime.tryParse(video.publishDateTime) ?? DateTime.now();
-                          final String timeAgo = timeago(publishDate);
+                    LatestVideos(),
+                    SizedBox(height: 16.h),
 
-                          return Padding(
-                            padding: EdgeInsets.only(right: 12.w),
-                            child: LatestVideoCard(
-                              imageHeight: 130.h,
-                              titleFontSize: 14.sp,
-                              timeFontSize: 10.sp,
-                              imagePath: video.thumbnail,
-                              title: video.title,
-                              time: timeAgo,
-                              duration: '0m',
-                              videoId: video.id,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    LatestVideos( title : "Goal Countdown"),
 
-                    SizedBox(height: 20.h),
-                    _buildSectionHeader("Goal Countdowns", () {}),
-                    SizedBox(height: 10.h),
-                    SizedBox(
-                      height: 190.h,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: videos.length,
-                        padding: EdgeInsets.only(left: 16.w),
-                        itemBuilder: (context, index) {
-                          final video = videos[index];
-                          final DateTime publishDate = DateTime.tryParse(video.publishDateTime) ?? DateTime.now();
-                          final String timeAgo = timeago(publishDate);
-
-                          return Padding(
-                            padding: EdgeInsets.only(right: 12.w),
-                            child: GestureDetector(
-                              onTap: () {
-                                Get.toNamed(AppRoutes.videoStreamScreen, arguments: video.id);
-                              },
-                              child: LatestHighlightCard(
-                                isCheck: false,
-                                imagePath: video.thumbnail,
-                                title: video.title,
-                                time: timeAgo,
-                                source: '',
-                                leagueName: video.category,
-                                duration: '0m',
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
 
                     SizedBox(height: 16.h),
                     Container(

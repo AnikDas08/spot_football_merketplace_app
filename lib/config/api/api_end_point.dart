@@ -21,7 +21,7 @@ class ApiEndPoint {
   static const resetPassword = '/auth/reset-password';
   static const resendOtp = '/auth/resend-otp';
   static const changePassword = 'users/change-password';
-  static const news = '/news';
+  static const news = '/news/public-news';
   static const user = 'users';
   static const notifications = 'notifications';
   static const privacyPolicies = '/privacy-policy';
@@ -44,6 +44,7 @@ class ApiEndPoint {
   static const playerSelectionFilter = '/player-selection/filter';
   static const pointTable = '/point-table';
   static const leagueSummary = '/statistic/league-summary';
+  static const seasonLeaderboard = '/statistic/season-leaderboard';
   static const matchResult = '/match-result/';
   static const teamDashboard = '/team-dashboard/';
   static const video = '/video/public';

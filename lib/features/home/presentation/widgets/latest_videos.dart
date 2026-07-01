@@ -11,7 +11,8 @@ import 'package:untitled/config/api/api_end_point.dart';
 import '../controllers/banner_controller.dart';
 
 class LatestVideos extends StatelessWidget {
-  const LatestVideos({super.key});
+  final String? title;
+  const LatestVideos({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +35,8 @@ class LatestVideos extends StatelessWidget {
                 padding: EdgeInsets.only(left: 16.w),
                 itemCount: 3,
                 separatorBuilder: (context, index) => SizedBox(width: 12.w),
-                itemBuilder: (context, index) => CustomShimmer.rectangular(
-                  height: 220.h,
-                  width: 170.w,
-                ),
+                itemBuilder: (context, index) =>
+                    CustomShimmer.rectangular(height: 220.h, width: 170.w),
               ),
             ),
           ],
@@ -54,7 +53,9 @@ class LatestVideos extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: CommonText(
-              text: AppString.latestVideos.toUpperCase(),
+              text: title != null
+                  ? title.toString().toUpperCase()
+                  : AppString.latestVideos.toUpperCase(),
               fontSize: 20.sp,
               fontWeight: FontWeight.w600,
               fontFamily: 'Montserrat',
@@ -74,7 +75,7 @@ class LatestVideos extends StatelessWidget {
                   imageHeight: 180.h,
                   titleFontSize: 14.sp,
                   timeFontSize: 14.sp,
-                  imagePath: video.videoUrl.isNotEmpty 
+                  imagePath: video.videoUrl.isNotEmpty
                       ? "${ApiEndPoint.imageUrl}${video.thumbnail}"
                       : 'https://images.unsplash.com/photo-1551958219-acbc630e2914?w=600',
                   title: video.title,

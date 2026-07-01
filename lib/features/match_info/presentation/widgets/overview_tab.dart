@@ -169,13 +169,13 @@ class OverviewTab extends StatelessWidget {
                     color: Colors.white,
                     padding: EdgeInsets.all(12.r),
                     child: AspectRatio(
-                      aspectRatio: 335 / 440,
+                      aspectRatio: 335 / 220,
                       child: Stack(
                         children: [
                           Positioned.fill(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12.r),
-                              child: SvgPicture.asset(
+                              child: Image.asset(
                                 AppImages.stadium,
                                 fit: BoxFit.cover,
                               ),
@@ -202,22 +202,31 @@ class OverviewTab extends StatelessWidget {
     final starters = selection.players.where((p) => !p.substitute).toList();
     final String formation = selection.teamFormation;
     
-    final layout = _getLayout(formation);
-    int globalIndex = 0;
+    // Get columns left to right (GK -> Def -> Mid -> Fwd)
+    final layoutWithIndices = _getHorizontalLayout(formation);
 
-    return Column(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: layout.map((row) {
-        return Row(
+      children: layoutWithIndices.map((column) {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: row.map((pos) {
-            final nodeIdx = globalIndex++;
+          children: column.map((posInfo) {
+            final int nodeIdx = posInfo['index'] as int;
+            final String posName = posInfo['label'] as String;
+            
             final p = starters.firstWhereOrNull((player) => player.positionIndex == nodeIdx);
             
+            // Map long names to short codes if needed, or just use initials
+            String displayPos = posName;
+            if (posName.contains('Goalkeeper')) displayPos = 'GK';
+            else if (posName == 'Defender') displayPos = 'DF';
+            else if (posName == 'Midfielder') displayPos = 'CM';
+            else if (posName == 'Forward' || posName == 'Striker') displayPos = 'ST';
+
             return _PlayerNode(
-              initial: p != null ? (p.player.firstName?[0] ?? "P").toUpperCase() : "", 
+              initial: p != null ? (p.player.firstName?[0] ?? p.player.userName?[0] ?? "P").toUpperCase() : displayPos, 
               name: p != null ? (p.player.firstName ?? "Player") : "", 
-              position: pos,
+              position: posName,
               imageUrl: p?.player.profile,
             );
           }).toList(),
@@ -226,14 +235,30 @@ class OverviewTab extends StatelessWidget {
     );
   }
 
-  List<List<String>> _getLayout(String formation) {
+  List<List<Map<String, dynamic>>> _getHorizontalLayout(String formation) {
     final count = int.tryParse(formation) ?? 9;
     if (count == 5) {
-      return [['Forward'], ['Midfielder', 'Midfielder'], ['Defender'], ['Goalkeeper']];
+      return [
+        [{'label': 'Goalkeeper', 'index': 4}],
+        [{'label': 'Defender', 'index': 3}],
+        [{'label': 'Midfielder', 'index': 1}, {'label': 'Midfielder', 'index': 2}],
+        [{'label': 'Forward', 'index': 0}],
+      ];
     } else if (count == 7) {
-      return [['Forward'], ['Midfielder', 'Midfielder', 'Midfielder'], ['Defender', 'Defender'], ['Goalkeeper']];
+      return [
+        [{'label': 'Goalkeeper', 'index': 6}],
+        [{'label': 'Defender', 'index': 4}, {'label': 'Defender', 'index': 5}],
+        [{'label': 'Midfielder', 'index': 1}, {'label': 'Midfielder', 'index': 2}, {'label': 'Midfielder', 'index': 3}],
+        [{'label': 'Forward', 'index': 0}],
+      ];
     } else {
-      return [['Forward', 'Forward'], ['Midfielder', 'Midfielder', 'Midfielder'], ['Defender', 'Defender', 'Defender'], ['Goalkeeper']];
+      // 9 Aside
+      return [
+        [{'label': 'Goalkeeper', 'index': 8}],
+        [{'label': 'Defender', 'index': 5}, {'label': 'Defender', 'index': 6}, {'label': 'Defender', 'index': 7}],
+        [{'label': 'Midfielder', 'index': 2}, {'label': 'Midfielder', 'index': 3}, {'label': 'Midfielder', 'index': 4}],
+        [{'label': 'Forward', 'index': 0}, {'label': 'Forward', 'index': 1}],
+      ];
     }
   }
 }

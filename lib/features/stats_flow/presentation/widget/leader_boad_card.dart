@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 
+import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_images.dart';
 
@@ -11,12 +12,15 @@ class LeaderboardItemData {
   final String academy;
   final String academyPhoto;
   final String score;
+  final String? playerImage;
 
   LeaderboardItemData({
     required this.rank,
     required this.name,
     required this.academy,
-    required this.score, required this.academyPhoto,
+    required this.score,
+    required this.academyPhoto,
+    this.playerImage,
   });
 }
 
@@ -92,11 +96,11 @@ class LeaderboardCard extends StatelessWidget {
                               backgroundColor: Colors.transparent,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12.r),
-                                child: Image.asset(
-                                  academyPhoto,
-                                  fit: BoxFit.cover,
-                                  height: 12.h,
-                                  width: 12.w,
+                                child: CommonImage(
+                                  imageSrc: academyPhoto,
+                                  height: 12,
+                                  width: 12,
+                                  fill: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -125,12 +129,11 @@ class LeaderboardCard extends StatelessWidget {
                     width: 117.w,
                     height: 120.h,
                     alignment: Alignment.bottomCenter,
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      alignment: Alignment.bottomCenter,
-                      child: Image.asset(
-                        topPlayerImage!,
-                      ),
+                    child: CommonImage(
+                      imageSrc: topPlayerImage!,
+                      height: 120,
+                      width: 117,
+                      fill: BoxFit.cover,
                     ),
                   ),
               ],
@@ -182,15 +185,15 @@ class LeaderboardCard extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
           SizedBox(width: 12.w),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12.r),
-          child: Image.asset(
-            academyPhoto,
-            fit: BoxFit.cover,
-            height: 24.h,
-            width: 24.w,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12.r),
+            child: CommonImage(
+              imageSrc: player.playerImage ?? player.academyPhoto,
+              height: 24,
+              width: 24,
+              fill: BoxFit.cover,
+            ),
           ),
-        ),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(
