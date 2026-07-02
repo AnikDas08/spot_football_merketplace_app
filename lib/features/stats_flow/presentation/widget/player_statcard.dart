@@ -53,7 +53,7 @@ class PlayerStatCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 4.w),
                   child: CommonText(
                     text: playerName!,
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: AppColors.primaryColor,
                     maxLines: 1,
@@ -62,7 +62,7 @@ class PlayerStatCard extends StatelessWidget {
                 ),
               CommonText(
                 text: statLabel,
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: AppColors.color6B6B6B,
               ),
@@ -71,7 +71,7 @@ class PlayerStatCard extends StatelessWidget {
 
               CommonText(
                 text: statValue,
-                fontSize: 24.sp,
+                fontSize: 24,
                 fontWeight: FontWeight.w700,
                 color: AppColors.black,
               ),

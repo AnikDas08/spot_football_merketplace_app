@@ -110,7 +110,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
 
                    CommonText(
                     text: "Document / ID Card",
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: AppColors.primaryColor,
                     bottom: 10,
@@ -160,7 +160,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                    Center(
                     child: CommonText(
                       text: "By submitting, you agree to the\nAthlete Terms of Service",
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
                       maxLines: 3,
@@ -183,7 +183,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
       children: [
          CommonText(
           text: "Select Team",
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
           bottom: 8,
         ),
@@ -212,7 +212,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
       children: [
          CommonText(
           text: "Strong Foot",
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
           bottom: 8,
         ),
@@ -241,7 +241,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
       children: [
         CommonText(
           text: "Position",
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
           bottom: 8,
         ),
@@ -341,7 +341,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         CommonText(text: "Date Of Birth", fontSize: 16.sp, fontWeight: FontWeight.w500, bottom: 8),
+         CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
           child: InputDecorator(

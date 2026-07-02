@@ -89,7 +89,7 @@ class _LineupsTabState extends State<LineupsTab> {
                         ),
                         child: CommonText(
                           text: teams[index].toUpperCase(),
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: isSelected ? AppColors.white : AppColors.primaryColor,
                           textAlign: TextAlign.center,
@@ -129,8 +129,8 @@ class _LineupsTabState extends State<LineupsTab> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CommonText(text: 'Tactical Lineup', fontSize: 16.sp, fontWeight: FontWeight.w700, color: Colors.white),
-                            CommonText(text: "$formation aside", fontSize: 16.sp, fontWeight: FontWeight.w700, color: Colors.white),
+                            CommonText(text: 'Tactical Lineup', fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
+                            CommonText(text: "$formation aside", fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
                           ],
                         ),
                       ),
@@ -178,7 +178,7 @@ class _LineupsTabState extends State<LineupsTab> {
                 SizedBox(height: 24.h),
                 CommonText(
                   text: 'PLAYER LIST',
-                  fontSize: 20.sp,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color: AppColors.primaryColor,
                 ),
@@ -197,7 +197,7 @@ class _LineupsTabState extends State<LineupsTab> {
                         SizedBox(height: 16.h),
                         CommonText(
                           text: pos,
-                          fontSize: 18.sp,
+                          fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: AppColors.color6B6B6B,
                         ),
@@ -310,7 +310,7 @@ class _PitchNode extends StatelessWidget {
               : ClipOval(
                   child: imageUrl != null && imageUrl!.isNotEmpty
                       ? CommonImage(imageSrc: imageUrl!, width: 45.w, height: 45.w, fill: BoxFit.cover)
-                      : Center(child: CommonText(text: initial, fontSize: 16.sp, fontWeight: FontWeight.w700, color: Colors.white)),
+                      : Center(child: CommonText(text: initial, fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
                 ),
           ),
           SizedBox(height: 4.h),
@@ -318,7 +318,7 @@ class _PitchNode extends StatelessWidget {
             width: 70.w,
             child: CommonText(
               text: name,
-              fontSize: 10.sp,
+              fontSize: 10,
               fontWeight: FontWeight.w600,
               color: Colors.white,
               maxLines: 1,
@@ -326,7 +326,7 @@ class _PitchNode extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          CommonText(text: position, fontSize: 9.sp, fontWeight: FontWeight.w500, textAlign: TextAlign.center, color: Colors.white.withValues(alpha: 0.9)),
+          CommonText(text: position, fontSize: 9, fontWeight: FontWeight.w500, textAlign: TextAlign.center, color: Colors.white.withValues(alpha: 0.9)),
         ],
       ),
     );
@@ -380,14 +380,14 @@ class _PlayerRow extends StatelessWidget {
                 children: [
                   CommonText(
                     text: name,
-                    fontSize: 15.sp,
+                    fontSize: 15,
                     fontWeight: FontWeight.w600,
                     color: AppColors.primaryColor,
                   ),
                   SizedBox(height: 3),
                   CommonText(
                     text: position,
-                    fontSize: 14.sp,
+                    fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: AppColors.color6B6B6B,
                   ),

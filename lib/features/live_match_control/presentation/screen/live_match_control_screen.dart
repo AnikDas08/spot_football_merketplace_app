@@ -113,7 +113,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                 SizedBox(width: 8.w),
                 CommonText(
                   text: 'LIVE', // Can be dynamic if duration is tracked
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
               ],
@@ -145,7 +145,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                         SizedBox(width: 4.w),
                         CommonText(
                           text: match.status.toUpperCase(),
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                         ),
@@ -157,21 +157,21 @@ class LiveMatchControlScreen extends StatelessWidget {
                     children: [
                       CommonText(
                         text: '${match.homeScore}',
-                        fontSize: 48.sp,
+                        fontSize: 48,
                         fontWeight: FontWeight.w700,
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
                         child: CommonText(
                           text: ':',
-                          fontSize: 32.sp,
+                          fontSize: 32,
                           fontWeight: FontWeight.w300,
                           color: const Color(0xFFCCCCCC),
                         ),
                       ),
                       CommonText(
                         text: '${match.awayScore}',
-                        fontSize: 48.sp,
+                        fontSize: 48,
                         fontWeight: FontWeight.w700,
                       ),
                     ],
@@ -215,7 +215,7 @@ class LiveMatchControlScreen extends StatelessWidget {
             width: 80.w,
             child: CommonText(
               text: name,
-              fontSize: 12.sp,
+              fontSize: 12,
               fontWeight: FontWeight.w700,
               maxLines: 2,
               textAlign: TextAlign.center,
@@ -263,7 +263,7 @@ class LiveMatchControlScreen extends StatelessWidget {
             SizedBox(height: 16.h),
             CommonText(
               text: teamName,
-              fontSize: 14.sp,
+              fontSize: 14,
               fontWeight: FontWeight.w700,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -294,7 +294,7 @@ class LiveMatchControlScreen extends StatelessWidget {
               SizedBox(width: 8.w),
               CommonText(
                 text: 'TEAM CONDUCT RATING',
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: FontWeight.w700,
               ),
             ],
@@ -304,7 +304,7 @@ class LiveMatchControlScreen extends StatelessWidget {
           // Home Team Marks
           CommonText(
             text: "add ${match.homeTeam.teamName} Marks",
-            fontSize: 14.sp,
+            fontSize: 14,
             fontWeight: FontWeight.w600,
             bottom: 8,
           ),
@@ -315,7 +315,7 @@ class LiveMatchControlScreen extends StatelessWidget {
           // Away Team Marks
           CommonText(
             text: "add ${match.awayTeam.teamName} Marks",
-            fontSize: 14.sp,
+            fontSize: 14,
             fontWeight: FontWeight.w600,
             bottom: 8,
           ),
@@ -326,7 +326,7 @@ class LiveMatchControlScreen extends StatelessWidget {
           // Player Of The Day
           CommonText(
             text: 'add Player Of The Day',
-            fontSize: 14.sp,
+            fontSize: 14,
             fontWeight: FontWeight.w600,
             bottom: 8,
           ),
@@ -374,7 +374,7 @@ class LiveMatchControlScreen extends StatelessWidget {
           CommonText(
             text:
                 'RATING AFFECTS SEASON FAIR-PLAY BONUSES AND DISCIPLINARY REVIEW PRIORITY.',
-            fontSize: 10.sp,
+            fontSize: 10,
             fontWeight: FontWeight.w500,
             color: const Color(0xFF424242),
             textAlign: TextAlign.start,
@@ -434,7 +434,7 @@ Widget _buildReportButton(
       ),
       child: CommonText(
         text: text,
-        fontSize: 18.sp,
+        fontSize: 18,
         fontWeight: FontWeight(510),
         color: textColor,
       ),

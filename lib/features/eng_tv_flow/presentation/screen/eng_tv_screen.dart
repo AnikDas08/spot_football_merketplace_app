@@ -113,7 +113,7 @@ class EngTvScreen extends StatelessWidget {
                       margin: EdgeInsets.only(left: 16.w),
                       child: CommonText(
                         text: "Scheduled Broadcasts",
-                        fontSize: 20.sp,
+                        fontSize: 20,
                         fontWeight: FontWeight.w600,
                         maxLines: 2,
                         color: AppColors.primaryColor,
@@ -157,7 +157,7 @@ class EngTvScreen extends StatelessWidget {
         children: [
           CommonText(
             text: title,
-            fontSize: 20.sp,
+            fontSize: 20,
             fontWeight: FontWeight.w600,
             maxLines: 1,
             color: AppColors.primaryColor,
@@ -173,7 +173,7 @@ class EngTvScreen extends StatelessWidget {
                 children: [
                   CommonText(
                     text: "View All",
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                     maxLines: 1,
                     color: AppColors.primaryColor,

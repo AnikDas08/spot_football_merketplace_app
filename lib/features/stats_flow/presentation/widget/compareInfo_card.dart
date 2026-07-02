@@ -48,7 +48,7 @@ class CompareInfoCard extends StatelessWidget {
                 text:
                     text ??
                     "You can select the same player twice to compare their stats from different seasons.",
-                fontSize: 13.sp,
+                fontSize: 13,
                 fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 maxLines: 2,

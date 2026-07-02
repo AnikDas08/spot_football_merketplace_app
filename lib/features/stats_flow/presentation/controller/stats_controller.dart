@@ -7,7 +7,7 @@ import '../../../../services/api/api_service.dart';
 class StatsController extends GetxController {
   final ApiClient apiClient = DioApiClient();
   
-  var selectedAge = "12".obs;
+  var selectedAge = "18".obs;
   var isLoading = false.obs;
   var summaryData = Rxn<Map<String, dynamic>>();
 

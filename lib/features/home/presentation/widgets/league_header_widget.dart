@@ -59,7 +59,7 @@ class LeagueHeaderWidget extends StatelessWidget {
               children: [
                 CommonText(
                   text: (teamName ?? 'PHOENIX UTDS').toUpperCase(),
-                  fontSize: 24.sp,
+                  fontSize: 24,
                   fontWeight: FontWeight.w700,
                   color: AppColors.white,
                   maxLines: 1,
@@ -77,7 +77,7 @@ class LeagueHeaderWidget extends StatelessWidget {
                     Expanded(
                       child: CommonText(
                         text: subtitle ?? 'Founded 1902',
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         color: AppColors.white.withValues(alpha: 0.9),
                         fontWeight: FontWeight.w400,
                       ),

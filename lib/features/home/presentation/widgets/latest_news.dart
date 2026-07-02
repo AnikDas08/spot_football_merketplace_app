@@ -48,7 +48,7 @@ class _LatestNewsState extends State<LatestNews> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CommonText(
                   text: AppString.latestNews.toUpperCase(),
-                  fontSize: 20.sp,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Montserrat',
                 ),

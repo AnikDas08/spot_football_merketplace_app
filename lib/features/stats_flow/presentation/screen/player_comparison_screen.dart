@@ -34,7 +34,7 @@ class PlayerComparisonScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: CommonText(
                   text: "SELECT TWO PLAYERS TO COMPARE THEIR STATS",
-                  fontSize: 18.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   textAlign: TextAlign.center,
                   maxLines: 2,
@@ -86,7 +86,7 @@ class PlayerComparisonScreen extends StatelessWidget {
                           Expanded(
                             child: FilterSelectorCard(
                               label: "Season",
-                              value: "2024/25",
+                              value: "2026/27",
                               onTap: () {},
                             ),
                           ),
@@ -94,7 +94,7 @@ class PlayerComparisonScreen extends StatelessWidget {
                           Expanded(
                             child: FilterSelectorCard(
                               label: "Season",
-                              value: "2024/25",
+                              value: "2026/27",
                               onTap: () {},
                             ),
                           ),

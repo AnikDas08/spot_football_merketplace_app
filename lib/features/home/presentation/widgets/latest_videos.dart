@@ -56,7 +56,7 @@ class LatestVideos extends StatelessWidget {
               text: title != null
                   ? title.toString().toUpperCase()
                   : AppString.latestVideos.toUpperCase(),
-              fontSize: 20.sp,
+              fontSize: 20,
               fontWeight: FontWeight.w600,
               fontFamily: 'Montserrat',
             ),

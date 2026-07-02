@@ -58,7 +58,7 @@ class LatestHighlightCard extends StatelessWidget {
                   ),
                   child: CommonText(
                     text: duration,
-                    fontSize: 10.sp,
+                    fontSize: 10,
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                   ),
@@ -73,7 +73,7 @@ class LatestHighlightCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: CommonText(
               text: title,
-              fontSize: 14.sp,
+              fontSize: 14,
               fontWeight: FontWeight.w600,
               maxLines: 1,
               color: AppColors.primaryColor,
@@ -84,7 +84,7 @@ class LatestHighlightCard extends StatelessWidget {
            padding: EdgeInsets.symmetric(horizontal: 8.w),
            child: CommonText(
               text: "$time - $source",
-              fontSize: 13.sp,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
               color: AppColors.color6B6B6B,
             ),
@@ -92,7 +92,7 @@ class LatestHighlightCard extends StatelessWidget {
            padding: EdgeInsets.symmetric(horizontal: 8.w),
            child: CommonText(
              text: leagueName??"",
-             fontSize: 14.sp,
+             fontSize: 14,
              fontWeight: FontWeight.w600,
              color: AppColors.primaryColor,
              maxLines: 1,

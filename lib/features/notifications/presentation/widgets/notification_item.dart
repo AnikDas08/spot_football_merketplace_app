@@ -69,7 +69,7 @@ class NotificationCard extends StatelessWidget {
                     children: [
                       CommonText(
                         text: alertType,
-                        fontSize: 10.sp,
+                        fontSize: 10,
                         fontWeight: FontWeight.w700,
                         color: color,
                       ),
@@ -85,7 +85,7 @@ class NotificationCard extends StatelessWidget {
                       SizedBox(width: 6.w),
                       CommonText(
                         text: timeAgo,
-                        fontSize: 10.sp,
+                        fontSize: 10,
                         fontWeight: FontWeight.w700,
                         color: AppColors.textSecondaryColor,
                       ),
@@ -96,7 +96,7 @@ class NotificationCard extends StatelessWidget {
                     textAlign: .start,
                     maxLines: 2,
                     text: title,
-                    fontSize: 18.sp,
+                    fontSize: 18,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primaryColor,
                   ),
@@ -105,7 +105,7 @@ class NotificationCard extends StatelessWidget {
                     maxLines: 2,
                     text: subtitle,
                     textAlign: .start,
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     fontWeight: FontWeight(510),
                     color: AppColors.primaryColor,
                   ),
@@ -121,7 +121,7 @@ class NotificationCard extends StatelessWidget {
               child: CommonText(
                 maxLines: 2,
                 text: 'VIEW\nDETAILS',
-                fontSize: 10.sp,
+                fontSize: 10,
                 fontWeight: FontWeight.w700,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,

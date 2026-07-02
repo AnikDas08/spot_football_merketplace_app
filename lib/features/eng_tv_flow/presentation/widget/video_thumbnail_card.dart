@@ -65,7 +65,7 @@ class VideoThumbnailCard extends StatelessWidget {
               children: [
                 CommonText(
                   text: title, // From API
-                  fontSize: 28.sp,
+                  fontSize: 28,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
@@ -75,7 +75,7 @@ class VideoThumbnailCard extends StatelessWidget {
                   children: [
                     CommonText(
                       text:AppString. labelVideo, // Static Variable
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                     ),
@@ -84,7 +84,7 @@ class VideoThumbnailCard extends StatelessWidget {
                     SizedBox(width: 8.w),
                     CommonText(
                       text: duration, // From API
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                     ),

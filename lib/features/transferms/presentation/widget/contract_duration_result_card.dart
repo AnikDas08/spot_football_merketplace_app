@@ -49,7 +49,7 @@ class ContractDurationResultCard extends StatelessWidget {
               children: [
                 CommonText(
                   text: durationTitle,
-                  fontSize: 14.sp,
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: AppColors.primaryColor,
                 ),
@@ -57,14 +57,14 @@ class ContractDurationResultCard extends StatelessWidget {
                   children: [
                     CommonText(
                       text: yearsText,
-                      fontSize: 24.sp,
+                      fontSize: 24,
                       fontWeight: FontWeight.w600,
                       color: AppColors.primaryColor,
                     ),
                     SizedBox(width: 2.w),
                     CommonText(
                       text: "($dateText)",
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: AppColors.color6B6B6B,
                     ),

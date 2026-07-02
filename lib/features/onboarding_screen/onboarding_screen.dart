@@ -62,7 +62,7 @@ class OnboardingScreen extends StatelessWidget {
                   /// Welcome Text
                   CommonText(
                     text: "Welcome to",
-                    fontSize: 24.sp,
+                    fontSize: 24,
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
                     fontFamily: 'Montserrat',
@@ -70,7 +70,7 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                   CommonText(
                     text: "ENG",
-                    fontSize: 36.sp,
+                    fontSize: 36,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
                     fontFamily: 'Montserrat',

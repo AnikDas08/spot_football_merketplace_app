@@ -36,7 +36,7 @@ class PersonalDetailsWidget extends StatelessWidget {
             children: [
               CommonText(
                 text: 'PERSONAL DETAILS',
-                fontSize: 20.sp,
+                fontSize: 20,
                 fontWeight: const FontWeight(590),
                 color: AppColors.primaryColor,
               ),
@@ -78,7 +78,7 @@ class PersonalDetailsWidget extends StatelessWidget {
           Expanded(
             child: CommonText(
               text: title,
-              fontSize: 15.sp,
+              fontSize: 15,
               fontWeight: const FontWeight(510),
               color: AppColors.color373737,
               textAlign: TextAlign.start,
@@ -86,7 +86,7 @@ class PersonalDetailsWidget extends StatelessWidget {
           ),
           CommonText(
             text: value,
-            fontSize: 15.sp,
+            fontSize: 15,
             fontWeight: const FontWeight(510),
             color: AppColors.primaryColor,
           ),

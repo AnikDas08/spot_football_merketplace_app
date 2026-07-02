@@ -49,7 +49,7 @@ class TeamSheetScreen extends StatelessWidget {
                             children: [
                               CommonText(
                                 text: 'SELECT TEAM',
-                                fontSize: 14.sp,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black87,
                               ),
@@ -65,7 +65,7 @@ class TeamSheetScreen extends StatelessWidget {
                             children: [
                               CommonText(
                                 text: 'SELECT VENUE',
-                                fontSize: 14.sp,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black87,
                               ),
@@ -82,7 +82,7 @@ class TeamSheetScreen extends StatelessWidget {
                       children: [
                         CommonText(
                           text: 'TEAM FORMAT (ASIDE)',
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           fontWeight: FontWeight.w700,
                           color: Colors.black87,
                         ),
@@ -95,7 +95,7 @@ class TeamSheetScreen extends StatelessWidget {
                     SizedBox(height: 24.h),
                     CommonText(
                       text: 'SUBSTITUTES',
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
                     ),
                     SizedBox(height: 16.h),
@@ -159,14 +159,14 @@ class TeamSheetScreen extends StatelessWidget {
                   children: [
                     CommonText(
                       text: currentMatch.venueName,
-                      fontSize: 18.sp,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: AppColors.white,
                     ),
                     SizedBox(height: 4.h),
                     CommonText(
                       text: "${currentMatch.homeTeam.teamName} vs ${currentMatch.awayTeam.teamName}",
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: AppColors.white,
                       maxLines: 1,
@@ -273,7 +273,7 @@ class TeamSheetScreen extends StatelessWidget {
           items: controller.formations.map((String item) {
             return DropdownMenuItem<String>(
               value: item,
-              child: CommonText(text: "$item aside", fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.w600),
+              child: CommonText(text: "$item aside", fontSize: 14, color: Colors.black, fontWeight: FontWeight.w600),
             );
           }).toList(),
           onChanged: (val) => controller.updateFormation(val!),
@@ -309,13 +309,13 @@ class TeamSheetScreen extends StatelessWidget {
               children: [
                 CommonText(
                   text: 'Formation Setup',
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),
                 CommonText(
                   text: "${controller.selectedFormation.value} aside",
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),
@@ -396,7 +396,7 @@ class TeamSheetScreen extends StatelessWidget {
                               : Center(
                                   child: CommonText(
                                     text: initial,
-                                    fontSize: 16.sp,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
                                   ),
@@ -432,7 +432,7 @@ class TeamSheetScreen extends StatelessWidget {
           width: 70.w,
           child: CommonText(
             text: name ?? '',
-            fontSize: 10.sp,
+            fontSize: 10,
             fontWeight: FontWeight.w600,
             color: Colors.white,
             maxLines: 1,
@@ -442,7 +442,7 @@ class TeamSheetScreen extends StatelessWidget {
         ),
         CommonText(
           text: position,
-          fontSize: 9.sp,
+          fontSize: 9,
           fontWeight: FontWeight.w500,
           textAlign: TextAlign.center,
           color: Colors.white.withValues(alpha: 0.9),
@@ -524,7 +524,7 @@ class TeamSheetScreen extends StatelessWidget {
               SizedBox(height: 4.h),
               CommonText(
                 text: playerData?['name'] ?? subPos,
-                fontSize: 11.sp,
+                fontSize: 11,
                 fontWeight: FontWeight.w700,
                 maxLines: 1,
                 textAlign: TextAlign.center,
@@ -532,7 +532,7 @@ class TeamSheetScreen extends StatelessWidget {
               ),
               CommonText(
                 text: playerData != null ? (playerData['pos'] ?? '') : '', 
-                fontSize: 9.sp, 
+                fontSize: 9, 
                 color: Colors.grey,
                 textAlign: TextAlign.center,
               ),
@@ -560,7 +560,7 @@ class TeamSheetScreen extends StatelessWidget {
             ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
             : CommonText(
                 text: controller.existingSelectionId.isNotEmpty ? 'Update Selection' : 'Confirm Selection',
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
               ),
@@ -584,7 +584,7 @@ class TeamSheetScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CommonText(text: 'Select Player for $position', fontSize: 18.sp, fontWeight: FontWeight.w700),
+                CommonText(text: 'Select Player for $position', fontSize: 18, fontWeight: FontWeight.w700),
                 IconButton(
                   onPressed: () => Get.back(),
                   icon: const Icon(Icons.close),
@@ -629,12 +629,12 @@ class TeamSheetScreen extends StatelessWidget {
                         text: fullName.isNotEmpty ? fullName : (p['userName'] ?? "Player"), 
                         textAlign: TextAlign.start, 
                         fontWeight: FontWeight.w600, 
-                        fontSize: 15.sp,
+                        fontSize: 15,
                       ),
                       subtitle: CommonText(
                         text: 'Position: ${p['position'] ?? "N/A"}', 
                         textAlign: TextAlign.start, 
-                        fontSize: 12.sp, 
+                        fontSize: 12, 
                         color: Colors.grey,
                       ),
                       onTap: () {

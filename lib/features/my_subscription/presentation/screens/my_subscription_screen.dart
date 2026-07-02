@@ -64,7 +64,7 @@ class MySubscriptionScreen extends StatelessWidget {
                 SizedBox(height: 20.h),
                 CommonText(
                   text: '$titleRole Registration',
-                  fontSize: 40.sp,
+                  fontSize: 40,
                   fontWeight: FontWeight.w700,
                   textAlign: TextAlign.start,
                   color: AppColors.black,
@@ -73,7 +73,7 @@ class MySubscriptionScreen extends StatelessWidget {
                 CommonText(
                   text:
                       'Please Select One Of The Following Which Applies To You - All Registrations Pending ENG Admin Approval',
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w400,
                   textAlign: TextAlign.start,
                   maxLines: 3,
@@ -112,7 +112,7 @@ class MySubscriptionScreen extends StatelessWidget {
                         text: "You are currently subscribed to this plan",
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.w600,
-                        fontSize: 14.sp,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -188,7 +188,7 @@ class MySubscriptionScreen extends StatelessWidget {
           SizedBox(height: 20.h),
           CommonText(
             text: 'SUBSCRIPTION DETAILS',
-            fontSize: 24.sp,
+            fontSize: 24,
             fontWeight: FontWeight.w700,
             color: AppColors.black,
             bottom: 32.h,
@@ -215,7 +215,7 @@ class MySubscriptionScreen extends StatelessWidget {
                     SizedBox(width: 12.w),
                     CommonText(
                       text: title.toUpperCase(),
-                      fontSize: 22.sp,
+                      fontSize: 22,
                       fontWeight: FontWeight.w700,
                       color: AppColors.black,
                     ),
@@ -252,7 +252,7 @@ class MySubscriptionScreen extends StatelessWidget {
                         ),
                         CommonText(
                           text: '/$paymentType',
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: const Color(0xFF6B6B6B),
                         ),
@@ -327,7 +327,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                 SizedBox(width: 12.w),
                 CommonText(
                   text: package.title?.toUpperCase() ?? "",
-                  fontSize: 18.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                   color: AppColors.black,
                 ),
@@ -374,7 +374,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                       ),
                       CommonText(
                         text: '/${package.paymentType ?? "Season"}',
-                        fontSize: 12.sp,
+                        fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: const Color(0xFF6B6B6B),
                         top: 2.h,
@@ -399,7 +399,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                   text: isCurrentPlan 
                       ? 'CURRENT PLAN' 
                       : 'SELECT ${package.title?.toUpperCase() ?? ""}',
-                  fontSize: 14.sp,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: isCurrentPlan ? Colors.grey.shade600 : AppColors.white,
                 ),
@@ -433,7 +433,7 @@ class _FeatureItem extends StatelessWidget {
           child: CommonText(
             textAlign: TextAlign.start,
             text: text,
-            fontSize: 13.sp,
+            fontSize: 13,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
             maxLines: 2,

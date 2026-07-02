@@ -8,7 +8,7 @@ import '../model/season_leaderboard_model.dart';
 
 class SeassonStatsController extends GetxController {
   final ApiClient apiClient = DioApiClient();
-  var selectedSeason = "2024/25".obs;
+  var selectedSeason = "2026/27".obs;
   var isLoading = false.obs;
   var leaderboardData = Rxn<LeaderboardData>();
 
@@ -21,9 +21,10 @@ class SeassonStatsController extends GetxController {
   Future<void> fetchSeasonLeaderboard() async {
     try {
       isLoading.value = true;
-      // You might need to pass the season as a query parameter if the API supports it
-      // e.g., "${ApiEndPoint.seasonLeaderboard}?season=${selectedSeason.value}"
-      final response = await apiClient.get(ApiEndPoint.seasonLeaderboard);
+      final response = await apiClient.get(
+        ApiEndPoint.seasonLeaderboard,
+        query: {'season': selectedSeason.value.split('/').first},
+      );
 
       if (response.statusCode == 200 && response.data['success'] == true) {
         SeasonLeaderboardModel model = SeasonLeaderboardModel.fromJson(response.data);

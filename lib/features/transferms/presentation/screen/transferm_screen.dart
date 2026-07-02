@@ -40,7 +40,7 @@ class TransferScreen extends StatelessWidget {
                     //   child: CommonText(
                     //     text: AppString.trending.toUpperCase(),
                     //     color: AppColors.primaryColor,
-                    //     fontSize: 20.sp,
+                    //     fontSize: 20,
                     //     fontWeight: FontWeight.w600,
                     //   ),
                     // ),
@@ -78,7 +78,7 @@ class TransferScreen extends StatelessWidget {
                         child: CommonText(
                           text: AppString.recentOffers.toUpperCase(),
                           color: AppColors.primaryColor,
-                          fontSize: 20.sp,
+                          fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

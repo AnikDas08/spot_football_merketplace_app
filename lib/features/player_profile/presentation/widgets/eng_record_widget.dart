@@ -36,7 +36,7 @@ class EngRecordWidget extends StatelessWidget {
         children: [
           CommonText(
             text: AppString.engRecord,
-            fontSize: 20.sp,
+            fontSize: 20,
             fontWeight: const FontWeight(650),
             color: AppColors.primaryColor,
           ),
@@ -137,21 +137,21 @@ class _RecordCard extends StatelessWidget {
             children: [
               CommonText(
                 text: title,
-                fontSize: 10.sp,
+                fontSize: 10,
                 color: AppColors.textSecondaryColor,
                 fontWeight: const FontWeight(590),
               ),
               SizedBox(height: 6.h),
               CommonText(
                 text: value,
-                fontSize: 32.sp,
+                fontSize: 32,
                 fontWeight: FontWeight.w700,
                 color: textColor ?? AppColors.primaryColor,
               ),
               const Spacer(),
               CommonText(
                 text: sub,
-                fontSize: 12.sp,
+                fontSize: 12,
                 fontWeight: const FontWeight(590),
                 color: color,
               ),

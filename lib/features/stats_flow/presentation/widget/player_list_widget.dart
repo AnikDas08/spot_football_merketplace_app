@@ -57,13 +57,13 @@ class PlayerListWidget extends StatelessWidget {
               children: [
                 CommonText(
                   text: player.name,
-                  fontSize: 18.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                   color: Colors.black,
                 ),
                 CommonText(
                   text: player.position,
-                  fontSize: 14.sp,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: Colors.grey,
                 ),

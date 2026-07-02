@@ -70,7 +70,7 @@ class BannerCard extends StatelessWidget {
 
                     CommonText(
                       text: videoModel.title,
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       color: AppColors.white,
                       fontWeight: FontWeight.w800,
                     ),
@@ -81,7 +81,7 @@ class BannerCard extends StatelessWidget {
                     CommonText(
                       text: videoModel.category,
                       color: AppColors.white,
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
 
@@ -91,7 +91,7 @@ class BannerCard extends StatelessWidget {
                     CommonText(
                       text: videoModel.status,
                       color: AppColors.white,
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w800,
                     ),
 
@@ -117,7 +117,7 @@ class BannerCard extends StatelessWidget {
                         child: CommonText(
                           text: AppString.watchEngLive,
                           color: AppColors.white,
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           fontWeight: FontWeight.w700,
                         ),
                       ),

@@ -68,14 +68,14 @@ class MyChildrenScreen extends StatelessWidget {
         children: [
           CommonText(
             text: AppString.activeAthletes,
-            fontSize: 24.sp,
+            fontSize: 24,
             fontWeight: FontWeight.w700,
             color: AppColors.black,
             bottom: 8,
           ),
           CommonText(
             text: AppString.manageYourChildrenSports,
-            fontSize: 14.sp,
+            fontSize: 14,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
             maxLines: 2,
@@ -122,7 +122,7 @@ class MyChildrenScreen extends StatelessWidget {
                   children: [
                     CommonText(
                       text: name,
-                      fontSize: 18.sp,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: AppColors.black,
                     ),
@@ -154,13 +154,13 @@ class MyChildrenScreen extends StatelessWidget {
                   children: [
                     CommonText(
                       text: AppString.nextGame,
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textSecondaryColor,
                     ),
                     CommonText(
                       text: "TBA",
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: AppColors.primaryColor,
                     ),
@@ -177,7 +177,7 @@ class MyChildrenScreen extends StatelessWidget {
                     children: [
                       CommonText(
                         text: AppString.viewProfile,
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primaryColor,
                       ),
@@ -210,7 +210,7 @@ class MyChildrenScreen extends StatelessWidget {
           ],
           CommonText(
             text: text,
-            fontSize: 12.sp,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
             color: isTeam ? const Color(0xFF19CA77) : AppColors.textSecondaryColor,
           ),

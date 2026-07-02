@@ -21,14 +21,14 @@ class TransferSummaryCard extends StatelessWidget {
         children: [
           CommonText(
             text: 'TOTAL EXPENDITURE',
-            fontSize: 14.sp,
+            fontSize: 14,
             color: AppColors.textSecondaryColor,
             fontWeight: FontWeight(510),
           ),
           SizedBox(height: 8.h),
           CommonText(
             text: '€42,500,000',
-            fontSize: 32.sp,
+            fontSize: 32,
             fontWeight: FontWeight(590),
             color: AppColors.primaryColor,
           ),

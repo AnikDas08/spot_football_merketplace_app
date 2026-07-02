@@ -39,14 +39,14 @@ class TransferFeeCard extends StatelessWidget {
 
           CommonText(
             text: title!,
-            fontSize: 14.sp,
+            fontSize: 14,
             fontWeight: FontWeight.w500,
             color: AppColors.primaryColor,
           ),
 
           CommonText(
             text: feeAmount,
-            fontSize: 24.sp,
+            fontSize: 24,
             fontWeight: FontWeight.w600,
             color: AppColors.primaryColor,
           ),
@@ -55,7 +55,7 @@ class TransferFeeCard extends StatelessWidget {
 
           CommonText(
             text: subTitle,
-            fontSize: 16.sp,
+            fontSize: 16,
             fontWeight: FontWeight.w400,
             color: AppColors.color6B6B6B,
           ),

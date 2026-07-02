@@ -47,7 +47,7 @@ class LeaguePreview extends StatelessWidget {
                   child: CommonText(
                     text: AppString.leaguePreview.toUpperCase(),
                     fontWeight: const FontWeight(600),
-                    fontSize: 20.sp,
+                    fontSize: 20,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     fontFamily: 'Montserrat',
@@ -63,7 +63,7 @@ class LeaguePreview extends StatelessWidget {
                       CommonText(
                         text: AppString.viewAll,
                         fontWeight: const FontWeight(500),
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         color: AppColors.primaryColor,
                       ),
                       const SizedBox(width: 5),
@@ -77,7 +77,7 @@ class LeaguePreview extends StatelessWidget {
             if (showHeader) SizedBox(height: 8.h),
             CommonText(
               text: '$leagueName ${season ?? ""}',
-              fontSize: 14.sp,
+              fontSize: 14,
               fontWeight: FontWeight.w500,
               color: AppColors.color6B6B6B,
             ),
@@ -126,7 +126,7 @@ class _StandingsTable extends StatelessWidget {
                     width: 30.w,
                     child: CommonText(
                       text: 'Pos',
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: AppColors.white,
                     ),
@@ -136,7 +136,7 @@ class _StandingsTable extends StatelessWidget {
                       padding: EdgeInsets.only(left: 22.w)  ,
                       child: CommonText(
                         text: 'Club',
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),
@@ -146,7 +146,7 @@ class _StandingsTable extends StatelessWidget {
                     width: 30.w,
                     child: CommonText(
                       text: 'PL',
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: AppColors.white,
                       textAlign: TextAlign.center,
@@ -156,7 +156,7 @@ class _StandingsTable extends StatelessWidget {
                     width: 36.w,
                     child: CommonText(
                       text: 'GD',
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: AppColors.white,
                       textAlign: TextAlign.center,
@@ -166,7 +166,7 @@ class _StandingsTable extends StatelessWidget {
                     width: 36.w,
                     child: CommonText(
                       text: 'PTS',
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: AppColors.white,
                       textAlign: TextAlign.center,
@@ -216,7 +216,7 @@ class _StandingRow extends StatelessWidget {
               width: 30.w,
               child: CommonText(
                 text: '$position.',
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
               ),
@@ -234,7 +234,7 @@ class _StandingRow extends StatelessWidget {
                   Expanded(
                     child: CommonText(
                       text: item.team.teamName,
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: AppColors.primaryColor,
                       maxLines: 1,
@@ -248,7 +248,7 @@ class _StandingRow extends StatelessWidget {
               width: 30.w,
               child: CommonText(
                 text: '${item.played}',
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,
@@ -258,7 +258,7 @@ class _StandingRow extends StatelessWidget {
               width: 36.w,
               child: CommonText(
                 text: gdText,
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,
@@ -268,7 +268,7 @@ class _StandingRow extends StatelessWidget {
               width: 36.w,
               child: CommonText(
                 text: '${item.points}',
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,

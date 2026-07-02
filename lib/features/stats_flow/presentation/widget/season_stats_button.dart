@@ -31,7 +31,7 @@ class SeasonStatsButton extends StatelessWidget {
           children: [
             CommonText(
               text: title ?? "Season Stats",
-              fontSize: 16.sp,
+              fontSize: 16,
               fontWeight: FontWeight.w500,
               color: AppColors.primaryColor,
             ),

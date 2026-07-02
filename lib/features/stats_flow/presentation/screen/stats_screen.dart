@@ -41,15 +41,15 @@ class StatsScreen extends StatelessWidget {
                     children: [
                       CommonText(
                         text: "Statistics",
-                        fontSize: 24.sp,
+                        fontSize: 24,
                         fontWeight: FontWeight.w700,
                         color: AppColors.primaryColor,
                         fontFamily: 'Montserrat',
                       ),
                       SizedBox(height: 4.h),
                       CommonText(
-                        text: "2024/25 Top Stats",
-                        fontSize: 14.sp,
+                        text: "2026/27 Top Stats",
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.color373737,
                         fontFamily: 'Montserrat',
@@ -85,13 +85,13 @@ class StatsScreen extends StatelessWidget {
                             children: [
                               CommonText(
                                 text: "Under",
-                                fontSize: 12.sp,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black54,
                               ),
                               CommonText(
                                 text: controller.selectedAge.value,
-                                fontSize: 16.sp,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),

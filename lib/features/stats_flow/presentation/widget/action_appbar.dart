@@ -50,7 +50,7 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 14.sp),
                         SizedBox(width: 6.w),
-                        CommonText(text: 'Back', fontSize: 16.sp, color: Colors.white),
+                        CommonText(text: 'Back', fontSize: 16, color: Colors.white),
                       ],
                     ),
                   ),
@@ -61,7 +61,7 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Center(
                     child: CommonText(
                       text: title.toUpperCase(),
-                      fontSize: 18.sp,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                     ),
@@ -76,7 +76,7 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
                       alignment: Alignment.centerRight,
                       child: CommonText(
                         text: 'Reset',
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: const Color(0xFFFFC107),
                       ),

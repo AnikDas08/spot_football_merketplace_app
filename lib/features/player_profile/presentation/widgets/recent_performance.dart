@@ -22,7 +22,7 @@ class RecentPerformance extends StatelessWidget {
         children: [
           CommonText(
             text: AppString.recentPerformance.toUpperCase(),
-            fontSize: 20.sp,
+            fontSize: 20,
             fontWeight: const FontWeight(590),
             color: AppColors.primaryColor,
           ),

@@ -51,7 +51,7 @@ class UpcomingEvents extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: CommonText(
                 text: AppString.upcomingEvents.toUpperCase(),
-                fontSize: 20.sp,
+                fontSize: 20,
                 fontWeight: const FontWeight(590),
                 fontFamily: 'Montserrat',
               ),

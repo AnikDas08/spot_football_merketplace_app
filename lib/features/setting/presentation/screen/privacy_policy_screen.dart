@@ -36,7 +36,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     child: CommonText(
                       text: AppString.legalProtoCol.toUpperCase(),
                       color: AppColors.primaryColor,
-                      fontSize: 32.sp,
+                      fontSize: 32,
                       fontWeight: FontWeight.w700,
                       textAlign: TextAlign.center,
                     ),
@@ -44,7 +44,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                   CommonText(
                     text: AppString.lastUpdatedOctober2024.toUpperCase(),
                     color: AppColors.color6B6B6B,
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,
                   ),

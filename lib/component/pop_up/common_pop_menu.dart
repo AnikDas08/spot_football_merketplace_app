@@ -168,14 +168,14 @@ void deletePopUp({
                 Center(
                   child: CommonText(
                     text: AppString.areYouSure,
-                    fontSize: 20.sp,
+                    fontSize: 20,
                     fontWeight: .w700,
                     bottom: 24.h,
                   ),
                 ),
                 CommonText(
                   text: AppString.deleteDetails,
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   maxLines: 2,
                   bottom: 20.h,
                 ),

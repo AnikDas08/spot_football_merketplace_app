@@ -46,14 +46,14 @@ class SeasonSelectorButton extends StatelessWidget {
               children: [
                 CommonText(
                   text: label,
-                  fontSize: 12.sp,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color6B6B6B,
                 ),
                 SizedBox(height: 4.h),
                 CommonText(
                   text: seasonValue,
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w500,
                   color: AppColors.primaryColor,
                 ),

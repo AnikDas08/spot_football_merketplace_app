@@ -27,7 +27,7 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: CommonText(
         text: title.toUpperCase(),
         color: AppColors.white,
-        fontSize: 21.sp,
+        fontSize: 21,
         fontFamily: 'Montserrat',
         fontWeight: FontWeight.w700,
       ),

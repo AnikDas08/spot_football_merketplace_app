@@ -65,7 +65,7 @@ class UpcomingFixtureCard extends StatelessWidget {
               /// Date Header
               CommonText(
                 text: date,
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppColors.black,
                 bottom: 16.h,
@@ -86,7 +86,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                         SizedBox(height: 8.h),
                         CommonText(
                           text: homeTeam,
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           fontWeight: FontWeight.w600,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -108,7 +108,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                     ),
                     child: CommonText(
                       text: time,
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
                       color: AppColors.black,
                     ),
@@ -127,7 +127,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                         SizedBox(height: 8.h),
                         CommonText(
                           text: awayTeam,
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           fontWeight: FontWeight.w600,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -142,7 +142,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                 SizedBox(height: 12.h),
                 CommonText(
                   text: venue!,
-                  fontSize: 11.sp,
+                  fontSize: 11,
                   fontWeight: FontWeight.w400,
                   color: Colors.grey,
                   maxLines: 1,
@@ -187,7 +187,7 @@ class UpcomingFixtureCard extends StatelessWidget {
       alignment: Alignment.center,
       child: CommonText(
         text: title,
-        fontSize: 13.sp,
+        fontSize: 13,
         fontWeight: FontWeight.w600,
         color: textCol,
       ),

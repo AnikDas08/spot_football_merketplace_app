@@ -21,7 +21,7 @@ class ComparisonStatsTable extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 16.h),
           child: CommonText(
             text: "OVERVIEW",
-            fontSize: 16.sp,
+            fontSize: 16,
             fontWeight: FontWeight.w500,
             color: AppColors.primaryColor,
           ),
@@ -64,7 +64,7 @@ class ComparisonStatsTable extends StatelessWidget {
               text: val1?.toString() ?? "-",
               textAlign: TextAlign.left,
               fontWeight: FontWeight.w400,
-              fontSize: 14.sp,
+              fontSize: 14,
               color: AppColors.primaryColor,
             ),
           ),
@@ -76,7 +76,7 @@ class ComparisonStatsTable extends StatelessWidget {
               text: label,
               textAlign: TextAlign.center,
               fontWeight: FontWeight.w400,
-              fontSize: 14.sp,
+              fontSize: 14,
               color: AppColors.primaryColor,
             ),
           ),
@@ -88,7 +88,7 @@ class ComparisonStatsTable extends StatelessWidget {
                 ? CommonText(
                     text: val2.toString(),
                     fontWeight: FontWeight.w400,
-                    fontSize: 14.sp,
+                    fontSize: 14,
                     textAlign: TextAlign.right,
                     color: AppColors.primaryColor,
                   )

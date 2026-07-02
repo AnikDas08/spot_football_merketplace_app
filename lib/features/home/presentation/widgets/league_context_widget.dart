@@ -22,7 +22,7 @@ class LeagueContextWidget extends StatelessWidget {
       children: [
         CommonText(
           text: 'LEAGUE CONTEXT',
-          fontSize: 20.sp,
+          fontSize: 20,
           fontWeight: FontWeight.w600,
           color: AppColors.primaryColor,
         ),
@@ -78,13 +78,13 @@ class LeagueContextWidget extends StatelessWidget {
       children: [
         CommonText(
           text: value,
-          fontSize: 32.sp,
+          fontSize: 32,
           fontWeight: FontWeight.w700,
           color: const Color(0xFFEABB00),
         ),
         CommonText(
           text: label,
-          fontSize: 12.sp,
+          fontSize: 12,
           fontWeight: FontWeight.w600,
           color: Colors.grey.shade600,
         ),

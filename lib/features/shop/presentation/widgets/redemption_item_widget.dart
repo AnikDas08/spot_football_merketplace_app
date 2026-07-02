@@ -38,7 +38,7 @@ class RedemptionItemWidget extends StatelessWidget {
         children: [
           CommonText(
             text: product?.productType ?? '',
-            fontSize: 14.sp,
+            fontSize: 14,
             fontWeight: FontWeight.w600,
             color: AppColors.primaryColor,
             maxLines: 1,
@@ -65,13 +65,13 @@ class RedemptionItemWidget extends StatelessWidget {
             children: [
               CommonText(
                 text: AppString.totalCoins,
-                fontSize: 12.sp,
+                fontSize: 12,
                 color: AppColors.textSecondaryColor,
                 fontWeight: FontWeight.w400,
               ),
               CommonText(
                 text: " ${product?.point ?? 0}",
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppColors.yellow,
               ),
@@ -87,7 +87,7 @@ class RedemptionItemWidget extends StatelessWidget {
             ),
             child: CommonText(
               text: AppString.redeem,
-              fontSize: 14.sp,
+              fontSize: 14,
               fontWeight: FontWeight.w600,
               color: AppColors.white,
               textAlign: TextAlign.center,

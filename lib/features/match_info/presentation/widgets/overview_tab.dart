@@ -59,7 +59,7 @@ class OverviewTab extends StatelessWidget {
                         ),
                         child: CommonText(
                           text: teams[index].toUpperCase(),
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: isSelected ? AppColors.white : AppColors.primaryColor,
                           textAlign: TextAlign.center,
@@ -82,7 +82,7 @@ class OverviewTab extends StatelessWidget {
                 children: [
                   CommonText(
                     text: "MATCH INFO",
-                    fontSize: 17.sp,
+                    fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primaryColor,
                   ),
@@ -112,7 +112,7 @@ class OverviewTab extends StatelessWidget {
                 children: [
                   CommonText(
                     text: AppString.keyEvents,
-                    fontSize: 17.sp,
+                    fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primaryColor,
                   ),
@@ -152,13 +152,13 @@ class OverviewTab extends StatelessWidget {
                       children: [
                         CommonText(
                           text: 'Formation Setup',
-                          fontSize: 18.sp,
+                          fontSize: 18,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white,
                         ),
                         CommonText(
                           text: '${currentSelection?.teamFormation ?? "9"} aside',
-                          fontSize: 18.sp,
+                          fontSize: 18,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white,
                         ),
@@ -297,12 +297,12 @@ class _InfoRow extends StatelessWidget {
             children: [
               CommonText(
                 text: label,
-                fontSize: 12.sp,
+                fontSize: 12,
                 color: AppColors.textSecondaryColor,
               ),
               CommonText(
                 text: value,
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: AppColors.primaryColor,
               ),
@@ -372,13 +372,13 @@ class _KeyEventRow extends StatelessWidget {
             children: [
               CommonText(
                 text: playerName,
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppColors.primaryColor,
               ),
               CommonText(
                 text: description,
-                fontSize: 12.sp,
+                fontSize: 12,
                 color: AppColors.textSecondaryColor,
               ),
             ],
@@ -386,7 +386,7 @@ class _KeyEventRow extends StatelessWidget {
         ),
         CommonText(
           text: minute,
-          fontSize: 14.sp,
+          fontSize: 14,
           fontWeight: const FontWeight(590),
           color: AppColors.primaryColor,
         ),
@@ -430,7 +430,7 @@ class _PlayerNode extends StatelessWidget {
                       : Center(
                           child: CommonText(
                             text: initial,
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: AppColors.white,
                           ),
@@ -442,7 +442,7 @@ class _PlayerNode extends StatelessWidget {
           width: 70.w,
           child: CommonText(
             text: name,
-            fontSize: 10.sp,
+            fontSize: 10,
             fontWeight: FontWeight.w700,
             color: AppColors.white,
             maxLines: 1,
@@ -452,7 +452,7 @@ class _PlayerNode extends StatelessWidget {
         ),
         CommonText(
           text: position,
-          fontSize: 8.sp,
+          fontSize: 8,
           textAlign: TextAlign.center,
           color: AppColors.white.withValues(alpha: 0.8),
         ),

@@ -84,7 +84,7 @@ class PlayerCard extends StatelessWidget {
                     ),
                     child: CommonText(
                       text: status,
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                     ),
@@ -106,7 +106,7 @@ class PlayerCard extends StatelessWidget {
                   CommonText(
                     text: playerName.toUpperCase(),
                     color: AppColors.white,
-                    fontSize: 20.sp,
+                    fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
                   SizedBox(height: 6.h),
@@ -122,7 +122,7 @@ class PlayerCard extends StatelessWidget {
                         child: CommonText(
                           text: academyName.toUpperCase(),
                           color: Colors.white,
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -130,7 +130,7 @@ class PlayerCard extends StatelessWidget {
                       CommonText(
                         text: '$price COINS',
                         color: Colors.white,
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                     ],

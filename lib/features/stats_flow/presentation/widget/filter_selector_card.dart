@@ -38,14 +38,14 @@ class FilterSelectorCard extends StatelessWidget {
               children: [
                 CommonText(
                   text: label,
-                  fontSize: 12.sp,
+                  fontSize: 12,
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.w400,
                 ),
                 SizedBox(height: 2.h),
                 CommonText(
                   text: value,
-                  fontSize: 13.sp,
+                  fontSize: 13,
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.w500,
                 ),

@@ -67,7 +67,7 @@ class UpcomingEventCard extends StatelessWidget {
                   ),
                   child: CommonText(
                     text: AppString.limitedSlots,
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: AppColors.black,
                   ),
@@ -78,7 +78,7 @@ class UpcomingEventCard extends StatelessWidget {
           SizedBox(height: 12.h),
           CommonText(
             text: event.title,
-            fontSize: 20.sp,
+            fontSize: 20,
             fontWeight: FontWeight.w700,
             color: AppColors.black,
             maxLines: 1,
@@ -87,7 +87,7 @@ class UpcomingEventCard extends StatelessWidget {
           SizedBox(height: 4.h),
           CommonText(
             text: event.location,
-            fontSize: 16.sp,
+            fontSize: 16,
             fontWeight: FontWeight.w400,
             color: AppColors.color6B6B6B,
           ),
@@ -102,7 +102,7 @@ class UpcomingEventCard extends StatelessWidget {
             alignment: Alignment.center,
             child: CommonText(
               text: AppString.viewDetails,
-              fontSize: 18.sp,
+              fontSize: 18,
               fontWeight: FontWeight.w600,
               color: AppColors.white,
             ),

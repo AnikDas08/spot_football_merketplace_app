@@ -40,7 +40,7 @@ class RecentResult extends StatelessWidget {
         children: [
           CommonText(
             text: "RECENT RESULTS",
-            fontSize: 20.sp,
+            fontSize: 20,
             fontWeight: FontWeight.w600,
             color: AppColors.primaryColor,
             fontFamily: 'Montserrat',

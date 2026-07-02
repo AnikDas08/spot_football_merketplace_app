@@ -53,7 +53,7 @@ class SeasonStatsScreen extends StatelessWidget {
                     if (data.goal != null && data.goal!.isNotEmpty) ...[
                       CommonText(
                         text: "goals".toUpperCase(),
-                        fontSize: 20.sp,
+                        fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primaryColor,
                       ),
@@ -64,7 +64,7 @@ class SeasonStatsScreen extends StatelessWidget {
                     if (data.assist != null && data.assist!.isNotEmpty) ...[
                       CommonText(
                         text: "Most Assists".toUpperCase(),
-                        fontSize: 20.sp,
+                        fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primaryColor,
                       ),

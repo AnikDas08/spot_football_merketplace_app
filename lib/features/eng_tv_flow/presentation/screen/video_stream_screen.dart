@@ -66,7 +66,7 @@ class VideoStreamScreen extends StatelessWidget {
                         CommonText(
                           text: video.title.toUpperCase(),
                           fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
+                          fontSize: 16,
                           color: AppColors.primaryColor,
                           maxLines: 3,
                           textAlign: TextAlign.start,
@@ -75,7 +75,7 @@ class VideoStreamScreen extends StatelessWidget {
                         CommonText(
                           text: video.description.toUpperCase(),
                           fontWeight: FontWeight.w400,
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           color: AppColors.color6B6B6B,
                           maxLines: 10,
                           textAlign: TextAlign.start,
@@ -84,7 +84,7 @@ class VideoStreamScreen extends StatelessWidget {
                         CommonText(
                           text: video.createdAt.toUpperCase(),
                           fontWeight: FontWeight.w400,
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           color: AppColors.color6B6B6B,
                           maxLines: 3,
                           textAlign: TextAlign.start,
@@ -184,7 +184,7 @@ class VideoStreamScreen extends StatelessWidget {
           CommonText(
             text: name.toUpperCase(),
             fontWeight: FontWeight.w400,
-            fontSize: 12.sp,
+            fontSize: 12,
             color: AppColors.primaryColor,
             maxLines: 1,
           ),

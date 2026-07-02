@@ -46,7 +46,7 @@ class PlayerHeaderWidget extends StatelessWidget {
                     SizedBox(height: 4.h),
                     CommonText(
                       text: position,
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       color: AppColors.white,
                       fontWeight: const FontWeight(500),
                     ),

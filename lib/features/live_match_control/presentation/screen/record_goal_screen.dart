@@ -162,7 +162,7 @@ class RecordGoalScreen extends StatelessWidget {
                     SizedBox(height: 8.h),
                     CommonText(
                       text: name.isNotEmpty ? name : (player['userName'] ?? "Player"),
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       fontWeight: FontWeight.w700,
                       color: isSelected
                           ? const Color(0xFF000000)
@@ -224,7 +224,7 @@ class RecordGoalScreen extends StatelessWidget {
                 child: Icon(icon, size: 20, color: iconColor),
               ),
               SizedBox(width: 8.w),
-              CommonText(text: label, fontSize: 13.sp, fontWeight: FontWeight(590)),
+              CommonText(text: label, fontSize: 13, fontWeight: FontWeight(590)),
             ],
           ),
         ),
@@ -316,7 +316,7 @@ class RecordGoalScreen extends StatelessWidget {
             children: [
               Icon(icon, size: 20, color: isSelected ? const Color(0xFFEABB00) : Colors.black),
               SizedBox(width: 8.w),
-              CommonText(text: label, fontSize: 13.sp, fontWeight: FontWeight(590)),
+              CommonText(text: label, fontSize: 13, fontWeight: FontWeight(590)),
             ],
           ),
         ),

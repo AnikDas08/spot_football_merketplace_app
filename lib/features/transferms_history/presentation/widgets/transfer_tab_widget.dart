@@ -73,7 +73,7 @@ class _TabItem extends StatelessWidget {
         ),
         child: CommonText(
           text: title,
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight(590),
           color: selected ? AppColors.white : AppColors.primaryColor,
         ),

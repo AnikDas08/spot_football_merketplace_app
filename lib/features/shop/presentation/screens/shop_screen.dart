@@ -30,7 +30,7 @@ class ShopScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CommonText(
               text: AppString.prizeRedemptionFeed,
-              fontSize: 20.sp,
+              fontSize: 20,
               fontWeight: FontWeight.w600,
             ),
           ),

@@ -32,7 +32,7 @@ class VideoNewsCard extends StatelessWidget {
                 child: CommonText(
                   text: title.toUpperCase(),
 
-                  fontSize: 14.sp,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
 
@@ -80,7 +80,7 @@ class VideoNewsCard extends StatelessWidget {
           CommonText(
             text: description.toUpperCase(),
 
-            fontSize: 13.sp,
+            fontSize: 13,
             fontWeight: FontWeight.w400,
             color: AppColors.color6B6B6B,
 
@@ -93,7 +93,7 @@ class VideoNewsCard extends StatelessWidget {
           CommonText(
             text: timeAgo.toUpperCase(),
 
-            fontSize: 13.sp,
+            fontSize: 13,
             fontWeight: FontWeight.w400,
             color: AppColors.color6B6B6B,
 

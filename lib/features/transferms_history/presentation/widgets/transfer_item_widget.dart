@@ -40,7 +40,7 @@ class TransferItemWidget extends StatelessWidget {
                   children: [
                     CommonText(
                       text: 'FORWARD',
-                      fontSize: 10.sp,
+                      fontSize: 10,
                       color: AppColors.green,
                       fontWeight: FontWeight(700),
                     ),
@@ -56,7 +56,7 @@ class TransferItemWidget extends StatelessWidget {
                 SizedBox(height: 4.h),
                 CommonText(
                   text: 'Marcus Vane',
-                  fontSize: 18.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight(700),
                   color: AppColors.primaryColor,
                 ),
@@ -65,7 +65,7 @@ class TransferItemWidget extends StatelessWidget {
                   children: [
                     CommonText(
                       text: '€68.5M',
-                      fontSize: 28.sp,
+                      fontSize: 28,
                       fontWeight: FontWeight.w700,
                       color: AppColors.primaryColor,
                     ),

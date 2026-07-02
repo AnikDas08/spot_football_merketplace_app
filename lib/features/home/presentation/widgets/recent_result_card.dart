@@ -65,7 +65,7 @@ class RecentResultCard extends StatelessWidget {
             children: [
               CommonText(
                 text: date,
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppColors.primaryColor,
                 bottom: 12,
@@ -86,7 +86,7 @@ class RecentResultCard extends StatelessWidget {
                         CommonText(
                           maxLines: 1,
                           text: homeTeam.toUpperCase(),
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           fontWeight: const FontWeight(590),
                           color: AppColors.primaryColor,
                           textAlign: TextAlign.center,
@@ -106,7 +106,7 @@ class RecentResultCard extends StatelessWidget {
                     ),
                     child: CommonText(
                       text: '$homeScore - $awayScore',
-                      fontSize: 18.sp,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: AppColors.white,
                     ),
@@ -126,7 +126,7 @@ class RecentResultCard extends StatelessWidget {
                         CommonText(
                           maxLines: 1,
                           text: awayTeam.toUpperCase(),
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           fontWeight: const FontWeight(590),
                           color: AppColors.primaryColor,
                           textAlign: TextAlign.center,

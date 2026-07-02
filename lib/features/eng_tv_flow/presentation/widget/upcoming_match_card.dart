@@ -42,14 +42,14 @@ class UpcomingMatchCard extends StatelessWidget {
               children: [
                 CommonText(
                   text: date.toUpperCase(),
-                  fontSize: 18.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                   color: AppColors.primaryColor,
                 ),
                 SizedBox(height: 4.h),
                 CommonText(
                   text: time,
-                  fontSize: 10.sp,
+                  fontSize: 10,
                   color: AppColors.color6B6B6B,
                   fontWeight: FontWeight.w500,
                 ),
@@ -74,7 +74,7 @@ class UpcomingMatchCard extends StatelessWidget {
               children: [
                 CommonText(
                   text: matchTitle,
-                  fontSize: 14.sp,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: AppColors.primaryColor,
                   maxLines: 2,
@@ -93,7 +93,7 @@ class UpcomingMatchCard extends StatelessWidget {
                     Expanded(
                       child: CommonText(
                         text: coverageTime,
-                        fontSize: 12.sp,
+                        fontSize: 12,
                         color: AppColors.color6B6B6B,
                         fontWeight: FontWeight.w500,
                         maxLines: 2,

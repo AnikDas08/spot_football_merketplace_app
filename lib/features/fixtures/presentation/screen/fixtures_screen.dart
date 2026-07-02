@@ -76,7 +76,7 @@ class _TabRow extends StatelessWidget {
               ),
               child: CommonText(
                 text: c.tabs[i],
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: selected ? FontWeight.w700 : const FontWeight(590),
                 color: selected ? AppColors.white : AppColors.primaryColor,
               ),
@@ -118,7 +118,7 @@ class _FilterBar extends StatelessWidget {
                 SizedBox(width: 8.w),
                 CommonText(
                   text: AppString.filterByLeague,
-                  fontSize: 15.sp,
+                  fontSize: 15,
                   color: AppColors.primaryColor,
                   fontWeight: const FontWeight(590),
                 ),
@@ -128,7 +128,7 @@ class _FilterBar extends StatelessWidget {
           SizedBox(width: 12.w),
           CommonText(
             text: '${c.filteredFixtures.length} ${AppString.matchesFound}',
-            fontSize: 14.sp,
+            fontSize: 14,
             color: AppColors.textSecondaryColor,
             fontWeight: const FontWeight(590),
           ),
@@ -149,7 +149,7 @@ class _FixtureList extends StatelessWidget {
     }
     if (c.filteredFixtures.isEmpty) {
       return Center(
-        child: CommonText(text: AppString.noMatchesFound, fontSize: 14.sp),
+        child: CommonText(text: AppString.noMatchesFound, fontSize: 14),
       );
     }
     return ListView.separated(

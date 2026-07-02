@@ -79,7 +79,7 @@ class TransferRequestScreen extends StatelessWidget {
         children: [
           CommonText(
             text: 'Transfer Portal',
-            fontSize: 24.sp,
+            fontSize: 24,
             fontWeight: FontWeight.w700,
             color: Colors.black,
           ),
@@ -88,7 +88,7 @@ class TransferRequestScreen extends StatelessWidget {
             width: 220.w,
             child: CommonText(
               text: 'Manage your roster moves and negotiations.',
-              fontSize: 14.sp,
+              fontSize: 14,
               fontWeight: FontWeight.w500,
               color: Colors.black.withValues(alpha: 0.8),
             ),
@@ -119,7 +119,7 @@ class TransferRequestScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: CommonText(
                     text: 'Incoming',
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w700,
                     color: controller.isIncoming ? Colors.white : Colors.black,
                   ),
@@ -137,7 +137,7 @@ class TransferRequestScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: CommonText(
                     text: 'Outgoing',
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w700,
                     color: !controller.isIncoming ? Colors.white : Colors.black,
                   ),
@@ -201,7 +201,7 @@ class TransferRequestScreen extends StatelessWidget {
                           Expanded(
                             child: CommonText(
                               text: playerName,
-                              fontSize: 18.sp,
+                              fontSize: 18,
                               fontWeight: FontWeight.w700,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -216,7 +216,7 @@ class TransferRequestScreen extends StatelessWidget {
                             ),
                             child: CommonText(
                               text: status,
-                              fontSize: 12.sp,
+                              fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),
@@ -232,7 +232,7 @@ class TransferRequestScreen extends StatelessWidget {
                             text: controller.isIncoming 
                               ? (request.fromTeam?.teamName ?? 'Free Agent') 
                               : 'To: ${request.toTeam?.teamName ?? 'N/A'}',
-                            fontSize: 12.sp,
+                            fontSize: 12,
                             color: Colors.grey,
                           ),
                         ],
@@ -255,7 +255,7 @@ class TransferRequestScreen extends StatelessWidget {
               children: [
                 CommonText(
                   text: request.transferType.replaceAll('_', ' '),
-                  fontSize: 12.sp,
+                  fontSize: 12,
                   fontWeight: FontWeight.w700,
                   color: Colors.black54,
                 ),
@@ -269,13 +269,13 @@ class TransferRequestScreen extends StatelessWidget {
                       children: [
                         CommonText(
                           text: request.toTeam?.teamName ?? "",
-                          fontSize: 16.sp,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                         ),
                         SizedBox(width: 4.w),
                         CommonText(
                           text: 'Requested Team',
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           color: Colors.grey,
                         ),
                       ],
@@ -360,7 +360,7 @@ class TransferRequestScreen extends StatelessWidget {
           )
         : CommonText(
             text: text,
-            fontSize: 16.sp,
+            fontSize: 16,
             fontWeight: FontWeight.w700,
             color: textColor,
           ),

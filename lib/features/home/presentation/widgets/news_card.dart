@@ -115,7 +115,7 @@ class NewsCard extends StatelessWidget {
                 /// Category & Date
                 CommonText(
                   text: "$displayCategory  •  $formattedDate",
-                  fontSize: 12.sp,
+                  fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                   fontFamily: 'Montserrat',
@@ -125,7 +125,7 @@ class NewsCard extends StatelessWidget {
                 /// Headline
                 CommonText(
                   text: displayTitle,
-                  fontSize: 22.sp,
+                  fontSize: 22,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                   fontFamily: 'Montserrat',
@@ -137,7 +137,7 @@ class NewsCard extends StatelessWidget {
                 /// Description
                 CommonText(
                   text: displayDesc,
-                  fontSize: 13.sp,
+                  fontSize: 13,
                   fontWeight: FontWeight.w400,
                   color: Colors.white.withValues(alpha: 0.8),
                   maxLines: 2,
@@ -159,7 +159,7 @@ class NewsCard extends StatelessWidget {
                     alignment: Alignment.center,
                     child: CommonText(
                       text: "Read",
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                       fontFamily: 'Montserrat',

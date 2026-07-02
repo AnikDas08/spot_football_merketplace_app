@@ -108,7 +108,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                                 child: CommonText(
                                   text: '${currentLeague.leagueName} ${currentLeague.season}',
-                                  fontSize: 14.sp,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.color6B6B6B,
                                 ),
@@ -148,7 +148,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
       child: Center(
         child: CommonText(
           text: message.isNotEmpty ? message : "No data available",
-          fontSize: 14.sp,
+          fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.color6B6B6B,
         ),
@@ -182,7 +182,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       width: 30.w,
                       child: CommonText(
                         text: 'Pos',
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),
@@ -192,7 +192,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                         padding: EdgeInsets.only(left: 22.w),
                         child: CommonText(
                           text: 'Club',
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: AppColors.white,
                         ),
@@ -202,7 +202,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       width: 30.w,
                       child: CommonText(
                         text: 'PL',
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
@@ -212,7 +212,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       width: 36.w,
                       child: CommonText(
                         text: 'GD',
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
@@ -222,7 +222,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       width: 36.w,
                       child: CommonText(
                         text: 'PTS',
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
@@ -256,7 +256,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                           width: 30.w,
                           child: CommonText(
                             text: '${index + 1}.',
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                           ),
@@ -274,7 +274,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                               Expanded(
                                 child: CommonText(
                                   text: item.team.teamName,
-                                  fontSize: 14.sp,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.primaryColor,
                                   maxLines: 1,
@@ -288,7 +288,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                           width: 30.w,
                           child: CommonText(
                             text: '${item.played}',
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
@@ -298,7 +298,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                           width: 36.w,
                           child: CommonText(
                             text: gdText,
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
@@ -308,7 +308,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                           width: 36.w,
                           child: CommonText(
                             text: '${item.points}',
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,

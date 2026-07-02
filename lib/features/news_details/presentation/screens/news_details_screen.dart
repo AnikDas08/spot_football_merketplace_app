@@ -70,7 +70,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                     children: [
                       CommonText(
                         text: news?.category ?? AppString.transfer,
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),
@@ -78,7 +78,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                         text:
                             news?.title ??
                             AppString.engCommunityAcademyStarOfTheWeek,
-                        fontSize: 32.sp,
+                        fontSize: 32,
                         fontWeight: FontWeight.w600,
                         maxLines: 3,
                         color: AppColors.white,
@@ -90,7 +90,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                                 'dd MMM yyyy',
                               ).format(news.publishDateTime)
                             : "04 Jan 2025",
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),
@@ -123,7 +123,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                                   news?.description ??
                                   AppString
                                       .thisWeekWereProudToCelebrateLeoAsOurStarOfTheWeek,
-                              fontSize: 16.sp,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: AppColors.color373737,
                               textAlign: TextAlign.start,
@@ -144,7 +144,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: CommonText(
                         text: AppString.latestVideos.toUpperCase(),
-                        fontSize: 20.sp,
+                        fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
