@@ -69,9 +69,7 @@ class _TabRow extends StatelessWidget {
                 color: selected ? AppColors.primaryColor : AppColors.white,
                 borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
-                  color: selected
-                      ? AppColors.primaryColor
-                      : AppColors.background,
+                  color: AppColors.colorEABB00,
                 ),
               ),
               child: CommonText(
@@ -112,6 +110,7 @@ class _FilterBar extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.circular(8.r),
+                    border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                   ),
                   child: SvgPicture.asset(AppIcons.filterSvg),
                 ),

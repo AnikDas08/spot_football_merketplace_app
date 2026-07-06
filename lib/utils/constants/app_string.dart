@@ -216,7 +216,7 @@ class AppString {
   static const perSeason = '/Season';
   static const changeSubscriptionPlan = 'Change Your Subscriptions Plan';
   static const subcriptionDetails = "Subscription Details";
-  static const String fixture = "Fixture";
+  static const String fixture = "FIXTURES";
   static const String allTeam = "All Team";
   static const String specific = "Specific";
   static const String selectATeam = "Select a Team";

@@ -201,7 +201,7 @@ class _SocialButton extends StatelessWidget {
           color: AppColors.white,
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
-            color: AppColors.black.withValues(alpha: 0.15),
+            color: AppColors.colorEABB00,
             width: 1,
           ),
         ),

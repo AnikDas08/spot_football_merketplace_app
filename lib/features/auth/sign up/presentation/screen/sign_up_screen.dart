@@ -45,7 +45,7 @@ class SignUpScreen extends StatelessWidget {
 
                   /// ── Subtitle ──
                   const CommonText(
-                    text: 'Enter the ENG. Claim Your Legacy.',
+                    text: 'Register For the ENG App Today',
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     textAlign: TextAlign.start,

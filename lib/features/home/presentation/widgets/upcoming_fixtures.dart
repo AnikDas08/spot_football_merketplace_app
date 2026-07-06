@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:untitled/component/text/common_text.dart';
+import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixture_card.dart';
+import 'package:untitled/utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../data/match_model.dart';
 
@@ -48,12 +52,35 @@ class UpcomingFixtures extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonText(
-            text: "UPCOMING FIXTURES",
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: AppColors.primaryColor,
-            fontFamily: 'Montserrat',
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CommonText(
+                text: "UPCOMING FIXTURES",
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: AppColors.primaryColor,
+                fontFamily: 'Montserrat',
+              ),
+              InkWell(
+                onTap: () {
+                  Get.toNamed(AppRoutes.fixtures);
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CommonText(
+                      text: "View All",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: AppColors.primaryColor,
+                    ),
+                    const SizedBox(width: 5),
+                    SvgPicture.asset(AppIcons.arrowRight),
+                  ],
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 12.h),
           SizedBox(

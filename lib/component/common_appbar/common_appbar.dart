@@ -16,10 +16,10 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leadingWidth: 120.w,
+      leadingWidth: 110.w,
       leading: Padding(
-        padding: EdgeInsets.only(left: 12.w),
-        child: Image.asset(AppImages.appLogo),
+        padding: EdgeInsets.only(left: 15.w),
+        child: Image.asset(AppImages.appLogo, height: 20.h),
       ),
       toolbarHeight: 80.h,
       centerTitle: true,
@@ -27,14 +27,18 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: CommonText(
         text: title.toUpperCase(),
         color: AppColors.white,
-        fontSize: 21,
+        fontSize: 20.sp,
+        maxLines: 1,
         fontFamily: 'Montserrat',
         fontWeight: FontWeight.w700,
       ),
 
       actions: [
         IconButton.filled(
-          style: IconButton.styleFrom(backgroundColor: AppColors.color373737),
+          style: IconButton.styleFrom(
+            backgroundColor: AppColors.color373737,
+            side: const BorderSide(color: AppColors.colorEABB00, width: 1),
+          ),
           color: AppColors.white,
           onPressed: () {
             Get.toNamed(AppRoutes.notifications);
@@ -42,7 +46,10 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
           icon: SvgPicture.asset(AppIcons.notification),
         ),
         IconButton.filled(
-          style: IconButton.styleFrom(backgroundColor: AppColors.color373737),
+          style: IconButton.styleFrom(
+            backgroundColor: AppColors.color373737,
+            side: const BorderSide(color: AppColors.colorEABB00, width: 1),
+          ),
           color: AppColors.white,
           onPressed: () {
             Scaffold.of(context).openDrawer();

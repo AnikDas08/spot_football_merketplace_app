@@ -53,11 +53,13 @@ class OnboardingScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
               child: Column(
                 children: [
+                  const CommonText(
+                    text: "PLAY THE GAME",
+                    fontSize: 14,
+                    color: AppColors.colorEABB00,
+                    fontWeight: FontWeight.w700,
+                  ),
                   const Spacer(flex: 12),
-
-                  /// App Logo (Centered above text)
-                  Image.asset(AppImages.appLogo, height: 60.h),
-                  SizedBox(height: 16.h),
 
                   /// Welcome Text
                   CommonText(
@@ -68,15 +70,10 @@ class OnboardingScreen extends StatelessWidget {
                     fontFamily: 'Montserrat',
                     textAlign: TextAlign.center,
                   ),
-                  CommonText(
-                    text: "ENG",
-                    fontSize: 36,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    fontFamily: 'Montserrat',
-                    textAlign: TextAlign.center,
-                    bottom: 16.h,
-                  ),
+                  SizedBox(height: 10.h),
+                  /// App Logo (Now under 'Welcome to')
+                  Image.asset(AppImages.appLogo, height: 60.h),
+                  SizedBox(height: 16.h),
 
                   /// Subtitle
                   CommonText(

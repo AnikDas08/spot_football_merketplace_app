@@ -144,10 +144,10 @@ class CommonTextField extends StatelessWidget {
 
   OutlineInputBorder _buildBorder() {
     return OutlineInputBorder(
-      borderRadius: .circular(borderRadius.r),
+      borderRadius: BorderRadius.circular(borderRadius.r),
       borderSide: BorderSide(
         color: borderColor == AppColors.transparent
-            ? Colors.grey.withValues(alpha: 0.3)
+            ? AppColors.colorEABB00
             : borderColor,
       ),
     );
