@@ -93,8 +93,8 @@ class _SplashScreenState extends State<SplashScreen>
                   scale: Tween<double>(begin: 0.8, end: 1.0).animate(_animation),
                   child: Image.asset(
                     AppImages.appLogoP,
-                    height: 100.h,
-                    width: 280.w,
+                    height: 70.h,
+                    width: 170.w,
                   ),
                 ),
               ),
