@@ -19,6 +19,8 @@ class LeaguePreview extends StatelessWidget {
   final String? leagueName;
   final String? season;
   final bool showHeader;
+  final Color? titleColor;
+  final Color? viewAllColor;
 
   const LeaguePreview({
     super.key,
@@ -28,6 +30,8 @@ class LeaguePreview extends StatelessWidget {
     this.leagueName,
     this.season,
     this.showHeader = true,
+    this.titleColor,
+    this.viewAllColor,
   });
 
   @override
@@ -51,6 +55,7 @@ class LeaguePreview extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     fontFamily: 'Montserrat',
+                    color: titleColor,
                   ),
                 ),
                 InkWell(
@@ -64,10 +69,15 @@ class LeaguePreview extends StatelessWidget {
                         text: AppString.viewAll,
                         fontWeight: const FontWeight(500),
                         fontSize: 16,
-                        color: AppColors.primaryColor,
+                        color: viewAllColor ?? AppColors.primaryColor,
                       ),
                       const SizedBox(width: 5),
-                      SvgPicture.asset(AppIcons.arrowRight),
+                      SvgPicture.asset(
+                        AppIcons.arrowRight,
+                        colorFilter: viewAllColor != null
+                            ? ColorFilter.mode(viewAllColor!, BlendMode.srcIn)
+                            : ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
+                      ),
                     ],
                   ),
                 ),
@@ -79,7 +89,7 @@ class LeaguePreview extends StatelessWidget {
               text: '$leagueName ${season ?? ""}',
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: AppColors.color6B6B6B,
+              color: titleColor?.withValues(alpha: 0.7) ?? AppColors.color6B6B6B,
             ),
           ],
           if (!isSeeAll && showHeader) SizedBox(height: 12.h),

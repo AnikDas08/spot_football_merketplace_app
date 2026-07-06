@@ -2,7 +2,8 @@ class ApiEndPoint {
   // static const baseUrl = 'http://31.97.117.41:5005/api/v1';
   static const baseUrl = 'https://hz2w208g-5005.inc1.devtunnels.ms/api/v1';
   // static const baseUrl = 'http://10.10.26.208:5005/api/v1';
-  static const imageUrl = 'http://10.10.26.208:5005';
+  static const imageUrl = 'http://31.97.117.41:5005';
+  // static const imageUrl = 'http://10.10.26.208:5005';
   static const videoUrl = 'http://10.10.26.208:5005';
   static const socketUrl = 'http://103.145.138.74:3001';
 

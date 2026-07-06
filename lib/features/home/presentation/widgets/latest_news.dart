@@ -11,7 +11,8 @@ import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_string.dart';
 
 class LatestNews extends StatefulWidget {
-  const LatestNews({super.key});
+  final Color? titleColor;
+  const LatestNews({super.key, this.titleColor});
 
   @override
   State<LatestNews> createState() => _LatestNewsState();
@@ -51,6 +52,7 @@ class _LatestNewsState extends State<LatestNews> {
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Montserrat',
+                  color: widget.titleColor,
                 ),
               ),
               SizedBox(height: 16.h),

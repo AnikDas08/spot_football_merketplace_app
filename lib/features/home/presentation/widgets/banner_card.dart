@@ -19,13 +19,21 @@ class BannerCard extends StatelessWidget {
         Get.toNamed(AppRoutes.videoStreamScreen, arguments: videoModel.id);
       },
       child: Container(
-        margin: const EdgeInsets.only(left: 10, right: 5),
+        margin: const EdgeInsets.only(left: 10, right: 5, bottom: 8, top: 4),
         decoration: BoxDecoration(
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(15.r),
           border: Border.all(color: AppColors.colorEABB00, width: 1.w),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(13),
+          borderRadius: BorderRadius.circular(14),
           child: Stack(
 
             fit: StackFit.expand,
@@ -110,7 +118,7 @@ class BannerCard extends StatelessWidget {
                           color: AppColors.white.withAlpha(38),
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(
-                            color: AppColors.white.withAlpha(153),
+                            color: AppColors.colorEABB00,
                             width: 1.2,
                           ),
                         ),

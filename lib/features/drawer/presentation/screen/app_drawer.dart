@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/services/storage/storage_services.dart';
@@ -99,21 +100,49 @@ class AppDrawer extends StatelessWidget {
                           onTap: () => Get.toNamed(AppRoutes.changePassword),
                         ),
                       ],
+                      _buildMenuItem(
+                        icon: AppIcons.pro,
+                        label: "Book a Scout",
+                        onTap: () async {
+                          final Uri url = Uri.parse('https://engsports.co.uk/book-a-scout/');
+                          if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                            throw Exception('Could not launch $url');
+                          }
+                        },
+                      ),
                       if (LocalStorage.isGuest) ...[
+                        _buildMenuItem(
+                          icon: AppIcons.homeInActive,
+                          label: "Latest",
+                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 0,
+                        ),
                         _buildMenuItem(
                           icon: AppIcons.fixturesInActive,
                           label: "Fixtures",
-                          onTap: () => Get.toNamed(AppRoutes.fixtures),
+                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 1,
                         ),
                         _buildMenuItem(
                           icon: AppIcons.league,
                           label: "League Tables",
-                          onTap: () => Get.toNamed(AppRoutes.leagueTable),
+                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 2,
+                        ),
+                        _buildMenuItem(
+                          icon: AppIcons.engTvInActive,
+                          label: "ENG TV",
+                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 3,
                         ),
                         _buildMenuItem(
                           icon: AppIcons.statsInactive,
                           label: "Statistics",
                           onTap: () => Get.find<NavBarController>().selectedIndex.value = 4,
+                        ),
+                        _buildMenuItem(
+                          icon: AppIcons.star,
+                          label: "Upcoming Events",
+                          onTap: () {
+                            Get.back(); // Close drawer
+                            Get.find<NavBarController>().selectedIndex.value = 0;
+                          },
                         ),
                       ],
                       _buildMenuItem(

@@ -58,9 +58,11 @@ class UpcomingFixtureCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Padding(
-          padding: EdgeInsets.all(16.r),
-          child: Column(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(14.r),
+          child: Padding(
+            padding: EdgeInsets.all(16.r),
+            child: Column(
             children: [
               /// Date Header
               CommonText(
@@ -168,7 +170,7 @@ class UpcomingFixtureCard extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 
   Widget _buildActionBtn(
@@ -182,7 +184,7 @@ class UpcomingFixtureCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(8.r),
-        border: hasBorder ? Border.all(color: AppColors.primaryColor) : null,
+        border: hasBorder ? Border.all(color: AppColors.colorEABB00) : null,
       ),
       alignment: Alignment.center,
       child: CommonText(

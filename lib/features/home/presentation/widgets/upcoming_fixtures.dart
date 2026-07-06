@@ -7,6 +7,7 @@ import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_fixture_card.dart';
+import 'package:untitled/features/navbar/controller/navbar_controller.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../data/match_model.dart';
@@ -14,15 +15,20 @@ import '../../data/match_model.dart';
 class UpcomingFixtures extends StatelessWidget {
   final List<MatchModel> fixtures;
   final bool isLoading;
+  final Color? titleColor;
+  final Color? viewAllColor;
 
   const UpcomingFixtures({
     super.key,
     required this.fixtures,
     this.isLoading = false,
+    this.titleColor,
+    this.viewAllColor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final navBarController = Get.find<NavBarController>();
     if (isLoading) {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -47,6 +53,9 @@ class UpcomingFixtures extends StatelessWidget {
 
     if (fixtures.isEmpty) return const SizedBox.shrink();
 
+    // Show only first 5 fixtures as requested
+    final displayFixtures = fixtures.length > 5 ? fixtures.take(5).toList() : fixtures;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
@@ -59,24 +68,29 @@ class UpcomingFixtures extends StatelessWidget {
                 text: "UPCOMING FIXTURES",
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: AppColors.primaryColor,
+                color: titleColor ?? AppColors.primaryColor,
                 fontFamily: 'Montserrat',
               ),
               InkWell(
                 onTap: () {
-                  Get.toNamed(AppRoutes.fixtures);
+                  navBarController.selectedIndex.value = 1; // Index for Fixtures tab
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const CommonText(
+                    CommonText(
                       text: "View All",
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
-                      color: AppColors.primaryColor,
+                      color: viewAllColor ?? AppColors.primaryColor,
                     ),
                     const SizedBox(width: 5),
-                    SvgPicture.asset(AppIcons.arrowRight),
+                    SvgPicture.asset(
+                      AppIcons.arrowRight,
+                      colorFilter: viewAllColor != null
+                          ? ColorFilter.mode(viewAllColor!, BlendMode.srcIn)
+                          : ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
+                    ),
                   ],
                 ),
               ),
@@ -87,9 +101,9 @@ class UpcomingFixtures extends StatelessWidget {
             height: 250.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: fixtures.length,
+              itemCount: displayFixtures.length,
               itemBuilder: (context, index) {
-                final fixture = fixtures[index];
+                final fixture = displayFixtures[index];
 
                 String formattedDate = fixture.matchDate != null
                     ? DateFormat('MMM dd').format(fixture.matchDate!).toUpperCase()

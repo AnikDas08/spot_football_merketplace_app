@@ -89,54 +89,69 @@ class EngTvScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                      child: VideoThumbnailCard(
-                        thumbnail: firstVideo.thumbnail,
-                        title: firstVideo.title,
-                        duration: 'LIVE', 
-                        onWatchNow: () {
-                          Get.toNamed(AppRoutes.videoStreamScreen, arguments: firstVideo.id);
-                        },
+                    _buildSection(
+                      backgroundColor: Colors.white,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: VideoThumbnailCard(
+                          thumbnail: firstVideo.thumbnail,
+                          title: firstVideo.title,
+                          duration: 'LIVE',
+                          onWatchNow: () {
+                            Get.toNamed(AppRoutes.videoStreamScreen,
+                                arguments: firstVideo.id);
+                          },
+                        ),
                       ),
                     ),
 
-                    SizedBox(height: 10.h),
-                    LatestVideos(),
-                    SizedBox(height: 16.h),
-
-                    LatestVideos( title : "Goal Countdown"),
-
-
-                    SizedBox(height: 16.h),
-                    Container(
-                      margin: EdgeInsets.only(left: 16.w),
-                      child: CommonText(
-                        text: "Scheduled Broadcasts",
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        maxLines: 2,
-                        color: AppColors.primaryColor,
-                      ),
+                    _buildSection(
+                      backgroundColor: AppColors.black,
+                      child: const LatestVideos(titleColor: Colors.white),
                     ),
-                    SizedBox(height: 8.h),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: upcomingMatches.length,
-                      itemBuilder: (context, index) {
-                        final match = upcomingMatches[index];
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5),
-                          child: UpcomingMatchCard(
-                            date: match['date']!,
-                            time: match['time']!,
-                            matchTitle: match['matchTitle']!,
-                            coverageTime: match['coverageTime']!,
-                            onNotificationTap: () {},
+
+                    _buildSection(
+                      backgroundColor: const Color(0xFFF9F9F9),
+                      child: const LatestVideos(title: "Goal Countdown"),
+                    ),
+
+                    _buildSection(
+                      backgroundColor: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 16.w),
+                            child: const CommonText(
+                              text: "Scheduled Broadcasts",
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              maxLines: 2,
+                              color: AppColors.primaryColor,
+                            ),
                           ),
-                        );
-                      },
+                          SizedBox(height: 8.h),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: upcomingMatches.length,
+                            itemBuilder: (context, index) {
+                              final match = upcomingMatches[index];
+                              return Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 16.w, vertical: 5),
+                                child: UpcomingMatchCard(
+                                  date: match['date']!,
+                                  time: match['time']!,
+                                  matchTitle: match['matchTitle']!,
+                                  coverageTime: match['coverageTime']!,
+                                  onNotificationTap: () {},
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 16.h),
                   ],
@@ -146,6 +161,19 @@ class EngTvScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildSection({
+    required Widget child,
+    required Color backgroundColor,
+    EdgeInsetsGeometry? padding,
+  }) {
+    return Container(
+      width: double.infinity,
+      color: backgroundColor,
+      padding: padding ?? EdgeInsets.symmetric(vertical: 24.h),
+      child: child,
     );
   }
 

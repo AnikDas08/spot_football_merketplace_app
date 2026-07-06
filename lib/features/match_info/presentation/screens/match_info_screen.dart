@@ -79,7 +79,8 @@ class _MatchInfoScreenState extends State<MatchInfoScreen> {
                 ),
                 child: Row(
                   children: List.generate(tabsController.tabs.length, (index) {
-                    final isSelected = tabsController.selectedTab.value == index;
+                    final isSelected =
+                        tabsController.selectedTab.value == index;
                     return Expanded(
                       child: GestureDetector(
                         onTap: () {
@@ -90,14 +91,20 @@ class _MatchInfoScreenState extends State<MatchInfoScreen> {
                           duration: const Duration(milliseconds: 200),
                           padding: EdgeInsets.symmetric(vertical: 10.h),
                           decoration: BoxDecoration(
-                            color: isSelected ? AppColors.primaryColor : Colors.white,
+                            color: isSelected
+                                ? AppColors.primaryColor
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(12.r),
                           ),
                           child: CommonText(
                             text: tabsController.tabs[index],
                             fontSize: 14,
-                            fontWeight: isSelected ? FontWeight.w700 : const FontWeight(590),
-                            color: isSelected ? AppColors.white : AppColors.primaryColor,
+                            fontWeight: isSelected
+                                ? FontWeight.w700
+                                : const FontWeight(590),
+                            color: isSelected
+                                ? AppColors.white
+                                : AppColors.primaryColor,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -121,29 +128,21 @@ class _MatchInfoScreenState extends State<MatchInfoScreen> {
                     init: NewsController(),
                     builder: (newsController) {
                       return Obx(() {
-                        if (newsController.newsList.isEmpty) return const SizedBox.shrink();
-                        
-                        return Column(
-                          children: [
-                            const LatestNews(),
-                            const SizedBox(height: 16),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
-                              child: CommonButton(
-                                buttonColor: AppColors.transparent,
-                                titleColor: AppColors.primaryColor,
-                                borderColor: AppColors.primaryColor,
-                                onTap: () {},
-                                titleSize: 18.sp,
-                                titleText: AppString.moreNews,
-                                titleWeight: const FontWeight(510),
-                              ),
-                            ),
-                            SizedBox(height: 20.h),
-                          ],
+                        if (newsController.newsList.isEmpty) {
+                          return const SizedBox.shrink();
+                        }
+
+                        return SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const LatestNews(),
+
+                              SizedBox(height: 20.h),
+                            ],
+                          ),
                         );
                       });
-                    }
+                    },
                   ),
                   const LatestVideos(),
                 ],

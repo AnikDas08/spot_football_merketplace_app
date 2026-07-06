@@ -59,9 +59,11 @@ class RecentResultCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          child: Column(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(14.r),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            child: Column(
             children: [
               CommonText(
                 text: date,
@@ -141,6 +143,6 @@ class RecentResultCard extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }

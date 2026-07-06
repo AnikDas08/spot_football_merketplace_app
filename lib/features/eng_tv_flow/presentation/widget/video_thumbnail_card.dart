@@ -28,19 +28,22 @@ class VideoThumbnailCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 250.h,
-      clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
       decoration: BoxDecoration(
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(15.r),
         border: Border.all(color: AppColors.colorEABB00, width: 1.w),
       ),
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: CommonImage(
-              imageSrc: thumbnail,
-              fill: BoxFit.cover,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(14.r),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: CommonImage(
+                imageSrc: thumbnail,
+                fill: BoxFit.cover,
+              ),
             ),
-          ),
           // Gradient Overlay
           Positioned.fill(
             child: Container(
@@ -51,7 +54,7 @@ class VideoThumbnailCard extends StatelessWidget {
                   stops: const [0.3, 1.0],
                   colors: [
                     Colors.transparent,
-                    Colors.white.withValues(alpha: 0.7),
+                    Colors.black.withValues(alpha: 0.9),
                   ],
                 ),
               ),
@@ -76,16 +79,16 @@ class VideoThumbnailCard extends StatelessWidget {
                     CommonText(
                       text:AppString. labelVideo, // Static Variable
                       fontSize: 16,
-                      color: Colors.white,
+                      color: Colors.white70,
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(width: 8.w),
-                    Icon(Icons.circle, size: 8.sp, color: AppColors.yellow),
+                    Icon(Icons.circle, size: 6.sp, color: AppColors.yellow),
                     SizedBox(width: 8.w),
                     CommonText(
                       text: duration, // From API
                       fontSize: 16,
-                      color: Colors.white,
+                      color: Colors.white70,
                       fontWeight: FontWeight.w500,
                     ),
                   ],
@@ -94,10 +97,12 @@ class VideoThumbnailCard extends StatelessWidget {
 
                 CommonButton(
                   onTap: onWatchNow,
+                  buttonColor: const Color(0xFFE53935),
                   titleText: AppString. labelWatchNow, // Static Variable
-                  titleWeight: FontWeight.w500,
+                  titleWeight: FontWeight.w700,
                   titleSize: 18,
                   buttonHeight: 48,
+                  buttonRadius: 16,
                 ),
               ],
             ),
@@ -115,6 +120,6 @@ class VideoThumbnailCard extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
 }

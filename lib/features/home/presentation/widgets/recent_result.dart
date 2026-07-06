@@ -15,11 +15,15 @@ import '../../data/match_model.dart';
 class RecentResult extends StatelessWidget {
   final List<MatchModel> matches;
   final bool isLoading;
+  final Color? titleColor;
+  final Color? viewAllColor;
 
   const RecentResult({
     super.key,
     required this.matches,
     this.isLoading = false,
+    this.titleColor,
+    this.viewAllColor,
   });
 
   @override
@@ -50,7 +54,7 @@ class RecentResult extends StatelessWidget {
                 text: "RECENT RESULTS",
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: AppColors.primaryColor,
+                color: titleColor ?? AppColors.primaryColor,
                 fontFamily: 'Montserrat',
               ),
               InkWell(
@@ -60,14 +64,19 @@ class RecentResult extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const CommonText(
+                    CommonText(
                       text: "View All",
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
-                      color: AppColors.primaryColor,
+                      color: viewAllColor ?? AppColors.primaryColor,
                     ),
                     const SizedBox(width: 5),
-                    SvgPicture.asset(AppIcons.arrowRight),
+                    SvgPicture.asset(
+                      AppIcons.arrowRight,
+                      colorFilter: viewAllColor != null
+                          ? ColorFilter.mode(viewAllColor!, BlendMode.srcIn)
+                          : ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
+                    ),
                   ],
                 ),
               ),

@@ -8,11 +8,13 @@ import '../../data/match_model.dart';
 class LiveMatches extends StatelessWidget {
   final List<MatchModel> matches;
   final bool isLoading;
+  final Color? titleColor;
 
   const LiveMatches({
     super.key,
     required this.matches,
     this.isLoading = false,
+    this.titleColor,
   });
 
   @override
@@ -41,6 +43,7 @@ class LiveMatches extends StatelessWidget {
             fontSize: 20,
             fontWeight: FontWeight.w600,
             fontFamily: 'Montserrat',
+            color: titleColor,
           ),
           SizedBox(height: 12.h),
           ListView.builder(
