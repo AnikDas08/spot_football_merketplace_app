@@ -27,10 +27,10 @@ class ShopController extends GetxController {
       isLoading.value = true;
       update();
 
-      String brandParam = (selectedTab == 0) ? 'Nike' : 'Coffee';
+      String productTypeParam = (selectedTab == 0) ? 'nonCoffee' : 'Coffee';
 
       final response = await apiClient.get(
-        "${ApiEndPoint.rewardProducts}?brand=$brandParam",
+        "${ApiEndPoint.rewardProducts}?productType=$productTypeParam",
       );
 
       if (response.statusCode == 200) {
