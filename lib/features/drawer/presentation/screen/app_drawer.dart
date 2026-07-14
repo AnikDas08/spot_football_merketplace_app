@@ -104,18 +104,13 @@ class AppDrawer extends StatelessWidget {
                         icon: AppIcons.pro,
                         label: "Book a Scout",
                         onTap: () async {
-                          final Uri url = Uri.parse('https://engsports.co.uk/book-a-scout/');
+                          final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
                           if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
                             throw Exception('Could not launch $url');
                           }
                         },
                       ),
                       if (LocalStorage.isGuest) ...[
-                        _buildMenuItem(
-                          icon: AppIcons.homeInActive,
-                          label: "Latest",
-                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 0,
-                        ),
                         _buildMenuItem(
                           icon: AppIcons.fixturesInActive,
                           label: "Fixtures",
@@ -135,14 +130,6 @@ class AppDrawer extends StatelessWidget {
                           icon: AppIcons.statsInactive,
                           label: "Statistics",
                           onTap: () => Get.find<NavBarController>().selectedIndex.value = 4,
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.star,
-                          label: "Upcoming Events",
-                          onTap: () {
-                            Get.back(); // Close drawer
-                            Get.find<NavBarController>().selectedIndex.value = 0;
-                          },
                         ),
                       ],
                       _buildMenuItem(

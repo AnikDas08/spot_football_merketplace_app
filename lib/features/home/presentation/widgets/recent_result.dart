@@ -42,6 +42,8 @@ class RecentResult extends StatelessWidget {
 
     if (matches.isEmpty) return const SizedBox.shrink();
 
+    final displayMatches = matches.length > 5 ? matches.take(5).toList() : matches;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
@@ -59,7 +61,7 @@ class RecentResult extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  // Get.toNamed(AppRoutes.allResults); 
+                  Get.toNamed(AppRoutes.allResults); 
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -73,9 +75,10 @@ class RecentResult extends StatelessWidget {
                     const SizedBox(width: 5),
                     SvgPicture.asset(
                       AppIcons.arrowRight,
-                      colorFilter: viewAllColor != null
-                          ? ColorFilter.mode(viewAllColor!, BlendMode.srcIn)
-                          : ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
+                      colorFilter: ColorFilter.mode(
+                        viewAllColor ?? AppColors.primaryColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ],
                 ),
@@ -87,9 +90,9 @@ class RecentResult extends StatelessWidget {
             height: 130.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: matches.length,
+              itemCount: displayMatches.length,
               itemBuilder: (context, index) {
-                final match = matches[index];
+                final match = displayMatches[index];
 
                 String formattedDate = match.matchDate != null 
                     ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()

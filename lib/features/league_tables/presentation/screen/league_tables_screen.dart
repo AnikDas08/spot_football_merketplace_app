@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/component/common_appbar/common_appbar.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/common_dropdown_field/common_dropdown_field.dart';
 import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
@@ -12,7 +13,8 @@ import '../../../../config/route/app_routes.dart';
 import '../../../home/data/point_table_model.dart';
 
 class LeagueTablesScreen extends StatefulWidget {
-  const LeagueTablesScreen({super.key});
+  final bool fromBottomNav;
+  const LeagueTablesScreen({super.key, this.fromBottomNav = false});
 
   @override
   State<LeagueTablesScreen> createState() => _LeagueTablesScreenState();
@@ -26,7 +28,9 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.background,
-      appBar: const SecondaryAppBar(title: 'LEAGUE TABLES'),
+      appBar: widget.fromBottomNav
+          ? const CommonAppbar(title: 'LEAGUE TABLES')
+          : const SecondaryAppBar(title: 'LEAGUE TABLES'),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => controller.fetchPointTable(),

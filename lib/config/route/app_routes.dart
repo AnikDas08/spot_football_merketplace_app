@@ -51,9 +51,18 @@ import '../../features/transferms/presentation/screen/player_profile_details_scr
 import '../../features/transferms/presentation/screen/transferm_screen.dart';
 import '../../features/transferms_history/presentation/screens/transfers_history_screen.dart';
 
+import '../../features/home/presentation/screens/all_events_screen.dart';
+import '../../features/home/presentation/screens/all_results_screen.dart';
+import '../../features/home/presentation/screens/all_videos_screen.dart';
+import '../../features/news/presentation/screens/all_news_screen.dart';
+
 class AppRoutes {
   AppRoutes._();
 
+  static const String allNews = "/allNews";
+  static const String allEvents = "/allEvents";
+  static const String allResults = "/allResults";
+  static const String allVideos = "/allVideos";
   static const String transferFormScreen = '/transferFormScreen.dart';
   static const String seasonStatsScreen = '/seasonStatsScreen.dart';
   static const String addPlayerScreen = '/addPlayerScreen.dart';
@@ -111,6 +120,10 @@ class AppRoutes {
   static const String trialList = '/trial-list';
 
   static List<GetPage<String>> routes = [
+    GetPage(name: allNews, page: () => const AllNewsScreen()),
+    GetPage(name: allEvents, page: () => const AllEventsScreen()),
+    GetPage(name: allResults, page: () => const AllResultsScreen()),
+    GetPage(name: allVideos, page: () => const AllVideosScreen()),
     GetPage(name: splash, page: () => const SplashScreen()),
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => SignUpScreen()),

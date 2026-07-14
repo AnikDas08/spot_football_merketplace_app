@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../config/api/api_end_point.dart';
@@ -15,6 +16,7 @@ class BannerController extends GetxController {
   var isLoading = false.obs;
   List<VideoModel> bannerVideos = [];
   RxInt currentPage = 0.obs;
+  Timer? _timer;
 
   @override
   void onInit() {
@@ -28,6 +30,30 @@ class BannerController extends GetxController {
     super.onInit();
   }
 
+  void _startAutoSlide() {
+    _timer?.cancel();
+    if (bannerVideos.length > 1) {
+      _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+        if (pageController.hasClients) {
+          int nextPage = currentPage.value + 1;
+          if (nextPage >= bannerVideos.length) {
+            nextPage = 0;
+            pageController.animateToPage(
+              nextPage,
+              duration: const Duration(milliseconds: 800),
+              curve: Curves.easeInOut,
+            );
+          } else {
+            pageController.nextPage(
+              duration: const Duration(milliseconds: 800),
+              curve: Curves.easeInOut,
+            );
+          }
+        }
+      });
+    }
+  }
+
   Future<void> fetchBannerVideos() async {
     try {
       isLoading.value = true;
@@ -38,6 +64,7 @@ class BannerController extends GetxController {
       if (response.statusCode == 200) {
         final videoResponse = VideoResponse.fromJson(response.data);
         bannerVideos = videoResponse.data;
+        _startAutoSlide();
       }
     } catch (e) {
       debugPrint('❌ fetchBannerVideos error: $e');
@@ -48,8 +75,9 @@ class BannerController extends GetxController {
   }
 
   @override
-  void dispose() {
+  void onClose() {
+    _timer?.cancel();
     pageController.dispose();
-    super.dispose();
+    super.onClose();
   }
 }

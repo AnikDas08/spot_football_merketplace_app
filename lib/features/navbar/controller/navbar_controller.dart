@@ -21,7 +21,7 @@ class NavBarController extends GetxController {
   final List<Widget> screens = [
     HomeScreen(),
     FixturesScreen(),
-    LeagueTablesScreen(),
+    LeagueTablesScreen(fromBottomNav: true),
 
     EngTvScreen(),
     StatsScreen(),

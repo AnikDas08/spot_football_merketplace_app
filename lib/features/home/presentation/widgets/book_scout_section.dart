@@ -11,7 +11,7 @@ class BookScoutSection extends StatelessWidget {
   const BookScoutSection({super.key, this.titleColor});
 
   Future<void> _launchURL() async {
-    final Uri url = Uri.parse('https://engsports.co.uk/book-a-scout/');
+    final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }

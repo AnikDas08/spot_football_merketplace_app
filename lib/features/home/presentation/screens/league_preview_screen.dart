@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:untitled/component/common_appbar/common_appbar.dart';
 import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import 'package:untitled/component/common_dropdown_field/common_dropdown_field.dart';
 import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
@@ -13,7 +14,8 @@ import '../controllers/club_profile_controller.dart';
 import '../../data/point_table_model.dart';
 
 class LeaguePreviewScreen extends StatefulWidget {
-  const LeaguePreviewScreen({super.key});
+  final bool fromBottomNav;
+  const LeaguePreviewScreen({super.key, this.fromBottomNav = false});
 
   @override
   State<LeaguePreviewScreen> createState() => _LeaguePreviewScreenState();
@@ -26,7 +28,9 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: SecondaryAppBar(title: AppString.leaguePreview),
+      appBar: widget.fromBottomNav
+          ? CommonAppbar(title: AppString.leaguePreview)
+          : SecondaryAppBar(title: AppString.leaguePreview),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => controller.fetchPointTable(),
