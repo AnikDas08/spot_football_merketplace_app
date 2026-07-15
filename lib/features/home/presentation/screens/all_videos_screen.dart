@@ -16,10 +16,14 @@ class AllVideosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<BannerController>();
+    final dynamic args = Get.arguments;
+    final String title = (args is Map && args.containsKey('title')) 
+        ? args['title'] 
+        : AppString.latestVideos;
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: SecondaryAppBar(title: AppString.latestVideos.toUpperCase()),
+      appBar: SecondaryAppBar(title: title.toUpperCase()),
       body: Obx(() {
         if (controller.isLoading.value && controller.bannerVideos.isEmpty) {
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));

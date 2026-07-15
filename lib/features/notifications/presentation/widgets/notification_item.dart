@@ -112,21 +112,6 @@ class NotificationCard extends StatelessWidget {
                 ],
               ),
             ),
-
-            SizedBox(width: 8.w),
-
-            // View Details
-            InkWell(
-              onTap: onViewDetails,
-              child: CommonText(
-                maxLines: 2,
-                text: 'VIEW\nDETAILS',
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: AppColors.primaryColor,
-                textAlign: TextAlign.center,
-              ),
-            ),
           ],
         ),
       ),

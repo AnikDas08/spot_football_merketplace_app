@@ -104,57 +104,71 @@ class VideoStreamScreen extends StatelessWidget {
   }
 
   Widget _buildRelatedSection(VideoStreamController controller) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CommonText(
-            text: "related".toUpperCase(),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-          SizedBox(height: 5.h),
-          Container(
-            height: 1.h,
-            width: 75.w,
-            decoration: const BoxDecoration(color: AppColors.yellow),
-          ),
-          SizedBox(height: 5.h),
-          ListView.builder(
-            itemCount: controller.videoList.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 10.h),
-            itemBuilder: (context, index) {
-              final item = controller.videoList[index];
-              return GestureDetector(
-                onTap: () {
-                  // controller.videoLink.value = item["videoLink"]!;
-                },
-                child: VideoNewsCard(
-                  title: item["title"]!,
-                  description: item["description"]!,
-                  timeAgo: item["timeAgo"]!,
-                  imageUrl: item["image"]!,
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
+    return Obx(() {
+      if (controller.isRelatedLoading.value) {
+        return const Padding(
+          padding: EdgeInsets.all(20),
+          child: Center(child: CircularProgressIndicator(color: AppColors.yellow)),
+        );
+      }
+
+      if (controller.relatedVideos.isEmpty) {
+        return const SizedBox.shrink();
+      }
+
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CommonText(
+              text: "related".toUpperCase(),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+            SizedBox(height: 5.h),
+            Container(
+              height: 1.h,
+              width: 75.w,
+              decoration: const BoxDecoration(color: AppColors.yellow),
+            ),
+            SizedBox(height: 5.h),
+            ListView.builder(
+              itemCount: controller.relatedVideos.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              itemBuilder: (context, index) {
+                final video = controller.relatedVideos[index];
+                return GestureDetector(
+                  onTap: () {
+                    // Update main video content
+                    controller.fetchVideoById(video.id);
+                  },
+                  child: VideoNewsCard(
+                    title: video.title,
+                    description: video.description,
+                    timeAgo: video.publishDateTime,
+                    imageUrl: video.thumbnail,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   Widget _buildPlayerTag({

@@ -16,10 +16,13 @@ import 'package:untitled/component/text/common_text.dart';
 import '../../../../component/blur_reveal/blur_reveal.dart';
 import '../controllers/banner_controller.dart';
 
+import '../../data/video_model.dart';
+
 class LatestVideos extends StatefulWidget {
   final String? title;
   final Color? titleColor;
-  const LatestVideos({super.key, this.title, this.titleColor});
+  final List<VideoModel>? videos;
+  const LatestVideos({super.key, this.title, this.titleColor, this.videos});
 
   @override
   State<LatestVideos> createState() => _LatestVideosState();
@@ -40,7 +43,8 @@ class _LatestVideosState extends State<LatestVideos> {
     _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
       if (_pageController.hasClients) {
         final bannerController = Get.find<BannerController>();
-        final int totalItems = bannerController.bannerVideos.length > 5 ? 5 : bannerController.bannerVideos.length;
+        final sourceVideos = widget.videos ?? bannerController.bannerVideos;
+        final int totalItems = sourceVideos.length > 5 ? 5 : sourceVideos.length;
 
         if (totalItems > 1) {
           int nextPage = _currentPage.value + 1;
@@ -75,19 +79,21 @@ class _LatestVideosState extends State<LatestVideos> {
     final BannerController bannerController = Get.put(BannerController());
 
     return BlurReveal(
-      key: const ValueKey('latest_videos_reveal'),
+      key: ValueKey('${widget.title ?? 'latest_videos'}_reveal'),
       duration: const Duration(milliseconds: 800),
       initialBlur: 10,
       child: Obx(() {
-        if (bannerController.isLoading.value && bannerController.bannerVideos.isEmpty) {
+        final sourceVideos = widget.videos ?? bannerController.bannerVideos;
+
+        if (bannerController.isLoading.value && sourceVideos.isEmpty) {
           return _buildShimmer();
         }
 
-        if (bannerController.bannerVideos.isEmpty) {
+        if (sourceVideos.isEmpty) {
           return const SizedBox.shrink();
         }
 
-        final displayList = bannerController.bannerVideos.length > 5 ? bannerController.bannerVideos.take(5).toList() : bannerController.bannerVideos;
+        final displayList = sourceVideos.length > 5 ? sourceVideos.take(5).toList() : sourceVideos;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +116,10 @@ class _LatestVideosState extends State<LatestVideos> {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(AppRoutes.allVideos);
+                      Get.toNamed(AppRoutes.allVideos, arguments: {
+                        'title': widget.title ?? AppString.latestVideos,
+                        'videos': widget.videos,
+                      });
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,

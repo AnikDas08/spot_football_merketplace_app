@@ -105,7 +105,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.toNamed(AppRoutes.allEvents);
+                          Get.toNamed(AppRoutes.allEvents, arguments: {'title': AppString.upcomingEvents});
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,

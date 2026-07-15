@@ -61,7 +61,7 @@ class RecentResult extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Get.toNamed(AppRoutes.allResults); 
+                  Get.toNamed(AppRoutes.allResults, arguments: {'title': "RECENT RESULTS"});
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

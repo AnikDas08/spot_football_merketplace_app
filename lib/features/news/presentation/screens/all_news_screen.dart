@@ -15,10 +15,14 @@ class AllNewsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<NewsController>();
+    final dynamic args = Get.arguments;
+    final String title = (args is Map && args.containsKey('title')) 
+        ? args['title'] 
+        : AppString.latestNews;
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: SecondaryAppBar(title: AppString.latestNews.toUpperCase()),
+      appBar: SecondaryAppBar(title: title.toUpperCase()),
       body: Obx(() {
         if (controller.isLoading.value && controller.newsList.isEmpty) {
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));

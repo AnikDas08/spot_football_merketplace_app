@@ -106,7 +106,7 @@ class _LatestNewsState extends State<LatestNews> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.toNamed(AppRoutes.allNews);
+                          Get.toNamed(AppRoutes.allNews, arguments: {'title': AppString.latestNews});
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,

@@ -25,6 +25,9 @@ class ApiEndPoint {
   static const news = '/news/public-news';
   static const user = 'users';
   static const notifications = '/notification/my';
+  static const unreadNotificationCount = '/notification/unread-count';
+  static const readAllNotifications = '/notification/read-all';
+  static const markAsRead = '/notification/'; // + id + /read
   static const privacyPolicies = '/privacy-policy';
   static const termsOfServices = '/terms-and-conditions';
   static const chats = 'chats';

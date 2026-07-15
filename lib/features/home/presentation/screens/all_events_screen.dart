@@ -15,10 +15,14 @@ class AllEventsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EventController>();
+    final dynamic args = Get.arguments;
+    final String title = (args is Map && args.containsKey('title')) 
+        ? args['title'] 
+        : AppString.upcomingEvents;
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: SecondaryAppBar(title: AppString.upcomingEvents.toUpperCase()),
+      appBar: SecondaryAppBar(title: title.toUpperCase()),
       body: Obx(() {
         if (controller.isLoading.value && controller.eventList.isEmpty) {
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));

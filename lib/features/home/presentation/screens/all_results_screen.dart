@@ -15,10 +15,14 @@ class AllResultsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ClubProfileController>();
+    final dynamic args = Get.arguments;
+    final String title = (args is Map && args.containsKey('title')) 
+        ? args['title'] 
+        : "RECENT RESULTS";
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const SecondaryAppBar(title: "RECENT RESULTS"),
+      appBar: SecondaryAppBar(title: title.toUpperCase()),
       body: Obx(() {
         if (controller.isLoading.value && controller.recentMatches.isEmpty) {
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/component/image/common_image.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 
@@ -49,11 +50,11 @@ class VideoNewsCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(6.r),
-                    child: Image.asset(
-                      imageUrl,
+                    child: CommonImage(
+                      imageSrc: imageUrl,
                       width: 120.w,
                       height: 66.h,
-                      fit: BoxFit.cover,
+                      fill: BoxFit.cover,
                     ),
                   ),
                   Container(
