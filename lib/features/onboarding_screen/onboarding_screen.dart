@@ -13,13 +13,16 @@ import '../../../../utils/constants/app_string.dart';
 import '../../component/button/common_button.dart';
 import '../../component/text/common_text.dart';
 
+import 'package:untitled/component/blur_reveal/blur_reveal.dart';
+
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
+    return BlurReveal(
+      child: Scaffold(
+        body: Stack(
         children: [
           /// Background Image
           Positioned.fill(
@@ -139,6 +142,6 @@ class OnboardingScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
 }

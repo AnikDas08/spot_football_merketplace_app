@@ -24,7 +24,7 @@ class BannerSliderIndicator extends StatelessWidget {
               width: 8.w,
               height: 8.h,
               decoration: BoxDecoration(
-                color: bannerController.currentPage.value == index
+                color: bannerController.currentPageIndex.value == index
                     ? AppColors.black
                     : AppColors.colorCCCCCC,
                 borderRadius: BorderRadius.circular(4),

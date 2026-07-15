@@ -7,6 +7,8 @@ import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_string.dart';
 import '../controllers/event_controller.dart';
 
+import 'package:untitled/component/blur_reveal/blur_reveal.dart';
+
 class AllEventsScreen extends StatelessWidget {
   const AllEventsScreen({super.key});
 
@@ -28,14 +30,30 @@ class AllEventsScreen extends StatelessWidget {
 
         return RefreshIndicator(
           onRefresh: () => controller.fetchEvents(),
-          child: ListView.separated(
-            padding: EdgeInsets.all(16.w),
-            itemCount: controller.eventList.length,
-            separatorBuilder: (context, index) => SizedBox(height: 16.h),
-            itemBuilder: (context, index) {
-              final event = controller.eventList[index];
-              return UpcomingEventCard(event: event);
-            },
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.separated(
+                  controller: controller.scrollController,
+                  padding: EdgeInsets.all(16.w),
+                  itemCount: controller.eventList.length,
+                  separatorBuilder: (context, index) => SizedBox(height: 16.h),
+                  itemBuilder: (context, index) {
+                    final event = controller.eventList[index];
+                    return BlurReveal(
+                      duration: const Duration(milliseconds: 500),
+                      initialBlur: 5,
+                      child: UpcomingEventCard(event: event),
+                    );
+                  },
+                ),
+              ),
+              if (controller.isMoreLoading.value)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Center(child: CircularProgressIndicator(color: AppColors.primaryColor)),
+                ),
+            ],
           ),
         );
       }),

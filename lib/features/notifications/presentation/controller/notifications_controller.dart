@@ -1,98 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled/utils/app_snackbar.dart';
-
 import '../../data/model/notification_model.dart';
 import '../../repository/notification_repository.dart';
 
 class NotificationsController extends GetxController {
-  /// Notification list
-  final List<NotificationModel> notifications = [];
-  bool isLoading = false;
-  bool isLoadingMore = false;
-  bool hasNoData = false;
+  final RxList<NotificationModel> notifications = <NotificationModel>[].obs;
+  var isLoading = false.obs;
+  var isLoadingMore = false.obs;
+  var hasNoData = false.obs;
+  
   int page = 1;
+  int totalPage = 0;
 
-  /// Scroll controller
   final ScrollController scrollController = ScrollController();
 
-  /// Get instance
-  static NotificationsController get instance =>
-      Get.find<NotificationsController>();
-
-  /// Init
-  @override
+  @override 
   void onInit() {
     super.onInit();
     scrollController.addListener(_onScroll);
     getNotifications();
   }
 
-  /// Scroll listener
   void _onScroll() {
-    if (scrollController.position.pixels >=
-        scrollController.position.maxScrollExtent) {
+    if (isLoading.value || isLoadingMore.value || totalPage == 0 || page > totalPage) return;
+
+    if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 100) {
       loadMore();
     }
   }
 
-  /// Fetch notifications (first load)
   Future<void> getNotifications() async {
-    if (isLoading) return;
+    if (isLoading.value) return;
+    
     try {
-      isLoading = true;
-      update();
+      isLoading.value = true;
+      hasNoData.value = false;
+      page = 1;
+      
+      final result = await notificationRepository(page);
+      final List<NotificationModel> list = result['notifications'] ?? [];
+      totalPage = result['totalPage'] ?? 1;
 
-      final list = await notificationRepository(page);
-
-      if (list.isEmpty) {
-        hasNoData = true;
+      notifications.assignAll(list);
+      
+      if (notifications.isEmpty) {
+        hasNoData.value = true;
       } else {
-        notifications.addAll(list);
         page++;
       }
     } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
+      debugPrint('❌ getNotifications error: $e');
     } finally {
-      isLoading = false;
-      update();
+      isLoading.value = false;
     }
   }
 
-  /// Load more notifications (pagination)
   Future<void> loadMore() async {
-    if (isLoadingMore || hasNoData) return;
+    if (isLoading.value || isLoadingMore.value || page > totalPage) return;
 
     try {
-      isLoadingMore = true;
-      update();
+      isLoadingMore.value = true;
+      
+      final result = await notificationRepository(page);
+      final List<NotificationModel> list = result['notifications'] ?? [];
+      totalPage = result['totalPage'] ?? 1;
 
-      final list = await notificationRepository(page);
-
-      if (list.isEmpty) {
-        hasNoData = true;
-      } else {
+      if (list.isNotEmpty) {
         notifications.addAll(list);
         page++;
       }
     } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
+      debugPrint('❌ loadMore error: $e');
     } finally {
-      isLoadingMore = false;
-      update();
+      isLoadingMore.value = false;
     }
   }
 
-  /// Refresh manually
-  @override
-  Future<void> refresh() async {
+  Future<void> refreshNotifications() async {
     page = 1;
-    hasNoData = false;
-    notifications.clear();
+    totalPage = 0;
     await getNotifications();
   }
 
-  /// Dispose
   @override
   void onClose() {
     scrollController.dispose();

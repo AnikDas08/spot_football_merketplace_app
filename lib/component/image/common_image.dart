@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled/component/blur_reveal/blur_reveal.dart';
 import '../../config/api/api_end_point.dart';
 import '../../utils/constants/app_images.dart';
 import '../../utils/log/error_log.dart';
@@ -46,7 +47,7 @@ class CommonImage extends StatelessWidget {
 
   Widget _buildNetworkImage() {
     return ClipRRect(
-      borderRadius: .circular(borderRadius),
+      borderRadius: BorderRadius.circular(borderRadius),
       child: CachedNetworkImage(
         height: size?.sp ?? height?.h,
         width: size?.sp ?? width?.w,

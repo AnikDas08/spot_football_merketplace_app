@@ -16,6 +16,8 @@ import '../widgets/personal_details_widget.dart';
 import '../widgets/player_header_widget.dart';
 import '../widgets/recent_performance.dart';
 
+import 'package:untitled/component/blur_reveal/blur_reveal.dart';
+
 class PlayerProfileScreen extends StatelessWidget {
   const PlayerProfileScreen({super.key});
 
@@ -24,70 +26,72 @@ class PlayerProfileScreen extends StatelessWidget {
     // Ensure controller is initialized
     final controller = Get.put(PlayerProfileController());
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: SecondaryAppBar(title: AppString.playerProfile),
-      body: GetBuilder<PlayerProfileController>(
-        builder: (controller) {
-          if (controller.isLoading) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
-          }
+    return BlurReveal(
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: SecondaryAppBar(title: AppString.playerProfile),
+        body: GetBuilder<PlayerProfileController>(
+          builder: (controller) {
+            if (controller.isLoading) {
+              return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+            }
 
-          if (controller.dashboardData == null) {
-            return const Center(child: Text("No player data found"));
-          }
+            if (controller.dashboardData == null) {
+              return const Center(child: Text("No player data found"));
+            }
 
-          final player = controller.playerData;
-          final stats = controller.dashboardData!['stats'];
-          final matches = controller.dashboardData!['recentMatches'];
+            final player = controller.playerData;
+            final stats = controller.dashboardData!['stats'];
+            final matches = controller.dashboardData!['recentMatches'];
 
-          final firstName = player?['firstName'] ?? "";
-          final lastName = player?['lastName'] ?? "";
-          final fullName = "$firstName $lastName".trim();
+            final firstName = player?['firstName'] ?? "";
+            final lastName = player?['lastName'] ?? "";
+            final fullName = "$firstName $lastName".trim();
 
-          final bool isManager = LocalStorage.role.toUpperCase() == "MANAGER";
-          final dynamic args = Get.arguments;
-          final bool isFromMyChildren = (args is Map) && (args['isFromMyChildren'] ?? false);
+            final bool isManager = LocalStorage.role.toUpperCase() == "MANAGER";
+            final dynamic args = Get.arguments;
+            final bool isFromMyChildren = (args is Map) && (args['isFromMyChildren'] ?? false);
 
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PlayerHeaderWidget(
-                  playerName: fullName.isNotEmpty ? fullName : (player?['userName'] ?? "Player"),
-                  position: player?['position'] ?? "N/A",
-                  profileImage: player?['profile'],
-                ),
-                SizedBox(height: 16.h),
-                PersonalDetailsWidget(playerData: player),
-                
-                // Submit Offer Button for Managers only
-                if (isManager)
-                  Padding(
-                    padding: EdgeInsets.all(16.w),
-                    child: CommonButton(
-                      titleText: "Submit Offer",
-                      isLoading: controller.isOfferingTrial,
-                      onTap: () => controller.offerTrial(),
-                    ),
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PlayerHeaderWidget(
+                    playerName: fullName.isNotEmpty ? fullName : (player?['userName'] ?? "Player"),
+                    position: player?['position'] ?? "N/A",
+                    profileImage: player?['profile'],
                   ),
-
-                SizedBox(height: 16.h),
-                EngRecordWidget(stats: stats),
-                SizedBox(height: 16.h),
-                RecentPerformance(matches: matches),
-                
-                if (!isFromMyChildren) ...[
                   SizedBox(height: 16.h),
-                  const LatestNews(),
+                  PersonalDetailsWidget(playerData: player),
+                  
+                  // Submit Offer Button for Managers only
+                  if (isManager)
+                    Padding(
+                      padding: EdgeInsets.all(16.w),
+                      child: CommonButton(
+                        titleText: "Submit Offer",
+                        isLoading: controller.isOfferingTrial,
+                        onTap: () => controller.offerTrial(),
+                      ),
+                    ),
+
+                  SizedBox(height: 16.h),
+                  EngRecordWidget(stats: stats),
+                  SizedBox(height: 16.h),
+                  RecentPerformance(matches: matches),
+                  
+                  if (!isFromMyChildren) ...[
+                    SizedBox(height: 16.h),
+                    const LatestNews(),
+                    SizedBox(height: 24.h),
+                    const LatestVideos(),
+                  ],
                   SizedBox(height: 24.h),
-                  const LatestVideos(),
                 ],
-                SizedBox(height: 24.h),
-              ],
-            ),
-          );
-        },
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -17,6 +17,8 @@ import '../../../auth/sign in/presentation/controller/sign_in_controller.dart';
 import '../../../navbar/controller/navbar_controller.dart';
 import '../../../profile/presentation/controller/profile_controller.dart';
 
+import 'package:untitled/component/blur_reveal/blur_reveal.dart';
+
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
@@ -28,127 +30,131 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       width: 0.9.sw,
       backgroundColor: AppColors.white,
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      _buildProfile(profileController),
-                      SizedBox(height: 36.h),
-                      if (!LocalStorage.isGuest) ...[
-                        _buildMenuItem(
-                          icon: AppIcons.editProfile,
-                          label: AppString.editProfile,
-                          onTap: () => Get.toNamed(AppRoutes.editProfile),
-                        ),
-                      ],
-                      if (!LocalStorage.isGuest) ...[
-                        if (role == "REFEREE") ...[
+      child: BlurReveal(
+        duration: const Duration(milliseconds: 600),
+        initialBlur: 10,
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _buildProfile(profileController),
+                        SizedBox(height: 36.h),
+                        if (!LocalStorage.isGuest) ...[
                           _buildMenuItem(
-                            icon: AppIcons
-                                .myChildrenSvg, // Using a suitable placeholder icon
-                            label: "Referee Dashboard",
-                            onTap: () =>
-                                Get.toNamed(AppRoutes.refereeDashboardScreen),
+                            icon: AppIcons.editProfile,
+                            label: AppString.editProfile,
+                            onTap: () => Get.toNamed(AppRoutes.editProfile),
                           ),
                         ],
-                        if (role == "PLAYER") ...[
+                        if (!LocalStorage.isGuest) ...[
+                          if (role == "REFEREE") ...[
+                            _buildMenuItem(
+                              icon: AppIcons
+                                  .myChildrenSvg, // Using a suitable placeholder icon
+                              label: "Referee Dashboard",
+                              onTap: () =>
+                                  Get.toNamed(AppRoutes.refereeDashboardScreen),
+                            ),
+                          ],
+                          if (role == "PLAYER") ...[
+                            _buildMenuItem(
+                              icon: AppIcons.myChildrenSvg,
+                              label: AppString.myPlayer,
+                              onTap: () => Get.toNamed(AppRoutes.myChildren),
+                            ),
+                            _buildMenuItem(
+                              icon: AppIcons.rewards,
+                              label: AppString.rewardsRedemption,
+                              onTap: () => Get.toNamed(AppRoutes.shopScreen),
+                            ),
+                            _buildMenuItem(
+                              icon: AppIcons.subscription,
+                              label: AppString.mySubscriptions,
+                              onTap: () => Get.toNamed(AppRoutes.mySubscription),
+                            ),
+                          ],
+                          if (role == "MANAGER") ...[
+                            _buildMenuItem(
+                              icon: AppIcons.pro,
+                              label: "Team Sheet",
+                              onTap: () => Get.toNamed(AppRoutes.teamSheetScreen),
+                            ),
+                            _buildMenuItem(
+                              icon: AppIcons.transferHistory,
+                              label: AppString.myTransfersHistory,
+                              onTap: () =>
+                                  Get.toNamed(AppRoutes.transferRequestScreen),
+                            ),
+                            _buildMenuItem(
+                              icon: AppIcons.transfersInActive,
+                              label: AppString.trialListAvailable,
+                              onTap: () =>
+                                  Get.toNamed(AppRoutes.trialList),
+                            ),
+                          ],
                           _buildMenuItem(
-                            icon: AppIcons.myChildrenSvg,
-                            label: AppString.myPlayer,
-                            onTap: () => Get.toNamed(AppRoutes.myChildren),
-                          ),
-                          _buildMenuItem(
-                            icon: AppIcons.rewards,
-                            label: AppString.rewardsRedemption,
-                            onTap: () => Get.toNamed(AppRoutes.shopScreen),
-                          ),
-                          _buildMenuItem(
-                            icon: AppIcons.subscription,
-                            label: AppString.mySubscriptions,
-                            onTap: () => Get.toNamed(AppRoutes.mySubscription),
+                            icon: AppIcons.lockPassword,
+                            label: AppString.changePassword,
+                            onTap: () => Get.toNamed(AppRoutes.changePassword),
                           ),
                         ],
-                        if (role == "MANAGER") ...[
+                        _buildMenuItem(
+                          icon: AppIcons.pro,
+                          label: "Book a Scout",
+                          onTap: () async {
+                            final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
+                            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
+                        ),
+                        if (LocalStorage.isGuest) ...[
                           _buildMenuItem(
-                            icon: AppIcons.pro,
-                            label: "Team Sheet",
-                            onTap: () => Get.toNamed(AppRoutes.teamSheetScreen),
+                            icon: AppIcons.fixturesInActive,
+                            label: "Fixtures",
+                            onTap: () => Get.find<NavBarController>().selectedIndex.value = 1,
                           ),
                           _buildMenuItem(
-                            icon: AppIcons.transferHistory,
-                            label: AppString.myTransfersHistory,
-                            onTap: () =>
-                                Get.toNamed(AppRoutes.transferRequestScreen),
+                            icon: AppIcons.league,
+                            label: "League Tables",
+                            onTap: () => Get.find<NavBarController>().selectedIndex.value = 2,
                           ),
                           _buildMenuItem(
-                            icon: AppIcons.transfersInActive,
-                            label: AppString.trialListAvailable,
-                            onTap: () =>
-                                Get.toNamed(AppRoutes.trialList),
+                            icon: AppIcons.engTvInActive,
+                            label: "ENG TV",
+                            onTap: () => Get.find<NavBarController>().selectedIndex.value = 3,
+                          ),
+                          _buildMenuItem(
+                            icon: AppIcons.statsInactive,
+                            label: "Statistics",
+                            onTap: () => Get.find<NavBarController>().selectedIndex.value = 4,
                           ),
                         ],
                         _buildMenuItem(
-                          icon: AppIcons.lockPassword,
-                          label: AppString.changePassword,
-                          onTap: () => Get.toNamed(AppRoutes.changePassword),
+                          icon: AppIcons.infoPolicy,
+                          label: AppString.privacyPolicy,
+                          onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
+                        ),
+                        _buildMenuItem(
+                          icon: AppIcons.infoPolicy,
+                          label: AppString.termsOfServices,
+                          onTap: () => Get.toNamed(AppRoutes.termsOfServices),
                         ),
                       ],
-                      _buildMenuItem(
-                        icon: AppIcons.pro,
-                        label: "Book a Scout",
-                        onTap: () async {
-                          final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
-                          if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-                            throw Exception('Could not launch $url');
-                          }
-                        },
-                      ),
-                      if (LocalStorage.isGuest) ...[
-                        _buildMenuItem(
-                          icon: AppIcons.fixturesInActive,
-                          label: "Fixtures",
-                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 1,
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.league,
-                          label: "League Tables",
-                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 2,
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.engTvInActive,
-                          label: "ENG TV",
-                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 3,
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.statsInactive,
-                          label: "Statistics",
-                          onTap: () => Get.find<NavBarController>().selectedIndex.value = 4,
-                        ),
-                      ],
-                      _buildMenuItem(
-                        icon: AppIcons.infoPolicy,
-                        label: AppString.privacyPolicy,
-                        onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
-                      ),
-                      _buildMenuItem(
-                        icon: AppIcons.infoPolicy,
-                        label: AppString.termsOfServices,
-                        onTap: () => Get.toNamed(AppRoutes.termsOfServices),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20.h),
-              _buildLogoutButton(),
-            ],
+                SizedBox(height: 20.h),
+                _buildLogoutButton(),
+              ],
+            ),
           ),
         ),
       ),

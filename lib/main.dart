@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:untitled/utils/log/global_log.dart';
 import 'app.dart';
 import 'config/dependency/dependency_injection.dart';
-import 'services/socket/socket_service.dart';
 import 'services/storage/storage_services.dart';
 
 Future<void> main() async {
@@ -28,10 +27,6 @@ Future<void> init() async {
       SystemChrome.setPreferredOrientations([.portraitUp, .portraitDown]),
       LocalStorage.getAllPrefData(),
     ]);
-
-    Future.delayed(const Duration(milliseconds: 300), () {
-      SocketService.connect();
-    });
   } catch (e, stack) {
     globalError(e, stack);
   }

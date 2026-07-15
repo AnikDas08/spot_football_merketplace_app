@@ -8,6 +8,8 @@ import 'package:untitled/utils/constants/app_string.dart';
 import 'package:untitled/config/api/api_end_point.dart';
 import '../controllers/banner_controller.dart';
 
+import 'package:untitled/component/blur_reveal/blur_reveal.dart';
+
 class AllVideosScreen extends StatelessWidget {
   const AllVideosScreen({super.key});
 
@@ -29,24 +31,40 @@ class AllVideosScreen extends StatelessWidget {
 
         return RefreshIndicator(
           onRefresh: () => controller.fetchBannerVideos(),
-          child: ListView.separated(
-            padding: EdgeInsets.all(16.w),
-            itemCount: controller.bannerVideos.length,
-            separatorBuilder: (context, index) => SizedBox(height: 16.h),
-            itemBuilder: (context, index) {
-              final video = controller.bannerVideos[index];
-              return LatestVideoCard(
-                videoId: video.id,
-                imagePath: video.videoUrl.isNotEmpty
-                    ? "${ApiEndPoint.imageUrl}${video.thumbnail}"
-                    : 'https://images.unsplash.com/photo-1551958219-acbc630e2914?w=600',
-                title: video.title,
-                category: video.category,
-                description: video.description,
-                time: video.publishDateTime,
-                duration: "0:00",
-              );
-            },
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.separated(
+                  controller: controller.scrollController,
+                  padding: EdgeInsets.all(16.w),
+                  itemCount: controller.bannerVideos.length,
+                  separatorBuilder: (context, index) => SizedBox(height: 16.h),
+                  itemBuilder: (context, index) {
+                    final video = controller.bannerVideos[index];
+                    return BlurReveal(
+                      duration: const Duration(milliseconds: 500),
+                      initialBlur: 5,
+                      child: LatestVideoCard(
+                        videoId: video.id,
+                        imagePath: video.videoUrl.isNotEmpty
+                            ? "${ApiEndPoint.imageUrl}${video.thumbnail}"
+                            : 'https://images.unsplash.com/photo-1551958219-acbc630e2914?w=600',
+                        title: video.title,
+                        category: video.category,
+                        description: video.description,
+                        time: video.publishDateTime,
+                        duration: "0:00",
+                      ),
+                    );
+                  },
+                ),
+              ),
+              if (controller.isMoreLoading.value)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Center(child: CircularProgressIndicator(color: AppColors.primaryColor)),
+                ),
+            ],
           ),
         );
       }),

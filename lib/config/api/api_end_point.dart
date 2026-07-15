@@ -1,11 +1,11 @@
 class ApiEndPoint {
-  static const baseUrl = 'http://31.97.117.41:5005/api/v1';
+  // static const baseUrl = 'http://31.97.117.41:5005/api/v1';
   // static const baseUrl = 'https://hz2w208g-5005.inc1.devtunnels.ms/api/v1';
-  // static const baseUrl = 'http://10.10.26.208:5005/api/v1';
+  static const baseUrl = 'http://10.10.26.208:5005/api/v1';
   static const imageUrl = 'http://31.97.117.41:5005';
   // static const imageUrl = 'http://10.10.26.208:5005';
+  // static const videoUrl = 'http://31.97.117.41:5005';
   static const videoUrl = 'http://10.10.26.208:5005';
-  static const socketUrl = 'http://103.145.138.74:3001';
 
   static const signUp = '/user/';
   static const playerProfile = '/user/player';
@@ -24,7 +24,7 @@ class ApiEndPoint {
   static const changePassword = 'users/change-password';
   static const news = '/news/public-news';
   static const user = 'users';
-  static const notifications = 'notifications';
+  static const notifications = '/notification/my';
   static const privacyPolicies = '/privacy-policy';
   static const termsOfServices = '/terms-and-conditions';
   static const chats = 'chats';
@@ -51,4 +51,5 @@ class ApiEndPoint {
   static const video = '/video/public';
   static const videoDetails = '/video/';
   static const packages = '/package';
+  static const playerFilter = '/player/filter';
 }

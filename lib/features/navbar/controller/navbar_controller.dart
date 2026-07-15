@@ -4,11 +4,13 @@ import 'package:untitled/features/fixtures/presentation/screen/fixtures_screen.d
 import 'package:untitled/features/home/presentation/screens/home_screen.dart';
 import 'package:untitled/features/league_tables/presentation/screen/league_tables_screen.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
+import 'package:untitled/utils/constants/app_string.dart';
 import '../../eng_tv_flow/presentation/screen/eng_tv_screen.dart';
 import '../../stats_flow/presentation/screen/stats_screen.dart';
 
 class NavBarController extends GetxController {
   final selectedIndex = 0.obs;
+  final isDrawerOpen = false.obs;
 
   int get currentIndex => selectedIndex.value;
 
@@ -19,12 +21,19 @@ class NavBarController extends GetxController {
   }
 
   final List<Widget> screens = [
-    HomeScreen(),
-    FixturesScreen(),
-    LeagueTablesScreen(fromBottomNav: true),
-
-    EngTvScreen(),
+    const HomeScreen(),
+    const FixturesScreen(),
+    const LeagueTablesScreen(fromBottomNav: true),
+    const EngTvScreen(),
     StatsScreen(),
+  ];
+
+  final List<String> titles = [
+    AppString.community,
+    AppString.fixture,
+    'LEAGUE TABLES',
+    "ENG TV",
+    'STATS',
   ];
 
   final List<String> labels = const [

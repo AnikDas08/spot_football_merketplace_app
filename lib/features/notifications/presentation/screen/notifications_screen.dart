@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:untitled/features/notifications/presentation/controller/notifications_controller.dart';
 import 'package:untitled/features/notifications/presentation/widgets/notification_item.dart';
 import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
@@ -16,35 +18,50 @@ class NotificationsScreen extends StatelessWidget {
     if (LocalStorage.isGuest) {
       return const Scaffold(body: Center(child: Text("Login Required")));
     }
+
+    final controller = Get.put(NotificationsController());
+    
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.notifications),
-      body: RefreshIndicator(
-        onRefresh: () async {},
-        child: ListView.separated(
-          padding: .symmetric(horizontal: 16, vertical: 10),
-          itemBuilder: (context, index) => index % 2 == 0
-              ? NotificationCard(
-                  alertType: AppString.transfer,
-                  timeAgo: AppString.twoMinutesAgo,
-                  title: AppString.neonUnitedAddsNewMidfielder,
-                  subtitle:
-                      AppString.grealishOfficialjoinsTheStartingXIforSunday,
-                  color: AppColors.color19CA77,
-                  iconImage: AppIcons.iconPeople,
-                )
-              : NotificationCard(
-                  alertType: AppString.feature,
-                  timeAgo: AppString.twoMinutesAgo,
-                  title: AppString.neonUnitedAddsNewMidfielder,
-                  subtitle:
-                      AppString.grealishOfficialjoinsTheStartingXIforSunday,
-                  color: AppColors.colorB6A0FF,
-                  iconImage: AppIcons.iconReload,
-                ),
-          separatorBuilder: (context, index) => SizedBox(height: 10.h),
-          itemCount: 10,
-        ),
-      ),
+      body: Obx(() {
+        if (controller.isLoading.value && controller.notifications.isEmpty) {
+          return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+        }
+
+        if (controller.notifications.isEmpty) {
+          return const Center(child: Text("No notifications available"));
+        }
+
+        return RefreshIndicator(
+          onRefresh: () => controller.refreshNotifications(),
+          child: ListView.separated(
+            controller: controller.scrollController, 
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+            itemBuilder: (context, index) {
+              if (index < controller.notifications.length) {
+                final notification = controller.notifications[index];
+                return NotificationCard(
+                  alertType: notification.type,
+                  timeAgo: notification.timeAgo,
+                  title: notification.title,
+                  subtitle: notification.message,
+                  color: index % 2 == 0 ? AppColors.color19CA77 : AppColors.colorB6A0FF,
+                  iconImage: index % 2 == 0 ? AppIcons.iconPeople : AppIcons.iconReload,
+                );
+              } else {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Center(child: CircularProgressIndicator(color: AppColors.primaryColor)),
+                );
+              }
+            },
+            separatorBuilder: (context, index) => SizedBox(height: 10.h),
+            itemCount: controller.isLoadingMore.value 
+                ? controller.notifications.length + 1 
+                : controller.notifications.length,
+          ),
+        );
+      }),
     );
   }
 }

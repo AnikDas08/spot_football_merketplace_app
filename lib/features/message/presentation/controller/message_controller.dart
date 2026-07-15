@@ -9,7 +9,6 @@ import '../../data/model/message_model.dart';
 
 import '../../../../config/api/api_end_point.dart';
 import '../../../../services/api/api_service.dart';
-import '../../../../services/socket/socket_service.dart';
 import '../../../../services/storage/storage_services.dart';
 import '../../../../utils/app_snackbar.dart';
 import '../../../../utils/enum/enum.dart';
@@ -137,32 +136,10 @@ class MessageController extends GetxController {
     };
 
     messageController.clear();
-
-    SocketService.emitWithAck('add-new-message', body, (data) {
-      if (kDebugMode) {
-        debugPrint('Ack: $data');
-      }
-    });
   }
 
   /// Listen socket new messages
   void listenMessage(String chatId) {
-    SocketService.on('new-message::$chatId', (data) {
-      final model = MessageModel.fromJson(data);
-
-      messages.insert(
-        0,
-        ChatMessageModel(
-          time: model.createdAt.toLocal(),
-          text: model.message,
-          image: model.sender.image,
-          isNotice: model.type == 'notice',
-          isMe: false,
-        ),
-      );
-
-      update();
-    });
   }
 
   /// Toggle emoji/input

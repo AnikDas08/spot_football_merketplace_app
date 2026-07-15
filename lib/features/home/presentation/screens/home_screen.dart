@@ -21,6 +21,8 @@ import '../widgets/upcoming_events.dart';
 import '../widgets/book_scout_section.dart';
 import '../widgets/eng_tv_home_section.dart';
 
+import 'package:untitled/component/blur_reveal/blur_reveal.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -31,163 +33,158 @@ class HomeScreen extends StatelessWidget {
     final newsController = Get.put(NewsController());
     final eventController = Get.put(EventController());
 
-    return Scaffold(
-      drawer: const AppDrawer(),
-      appBar: CommonAppbar(title: AppString.community),
-      backgroundColor: const Color(0xFFF3F3F3), // Neutral light background for gaps
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await Future.wait([
-            controller.fetchMatches(),
-            controller.fetchPointTable(),
-            bannerController.fetchBannerVideos(),
-            newsController.fetchNews(),
-            eventController.fetchEvents(),
-          ]);
-        },
-        child: SafeArea(
-          child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            child: GetBuilder<ClubProfileController>(
-              builder: (controller) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20.h),
-                    const BannerSlider(),
-                    SizedBox(height: 12.h),
+    return RefreshIndicator(
+      onRefresh: () async {
+        await Future.wait([
+          controller.fetchMatches(),
+          controller.fetchPointTable(),
+          bannerController.fetchBannerVideos(),
+          newsController.fetchNews(),
+          eventController.fetchEvents(),
+        ]);
+      },
+      child: SafeArea(
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: GetBuilder<ClubProfileController>(
+            builder: (controller) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20.h),
+                  const BannerSlider(),
+                  SizedBox(height: 12.h),
 
-                    _buildSection(
-                      backgroundColor: Colors.white,
-                      child: GetBuilder<NewsController>(
-                        builder: (newsController) {
-                          return Obx(() {
-                            if (newsController.isLoading.value ||
-                                newsController.newsList.isNotEmpty) {
-                              return const LatestNews();
-                            }
-                            return const SizedBox.shrink();
-                          });
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 12.h),
-
-                    GetBuilder<EventController>(
-                      builder: (eventController) {
-                        if (eventController.isLoading.value ||
-                            eventController.eventList.isNotEmpty) {
-                          return _buildSection(
-                            backgroundColor: AppColors.primaryColor,
-                            child: const UpcomingEvents(titleColor: Colors.white),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                    SizedBox(height: 12.h),
-
-                    if (controller.isLoading.value ||
-                        controller.liveMatches.isNotEmpty) ...[
-                      _buildSection(
-                        backgroundColor: Colors.white,
-                        child: LiveMatches(
-                          matches: controller.liveMatches,
-                          isLoading: controller.isLoading.value,
-                        ),
-                      ),
-                      SizedBox(height: 12.h),
-                    ],
-
-                    _buildSection(
-                      backgroundColor: Colors.white,
-                      child: const BookScoutSection(titleColor: AppColors.primaryColor),
-                    ),
-                    SizedBox(height: 12.h),
-
-                    if (controller.isLoading.value ||
-                        controller.recentMatches.isNotEmpty) ...[
-                      _buildSection(
-                        backgroundColor: Colors.white,
-                        child: RecentResult(
-                          matches: controller.recentMatches,
-                          isLoading: controller.isLoading.value,
-                          titleColor: AppColors.primaryColor,
-                        ),
-                      ),
-                      SizedBox(height: 12.h),
-                    ],
-
-                    _buildSection(
-                      backgroundColor: AppColors.black,
-                      child: const EngTvHomeSection(
-                        titleColor: Colors.white,
-                        viewAllColor: AppColors.colorEABB00,
-                      ),
-                    ),
-                    SizedBox(height: 12.h),
-
-                    if (controller.isLoading.value) ...[
-                      _buildSection(
-                        backgroundColor: Colors.white,
-                        child: LeaguePreview(standings: const [], isLoading: true),
-                      ),
-                      SizedBox(height: 12.h),
-                    ] else ...[
-                      ...controller.allLeagues.asMap().entries.map((entry) {
-                        int index = entry.key;
-                        var leagueData = entry.value;
-                        return Column(
-                          children: [
-                            _buildSection(
-                              backgroundColor: Colors.white,
-                              padding: index == 0 
-                                  ? EdgeInsets.symmetric(vertical: 32.h)
-                                  : EdgeInsets.only(bottom: 32.h),
-                              child: LeaguePreview(
-                                standings: leagueData.standings,
-                                leagueName: leagueData.league.leagueName,
-                                season: leagueData.league.season,
-                                showHeader: index == 0,
-                              ),
-                            ),
-                            SizedBox(height: 12.h),
-                          ],
-                        );
-                      }),
-                    ],
-
-                    GetBuilder<BannerController>(
-                      builder: (bannerController) {
+                  _buildSection(
+                    backgroundColor: Colors.white,
+                    child: GetBuilder<NewsController>(
+                      builder: (newsController) {
                         return Obx(() {
-                          if (bannerController.isLoading.value ||
-                              bannerController.bannerVideos.isNotEmpty) {
-                            return _buildSection(
-                              backgroundColor: AppColors.black,
-                              child: const LatestVideos(titleColor: Colors.white),
-                            );
+                          if (newsController.isLoading.value ||
+                              newsController.newsList.isNotEmpty) {
+                            return const LatestNews();
                           }
                           return const SizedBox.shrink();
                         });
                       },
                     ),
-                    SizedBox(height: 12.h),
+                  ),
+                  SizedBox(height: 12.h),
 
-                    if (controller.isLoading.value ||
-                        controller.upcomingMatches.isNotEmpty) ...[
-                      _buildSection(
-                        backgroundColor: Colors.white,
-                        child: UpcomingFixtures(
-                          fixtures: controller.upcomingMatches,
-                          isLoading: controller.isLoading.value,
-                        ),
+                  GetBuilder<EventController>(
+                    builder: (eventController) {
+                      if (eventController.isLoading.value ||
+                          eventController.eventList.isNotEmpty) {
+                        return _buildSection(
+                          backgroundColor: AppColors.primaryColor,
+                          child: const UpcomingEvents(titleColor: Colors.white),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                  SizedBox(height: 12.h),
+
+                  if (controller.isLoading.value ||
+                      controller.liveMatches.isNotEmpty) ...[
+                    _buildSection(
+                      backgroundColor: Colors.white,
+                      child: LiveMatches(
+                        matches: controller.liveMatches,
+                        isLoading: controller.isLoading.value,
                       ),
-                      SizedBox(height: 32.h),
-                    ],
+                    ),
+                    SizedBox(height: 12.h),
                   ],
-                );
-              },
-            ),
+
+                  _buildSection(
+                    backgroundColor: Colors.white,
+                    child: const BookScoutSection(titleColor: AppColors.primaryColor),
+                  ),
+                  SizedBox(height: 12.h),
+
+                  if (controller.isLoading.value ||
+                      controller.recentMatches.isNotEmpty) ...[
+                    _buildSection(
+                      backgroundColor: Colors.white,
+                      child: RecentResult(
+                        matches: controller.recentMatches,
+                        isLoading: controller.isLoading.value,
+                        titleColor: AppColors.primaryColor,
+                      ),
+                    ),
+                    SizedBox(height: 12.h),
+                  ],
+
+                  _buildSection(
+                    backgroundColor: AppColors.black,
+                    child: const EngTvHomeSection(
+                      titleColor: Colors.white,
+                      viewAllColor: AppColors.colorEABB00,
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+
+                  if (controller.isLoading.value) ...[
+                    _buildSection(
+                      backgroundColor: Colors.white,
+                      child: LeaguePreview(standings: const [], isLoading: true),
+                    ),
+                    SizedBox(height: 12.h),
+                  ] else ...[
+                    ...controller.allLeagues.asMap().entries.map((entry) {
+                      int index = entry.key;
+                      var leagueData = entry.value;
+                      return Column(
+                        children: [
+                          _buildSection(
+                            backgroundColor: Colors.white,
+                            padding: index == 0 
+                                ? EdgeInsets.symmetric(vertical: 32.h)
+                                : EdgeInsets.only(bottom: 32.h),
+                            child: LeaguePreview(
+                              standings: leagueData.standings,
+                              leagueName: leagueData.league.leagueName,
+                              season: leagueData.league.season,
+                              showHeader: index == 0,
+                            ),
+                          ),
+                          SizedBox(height: 12.h),
+                        ],
+                      );
+                    }),
+                  ],
+
+                  GetBuilder<BannerController>(
+                    builder: (bannerController) {
+                      return Obx(() {
+                        if (bannerController.isLoading.value ||
+                            bannerController.bannerVideos.isNotEmpty) {
+                          return _buildSection(
+                            backgroundColor: AppColors.black,
+                            child: const LatestVideos(titleColor: Colors.white),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      });
+                    },
+                  ),
+                  SizedBox(height: 12.h),
+
+                  if (controller.isLoading.value ||
+                      controller.upcomingMatches.isNotEmpty) ...[
+                    _buildSection(
+                      backgroundColor: Colors.white,
+                      child: UpcomingFixtures(
+                        fixtures: controller.upcomingMatches,
+                        isLoading: controller.isLoading.value,
+                      ),
+                    ),
+                    SizedBox(height: 32.h),
+                  ],
+                ],
+              );
+            },
           ),
         ),
       ),

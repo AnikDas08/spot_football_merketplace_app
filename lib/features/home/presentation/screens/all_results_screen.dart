@@ -7,6 +7,8 @@ import 'package:untitled/utils/constants/app_colors.dart';
 import '../controllers/club_profile_controller.dart';
 import 'package:intl/intl.dart';
 
+import 'package:untitled/component/blur_reveal/blur_reveal.dart';
+
 class AllResultsScreen extends StatelessWidget {
   const AllResultsScreen({super.key});
 
@@ -41,16 +43,20 @@ class AllResultsScreen extends StatelessWidget {
                   ? DateFormat('HH:mm a').format(match.matchDate!)
                   : '';
 
-              return RecentResultCard(
-                id: match.id,
-                time: formattedTime,
-                date: formattedDate,
-                homeTeam: match.homeTeam.teamName,
-                awayTeam: match.awayTeam.teamName,
-                homeScore: match.homeScore,
-                awayScore: match.awayScore,
-                homeLogo: match.homeTeam.teamLogo,
-                awayLogo: match.awayTeam.teamLogo,
+              return BlurReveal(
+                duration: const Duration(milliseconds: 500),
+                initialBlur: 5,
+                child: RecentResultCard(
+                  id: match.id,
+                  time: formattedTime,
+                  date: formattedDate,
+                  homeTeam: match.homeTeam.teamName,
+                  awayTeam: match.awayTeam.teamName,
+                  homeScore: match.homeScore,
+                  awayScore: match.awayScore,
+                  homeLogo: match.homeTeam.teamLogo,
+                  awayLogo: match.awayTeam.teamLogo,
+                ),
               );
             },
           ),

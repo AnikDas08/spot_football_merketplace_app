@@ -22,26 +22,20 @@ class FixturesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final NavBarController navBarController = Get.find<NavBarController>();
     return GetBuilder<FixturesController>(
-      builder: (c) => Scaffold(
-        extendBody: true,
-        backgroundColor: AppColors.background,
-        appBar: CommonAppbar(title: AppString.fixture),
-        drawer: const AppDrawer(),
-        body: PopScope(
-          canPop: false,
-          onPopInvokedWithResult: (didPop, result) {
-            navBarController.selectedIndex.value = 0;
-          },
-          child: Column(
-            children: [
-              SizedBox(height: 20.h),
-              _TabRow(c: c),
-              SizedBox(height: 12.h),
-              _FilterBar(c: c),
-              SizedBox(height: 8.h),
-              Expanded(child: _FixtureList(c: c)),
-            ],
-          ),
+      builder: (c) => PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) {
+          navBarController.selectedIndex.value = 0;
+        },
+        child: Column(
+          children: [
+            SizedBox(height: 20.h),
+            _TabRow(c: c),
+            SizedBox(height: 12.h),
+            _FilterBar(c: c),
+            SizedBox(height: 8.h),
+            Expanded(child: _FixtureList(c: c)),
+          ],
         ),
       ),
     );

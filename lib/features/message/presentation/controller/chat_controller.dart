@@ -5,7 +5,6 @@ import '../../../../services/api/api_client.dart';
 import '../../data/model/chat_list_model.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../../services/api/api_service.dart';
-import '../../../../services/socket/socket_service.dart';
 import '../../../../services/storage/storage_services.dart';
 import '../../../../utils/app_snackbar.dart';
 import '../../../../utils/enum/enum.dart';
@@ -57,7 +56,6 @@ class ChatController extends GetxController {
 
   /// Fetch chats from API
   Future<void> getChats() async {
-    return;
     try {
       if (page == 1) {
         status = Status.loading;
@@ -85,15 +83,6 @@ class ChatController extends GetxController {
 
   /// Listen chat updates from socket
   void listenChat() {
-    final userId = LocalStorage.userId;
-    SocketService.on('update-chatlist::$userId', (data) {
-      page = 1;
-      chats.clear();
-      final List<dynamic> list = data ?? [];
-      chats.addAll(list.map((e) => ChatModel.fromJson(e)).toList());
-      status = Status.completed;
-      update();
-    });
   }
 
   /// Refresh chats manually

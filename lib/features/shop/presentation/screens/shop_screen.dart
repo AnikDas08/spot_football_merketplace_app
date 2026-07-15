@@ -38,9 +38,24 @@ class ShopScreen extends StatelessWidget {
           Expanded(
             child: GetBuilder<ShopController>(
               builder: (controller) {
-                return RedemptionGridWidget(
-                  products: controller.productList,
-                  isLoading: controller.isLoading.value,
+                if (controller.isLoading.value && controller.productList.isEmpty) {
+                  return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+                }
+                return SingleChildScrollView(
+                  controller: controller.scrollController,
+                  child: Column(
+                    children: [
+                      RedemptionGridWidget(
+                        products: controller.productList,
+                        isLoading: false,
+                      ),
+                      if (controller.isMoreLoading.value)
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: Center(child: CircularProgressIndicator(color: AppColors.primaryColor)),
+                        ),
+                    ],
+                  ),
                 );
               },
             ),

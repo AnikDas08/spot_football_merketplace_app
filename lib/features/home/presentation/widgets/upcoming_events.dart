@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:untitled/config/route/app_routes.dart';
 import 'package:untitled/features/home/presentation/widgets/upcoming_event_card.dart';
 import 'package:untitled/utils/constants/app_icons.dart';
+import '../../../../component/blur_reveal/blur_reveal.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
@@ -70,116 +69,123 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<EventController>(
-      builder: (controller) {
-        return Obx(() {
-          if (controller.isLoading.value && controller.eventList.isEmpty) {
-            return _buildShimmer();
-          }
+    return BlurReveal(
+      key: const ValueKey('upcoming_events_reveal'),
+      duration: const Duration(milliseconds: 800),
+      initialBlur: 10,
+      child: GetBuilder<EventController>(
+        builder: (controller) {
+          return Obx(() {
+            if (controller.isLoading.value && controller.eventList.isEmpty) {
+              return _buildShimmer();
+            }
 
-          if (controller.eventList.isEmpty) {
-            return const SizedBox.shrink();
-          }
+            if (controller.eventList.isEmpty) {
+              return const SizedBox.shrink();
+            }
 
-          final displayList = controller.eventList.length > 5 ? controller.eventList.take(5).toList() : controller.eventList;
+            final displayList = controller.eventList.length > 5 ? controller.eventList.take(5).toList() : controller.eventList;
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: CommonText(
-                        text: AppString.upcomingEvents.toUpperCase(),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Montserrat',
-                        color: widget.titleColor,
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: CommonText(
+                          text: AppString.upcomingEvents.toUpperCase(),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Montserrat',
+                          color: widget.titleColor,
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.allEvents);
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CommonText(
-                            text: AppString.viewAll,
-                            fontWeight: const FontWeight(500),
-                            fontSize: 16,
-                            color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
-                          ),
-                          const SizedBox(width: 5),
-                          SvgPicture.asset(
-                            AppIcons.arrowRight,
-                            colorFilter: ColorFilter.mode(
-                              widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
-                              BlendMode.srcIn,
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.allEvents);
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CommonText(
+                              text: AppString.viewAll,
+                              fontWeight: const FontWeight(500),
+                              fontSize: 16,
+                              color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 16.h),
-
-              /// Carousel Slider using PageView
-              SizedBox(
-                width: double.infinity,
-                height: 460.h,
-                child: PageView.builder(
-                  controller: _pageController,
-                  itemCount: displayList.length,
-                  onPageChanged: (index) => _currentPage.value = index,
-                  itemBuilder: (context, index) {
-                    final event = displayList[index];
-                    return AnimatedBuilder(
-                      animation: _pageController,
-                      builder: (context, child) {
-                        double value = 1.0;
-                        if (_pageController.position.haveDimensions) {
-                          value = _pageController.page! - index;
-                          value = (1 - (value.abs() * 0.05)).clamp(0.0, 1.0);
-                        }
-                        return Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 6.w),
-                            child: SizedBox(
-                              height: Curves.easeOut.transform(value) * 450.h,
-                              width: double.infinity,
-                              child: child,
+                            const SizedBox(width: 5),
+                            SvgPicture.asset(
+                              AppIcons.arrowRight,
+                              colorFilter: ColorFilter.mode(
+                                widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
+                                BlendMode.srcIn,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      child: UpcomingEventCard(
-                        event: event,
+                          ],
+                        ),
                       ),
-                    );
-                  },
+                    ],
+                  ),
                 ),
-              ),
+                SizedBox(height: 16.h),
 
-              SizedBox(height: 16.h),
+                /// Carousel Slider using PageView
+                SizedBox(
+                  width: double.infinity,
+                  height: 460.h,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: displayList.length,
+                    onPageChanged: (index) => _currentPage.value = index,
+                    itemBuilder: (context, index) {
+                      final event = displayList[index];
+                      return AnimatedBuilder(
+                        animation: _pageController,
+                        builder: (context, child) {
+                          double value = 1.0;
+                          try {
+                            if (_pageController.hasClients && _pageController.page != null) {
+                              value = _pageController.page! - index;
+                              value = (1 - (value.abs() * 0.05)).clamp(0.0, 1.0);
+                            }
+                          } catch (_) {}
+                          return Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 6.w),
+                              child: SizedBox(
+                                height: Curves.easeOut.transform(value) * 450.h,
+                                width: double.infinity,
+                                child: child,
+                              ),
+                            ),
+                          );
+                        },
+                        child: UpcomingEventCard(
+                          event: event,
+                        ),
+                      );
+                    },
+                  ),
+                ),
 
-              /// Custom Pagination Dots
-              Obx(() => Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      displayList.length,
-                      (index) => _buildDot(index == _currentPage.value),
-                    ),
-                  )),
-            ],
-          );
-        });
-      },
+                SizedBox(height: 16.h),
+
+                /// Custom Pagination Dots
+                Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        displayList.length,
+                        (index) => _buildDot(index == _currentPage.value),
+                      ),
+                    )),
+              ],
+            );
+          });
+        },
+      ),
     );
   }
 

@@ -25,118 +25,111 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
   Widget build(BuildContext context) {
     final controller = Get.put(ClubProfileController());
 
-    return Scaffold(
-      extendBody: true,
-      backgroundColor: AppColors.background,
-      appBar: widget.fromBottomNav
-          ? const CommonAppbar(title: 'LEAGUE TABLES')
-          : const SecondaryAppBar(title: 'LEAGUE TABLES'),
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () => controller.fetchPointTable(),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: GetBuilder<ClubProfileController>(
-                    builder: (controller) {
-                      final currentLeague = controller.allLeagues.isNotEmpty 
-                          ? controller.allLeagues[controller.selectedLeagueIndex].league 
-                          : null;
-                      
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 100.h),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: CommonDropdownField<int>(
-                                      hintText: currentLeague?.leagueName ?? 'Select League',
-                                      borderColor: Colors.transparent,
-                                      fillColor: AppColors.white,
-                                      borderRadius: 8,
-                                      paddingVertical: 12,
-                                      value: controller.allLeagues.isNotEmpty ? controller.selectedLeagueIndex : null,
-                                      items: List.generate(
-                                        controller.allLeagues.length,
-                                        (index) => DropdownMenuItem<int>(
-                                          value: index,
-                                          child: Text(
-                                            controller.allLeagues[index].league.leagueName,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                          ),
+    return SafeArea(
+      child: RefreshIndicator(
+        onRefresh: () => controller.fetchPointTable(),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: GetBuilder<ClubProfileController>(
+                  builder: (controller) {
+                    final currentLeague = controller.allLeagues.isNotEmpty 
+                        ? controller.allLeagues[controller.selectedLeagueIndex].league 
+                        : null;
+                    
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 100.h),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: CommonDropdownField<int>(
+                                    hintText: currentLeague?.leagueName ?? 'Select League',
+                                    borderColor: Colors.transparent,
+                                    fillColor: AppColors.white,
+                                    borderRadius: 8,
+                                    paddingVertical: 12,
+                                    value: controller.allLeagues.isNotEmpty ? controller.selectedLeagueIndex : null,
+                                    items: List.generate(
+                                      controller.allLeagues.length,
+                                      (index) => DropdownMenuItem<int>(
+                                        value: index,
+                                        child: Text(
+                                          controller.allLeagues[index].league.leagueName,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
                                         ),
                                       ),
-                                      onChanged: (value) {
-                                        if (value != null) {
-                                          controller.selectLeague(value);
-                                        }
-                                      },
                                     ),
-                                  ),
-                                  SizedBox(width: 12.w),
-                                  Expanded(
-                                    child: CommonDropdownField<String>(
-                                      hintText: currentLeague?.season ?? 'Season',
-                                      borderColor: Colors.transparent,
-                                      fillColor: AppColors.white,
-                                      borderRadius: 8,
-                                      paddingVertical: 12,
-                                      value: currentLeague?.season,
-                                      items: controller.allLeagues.isNotEmpty 
-                                          ? [DropdownMenuItem<String>(
-                                              value: currentLeague?.season,
-                                              child: Text(
-                                                currentLeague?.season ?? "",
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                              ),
-                                            )]
-                                          : [],
-                                      onChanged: (value) {},
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            
-                            if (currentLeague != null)
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: CommonText(
-                                    text: '${currentLeague.leagueName} ${currentLeague.season}',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.color6B6B6B,
+                                    onChanged: (value) {
+                                      if (value != null) {
+                                        controller.selectLeague(value);
+                                      }
+                                    },
                                   ),
                                 ),
+                                SizedBox(width: 12.w),
+                                Expanded(
+                                  child: CommonDropdownField<String>(
+                                    hintText: currentLeague?.season ?? 'Season',
+                                    borderColor: Colors.transparent,
+                                    fillColor: AppColors.white,
+                                    borderRadius: 8,
+                                    paddingVertical: 12,
+                                    value: currentLeague?.season,
+                                    items: controller.allLeagues.isNotEmpty 
+                                        ? [DropdownMenuItem<String>(
+                                            value: currentLeague?.season,
+                                            child: Text(
+                                              currentLeague?.season ?? "",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                            ),
+                                          )]
+                                        : [],
+                                    onChanged: (value) {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                          if (currentLeague != null)
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: CommonText(
+                                  text: '${currentLeague.leagueName} ${currentLeague.season}',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.color6B6B6B,
+                                ),
                               ),
+                            ),
 
-                            SizedBox(height: 12.h),
+                          SizedBox(height: 12.h),
 
-                            if (controller.isLoading.value)
-                              const TableShimmer()
-                            else if (controller.pointTable.isEmpty)
-                              _buildNoData(controller.pointTableMessage)
-                            else
-                              _buildStandingsTable(controller.pointTable),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                          if (controller.isLoading.value)
+                            const TableShimmer()
+                          else if (controller.pointTable.isEmpty)
+                            _buildNoData(controller.pointTableMessage)
+                          else
+                            _buildStandingsTable(controller.pointTable),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              );
-            }
-          ),
+              ),
+            );
+          }
         ),
       ),
     );

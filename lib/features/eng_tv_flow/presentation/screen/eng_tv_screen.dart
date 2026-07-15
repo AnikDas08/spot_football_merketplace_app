@@ -56,110 +56,106 @@ class EngTvScreen extends StatelessWidget {
       },
     ];
 
-    return Scaffold(
-      appBar: CommonAppbar(title: "ENG TV"),
-      drawer: AppDrawer(),
-      body: SafeArea(
-        child: GetBuilder<BannerController>(
-          builder: (controller) {
-            if (controller.isLoading.value && controller.bannerVideos.isEmpty) {
-              return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
-            }
+    return SafeArea(
+      child: GetBuilder<BannerController>(
+        builder: (controller) {
+          if (controller.isLoading.value && controller.bannerVideos.isEmpty) {
+            return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+          }
 
-            final videos = controller.bannerVideos;
-            if (videos.isEmpty) {
-              return RefreshIndicator(
-                onRefresh: () => controller.fetchBannerVideos(),
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: SizedBox(
-                    height: 0.8.sh,
-                    child: const Center(child: CommonText(text: "No videos available")),
-                  ),
-                ),
-              );
-            }
-
-            final firstVideo = videos.first;
-
+          final videos = controller.bannerVideos;
+          if (videos.isEmpty) {
             return RefreshIndicator(
               onRefresh: () => controller.fetchBannerVideos(),
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildSection(
-                      backgroundColor: Colors.white,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: VideoThumbnailCard(
-                          thumbnail: firstVideo.thumbnail,
-                          title: firstVideo.title,
-                          duration: 'LIVE',
-                          onWatchNow: () {
-                            Get.toNamed(AppRoutes.videoStreamScreen,
-                                arguments: firstVideo.id);
-                          },
-                        ),
-                      ),
-                    ),
-
-                    _buildSection(
-                      backgroundColor: AppColors.black,
-                      child: const LatestVideos(titleColor: Colors.white),
-                    ),
-
-                    _buildSection(
-                      backgroundColor: const Color(0xFFF9F9F9),
-                      child: const LatestVideos(title: "Goal Countdown"),
-                    ),
-
-                    _buildSection(
-                      backgroundColor: Colors.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: 16.w),
-                            child: const CommonText(
-                              text: "Scheduled Broadcasts",
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              maxLines: 2,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                          SizedBox(height: 8.h),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: upcomingMatches.length,
-                            itemBuilder: (context, index) {
-                              final match = upcomingMatches[index];
-                              return Container(
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 16.w, vertical: 5),
-                                child: UpcomingMatchCard(
-                                  date: match['date']!,
-                                  time: match['time']!,
-                                  matchTitle: match['matchTitle']!,
-                                  coverageTime: match['coverageTime']!,
-                                  onNotificationTap: () {},
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                  ],
+                child: SizedBox(
+                  height: 0.8.sh,
+                  child: const Center(child: CommonText(text: "No videos available")),
                 ),
               ),
             );
-          },
-        ),
+          }
+
+          final firstVideo = videos.first;
+
+          return RefreshIndicator(
+            onRefresh: () => controller.fetchBannerVideos(),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildSection(
+                    backgroundColor: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: VideoThumbnailCard(
+                        thumbnail: firstVideo.thumbnail,
+                        title: firstVideo.title,
+                        duration: 'LIVE',
+                        onWatchNow: () {
+                          Get.toNamed(AppRoutes.videoStreamScreen,
+                              arguments: firstVideo.id);
+                        },
+                      ),
+                    ),
+                  ),
+
+                  _buildSection(
+                    backgroundColor: AppColors.black,
+                    child: const LatestVideos(titleColor: Colors.white),
+                  ),
+
+                  _buildSection(
+                    backgroundColor: const Color(0xFFF9F9F9),
+                    child: const LatestVideos(title: "Goal Countdown"),
+                  ),
+
+                  _buildSection(
+                    backgroundColor: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 16.w),
+                          child: const CommonText(
+                            text: "Scheduled Broadcasts",
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            maxLines: 2,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: upcomingMatches.length,
+                          itemBuilder: (context, index) {
+                            final match = upcomingMatches[index];
+                            return Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 16.w, vertical: 5),
+                              child: UpcomingMatchCard(
+                                date: match['date']!,
+                                time: match['time']!,
+                                matchTitle: match['matchTitle']!,
+                                coverageTime: match['coverageTime']!,
+                                onNotificationTap: () {},
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 16.h),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
