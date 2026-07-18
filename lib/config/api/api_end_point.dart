@@ -1,11 +1,11 @@
 class ApiEndPoint {
   // static const baseUrl = 'http://31.97.117.41:5005/api/v1';
   // static const baseUrl = 'https://hz2w208g-5005.inc1.devtunnels.ms/api/v1';
-  static const baseUrl = 'http://10.10.26.208:5005/api/v1';
-  static const imageUrl = 'http://31.97.117.41:5005';
+  static const baseUrl = 'https://api.engsportsevents.co.uk/api/v1';
+  static const imageUrl = 'https://api.engsportsevents.co.uk';
   // static const imageUrl = 'http://10.10.26.208:5005';
   // static const videoUrl = 'http://31.97.117.41:5005';
-  static const videoUrl = 'http://10.10.26.208:5005';
+  static const videoUrl = 'https://api.engsportsevents.co.uk';
 
   static const signUp = '/user/';
   static const playerProfile = '/user/player';

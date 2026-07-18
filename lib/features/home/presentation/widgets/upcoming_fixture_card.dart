@@ -159,7 +159,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                   Expanded(
                     child: _buildActionBtn(
                       "Match Info",
-                      AppColors.primaryColor,
+                      AppColors.primaryColor, // Reverted to black
                       AppColors.white,
                       true,
                     ),

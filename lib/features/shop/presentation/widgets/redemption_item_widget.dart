@@ -26,6 +26,7 @@ class RedemptionItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -82,8 +83,9 @@ class RedemptionItemWidget extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 8.h),
             decoration: BoxDecoration(
-              color: AppColors.black,
+              color: AppColors.primaryColor,
               borderRadius: BorderRadius.circular(10.r),
+              border: Border.all(color: AppColors.colorEABB00, width: 1.w),
             ),
             child: CommonText(
               text: AppString.redeem,

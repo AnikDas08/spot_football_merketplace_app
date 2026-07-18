@@ -31,9 +31,7 @@ class NotificationCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: color, width: 4.w),
-        ),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withAlpha(10),
@@ -42,9 +40,16 @@ class NotificationCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-        child: Row(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              left: BorderSide(color: color, width: 4.w),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+          child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Icon box
@@ -115,6 +120,6 @@ class NotificationCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

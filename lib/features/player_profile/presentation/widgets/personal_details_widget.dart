@@ -39,6 +39,7 @@ class PersonalDetailsWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

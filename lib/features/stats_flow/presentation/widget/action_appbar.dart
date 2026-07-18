@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
 import '../controller/add_player_controller.dart';
 
 class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -44,7 +45,7 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
                     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: const Color(0xFF2A2A2A)),
+                      border: Border.all(color: AppColors.colorEABB00),
                     ),
                     child: Row(
                       children: [
@@ -78,7 +79,7 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
                         text: 'Reset',
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xFFFFC107),
+                        color: AppColors.colorEABB00,
                       ),
                     ),
                   ),
@@ -94,6 +95,7 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: AppColors.colorEABB00, width: 1.w),
             ),
             child: TextField(
               controller: controller.searchController,

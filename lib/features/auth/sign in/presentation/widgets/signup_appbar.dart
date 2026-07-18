@@ -70,7 +70,6 @@ class SignupAppbar extends StatelessWidget implements PreferredSizeWidget {
                 padding: EdgeInsets.only(left: 12.w),
                 child: Image.asset(
                   AppImages.appLogo,
-                  height: 30.h,
                 ),
               ),
             ),

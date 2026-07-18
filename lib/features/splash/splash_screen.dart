@@ -190,9 +190,8 @@ class _SplashScreenState extends State<SplashScreen>
                         children: [
                           Spacer(),
                           Image.asset(
-                            AppImages.appLogoP,
-                            height: 70.h,
-                            width: 170.w,
+                            AppImages.appLogo,
+                            width: 180.w,
                           ),
                           SizedBox(height: 16.h),
                           Spacer(),

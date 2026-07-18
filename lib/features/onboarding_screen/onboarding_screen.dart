@@ -96,7 +96,6 @@ class OnboardingScreen extends StatelessWidget {
                         child: CommonButton(
                           buttonRadius: 50,
                           titleText: "Sign Up",
-                          buttonColor: const Color(0xFFE53935), // Brand Red
                           titleSize: 16.sp,
                           onTap: () => Get.toNamed(AppRoutes.signUp),
                         ),
@@ -106,9 +105,6 @@ class OnboardingScreen extends StatelessWidget {
                         child: CommonButton(
                           buttonRadius: 50,
                           titleText: AppString.signIn,
-                          buttonColor: Colors.transparent,
-                          borderColor: Colors.white.withValues(alpha: 0.5),
-                          titleColor: Colors.white,
                           titleSize: 16.sp,
                           onTap: () => Get.toNamed(AppRoutes.signIn),
                         ),

@@ -22,8 +22,8 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leadingWidth: 110.w,
       leading: Padding(
-        padding: EdgeInsets.only(left: 15.w),
-        child: Image.asset(AppImages.appLogo, height: 20.h),
+        padding: EdgeInsets.only(left: 10.w),
+        child: Image.asset(AppImages.appLogo, height: 25.h),
       ),
       toolbarHeight: 80.h,
       centerTitle: true,

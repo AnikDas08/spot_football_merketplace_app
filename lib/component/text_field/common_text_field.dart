@@ -146,9 +146,8 @@ class CommonTextField extends StatelessWidget {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(borderRadius.r),
       borderSide: BorderSide(
-        color: borderColor == AppColors.transparent
-            ? AppColors.colorEABB00
-            : borderColor,
+        color: AppColors.colorEABB00, // Always gold by default
+        width: 1.w,
       ),
     );
   }

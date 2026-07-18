@@ -97,11 +97,10 @@ class VideoThumbnailCard extends StatelessWidget {
 
                 CommonButton(
                   onTap: onWatchNow,
-                  buttonColor: const Color(0xFFE53935),
                   titleText: AppString. labelWatchNow, // Static Variable
                   titleWeight: FontWeight.w700,
                   titleSize: 18,
-                  buttonHeight: 48,
+                  buttonHeight: 50,
                   buttonRadius: 16,
                 ),
               ],

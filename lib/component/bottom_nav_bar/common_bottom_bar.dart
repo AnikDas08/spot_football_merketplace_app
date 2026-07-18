@@ -34,10 +34,11 @@ class CommonBottomNavBar extends StatelessWidget {
       padding: .all(12.sp),
       decoration: BoxDecoration(
         color: AppColors.blueLight,
-        borderRadius: .only(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20.r),
           topRight: Radius.circular(20.r),
         ),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
       ),
       child: Row(
         mainAxisAlignment: .spaceBetween,

@@ -57,7 +57,7 @@ class NavBarScreen extends StatelessWidget {
             ),
           ],
           border: const Border(
-            top: BorderSide(color: Color(0xFFEEEEEE), width: 1),
+            top: BorderSide(color: AppColors.colorEABB00, width: 1),
           ),
         ),
         child: SafeArea(

@@ -147,8 +147,9 @@ class UpcomingEventCard extends StatelessWidget {
                       width: double.infinity,
                       height: 52.h,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFE53935), // Brand Red
+                        color: AppColors.primaryColor,
                         borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                       ),
                       alignment: Alignment.center,
                       child: CommonText(

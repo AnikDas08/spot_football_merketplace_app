@@ -73,6 +73,7 @@ class _LineupsTabState extends State<LineupsTab> {
               decoration: BoxDecoration(
                 color: AppColors.background,
                 borderRadius: BorderRadius.circular(30.r),
+                border: Border.all(color: AppColors.colorEABB00, width: 1.w),
               ),
               child: Row(
                 children: List.generate(teams.length, (index) {
@@ -116,6 +117,7 @@ class _LineupsTabState extends State<LineupsTab> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                     boxShadow: [
                       BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 4)),
                     ],
@@ -206,6 +208,7 @@ class _LineupsTabState extends State<LineupsTab> {
                           decoration: BoxDecoration(
                             color: AppColors.white,
                             borderRadius: BorderRadius.circular(12.r),
+                            border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                             boxShadow: [
                               BoxShadow(
                                 color: AppColors.black.withAlpha(10),

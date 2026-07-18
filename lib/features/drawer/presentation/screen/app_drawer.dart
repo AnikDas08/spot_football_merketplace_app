@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:untitled/utils/constants/app_images.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:untitled/component/text/common_text.dart';
 import 'package:untitled/config/route/app_routes.dart';
@@ -48,7 +49,6 @@ class AppDrawer extends StatelessWidget {
                         SizedBox(height: 36.h),
                         if (!LocalStorage.isGuest) ...[
                           _buildMenuItem(
-                            icon: AppIcons.editProfile,
                             label: AppString.editProfile,
                             onTap: () => Get.toNamed(AppRoutes.editProfile),
                           ),
@@ -56,8 +56,6 @@ class AppDrawer extends StatelessWidget {
                         if (!LocalStorage.isGuest) ...[
                           if (role == "REFEREE") ...[
                             _buildMenuItem(
-                              icon: AppIcons
-                                  .myChildrenSvg, // Using a suitable placeholder icon
                               label: "Referee Dashboard",
                               onTap: () =>
                                   Get.toNamed(AppRoutes.refereeDashboardScreen),
@@ -65,48 +63,40 @@ class AppDrawer extends StatelessWidget {
                           ],
                           if (role == "PLAYER") ...[
                             _buildMenuItem(
-                              icon: AppIcons.myChildrenSvg,
                               label: AppString.myPlayer,
                               onTap: () => Get.toNamed(AppRoutes.myChildren),
                             ),
                             _buildMenuItem(
-                              icon: AppIcons.rewards,
                               label: AppString.rewardsRedemption,
                               onTap: () => Get.toNamed(AppRoutes.shopScreen),
                             ),
                             _buildMenuItem(
-                              icon: AppIcons.subscription,
                               label: AppString.mySubscriptions,
                               onTap: () => Get.toNamed(AppRoutes.mySubscription),
                             ),
                           ],
                           if (role == "MANAGER") ...[
                             _buildMenuItem(
-                              icon: AppIcons.pro,
                               label: "Team Sheet",
                               onTap: () => Get.toNamed(AppRoutes.teamSheetScreen),
                             ),
                             _buildMenuItem(
-                              icon: AppIcons.transferHistory,
                               label: AppString.myTransfersHistory,
                               onTap: () =>
                                   Get.toNamed(AppRoutes.transferRequestScreen),
                             ),
                             _buildMenuItem(
-                              icon: AppIcons.transfersInActive,
                               label: AppString.trialListAvailable,
                               onTap: () =>
                                   Get.toNamed(AppRoutes.trialList),
                             ),
                           ],
                           _buildMenuItem(
-                            icon: AppIcons.lockPassword,
                             label: AppString.changePassword,
                             onTap: () => Get.toNamed(AppRoutes.changePassword),
                           ),
                         ],
                         _buildMenuItem(
-                          icon: AppIcons.pro,
                           label: "Book a Scout",
                           onTap: () async {
                             final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
@@ -117,33 +107,27 @@ class AppDrawer extends StatelessWidget {
                         ),
                         if (LocalStorage.isGuest) ...[
                           _buildMenuItem(
-                            icon: AppIcons.fixturesInActive,
                             label: "Fixtures",
                             onTap: () => Get.find<NavBarController>().selectedIndex.value = 1,
                           ),
                           _buildMenuItem(
-                            icon: AppIcons.league,
                             label: "League Tables",
                             onTap: () => Get.find<NavBarController>().selectedIndex.value = 2,
                           ),
                           _buildMenuItem(
-                            icon: AppIcons.engTvInActive,
                             label: "ENG TV",
                             onTap: () => Get.find<NavBarController>().selectedIndex.value = 3,
                           ),
                           _buildMenuItem(
-                            icon: AppIcons.statsInactive,
                             label: "Statistics",
                             onTap: () => Get.find<NavBarController>().selectedIndex.value = 4,
                           ),
                         ],
                         _buildMenuItem(
-                          icon: AppIcons.infoPolicy,
                           label: AppString.privacyPolicy,
                           onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
                         ),
                         _buildMenuItem(
-                          icon: AppIcons.infoPolicy,
                           label: AppString.termsOfServices,
                           onTap: () => Get.toNamed(AppRoutes.termsOfServices),
                         ),
@@ -179,10 +163,10 @@ class AppDrawer extends StatelessWidget {
               backgroundColor: AppColors.color6B6B6B.withValues(alpha: 0.1),
               child: ClipOval(
                 child: CommonImage(
-                  imageSrc: image.isEmpty ? TempImage.profile : image,
+                  imageSrc: image.isEmpty ? AppImages.appLogo : image,
                   height: 100.r,
                   width: 100.r,
-                  fill: BoxFit.cover,
+                  fill: image.isEmpty ? .contain : BoxFit.cover,
                 ),
               ),
             ),
@@ -230,7 +214,6 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget _buildMenuItem({
-    required String icon,
     required String label,
     required VoidCallback onTap,
   }) {
@@ -240,26 +223,9 @@ class AppDrawer extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(8.r),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 14.h),
+            padding: EdgeInsets.only(left: 16.w, right: 8.w, top: 14.h, bottom: 14.h),
             child: Row(
               children: [
-                Container(
-                  padding: EdgeInsets.all(10.r),
-                  decoration: BoxDecoration(
-                    color: AppColors.iconBgYellow,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: SvgPicture.asset(
-                    icon,
-                    width: 20.w,
-                    height: 20.h,
-                    colorFilter: const ColorFilter.mode(
-                      AppColors.yellow,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16.w),
                 Expanded(
                   child: CommonText(
                     text: label,

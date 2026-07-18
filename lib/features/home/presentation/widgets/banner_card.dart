@@ -115,7 +115,7 @@ class BannerCard extends StatelessWidget {
                           vertical: 10,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.white.withAlpha(38),
+                          color: AppColors.primaryColor,
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(
                             color: AppColors.colorEABB00,

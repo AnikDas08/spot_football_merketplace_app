@@ -32,7 +32,7 @@ class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(8.r),
                 border: Border.all(
-                  color: AppColors.color2A2A2A , // Grey border
+                  color: AppColors.colorEABB00, // Gold border
                   width: 1,
                 ),
               ),

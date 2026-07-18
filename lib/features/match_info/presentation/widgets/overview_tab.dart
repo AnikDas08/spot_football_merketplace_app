@@ -43,6 +43,7 @@ class OverviewTab extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.background,
                 borderRadius: BorderRadius.circular(30.r),
+                border: Border.all(color: AppColors.colorEABB00, width: 1.w),
               ),
               child: Row(
                 children: List.generate(teams.length, (index) {
@@ -326,6 +327,7 @@ class _SectionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withAlpha(10),
