@@ -132,7 +132,7 @@ class SignInScreen extends StatelessWidget {
 
                   40.height,
 
-                  _SocialButton(
+                  /*_SocialButton(
                     icon: 'assets/images/google.png',
                     label: 'Log In With Google',
                     onTap: () {},
@@ -144,7 +144,7 @@ class SignInScreen extends StatelessWidget {
                     icon: 'assets/images/apple.png',
                     label: 'Log In With Apple',
                     onTap: () {},
-                  ),
+                  ),*/
 
                   32.height,
 
