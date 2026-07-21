@@ -107,7 +107,7 @@ class _LatestVideosState extends State<LatestVideos> {
                       text: widget.title != null
                           ? widget.title.toString().toUpperCase()
                           : AppString.latestVideos.toUpperCase(),
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Montserrat',
                       color: widget.titleColor,
@@ -126,7 +126,7 @@ class _LatestVideosState extends State<LatestVideos> {
                         CommonText(
                           text: AppString.viewAll,
                           fontWeight: const FontWeight(500),
-                          fontSize: 16,
+                          fontSize: 14,
                           color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
                         ),
                         const SizedBox(width: 5),

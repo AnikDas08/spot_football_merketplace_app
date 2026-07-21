@@ -97,7 +97,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                       Expanded(
                         child: CommonText(
                           text: AppString.upcomingEvents.toUpperCase(),
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Montserrat',
                           color: widget.titleColor,
@@ -113,7 +113,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                             CommonText(
                               text: AppString.viewAll,
                               fontWeight: const FontWeight(500),
-                              fontSize: 16,
+                              fontSize: 14,
                               color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
                             ),
                             const SizedBox(width: 5),

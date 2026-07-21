@@ -42,7 +42,7 @@ class EngTvHomeSection extends StatelessWidget {
               children: [
                 CommonText(
                   text: "ENG TV",
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Montserrat',
                   color: titleColor,
@@ -57,7 +57,7 @@ class EngTvHomeSection extends StatelessWidget {
                       CommonText(
                         text: "View All",
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: 14,
                         color: viewAllColor ?? AppColors.primaryColor,
                       ),
                       const SizedBox(width: 5),

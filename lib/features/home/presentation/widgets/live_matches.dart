@@ -40,7 +40,7 @@ class LiveMatches extends StatelessWidget {
         children: [
           CommonText(
             text: "LIVE MATCHES",
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
             fontFamily: 'Montserrat',
             color: titleColor,

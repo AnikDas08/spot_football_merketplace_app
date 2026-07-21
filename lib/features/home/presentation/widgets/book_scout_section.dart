@@ -27,7 +27,7 @@ class BookScoutSection extends StatelessWidget {
         children: [
           CommonText(
             text: "BOOK A SCOUT",
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
             fontFamily: 'Montserrat',
             color: titleColor,

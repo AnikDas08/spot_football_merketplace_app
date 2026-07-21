@@ -50,7 +50,7 @@ class LeaguePreview extends StatelessWidget {
                   child: CommonText(
                     text: AppString.leaguePreview.toUpperCase(),
                     fontWeight: const FontWeight(600),
-                    fontSize: 20,
+                    fontSize: 16,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     fontFamily: 'Montserrat',
@@ -67,7 +67,7 @@ class LeaguePreview extends StatelessWidget {
                       CommonText(
                         text: AppString.viewAll,
                         fontWeight: const FontWeight(500),
-                        fontSize: 16,
+                        fontSize: 14,
                         color: viewAllColor ?? AppColors.primaryColor,
                       ),
                       const SizedBox(width: 5),

@@ -102,6 +102,15 @@ class AppDrawer extends StatelessWidget {
                             }
                           },
                         ),
+                        _buildMenuItem(
+                          label: "Upcoming Events",
+                          onTap: () async {
+                            final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
+                            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
+                        ),
                         if (LocalStorage.isGuest) ...[
                           _buildMenuItem(
                             label: "Fixtures",

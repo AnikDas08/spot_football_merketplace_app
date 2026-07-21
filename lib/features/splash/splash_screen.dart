@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: 3000),
       vsync: this,
     );
 
@@ -110,7 +110,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _navigate() async {
     await LocalStorage.getAllPrefData();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
 
     if (LocalStorage.isLogIn) {
       // Refresh profile data to get latest statuses (profileStatus, paymentStatus)

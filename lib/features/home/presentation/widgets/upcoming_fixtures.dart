@@ -65,7 +65,7 @@ class UpcomingFixtures extends StatelessWidget {
             children: [
               CommonText(
                 text: "UPCOMING FIXTURES",
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: titleColor ?? AppColors.primaryColor,
                 fontFamily: 'Montserrat',
@@ -80,7 +80,7 @@ class UpcomingFixtures extends StatelessWidget {
                     CommonText(
                       text: "View All",
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: viewAllColor ?? AppColors.primaryColor,
                     ),
                     const SizedBox(width: 5),
