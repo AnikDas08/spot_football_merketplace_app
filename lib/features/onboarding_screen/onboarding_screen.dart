@@ -55,7 +55,7 @@ class OnboardingScreen extends StatelessWidget {
                 children: [
                   const CommonText(
                     text: "PLAY THE GAME",
-                    fontSize: 12,
+                    fontSize: 18,
                     color: AppColors.colorEABB00,
                     fontWeight: FontWeight.w700,
                   ),

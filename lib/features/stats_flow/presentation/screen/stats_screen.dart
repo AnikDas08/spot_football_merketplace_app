@@ -20,7 +20,7 @@ class StatsScreen extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 28.h),
       child: SingleChildScrollView(
-        physics: ClampingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -256,7 +256,7 @@ class StatsScreen extends StatelessWidget {
                 Get.toNamed(AppRoutes.playerComparisonScreen);
               },
             ),
-            40.height
+            120.height
           ],
         ),
       ),

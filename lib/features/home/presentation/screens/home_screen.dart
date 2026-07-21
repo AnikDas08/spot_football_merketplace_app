@@ -20,8 +20,6 @@ import '../widgets/book_scout_section.dart';
 import '../widgets/eng_tv_home_section.dart';
 import '../widgets/upcoming_fixtures.dart';
 
-
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -54,6 +52,19 @@ class HomeScreen extends StatelessWidget {
                   const BannerSlider(),
                   SizedBox(height: 12.h),
 
+                  // 1. Upcoming fixtures needs to be above latest news
+                  if (controller.isLoading.value ||
+                      controller.upcomingMatches.isNotEmpty) ...[
+                    _buildSection(
+                      backgroundColor: Colors.white,
+                      child: UpcomingFixtures(
+                        fixtures: controller.upcomingMatches,
+                        isLoading: controller.isLoading.value,
+                      ),
+                    ),
+                    SizedBox(height: 12.h),
+                  ],
+
                   _buildSection(
                     backgroundColor: Colors.white,
                     child: GetBuilder<NewsController>(
@@ -84,16 +95,35 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 12.h),
 
-                  if (controller.isLoading.value ||
-                      controller.liveMatches.isNotEmpty) ...[
+                  // 2. Where live matches are should be league tables please swap
+                  if (controller.isLoading.value) ...[
                     _buildSection(
                       backgroundColor: Colors.white,
-                      child: LiveMatches(
-                        matches: controller.liveMatches,
-                        isLoading: controller.isLoading.value,
-                      ),
+                      child: LeaguePreview(standings: const [], isLoading: true),
                     ),
                     SizedBox(height: 12.h),
+                  ] else ...[
+                    ...controller.allLeagues.asMap().entries.map((entry) {
+                      int index = entry.key;
+                      var leagueData = entry.value;
+                      return Column(
+                        children: [
+                          _buildSection(
+                            backgroundColor: Colors.white,
+                            padding: index == 0
+                                ? EdgeInsets.symmetric(vertical: 32.h)
+                                : EdgeInsets.only(bottom: 32.h),
+                            child: LeaguePreview(
+                              standings: leagueData.standings,
+                              leagueName: leagueData.league.leagueName,
+                              season: leagueData.league.season,
+                              showHeader: index == 0,
+                            ),
+                          ),
+                          SizedBox(height: 12.h),
+                        ],
+                      );
+                    }),
                   ],
 
                   _buildSection(
@@ -124,34 +154,17 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 12.h),
 
-                  if (controller.isLoading.value) ...[
+                  // 2. Swapped Live Matches to where League Tables were
+                  if (controller.isLoading.value ||
+                      controller.liveMatches.isNotEmpty) ...[
                     _buildSection(
                       backgroundColor: Colors.white,
-                      child: LeaguePreview(standings: const [], isLoading: true),
+                      child: LiveMatches(
+                        matches: controller.liveMatches,
+                        isLoading: controller.isLoading.value,
+                      ),
                     ),
                     SizedBox(height: 12.h),
-                  ] else ...[
-                    ...controller.allLeagues.asMap().entries.map((entry) {
-                      int index = entry.key;
-                      var leagueData = entry.value;
-                      return Column(
-                        children: [
-                          _buildSection(
-                            backgroundColor: Colors.white,
-                            padding: index == 0 
-                                ? EdgeInsets.symmetric(vertical: 32.h)
-                                : EdgeInsets.only(bottom: 32.h),
-                            child: LeaguePreview(
-                              standings: leagueData.standings,
-                              leagueName: leagueData.league.leagueName,
-                              season: leagueData.league.season,
-                              showHeader: index == 0,
-                            ),
-                          ),
-                          SizedBox(height: 12.h),
-                        ],
-                      );
-                    }),
                   ],
 
                   GetBuilder<BannerController>(
@@ -168,19 +181,7 @@ class HomeScreen extends StatelessWidget {
                       });
                     },
                   ),
-                  SizedBox(height: 12.h),
-
-                  if (controller.isLoading.value ||
-                      controller.upcomingMatches.isNotEmpty) ...[
-                    _buildSection(
-                      backgroundColor: Colors.white,
-                      child: UpcomingFixtures(
-                        fixtures: controller.upcomingMatches,
-                        isLoading: controller.isLoading.value,
-                      ),
-                    ),
-                    SizedBox(height: 32.h),
-                  ],
+                  SizedBox(height: 32.h),
                 ],
               );
             },
