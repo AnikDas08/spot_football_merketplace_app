@@ -249,6 +249,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.black,
                   borderRadius: BorderRadius.circular(8.r),
+                  border: Border.all(color: AppColors.colorEABB00, width: 1.0),
                 ),
                 child: CommonText(
                   text: plan.buttonText,

@@ -304,6 +304,7 @@ class AppDrawer extends StatelessWidget {
           backgroundColor: AppColors.primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),
+            side: const BorderSide(color: AppColors.colorEABB00, width: 1.0),
           ),
           elevation: 0,
         ),

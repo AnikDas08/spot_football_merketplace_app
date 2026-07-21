@@ -33,13 +33,14 @@ class _SplashScreenState extends State<SplashScreen>
 
   // Text slides up from below while it fades in
   late Animation<double> _textOffset;
+  late Animation<double> _sloganOpacity;
 
   @override
   void initState() {
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1600),
+      duration: const Duration(milliseconds: 2500),
       vsync: this,
     );
 
@@ -47,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
     _circleScale = Tween<double>(begin: 1.0, end: 35.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.5, curve: Curves.easeInOutCubic),
+        curve: const Interval(0.0, 0.4, curve: Curves.easeInOutCubic),
       ),
     );
 
@@ -55,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
     _circleOpacity = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.4, 0.55, curve: Curves.easeIn),
+        curve: const Interval(0.35, 0.45, curve: Curves.easeIn),
       ),
     );
 
@@ -63,14 +64,21 @@ class _SplashScreenState extends State<SplashScreen>
     _contentOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.5, 0.75, curve: Curves.easeOut),
+        curve: const Interval(0.4, 0.6, curve: Curves.easeOut),
+      ),
+    );
+
+    _sloganOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.6, 0.9, curve: Curves.easeIn),
       ),
     );
 
     _contentScale = Tween<double>(begin: 0.75, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.5, 0.85, curve: Curves.easeOutBack),
+        curve: const Interval(0.4, 0.7, curve: Curves.easeOutBack),
       ),
     );
 
@@ -78,15 +86,15 @@ class _SplashScreenState extends State<SplashScreen>
     _blurSigma = Tween<double>(begin: 20.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.5, 1.0, curve: Curves.easeOut),
+        curve: const Interval(0.4, 0.8, curve: Curves.easeOut),
       ),
     );
 
     // Text starts 24px below its final position and slides up as it fades in
-    _textOffset = Tween<double>(begin: 24.0, end: 0.0).animate(
+    _textOffset = Tween<double>(begin: 30.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.5, 0.75, curve: Curves.easeOut),
+        curve: const Interval(0.6, 0.9, curve: Curves.easeOut),
       ),
     );
 
@@ -188,26 +196,26 @@ class _SplashScreenState extends State<SplashScreen>
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Spacer(),
                           Image.asset(
                             AppImages.appLogo,
                             width: 180.w,
                           ),
-                          SizedBox(height: 16.h),
-                          Spacer(),
-                          Transform.translate(
-                            offset: Offset(0, _textOffset.value),
-                            child: Text(
-                              'HARDWORKDEDICATION',
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 2.w,
+                          SizedBox(height: 24.h),
+                          Opacity(
+                            opacity: _sloganOpacity.value,
+                            child: Transform.translate(
+                              offset: Offset(0, _textOffset.value),
+                              child: Text(
+                                'HARDWORKDEDICATION',
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 2.w,
+                                ),
                               ),
                             ),
                           ),
-                          SizedBox(height: 10,)
                         ],
                       ),
                     ),
