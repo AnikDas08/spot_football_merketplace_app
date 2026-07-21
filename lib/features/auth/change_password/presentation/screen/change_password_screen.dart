@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 import '../../../../../../../config/route/app_routes.dart';
 import '../../../../../../../utils/extensions/extension.dart';
 import '../../../../../component/button/common_button.dart';
+import '../../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
+import '../../../../../services/storage/storage_services.dart';
 import '../../../../../utils/helpers/validation.dart';
 import '../controller/change_password_controller.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
@@ -19,6 +20,9 @@ class ChangePasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (LocalStorage.isGuest) {
+      return const Scaffold(body: Center(child: Text("Login Required")));
+    }
     return Scaffold(
       appBar: SecondaryAppBar(title: AppString.changePassword),
       body: GetBuilder<ChangePasswordController>(
@@ -34,13 +38,13 @@ class ChangePasswordScreen extends StatelessWidget {
                   30.height,
                   CommonText(
                     text: AppString.updateCredentials,
-                    fontSize: 32.sp,
+                    fontSize: 32,
                     fontWeight: FontWeight(700),
                     maxLines: 2,
                   ),
                   CommonText(
                     text: AppString.ensureYourPerformanceData,
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight(400),
                     maxLines: 2,
                   ),
@@ -84,7 +88,7 @@ class ChangePasswordScreen extends StatelessWidget {
                         text: AppString.forgotPassword,
                         color: AppColors.primaryColor,
                         fontWeight: .w600,
-                        fontSize: 18.sp,
+                        fontSize: 18,
                         top: 16.h,
                         bottom: 20.h,
                       ),

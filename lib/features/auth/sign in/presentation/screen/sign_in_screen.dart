@@ -8,6 +8,8 @@ import '../../../../../../../utils/helpers/validation.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
+import '../../../../../services/storage/storage_keys.dart';
+import '../../../../../services/storage/storage_services.dart';
 import '../controller/sign_in_controller.dart';
 import '../../../sign in/presentation/widgets/do_not_account.dart';
 import '../widgets/signup_appbar.dart';
@@ -77,9 +79,9 @@ class SignInScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.red, // Text color
+                          color: AppColors.primaryColor, // Changed from Red to Primary Black
                           decoration: TextDecoration.underline, // Underline
-                          decorationColor: AppColors.red, // Underline color
+                          decorationColor: AppColors.primaryColor, // Underline color
                           decorationThickness:
                               2, // (optional) underline thickness
                           fontFamily: 'SFProDisplay',
@@ -130,7 +132,7 @@ class SignInScreen extends StatelessWidget {
 
                   40.height,
 
-                  _SocialButton(
+                  /*_SocialButton(
                     icon: 'assets/images/google.png',
                     label: 'Log In With Google',
                     onTap: () {},
@@ -142,13 +144,31 @@ class SignInScreen extends StatelessWidget {
                     icon: 'assets/images/apple.png',
                     label: 'Log In With Apple',
                     onTap: () {},
-                  ),
+                  ),*/
 
                   32.height,
 
                   const DoNotHaveAccount(),
 
                   20.height,
+
+                  // /// ── Guest Button ──
+                  // Center(
+                  //   child: TextButton(
+                  //     onPressed: () async {
+                  //       await LocalStorage.setBool(LocalStorageKeys.isGuest, true);
+                  //       Get.offAllNamed(AppRoutes.navBarScreen);
+                  //     },
+                  //     child: const CommonText(
+                  //       text: 'Continue as Guest',
+                  //       fontSize: 16,
+                  //       fontWeight: FontWeight.w600,
+                  //       color: AppColors.primaryColor,
+                  //     ),
+                  //   ),
+                  // ),
+                  //
+                  // 20.height,
                 ],
               ),
             ),
@@ -181,7 +201,7 @@ class _SocialButton extends StatelessWidget {
           color: AppColors.white,
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
-            color: AppColors.black.withValues(alpha: 0.15),
+            color: AppColors.colorEABB00,
             width: 1,
           ),
         ),

@@ -46,7 +46,7 @@ class CommonImage extends StatelessWidget {
 
   Widget _buildNetworkImage() {
     return ClipRRect(
-      borderRadius: .circular(borderRadius),
+      borderRadius: BorderRadius.circular(borderRadius),
       child: CachedNetworkImage(
         height: size?.sp ?? height?.h,
         width: size?.sp ?? width?.w,

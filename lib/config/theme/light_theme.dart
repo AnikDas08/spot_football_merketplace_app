@@ -57,7 +57,7 @@ ThemeData themeData = ThemeData(
       padding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
-        side: const BorderSide(color: AppColors.primaryColor),
+        side: const BorderSide(color: AppColors.colorEABB00, width: 1.0),
       ),
       textStyle: const TextStyle(
         fontFamily: 'SFProDisplay',     // ✅ Button Text

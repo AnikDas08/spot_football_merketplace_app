@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/temp_image.dart';
 import '../../../home/data/match_model.dart';
 import '../controller/live_match_control_controller.dart';
 
@@ -22,7 +22,9 @@ class LiveMatchControlScreen extends StatelessWidget {
       appBar: SecondaryAppBar(title: "LIVE MATCH CONTROL"),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
+          return const Center(
+            child: CircularProgressIndicator(color: AppColors.primaryColor),
+          );
         }
 
         final match = controller.match.value;
@@ -111,7 +113,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                 SizedBox(width: 8.w),
                 CommonText(
                   text: 'LIVE', // Can be dynamic if duration is tracked
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
               ],
@@ -121,7 +123,11 @@ class LiveMatchControlScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildTeamHeader(match.homeTeam.teamLogo, match.homeTeam.teamName, match.homeTeam.id),
+              _buildTeamHeader(
+                match.homeTeam.teamLogo,
+                match.homeTeam.teamName,
+                match.homeTeam.id,
+              ),
               Column(
                 children: [
                   Container(
@@ -139,7 +145,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                         SizedBox(width: 4.w),
                         CommonText(
                           text: match.status.toUpperCase(),
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                         ),
@@ -151,28 +157,32 @@ class LiveMatchControlScreen extends StatelessWidget {
                     children: [
                       CommonText(
                         text: '${match.homeScore}',
-                        fontSize: 48.sp,
+                        fontSize: 48,
                         fontWeight: FontWeight.w700,
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
                         child: CommonText(
                           text: ':',
-                          fontSize: 32.sp,
+                          fontSize: 32,
                           fontWeight: FontWeight.w300,
                           color: const Color(0xFFCCCCCC),
                         ),
                       ),
                       CommonText(
                         text: '${match.awayScore}',
-                        fontSize: 48.sp,
+                        fontSize: 48,
                         fontWeight: FontWeight.w700,
                       ),
                     ],
                   ),
                 ],
               ),
-              _buildTeamHeader(match.awayTeam.teamLogo, match.awayTeam.teamName, match.awayTeam.id),
+              _buildTeamHeader(
+                match.awayTeam.teamLogo,
+                match.awayTeam.teamName,
+                match.awayTeam.id,
+              ),
             ],
           ),
         ],
@@ -192,7 +202,12 @@ class LiveMatchControlScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.r),
             ),
             child: logo != null && logo.isNotEmpty
-                ? CommonImage(imageSrc: logo, width: 56.w, height: 56.h, fill: BoxFit.contain)
+                ? CommonImage(
+                    imageSrc: logo,
+                    width: 56.w,
+                    height: 56.h,
+                    fill: BoxFit.contain,
+                  )
                 : Image.asset(TempImage.arsenalFlag, width: 56.w, height: 56.h),
           ),
           SizedBox(height: 8.h),
@@ -200,7 +215,7 @@ class LiveMatchControlScreen extends StatelessWidget {
             width: 80.w,
             child: CommonText(
               text: name,
-              fontSize: 12.sp,
+              fontSize: 12,
               fontWeight: FontWeight.w700,
               maxLines: 2,
               textAlign: TextAlign.center,
@@ -211,14 +226,23 @@ class LiveMatchControlScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTeamActionCard(String teamName, String teamId, String matchId, String leagueId, Color accentColor) {
+  Widget _buildTeamActionCard(
+    String teamName,
+    String teamId,
+    String matchId,
+    String leagueId,
+    Color accentColor,
+  ) {
     return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.recordGoalScreen, arguments: {
-        'matchId': matchId,
-        'teamId': teamId,
-        'teamName': teamName,
-        'leagueId': leagueId,
-      }),
+      onTap: () => Get.toNamed(
+        AppRoutes.recordGoalScreen,
+        arguments: {
+          'matchId': matchId,
+          'teamId': teamId,
+          'teamName': teamName,
+          'leagueId': leagueId,
+        },
+      ),
       child: Container(
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
@@ -239,7 +263,7 @@ class LiveMatchControlScreen extends StatelessWidget {
             SizedBox(height: 16.h),
             CommonText(
               text: teamName,
-              fontSize: 14.sp,
+              fontSize: 14,
               fontWeight: FontWeight.w700,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -250,7 +274,10 @@ class LiveMatchControlScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildConductRatingCard(LiveMatchControlController controller, MatchModel match) {
+  Widget _buildConductRatingCard(
+    LiveMatchControlController controller,
+    MatchModel match,
+  ) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(20.w),
@@ -267,27 +294,42 @@ class LiveMatchControlScreen extends StatelessWidget {
               SizedBox(width: 8.w),
               CommonText(
                 text: 'TEAM CONDUCT RATING',
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: FontWeight.w700,
               ),
             ],
           ),
           SizedBox(height: 16.h),
-          
+
           // Home Team Marks
-          CommonText(text: "add ${match.homeTeam.teamName} Marks", fontSize: 14.sp, fontWeight: FontWeight.w600, bottom: 8),
+          CommonText(
+            text: "add ${match.homeTeam.teamName} Marks",
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            bottom: 8,
+          ),
           _buildMarkDropdown(controller.homeTeamRating),
-          
+
           SizedBox(height: 16.h),
-          
+
           // Away Team Marks
-          CommonText(text: "add ${match.awayTeam.teamName} Marks", fontSize: 14.sp, fontWeight: FontWeight.w600, bottom: 8),
+          CommonText(
+            text: "add ${match.awayTeam.teamName} Marks",
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            bottom: 8,
+          ),
           _buildMarkDropdown(controller.awayTeamRating),
-          
+
           SizedBox(height: 16.h),
 
           // Player Of The Day
-          CommonText(text: 'add Player Of The Day', fontSize: 14.sp, fontWeight: FontWeight.w600, bottom: 8),
+          CommonText(
+            text: 'add Player Of The Day',
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            bottom: 8,
+          ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             decoration: BoxDecoration(
@@ -295,27 +337,44 @@ class LiveMatchControlScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: DropdownButtonHideUnderline(
-              child: Obx(() => DropdownButton<String>(
-                value: controller.manOfTheMatchId.value.isEmpty ? null : controller.manOfTheMatchId.value,
-                isExpanded: true,
-                hint: Text("Enter Player Of The Day Name Here...", style: TextStyle(fontSize: 13.sp, color: Colors.grey)),
-                items: controller.allMatchPlayers.map((p) {
-                  final details = p['player'] ?? p;
-                  final name = "${details['firstName'] ?? ""} ${details['lastName'] ?? ""}".trim();
-                  return DropdownMenuItem(
-                    value: details['userId']?.toString() ?? details['_id']?.toString(),
-                    child: Text(name.isNotEmpty ? name : (details['userName'] ?? "Player")),
-                  );
-                }).toList(),
-                onChanged: (val) => controller.manOfTheMatchId.value = val ?? "",
-              )),
+              child: Obx(
+                () => DropdownButton<String>(
+                  value: controller.manOfTheMatchId.value.isEmpty
+                      ? null
+                      : controller.manOfTheMatchId.value,
+                  isExpanded: true,
+                  hint: Text(
+                    "Enter Player Of The Day Name Here...",
+                    style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+                  ),
+                  items: controller.allMatchPlayers.map((p) {
+                    final details = p['player'] ?? p;
+                    final name =
+                        "${details['firstName'] ?? ""} ${details['lastName'] ?? ""}"
+                            .trim();
+                    return DropdownMenuItem(
+                      value:
+                          details['userId']?.toString() ??
+                          details['_id']?.toString(),
+                      child: Text(
+                        name.isNotEmpty
+                            ? name
+                            : (details['userName'] ?? "Player"),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (val) =>
+                      controller.manOfTheMatchId.value = val ?? "",
+                ),
+              ),
             ),
           ),
-          
+
           SizedBox(height: 16.h),
           CommonText(
-            text: 'RATING AFFECTS SEASON FAIR-PLAY BONUSES AND DISCIPLINARY REVIEW PRIORITY.',
-            fontSize: 10.sp,
+            text:
+                'RATING AFFECTS SEASON FAIR-PLAY BONUSES AND DISCIPLINARY REVIEW PRIORITY.',
+            fontSize: 10,
             fontWeight: FontWeight.w500,
             color: const Color(0xFF424242),
             textAlign: TextAlign.start,
@@ -333,42 +392,52 @@ class LiveMatchControlScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: DropdownButtonHideUnderline(
-        child: Obx(() => DropdownButton<String>(
-          value: value.value,
-          isExpanded: true,
-          items: List.generate(101, (index) => index.toString()).map((val) {
-            return DropdownMenuItem(
-              value: val,
-              child: Text("Marks 0-100: [$val]", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
-            );
-          }).toList(),
-          onChanged: (val) => value.value = val ?? "85",
-        )),
+        child: Obx(
+          () => DropdownButton<String>(
+            value: value.value,
+            isExpanded: true,
+            items: List.generate(101, (index) => index.toString()).map((val) {
+              return DropdownMenuItem(
+                value: val,
+                child: Text(
+                  "Marks 0-100: [$val]",
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: (val) => value.value = val ?? "85",
+          ),
+        ),
       ),
     );
   }
 }
 
-  Widget _buildReportButton(String text, Color bgColor, Color textColor, {VoidCallback? onTap}) {
-    return SizedBox(
-      width: double.infinity,
-      height: 52.h,
-      child: ElevatedButton(
-        onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: bgColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-          elevation: 0,
-        ),
-        child: CommonText(
-          text: text,
-          fontSize: 18.sp,
-          fontWeight: FontWeight(510),
-          color: textColor,
-        ),
+Widget _buildReportButton(
+  String text,
+  Color bgColor,
+  Color textColor, {
+  VoidCallback? onTap,
+}) {
+  return SizedBox(
+    width: double.infinity,
+    height: 52.h,
+    child: ElevatedButton(
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: bgColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+        elevation: 0,
       ),
-    );
-  }
-
+      child: CommonText(
+        text: text,
+        fontSize: 18,
+        fontWeight: FontWeight(510),
+        color: textColor,
+      ),
+    ),
+  );
+}

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/features/home/data/video_model.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/config/api/api_end_point.dart';
+
+import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
+import '../../../../config/route/app_routes.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../data/video_model.dart';
 
 class BannerCard extends StatelessWidget {
   final VideoModel videoModel;
@@ -19,13 +20,21 @@ class BannerCard extends StatelessWidget {
         Get.toNamed(AppRoutes.videoStreamScreen, arguments: videoModel.id);
       },
       child: Container(
-        margin: const EdgeInsets.only(left: 10, right: 5),
+        margin: const EdgeInsets.only(left: 10, right: 5, bottom: 8, top: 4),
         decoration: BoxDecoration(
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(15.r),
           border: Border.all(color: AppColors.colorEABB00, width: 1.w),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(13),
+          borderRadius: BorderRadius.circular(14),
           child: Stack(
 
             fit: StackFit.expand,
@@ -70,7 +79,7 @@ class BannerCard extends StatelessWidget {
 
                     CommonText(
                       text: videoModel.title,
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       color: AppColors.white,
                       fontWeight: FontWeight.w800,
                     ),
@@ -81,7 +90,7 @@ class BannerCard extends StatelessWidget {
                     CommonText(
                       text: videoModel.category,
                       color: AppColors.white,
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
 
@@ -91,7 +100,7 @@ class BannerCard extends StatelessWidget {
                     CommonText(
                       text: videoModel.status,
                       color: AppColors.white,
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w800,
                     ),
 
@@ -107,17 +116,17 @@ class BannerCard extends StatelessWidget {
                           vertical: 10,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.white.withAlpha(38),
+                          color: AppColors.transparent,
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(
-                            color: AppColors.white.withAlpha(153),
+                            color: AppColors.colorEABB00,
                             width: 1.2,
                           ),
                         ),
                         child: CommonText(
                           text: AppString.watchEngLive,
                           color: AppColors.white,
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           fontWeight: FontWeight.w700,
                         ),
                       ),

@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:untitled/config/api/api_end_point.dart';
-import 'package:untitled/services/api/api_client.dart';
-import 'package:untitled/services/api/api_service.dart';
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/utils/app_snackbar.dart';
+
+import '../../../../config/api/api_end_point.dart';
+import '../../../../services/api/api_client.dart';
+import '../../../../services/api/api_service.dart';
+import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/app_snackbar.dart';
 
 class PackageModel {
   String? id;

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-
+import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 
 class PerformanceCard extends StatelessWidget {
   final String date;
@@ -49,7 +48,7 @@ class PerformanceCard extends StatelessWidget {
                 width: 70.h,
                 child: CommonText(
                   text: date,
-                  fontSize: 18.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                   color: AppColors.primaryColor,
                 ),
@@ -70,7 +69,7 @@ class PerformanceCard extends StatelessWidget {
                     CommonText(
                       maxLines: 2,
                       text: AppString.vsRangerUnited,
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight(590),
                       color: AppColors.primaryColor,
                       textAlign: TextAlign.left,
@@ -78,7 +77,7 @@ class PerformanceCard extends StatelessWidget {
                     CommonText(
                       maxLines: 2,
                       text: AppString.premierLeagueAway.toUpperCase(),
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight(590),
                       color: AppColors.color6B6B6B,
                       textAlign: TextAlign.left,
@@ -97,14 +96,14 @@ class PerformanceCard extends StatelessWidget {
                     ),
                     child: CommonText(
                       text: "9.2",
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w700,
                       color: AppColors.white,
                     ),
                   ),
                   CommonText(
                     text: AppString.twoGoal,
-                    fontSize: 10.sp,
+                    fontSize: 10,
                     fontWeight: FontWeight(590),
                     color: AppColors.colorEABB00,
                   ),

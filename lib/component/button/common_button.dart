@@ -23,15 +23,15 @@ class CommonButton extends StatelessWidget {
     this.onTap,
     required this.titleText,
     this.titleColor = Colors.white,
-    this.buttonColor,
+    this.buttonColor = AppColors.primaryColor, // Reverted to black (primary)
     this.titleSize = 14,
-    this.buttonRadius = 10,
+    this.buttonRadius = 12,
     this.titleWeight = FontWeight.w700,
-    this.buttonHeight = 48, // Default height
-    this.borderWidth = 1,
+    this.buttonHeight = 52, 
+    this.borderWidth = 1.0,
     this.isLoading = false,
-    this.buttonWidth = double.infinity, // Default full width thakbe
-    this.borderColor,
+    this.buttonWidth = double.infinity,
+    this.borderColor = AppColors.colorEABB00, // Default to gold border
     this.padding,
   });
 

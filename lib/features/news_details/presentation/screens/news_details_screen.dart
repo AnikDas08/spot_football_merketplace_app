@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/api/api_end_point.dart';
-import 'package:untitled/features/home/presentation/widgets/latest_news.dart';
-import 'package:untitled/features/home/presentation/widgets/latest_video_card.dart';
-import 'package:untitled/features/news/data/models/news_model.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_images.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-
-import 'package:untitled/features/news/presentation/controller/news_controller.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_images.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../../utils/constants/temp_image.dart';
+import '../../../home/presentation/widgets/latest_news.dart';
+import '../../../home/presentation/widgets/latest_videos.dart';
+import '../../../news/data/models/news_model.dart';
+import '../../../news/presentation/controller/news_controller.dart';
 
 class NewsDetailsScreen extends StatefulWidget {
   const NewsDetailsScreen({super.key});
@@ -70,7 +69,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                     children: [
                       CommonText(
                         text: news?.category ?? AppString.transfer,
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),
@@ -78,7 +77,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                         text:
                             news?.title ??
                             AppString.engCommunityAcademyStarOfTheWeek,
-                        fontSize: 32.sp,
+                        fontSize: 32,
                         fontWeight: FontWeight.w600,
                         maxLines: 3,
                         color: AppColors.white,
@@ -90,7 +89,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                                 'dd MMM yyyy',
                               ).format(news.publishDateTime)
                             : "04 Jan 2025",
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),
@@ -123,7 +122,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                                   news?.description ??
                                   AppString
                                       .thisWeekWereProudToCelebrateLeoAsOurStarOfTheWeek,
-                              fontSize: 16.sp,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: AppColors.color373737,
                               textAlign: TextAlign.start,
@@ -137,44 +136,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                 ),
                 const LatestNews(),
                 SizedBox(height: 20.h),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: CommonText(
-                        text: AppString.latestVideos.toUpperCase(),
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                    SizedBox(
-                      height: 195.h,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        padding: EdgeInsets.only(left: 16.w),
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: 12.w),
-                            child: LatestVideoCard(
-                              imageHeight: 130.h,
-                              titleFontSize: 14.sp,
-                              timeFontSize: 10.sp,
-                              imagePath: index % 2 == 0
-                                  ? TempImage.stats1
-                                  : TempImage.stats2,
-                              title: AppString.top10GoalsWeek24,
-                              time: AppString.threeHourAgoEngOriginal,
-                              duration: AppString.duration7m,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                const LatestVideos(),
                 SizedBox(height: 20.h),
               ],
             ),

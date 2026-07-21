@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide TabController;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
 import '../controllers/tab_controller.dart';
 
 class TransferTabWidget extends StatelessWidget {
@@ -73,7 +73,7 @@ class _TabItem extends StatelessWidget {
         ),
         child: CommonText(
           text: title,
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight(590),
           color: selected ? AppColors.white : AppColors.primaryColor,
         ),

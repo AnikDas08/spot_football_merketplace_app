@@ -1,10 +1,10 @@
+import 'package:eng_sports/utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/config/dependency/dependency_injection.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
 
 import 'config/core/app_wrapper.dart';
+import 'config/dependency/dependency_injection.dart';
 import 'config/route/app_routes.dart';
 import 'config/scroll_behavior/scroll_behavior.dart';
 import 'config/theme/light_theme.dart';

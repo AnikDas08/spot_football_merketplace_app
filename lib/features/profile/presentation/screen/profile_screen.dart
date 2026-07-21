@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/utils/extensions/extension.dart';
-
 import '../../../../../../utils/constants/app_string.dart';
-
-
 import '../../../../component/other_widgets/item.dart';
 import '../../../../component/pop_up/common_pop_menu.dart';
 import '../../../../component/text/common_text.dart';
 
+import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/extensions/extension.dart';
 import '../controller/profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -19,6 +15,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (LocalStorage.isGuest) {
+      return const Scaffold(body: Center(child: Text("Login Required")));
+    }
     return Scaffold(
       /// App bar
       appBar: AppBar(

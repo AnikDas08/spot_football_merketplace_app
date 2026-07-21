@@ -31,9 +31,7 @@ class NotificationCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: color, width: 4.w),
-        ),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withAlpha(10),
@@ -42,9 +40,16 @@ class NotificationCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-        child: Row(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              left: BorderSide(color: color, width: 4.w),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+          child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Icon box
@@ -69,7 +74,7 @@ class NotificationCard extends StatelessWidget {
                     children: [
                       CommonText(
                         text: alertType,
-                        fontSize: 10.sp,
+                        fontSize: 10,
                         fontWeight: FontWeight.w700,
                         color: color,
                       ),
@@ -85,7 +90,7 @@ class NotificationCard extends StatelessWidget {
                       SizedBox(width: 6.w),
                       CommonText(
                         text: timeAgo,
-                        fontSize: 10.sp,
+                        fontSize: 10,
                         fontWeight: FontWeight.w700,
                         color: AppColors.textSecondaryColor,
                       ),
@@ -96,7 +101,7 @@ class NotificationCard extends StatelessWidget {
                     textAlign: .start,
                     maxLines: 2,
                     text: title,
-                    fontSize: 18.sp,
+                    fontSize: 18,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primaryColor,
                   ),
@@ -105,31 +110,16 @@ class NotificationCard extends StatelessWidget {
                     maxLines: 2,
                     text: subtitle,
                     textAlign: .start,
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     fontWeight: FontWeight(510),
                     color: AppColors.primaryColor,
                   ),
                 ],
               ),
             ),
-
-            SizedBox(width: 8.w),
-
-            // View Details
-            InkWell(
-              onTap: onViewDetails,
-              child: CommonText(
-                maxLines: 2,
-                text: 'VIEW\nDETAILS',
-                fontSize: 10.sp,
-                fontWeight: FontWeight.w700,
-                color: AppColors.primaryColor,
-                textAlign: TextAlign.center,
-              ),
-            ),
           ],
         ),
       ),
-    );
+    ));
   }
 }

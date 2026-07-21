@@ -9,8 +9,10 @@ import '../../../../utils/constants/temp_image.dart';
 class VideoStreamController extends GetxController {
   final ApiClient apiClient = DioApiClient();
   var isLoading = false.obs;
+  var isRelatedLoading = false.obs;
   var videoDetail = Rxn<VideoModel>();
   RxString videoLink = "".obs;
+  final RxList<VideoModel> relatedVideos = <VideoModel>[].obs;
 
   @override
   void onInit() {
@@ -26,7 +28,7 @@ class VideoStreamController extends GetxController {
       isLoading.value = true;
       update();
 
-      final response = await apiClient.get("${ApiEndPoint.video}/$id");
+      final response = await apiClient.get("${ApiEndPoint.videoDetails}$id");
 
       if (response.statusCode == 200) {
         if (response.data['success'] == true) {
@@ -34,17 +36,14 @@ class VideoStreamController extends GetxController {
           
           String rawPath = videoDetail.value?.videoUrl ?? "";
           if (rawPath.isNotEmpty) {
-
             String cleanPath = rawPath.startsWith('/') ? rawPath : '/$rawPath';
             videoLink.value = "${ApiEndPoint.videoUrl}${Uri.encodeFull(cleanPath)}";
-
-
-
-            debugPrint("✅ Full Video Links: ${videoLink.value}");
-
           }
 
-          debugPrint("✅ Full Video Link: ${videoLink.value}");
+          // Fetch related videos based on category
+          if (videoDetail.value?.category != null) {
+            fetchRelatedVideos(videoDetail.value!.category);
+          }
         }
       }
     } catch (e) {
@@ -55,27 +54,25 @@ class VideoStreamController extends GetxController {
     }
   }
 
-  final List<Map<String, String>> videoList = [
-    {
-      "title": "Ref Cam: Brobbey's Dramatic Tyne-Wear Derby Goal",
-      "description": "See Anthony Taylor's view of Brian Brobbey's late winner against Newcastle",
-      "timeAgo": "2 days ago",
-      "image": TempImage.playerVideo,
-      "videoLink": 'https://github.com/mdarif3499/video/raw/refs/heads/main/AngelDiMaria.mp4'
-    },
-    {
-      "title": "Match Highlights: Arsenal vs Man City",
-      "description": "Catch up on all the action from the thrilling 2-2 draw at the Emirates",
-      "timeAgo": "1 day ago",
-      "image": TempImage.playerVideo,
-      "videoLink": 'https://github.com/mdarif3499/video/raw/refs/heads/main/videoplayback.mp4'
-    },
-    {
-      "title": "Top 10 Goals of the Week",
-      "description": "A countdown of the most spectacular strikes across Europe's top leagues",
-      "timeAgo": "5 hours ago",
-      "image": TempImage.playerVideo,
-      "videoLink": 'https://raw.githubusercontent.com/mdarif3499/video/main/AngelDiMaria.mp4'
-    },
-  ];
+  Future<void> fetchRelatedVideos(String category) async {
+    try {
+      isRelatedLoading.value = true;
+      update();
+
+      final response = await apiClient.get("${ApiEndPoint.video}?category=$category");
+
+      if (response.statusCode == 200) {
+        final videoResponse = VideoResponse.fromJson(response.data);
+        // Filter out the current video from the related list
+        relatedVideos.value = videoResponse.data
+            .where((v) => v.id != videoDetail.value?.id)
+            .toList();
+      }
+    } catch (e) {
+      debugPrint('❌ fetchRelatedVideos error: $e');
+    } finally {
+      isRelatedLoading.value = false;
+      update();
+    }
+  }
 }

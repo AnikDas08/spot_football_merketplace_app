@@ -18,6 +18,7 @@ class LocalStorage {
   static String profileStatus = "";
   static String teamId = "";
   static bool paymentStatus = false;
+  static bool isGuest = false;
 
   static bool get isUserApproved => profileStatus.toUpperCase() == "APPROVED";
   static bool get isUserPending => profileStatus.toUpperCase() == "PENDING";
@@ -49,6 +50,7 @@ class LocalStorage {
     profileStatus = localStorage.getString(LocalStorageKeys.profileStatus) ?? "";
     teamId = localStorage.getString(LocalStorageKeys.teamId) ?? "";
     paymentStatus = localStorage.getBool(LocalStorageKeys.paymentStatus) ?? false;
+    isGuest = localStorage.getBool(LocalStorageKeys.isGuest) ?? false;
 
     appLog(userId, source: "Local Storage");
   }
@@ -96,6 +98,7 @@ class LocalStorage {
     localStorage.setString(LocalStorageKeys.profileStatus, "");
     localStorage.setString(LocalStorageKeys.teamId, "");
     localStorage.setBool(LocalStorageKeys.paymentStatus, false);
+    localStorage.setBool(LocalStorageKeys.isGuest, false);
   }
 
   // Save Data To SharedPreferences
@@ -121,6 +124,7 @@ class LocalStorage {
     await localStorage.setBool(key, value);
     if (key == LocalStorageKeys.isLogIn) isLogIn = value;
     if (key == LocalStorageKeys.paymentStatus) paymentStatus = value;
+    if (key == LocalStorageKeys.isGuest) isGuest = value;
   }
 
   static Future<void> setInt(String key, int value) async {

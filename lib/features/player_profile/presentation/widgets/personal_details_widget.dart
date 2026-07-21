@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_images.dart';
+
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_images.dart';
 
 class PersonalDetailsWidget extends StatelessWidget {
   final Map<String, dynamic>? playerData;
@@ -15,10 +16,22 @@ class PersonalDetailsWidget extends StatelessWidget {
 
     final selectTeam = playerData!['selectTeam'];
     String clubName = 'N/A';
+    String nationality = 'N/A';
+    String city = 'N/A';
+
     if (selectTeam is Map) {
       clubName = selectTeam['teamName'] ?? 'N/A';
+      nationality = selectTeam['country'] ?? 'N/A';
+      city = selectTeam['city'] ?? 'N/A';
     } else if (selectTeam is String) {
       clubName = selectTeam;
+    }
+
+    String strongFoot = playerData!['strongFoot']?.toString() ?? 'N/A';
+    if (strongFoot.toLowerCase() == 'false' || strongFoot.isEmpty) {
+      strongFoot = 'N/A';
+    } else {
+      strongFoot = strongFoot.toUpperCase();
     }
 
     return Container(
@@ -27,6 +40,7 @@ class PersonalDetailsWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,21 +50,28 @@ class PersonalDetailsWidget extends StatelessWidget {
             children: [
               CommonText(
                 text: 'PERSONAL DETAILS',
-                fontSize: 20.sp,
+                fontSize: 20,
                 fontWeight: const FontWeight(590),
                 color: AppColors.primaryColor,
               ),
               if (playerData!['status'] == 'APPROVED')
-                Image.asset(AppImages.approved, width: 54.w, height: 32.h),
+                Image.asset(AppImages.approved, width: 90.w,fit: .fill,),
             ],
           ),
           SizedBox(height: 16.h),
-          _item('Nationality', playerData!['country'] ?? 'N/A'),
+          _item('Date of Birth', _formatDate(playerData!['dateOfBirth'])),
+          _item('Age Group', playerData!['ageGroup'] ?? 'N/A'),
+          _item('Nationality', nationality),
+          _item('City', city),
           _item('Club', clubName),
           _item('Position', playerData!['position'] ?? 'N/A'),
           _item('ENG Debut', _formatDate(playerData!['createdAt'])),
-          _item('Strong Foot', playerData!['strongFoot'] ?? 'N/A'),
-          // _item('Market Value', "N/A"),
+          _item('Strong Foot', strongFoot),
+          _item(
+            'ENG Coins',
+            playerData!['engCoine']?.toString() ?? '0',
+            icon: Image.asset(AppImages.coin, width: 20.w, height: 20.h),
+          ),
         ],
       ),
     );
@@ -70,7 +91,7 @@ class PersonalDetailsWidget extends StatelessWidget {
     }
   }
 
-  Widget _item(String title, String value) {
+  Widget _item(String title, String value, {Widget? icon}) {
     return Padding(
       padding: EdgeInsets.only(bottom: 14.h),
       child: Row(
@@ -78,17 +99,26 @@ class PersonalDetailsWidget extends StatelessWidget {
           Expanded(
             child: CommonText(
               text: title,
-              fontSize: 15.sp,
+              fontSize: 15,
               fontWeight: const FontWeight(510),
               color: AppColors.color373737,
               textAlign: TextAlign.start,
             ),
           ),
-          CommonText(
-            text: value,
-            fontSize: 15.sp,
-            fontWeight: const FontWeight(510),
-            color: AppColors.primaryColor,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) ...[
+                icon,
+                SizedBox(width: 6.w),
+              ],
+              CommonText(
+                text: value,
+                fontSize: 15,
+                fontWeight: const FontWeight(510),
+                color: AppColors.primaryColor,
+              ),
+            ],
           ),
         ],
       ),

@@ -1,214 +1,207 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:untitled/component/common_appbar/common_appbar.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
-import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
 import '../../../../utils/constants/app_colors.dart';
-import '../../../../utils/constants/app_string.dart';
-import '../widget/latest_highlight_card.dart';
-import '../../../home/presentation/widgets/latest_video_card.dart';
-import '../widget/upcoming_match_card.dart';
+import '../../../home/data/video_model.dart';
+import '../../../home/presentation/widgets/latest_videos.dart';
 import '../widget/video_thumbnail_card.dart';
 import 'package:get/get.dart';
+import '../../../home/presentation/controllers/banner_controller.dart';
+
+String timeago(DateTime date) {
+  Duration diff = DateTime.now().difference(date);
+  if (diff.inDays > 365) return "${(diff.inDays / 365).floor()}y ago";
+  if (diff.inDays > 30) return "${(diff.inDays / 30).floor()}mo ago";
+  if (diff.inDays > 0) return "${diff.inDays}d ago";
+  if (diff.inHours > 0) return "${diff.inHours}h ago";
+  if (diff.inMinutes > 0) return "${diff.inMinutes}m ago";
+  return "just now";
+}
 
 class EngTvScreen extends StatelessWidget {
   const EngTvScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> upcomingMatches = [
-      {
-        'date': 'Oct 24',
-        'time': '21:00 PM',
-        'matchTitle': 'ROGUE CITY VS UNITED',
-        'coverageTime': '20:45 GMT • LIVE COVERAGE',
-      },
-      {
-        'date': 'Oct 25',
-        'time': '19:30 PM',
-        'matchTitle': 'TITAN ATHLETIC VS VOLTAGE FC',
-        'coverageTime': '19:15 GMT • LIVE COVERAGE',
-      },
-      {
-        'date': 'Oct 26',
-        'time': '22:00 PM',
-        'matchTitle': 'LEAGUE LEVELLERS VS ROGUE CITY',
-        'coverageTime': '21:45 GMT • LIVE COVERAGE',
-      },
+    final Map<String, String> categoryTitles = {
+      'goals_of_the_week': 'Goals Of The Week',
+      'league_highlights': 'League Highlights',
+      'save_of_the_week': 'Save Of The Week',
+      'ref_cam': 'Ref Cam',
+      'coach_cam': 'Coach Cam',
+      'eng_sln_binge': 'ENG SIn Bin',
+    };
+
+    final List<String> categoryOrder = [
+      'goals_of_the_week',
+      'league_highlights',
+      'save_of_the_week',
+      'ref_cam',
+      'coach_cam',
+      'eng_sln_binge',
     ];
 
-    return Scaffold(
-      appBar: CommonAppbar(title: "ENG TV"),
-      drawer: AppDrawer(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                child: VideoThumbnailCard(
-                  thumbnail: TempImage.thumbnail,
-                  title: 'Voltage FC vs Titan Athletic',
-                  duration: '1h 13m',
-                  onWatchNow: () {
-                    Get.toNamed(AppRoutes.videoStreamScreen);
-                  },
+    final List<Color> sectionBgColors = [
+      AppColors.black,
+      const Color(0xFFF9F9F9),
+      Colors.white,
+    ];
+
+    return SafeArea(
+      child: GetBuilder<BannerController>(
+        builder: (controller) {
+          if (controller.isLoading.value && controller.bannerVideos.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(color: AppColors.primaryColor),
+            );
+          }
+
+          final videos = controller.bannerVideos;
+          if (videos.isEmpty) {
+            return RefreshIndicator(
+              onRefresh: () => controller.fetchBannerVideos(),
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: SizedBox(
+                  height: 0.8.sh,
+                  child: const Center(
+                    child: CommonText(text: "No videos available"),
+                  ),
                 ),
               ),
+            );
+          }
 
-              SizedBox(height: 28.h),
-              _buildSectionHeader("Latest Highlights", () {}),
+          final firstVideo = videos.first;
 
-              SizedBox(height: 10.h),
+          // Group videos by category
+          Map<String, List<VideoModel>> groupedVideos = {};
+          for (var video in videos) {
+            String cat = video.category;
+            if (!groupedVideos.containsKey(cat)) groupedVideos[cat] = [];
+            groupedVideos[cat]!.add(video);
+          }
 
-              SizedBox(
-                height: 195.h,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  padding: EdgeInsets.only(left: 16.w),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: 12.w),
-                      child: LatestVideoCard(
-                        imageHeight: 130.h,
-                        titleFontSize: 14.sp,
-                        timeFontSize: 10.sp,
-                        imagePath: TempImage.stats1,
-                        title: AppString.top10GoalsWeek24,
-                        time: AppString.threeHourAgoEngOriginal,
-                        duration: AppString.duration7m,
-                      ),
-                    );
-                  },
-                ),
-              ),
+          // Decide the order of display
+          // 1. Predefined categories in order
+          // 2. Any other categories found in data
+          List<String> displayOrder = [];
+          for (var key in categoryOrder) {
+            // Match case-insensitively
+            String? actualKey;
+            for (var k in groupedVideos.keys) {
+              if (k.toLowerCase().replaceAll(' ', '_') == key.toLowerCase() || 
+                  k.toLowerCase() == categoryTitles[key]?.toLowerCase()) {
+                actualKey = k;
+                break;
+              }
+            }
+            
+            if (actualKey != null && groupedVideos[actualKey]!.isNotEmpty) {
+              displayOrder.add(actualKey);
+            }
+          }
 
-              _buildSectionHeader("Goal Countdowns", () {}),
+          // Add categories that were not in the predefined list
+          for (var cat in groupedVideos.keys) {
+            if (!displayOrder.contains(cat)) {
+              displayOrder.add(cat);
+            }
+          }
 
-              SizedBox(height: 10.h),
-
-              SizedBox(
-                height: 190.h,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  padding: EdgeInsets.only(left: 16.w),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: 12.w),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.videoStreamScreen);
-                        },
-                        child: LatestHighlightCard(
-                          isCheck: false,
-                          imagePath: TempImage.player2,
-                          title: 'Top 20 late ENG ',
-                          time: '3h ago',
-                          source: '',
-                          leagueName: 'league Levellers',
-                          duration: '10m',
+          return RefreshIndicator(
+            onRefresh: () => controller.fetchBannerVideos(),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildSection(
+                    backgroundColor: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                          child: CommonText(
+                            text: "FEATURED",
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Montserrat',
+                            color: AppColors.primaryColor,
+                          ),
                         ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: VideoThumbnailCard(
+                            thumbnail: firstVideo.thumbnail,
+                            title: firstVideo.title,
+                            duration: '0:0',
+                            onWatchNow: () {
+                              Get.toNamed(
+                                AppRoutes.videoStreamScreen,
+                                arguments: firstVideo.id,
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Dynamic categories
+                  ...List.generate(displayOrder.length, (index) {
+                    final catName = displayOrder[index];
+                    final videosInCat = groupedVideos[catName]!;
+                    
+                    final bgColor = sectionBgColors[index % sectionBgColors.length];
+                    final titleColor = bgColor == AppColors.black ? Colors.white : null;
+
+                    // Get a friendly title if predefined, else use raw name
+                    String displayTitle = catName;
+                    String? predefinedKey;
+                    for (var entry in categoryTitles.entries) {
+                      if (entry.value.toLowerCase() == catName.toLowerCase()) {
+                        predefinedKey = entry.key;
+                        break;
+                      }
+                    }
+
+                    if (predefinedKey != null) {
+                      displayTitle = categoryTitles[predefinedKey]!;
+                    }
+
+                    return _buildSection(
+                      backgroundColor: bgColor,
+                      child: LatestVideos(
+                        title: displayTitle,
+                        titleColor: titleColor,
+                        videos: videosInCat,
                       ),
                     );
-                  },
-                ),
+                  }),
+                  
+                  SizedBox(height: 20.h),
+                ],
               ),
-
-              SizedBox(height: 16.h),
-
-              Container(
-                margin: EdgeInsets.only(left: 16.w),
-                child: CommonText(
-                  text: "Scheduled Broadcasts",
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                  maxLines: 2,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-              SizedBox(height: 8.h),
-
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: upcomingMatches.length,
-                itemBuilder: (context, index) {
-                  final match = upcomingMatches[index];
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5),
-                    child: UpcomingMatchCard(
-                      date: match['date']!,
-                      time: match['time']!,
-                      matchTitle: match['matchTitle']!,
-                      coverageTime: match['coverageTime']!,
-                      onNotificationTap: () {},
-                    ),
-                  );
-                },
-              ),
-              SizedBox(height: 16.h),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title, VoidCallback onTap) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CommonText(
-            text: title,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-            maxLines: 1,
-            color: AppColors.primaryColor,
-          ),
-
-          InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(4.r),
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 4.w),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CommonText(
-                    text: "View All",
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    maxLines: 1,
-                    color: AppColors.primaryColor,
-                  ),
-
-                  SizedBox(width: 4.w),
-
-                  SvgPicture.asset(
-                    AppIcons.arrowR,
-                    height: 24.h,
-                    width: 24.w,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.primaryColor,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+  Widget _buildSection({
+    required Widget child,
+    required Color backgroundColor,
+    EdgeInsetsGeometry? padding,
+  }) {
+    return Container(
+      width: double.infinity,
+      color: backgroundColor,
+      padding: padding ?? EdgeInsets.symmetric(vertical: 24.h),
+      child: child,
     );
   }
 }

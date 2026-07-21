@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/button/common_button.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/component/text_field/common_text_field.dart';
-import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/helpers/validation.dart';
+import '../../../../../component/button/common_button.dart';
+import '../../../../../component/image/common_image.dart';
+import '../../../../../component/text/common_text.dart';
+import '../../../../../component/text_field/common_text_field.dart';
+import '../../../../../utils/constants/app_colors.dart';
+import '../../../../../utils/helpers/validation.dart';
+import '../../../sign in/presentation/widgets/signup_appbar.dart';
 import '../controller/trial_registration_controller.dart';
 
 class TrialRegistrationScreen extends StatefulWidget {
@@ -110,7 +110,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
 
                    CommonText(
                     text: "Document / ID Card",
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: AppColors.primaryColor,
                     bottom: 10,
@@ -160,7 +160,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                    Center(
                     child: CommonText(
                       text: "By submitting, you agree to the\nAthlete Terms of Service",
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
                       maxLines: 3,
@@ -183,7 +183,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
       children: [
          CommonText(
           text: "Select Team",
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
           bottom: 8,
         ),
@@ -212,7 +212,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
       children: [
          CommonText(
           text: "Strong Foot",
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
           bottom: 8,
         ),
@@ -241,7 +241,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
       children: [
         CommonText(
           text: "Position",
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
           bottom: 8,
         ),
@@ -341,17 +341,11 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         CommonText(text: "Date Of Birth", fontSize: 16.sp, fontWeight: FontWeight.w500, bottom: 8),
+         CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
-          child: Container(
-            height: 56.h,
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: Colors.grey.shade200),
-            ),
+          child: InputDecorator(
+            decoration: _dropdownDecoration("dd/mm/yyyy"),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

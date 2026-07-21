@@ -61,7 +61,7 @@ class PlayerProfileCard extends StatelessWidget {
               children: [
                 CommonText(
                   text: playerName,
-                  fontSize: 20.sp,
+                  fontSize: 20,
                   fontWeight: FontWeight.w500,
                   color: AppColors.primaryColor,
                 ),
@@ -70,7 +70,7 @@ class PlayerProfileCard extends StatelessWidget {
 
                 CommonText(
                   text: "$playerRole | $playerAcademy",
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w400,
 
                   maxLines: 2,

@@ -1,15 +1,16 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
+
 import '../../../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../component/button/common_button.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/temp_image.dart';
 import '../controller/profile_controller.dart';
 import '../../../../../../utils/constants/app_string.dart';
 import '../widgets/edit_profile_all_filed.dart';
@@ -21,6 +22,9 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (LocalStorage.isGuest) {
+       return const Scaffold(body: Center(child: Text("Login Required")));
+    }
     return GetBuilder<ProfileController>(
       builder: (controller) {
         final userImage = LocalStorage.myImage;

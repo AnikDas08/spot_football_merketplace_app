@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../component/bottom_nav_bar/common_bottom_bar.dart';
 import '../../../../component/pop_up/common_pop_menu.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../services/storage/storage_services.dart';
 import '../controller/setting_controller.dart';
 import '../../../../../../utils/constants/app_string.dart';
 import '../widgets/setting_item.dart';
@@ -14,6 +15,9 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (LocalStorage.isGuest) {
+      return const Scaffold(body: Center(child: Text("Login Required")));
+    }
     return Scaffold(
       /// AppBar
       appBar: AppBar(

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
+import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
+import '../controller/add_player_controller.dart';
 import '../model/player_model.dart';
 
 class PlayerListWidget extends StatelessWidget {
@@ -16,10 +20,11 @@ class PlayerListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<AddPlayerController>();
     return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(), // Scroll handling
+      controller: controller.scrollController,
       itemCount: players.length,
+      padding: EdgeInsets.only(bottom: 20.h),
       separatorBuilder: (context, index) => Divider(
         color: Colors.grey.shade200,
         height: 1,
@@ -40,11 +45,11 @@ class PlayerListWidget extends StatelessWidget {
           // 1. Player Image
           ClipRRect(
             borderRadius: BorderRadius.circular(8.r),
-            child: Image.asset(
-              player.image,
+            child: CommonImage(
+              imageSrc: player.image,
               height: 60.h,
               width: 60.w,
-              fit: BoxFit.cover,
+              fill: BoxFit.cover,
             ),
           ),
 
@@ -57,13 +62,13 @@ class PlayerListWidget extends StatelessWidget {
               children: [
                 CommonText(
                   text: player.name,
-                  fontSize: 18.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                   color: Colors.black,
                 ),
                 CommonText(
                   text: player.position,
-                  fontSize: 14.sp,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: Colors.grey,
                 ),

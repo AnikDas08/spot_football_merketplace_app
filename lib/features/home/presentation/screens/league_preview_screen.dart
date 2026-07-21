@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/common_dropdown_field/common_dropdown_field.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import '../../../../component/common_appbar/common_appbar.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../component/common_dropdown_field/common_dropdown_field.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../controllers/club_profile_controller.dart';
 import '../../data/point_table_model.dart';
 
 class LeaguePreviewScreen extends StatefulWidget {
-  const LeaguePreviewScreen({super.key});
+  final bool fromBottomNav;
+  const LeaguePreviewScreen({super.key, this.fromBottomNav = false});
 
   @override
   State<LeaguePreviewScreen> createState() => _LeaguePreviewScreenState();
@@ -26,7 +28,9 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: SecondaryAppBar(title: AppString.leaguePreview),
+      appBar: widget.fromBottomNav
+          ? CommonAppbar(title: AppString.leaguePreview)
+          : SecondaryAppBar(title: AppString.leaguePreview),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => controller.fetchPointTable(),
@@ -108,7 +112,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                                 child: CommonText(
                                   text: '${currentLeague.leagueName} ${currentLeague.season}',
-                                  fontSize: 14.sp,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.color6B6B6B,
                                 ),
@@ -148,7 +152,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
       child: Center(
         child: CommonText(
           text: message.isNotEmpty ? message : "No data available",
-          fontSize: 14.sp,
+          fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.color6B6B6B,
         ),
@@ -182,8 +186,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       width: 30.w,
                       child: CommonText(
                         text: 'Pos',
-                        fontSize: 14.sp,
-                        fontWeight: const FontWeight(510),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),
                     ),
@@ -192,8 +196,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                         padding: EdgeInsets.only(left: 22.w),
                         child: CommonText(
                           text: 'Club',
-                          fontSize: 14.sp,
-                          fontWeight: const FontWeight(510),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
                           color: AppColors.white,
                         ),
                       ),
@@ -202,8 +206,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       width: 30.w,
                       child: CommonText(
                         text: 'PL',
-                        fontSize: 14.sp,
-                        fontWeight: const FontWeight(510),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                       ),
@@ -212,8 +216,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       width: 36.w,
                       child: CommonText(
                         text: 'GD',
-                        fontSize: 14.sp,
-                        fontWeight: const FontWeight(510),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                       ),
@@ -222,8 +226,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       width: 36.w,
                       child: CommonText(
                         text: 'PTS',
-                        fontSize: 14.sp,
-                        fontWeight: const FontWeight(510),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                       ),
@@ -256,8 +260,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                           width: 30.w,
                           child: CommonText(
                             text: '${index + 1}.',
-                            fontSize: 16.sp,
-                            fontWeight: const FontWeight(510),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                           ),
                         ),
@@ -274,8 +278,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                               Expanded(
                                 child: CommonText(
                                   text: item.team.teamName,
-                                  fontSize: 14.sp,
-                                  fontWeight: const FontWeight(510),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
                                   color: AppColors.primaryColor,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -288,8 +292,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                           width: 30.w,
                           child: CommonText(
                             text: '${item.played}',
-                            fontSize: 16.sp,
-                            fontWeight: const FontWeight(510),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
                           ),
@@ -298,8 +302,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                           width: 36.w,
                           child: CommonText(
                             text: gdText,
-                            fontSize: 16.sp,
-                            fontWeight: const FontWeight(510),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
                           ),
@@ -308,8 +312,8 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                           width: 36.w,
                           child: CommonText(
                             text: '${item.points}',
-                            fontSize: 16.sp,
-                            fontWeight: const FontWeight(510),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
                           ),

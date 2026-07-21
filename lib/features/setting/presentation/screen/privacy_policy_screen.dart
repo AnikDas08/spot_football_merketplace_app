@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/features/setting/presentation/controller/privacy_policy_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/enum/enum.dart';
+
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../../utils/enum/enum.dart';
+import '../controller/privacy_policy_controller.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
@@ -36,7 +37,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     child: CommonText(
                       text: AppString.legalProtoCol.toUpperCase(),
                       color: AppColors.primaryColor,
-                      fontSize: 32.sp,
+                      fontSize: 32,
                       fontWeight: FontWeight.w700,
                       textAlign: TextAlign.center,
                     ),
@@ -44,7 +45,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                   CommonText(
                     text: AppString.lastUpdatedOctober2024.toUpperCase(),
                     color: AppColors.color6B6B6B,
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,
                   ),

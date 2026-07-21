@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
 
 class TransferSummaryCard extends StatelessWidget {
   const TransferSummaryCard({super.key});
@@ -21,14 +21,14 @@ class TransferSummaryCard extends StatelessWidget {
         children: [
           CommonText(
             text: 'TOTAL EXPENDITURE',
-            fontSize: 14.sp,
+            fontSize: 14,
             color: AppColors.textSecondaryColor,
             fontWeight: FontWeight(510),
           ),
           SizedBox(height: 8.h),
           CommonText(
             text: '€42,500,000',
-            fontSize: 32.sp,
+            fontSize: 32,
             fontWeight: FontWeight(590),
             color: AppColors.primaryColor,
           ),

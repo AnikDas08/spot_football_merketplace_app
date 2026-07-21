@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-
+import 'package:url_launcher/url_launcher.dart';
+import '../../../../component/blur_reveal/blur_reveal.dart';
 import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
+import '../../../../services/storage/storage_keys.dart';
+import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
+import '../../../../utils/constants/app_images.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../auth/sign in/presentation/controller/sign_in_controller.dart';
+import '../../../navbar/controller/navbar_controller.dart';
 import '../../../profile/presentation/controller/profile_controller.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -25,91 +28,135 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       width: 0.9.sw,
       backgroundColor: AppColors.white,
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Obx(() => _buildProfile(profileController)),
-                      SizedBox(height: 36.h),
-                      _buildMenuItem(
-                        icon: AppIcons.editProfile,
-                        label: AppString.editProfile,
-                        onTap: () => Get.toNamed(AppRoutes.editProfile),
-                      ),
-                      if (role == "REFEREE") ...[
+      child: BlurReveal(
+        duration: const Duration(milliseconds: 600),
+        initialBlur: 10,
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _buildProfile(profileController),
+                        SizedBox(height: 36.h),
+                        if (!LocalStorage.isGuest) ...[
+                          _buildMenuItem(
+                            label: AppString.editProfile,
+                            onTap: () => Get.toNamed(AppRoutes.editProfile),
+                          ),
+                        ],
+                        if (!LocalStorage.isGuest) ...[
+                          if (role == "REFEREE") ...[
+                            _buildMenuItem(
+                              label: "Referee Dashboard",
+                              onTap: () =>
+                                  Get.toNamed(AppRoutes.refereeDashboardScreen),
+                            ),
+                          ],
+                          if (role == "PLAYER") ...[
+                            _buildMenuItem(
+                              label: AppString.myPlayer,
+                              onTap: () => Get.toNamed(AppRoutes.myChildren),
+                            ),
+                            _buildMenuItem(
+                              label: AppString.rewardsRedemption,
+                              onTap: () => Get.toNamed(AppRoutes.shopScreen),
+                            ),
+                            _buildMenuItem(
+                              label: AppString.mySubscriptions,
+                              onTap: () => Get.toNamed(AppRoutes.mySubscription),
+                            ),
+                          ],
+                          if (role == "MANAGER") ...[
+                            _buildMenuItem(
+                              label: "Team Sheet",
+                              onTap: () => Get.toNamed(AppRoutes.teamSheetScreen),
+                            ),
+                            _buildMenuItem(
+                              label: AppString.myTransfersHistory,
+                              onTap: () =>
+                                  Get.toNamed(AppRoutes.transferRequestScreen),
+                            ),
+                            _buildMenuItem(
+                              label: AppString.trialListAvailable,
+                              onTap: () =>
+                                  Get.toNamed(AppRoutes.trialList),
+                            ),
+                          ],
+                          _buildMenuItem(
+                            label: AppString.changePassword,
+                            onTap: () => Get.toNamed(AppRoutes.changePassword),
+                          ),
+                        ],
                         _buildMenuItem(
-                          icon: AppIcons
-                              .myChildrenSvg, // Using a suitable placeholder icon
-                          label: "Referee Dashboard",
-                          onTap: () =>
-                              Get.toNamed(AppRoutes.refereeDashboardScreen),
+                          label: "Book a Scout",
+                          onTap: () async {
+                            final Uri url = Uri.parse('https://www.engsportsevents.co.uk/bookscout');
+                            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
+                        ),
+                        _buildMenuItem(
+                          label: "Upcoming Events",
+                          onTap: () async {
+                            final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
+                            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
+                        ),
+                        if (LocalStorage.isGuest) ...[
+                          _buildMenuItem(
+                            label: "Fixtures",
+                            onTap: () {
+                              Get.back();
+                              Get.find<NavBarController>().selectedIndex.value = 1;
+                            },
+                          ),
+                          _buildMenuItem(
+                            label: "League Tables",
+                            onTap: () {
+                              Get.back();
+                              Get.find<NavBarController>().selectedIndex.value = 2;
+                            },
+                          ),
+                          _buildMenuItem(
+                            label: "ENG TV",
+                            onTap: () {
+                              Get.back();
+                              Get.find<NavBarController>().selectedIndex.value = 3;
+                            },
+                          ),
+                          _buildMenuItem(
+                            label: "Statistics",
+                            onTap: () {
+                              Get.back();
+                              Get.find<NavBarController>().selectedIndex.value = 4;
+                            },
+                          ),
+                        ],
+                        _buildMenuItem(
+                          label: AppString.privacyPolicy,
+                          onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
+                        ),
+                        _buildMenuItem(
+                          label: AppString.termsOfServices,
+                          onTap: () => Get.toNamed(AppRoutes.termsOfServices),
                         ),
                       ],
-                      if (role == "PLAYER") ...[
-                        _buildMenuItem(
-                          icon: AppIcons.myChildrenSvg,
-                          label: AppString.myPlayer,
-                          onTap: () => Get.toNamed(AppRoutes.myChildren),
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.rewards,
-                          label: AppString.rewardsRedemption,
-                          onTap: () => Get.toNamed(AppRoutes.shopScreen),
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.subscription,
-                          label: AppString.mySubscriptions,
-                          onTap: () => Get.toNamed(AppRoutes.mySubscription),
-                        ),
-                      ],
-                      if (role == "MANAGER") ...[
-                        _buildMenuItem(
-                          icon: AppIcons.pro,
-                          label: "Team Sheet",
-                          onTap: () => Get.toNamed(AppRoutes.teamSheetScreen),
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.transferHistory,
-                          label: AppString.myTransfersHistory,
-                          onTap: () =>
-                              Get.toNamed(AppRoutes.transferRequestScreen),
-                        ),
-                        _buildMenuItem(
-                          icon: AppIcons.transfersInActive,
-                          label: AppString.trialListAvailable,
-                          onTap: () =>
-                              Get.toNamed(AppRoutes.trialList),
-                        ),
-                      ],
-                      _buildMenuItem(
-                        icon: AppIcons.lockPassword,
-                        label: AppString.changePassword,
-                        onTap: () => Get.toNamed(AppRoutes.changePassword),
-                      ),
-                      _buildMenuItem(
-                        icon: AppIcons.infoPolicy,
-                        label: AppString.privacyPolicy,
-                        onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
-                      ),
-                      _buildMenuItem(
-                        icon: AppIcons.infoPolicy,
-                        label: AppString.termsOfServices,
-                        onTap: () => Get.toNamed(AppRoutes.termsOfServices),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20.h),
-              _buildLogoutButton(),
-            ],
+                SizedBox(height: 20.h),
+                _buildLogoutButton(),
+              ],
+            ),
           ),
         ),
       ),
@@ -118,9 +165,11 @@ class AppDrawer extends StatelessWidget {
 
   Widget _buildProfile(ProfileController controller) {
     final data = controller.profileData;
-    final String name = data['fullName'] ?? LocalStorage.myName;
-    final String email = data['email'] ?? LocalStorage.myEmail;
-    final String image = data['profile'] ?? LocalStorage.myImage;
+    final bool isGuest = LocalStorage.isGuest;
+    
+    final String name = isGuest ? "Guest User" : (data['fullName'] ?? LocalStorage.myName);
+    final String email = isGuest ? "" : (data['email'] ?? LocalStorage.myEmail);
+    final String image = isGuest ? "" : (data['profile'] ?? LocalStorage.myImage);
 
     return Column(
       children: [
@@ -129,32 +178,32 @@ class AppDrawer extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50.r,
-              backgroundColor: AppColors.color6B6B6B.withValues(alpha: 0.1),
+              backgroundColor: isGuest ? AppColors.primaryColor : AppColors.color6B6B6B.withValues(alpha: 0.1),
               child: ClipOval(
                 child: CommonImage(
-                  imageSrc: image.isEmpty ? TempImage.profile : image,
+                  imageSrc: image.isEmpty ? AppImages.appLogo : image,
                   height: 100.r,
                   width: 100.r,
-                  fill: BoxFit.cover,
+                  fill: image.isEmpty ? .contain : BoxFit.cover,
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                padding: EdgeInsets.all(6.r),
-                decoration: const BoxDecoration(
-                  color: AppColors.primaryColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Image.asset(
-                  AppIcons.editPencil,
-                  width: 12.w,
-                  height: 12.h,
+            if (!isGuest)
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  padding: EdgeInsets.all(6.r),
+                  decoration: const BoxDecoration(
+                    color: AppColors.primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset(AppIcons.editPencil,
+                    width: 12.w,
+                    height: 12.h,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
         SizedBox(height: 14.h),
@@ -169,7 +218,7 @@ class AppDrawer extends StatelessWidget {
         ),
         SizedBox(height: 4.h),
         CommonText(
-          text: email.isEmpty ? 'user@gmail.com' : email,
+          text: email.isEmpty ? '' : email,
           fontSize: 13,
           fontWeight: FontWeight.w400,
           color: AppColors.textSecondaryColor,
@@ -182,7 +231,6 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget _buildMenuItem({
-    required String icon,
     required String label,
     required VoidCallback onTap,
   }) {
@@ -192,26 +240,9 @@ class AppDrawer extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(8.r),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 14.h),
+            padding: EdgeInsets.only(left: 16.w, right: 8.w, top: 14.h, bottom: 14.h),
             child: Row(
               children: [
-                Container(
-                  padding: EdgeInsets.all(10.r),
-                  decoration: BoxDecoration(
-                    color: AppColors.iconBgYellow,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: SvgPicture.asset(
-                    icon,
-                    width: 20.w,
-                    height: 20.h,
-                    colorFilter: const ColorFilter.mode(
-                      AppColors.yellow,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16.w),
                 Expanded(
                   child: CommonText(
                     text: label,
@@ -242,11 +273,18 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget _buildLogoutButton() {
+    final bool isGuest = LocalStorage.isGuest;
+    
     return SizedBox(
       width: double.infinity,
       height: 52.h,
       child: ElevatedButton.icon(
         onPressed: () {
+          if (isGuest) {
+             LocalStorage.setBool(LocalStorageKeys.isGuest, false);
+             Get.offAllNamed(AppRoutes.onboarding);
+             return;
+          }
           Get.dialog(
             AlertDialog(
               title: const Text('Logout'),
@@ -260,7 +298,7 @@ class AppDrawer extends StatelessWidget {
                   onPressed: () async {
                     await LocalStorage.removeAllPrefData();
                     Get.delete<SignInController>(force: true);
-                    Get.offAllNamed(AppRoutes.signIn);
+                    Get.offAllNamed(AppRoutes.onboarding);
                   },
                   child: const Text(
                     'Logout',
@@ -272,20 +310,23 @@ class AppDrawer extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.logoutRed,
+          backgroundColor: AppColors.primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),
+            side: const BorderSide(color: AppColors.colorEABB00, width: 1.0),
           ),
           elevation: 0,
         ),
-        icon: SvgPicture.asset(
-          AppIcons.logoutIcon,
-          width: 20.w,
-          height: 20.h,
-          colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
-        ),
+        icon: isGuest 
+          ? const Icon(Icons.login, color: Colors.white, size: 20)
+          : SvgPicture.asset(
+              AppIcons.logoutIcon,
+              width: 20.w,
+              height: 20.h,
+              colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
+            ),
         label: CommonText(
-          text: AppString.logout,
+          text: isGuest ? "Login / Sign Up" : AppString.logout,
           fontSize: 16,
           fontWeight: FontWeight.w600,
           color: AppColors.white,

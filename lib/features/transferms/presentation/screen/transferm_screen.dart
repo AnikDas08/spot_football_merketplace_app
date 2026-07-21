@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/common_appbar.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../drawer/presentation/screen/app_drawer.dart';
 import '../controller/transfer_controller.dart';
 import '../widget/player_card.dart';
@@ -40,7 +39,7 @@ class TransferScreen extends StatelessWidget {
                     //   child: CommonText(
                     //     text: AppString.trending.toUpperCase(),
                     //     color: AppColors.primaryColor,
-                    //     fontSize: 20.sp,
+                    //     fontSize: 20,
                     //     fontWeight: FontWeight.w600,
                     //   ),
                     // ),
@@ -78,7 +77,7 @@ class TransferScreen extends StatelessWidget {
                         child: CommonText(
                           text: AppString.recentOffers.toUpperCase(),
                           color: AppColors.primaryColor,
-                          fontSize: 20.sp,
+                          fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

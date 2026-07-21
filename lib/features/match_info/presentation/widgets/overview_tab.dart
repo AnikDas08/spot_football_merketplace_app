@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/features/match_info/presentation/controllers/match_info_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_images.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_images.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../../utils/constants/temp_image.dart';
 import '../../../team_sheet/data/team_sheet_models.dart';
+import '../controllers/match_info_controller.dart';
 
 class OverviewTab extends StatelessWidget {
   const OverviewTab({super.key});
@@ -43,6 +43,7 @@ class OverviewTab extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.background,
                 borderRadius: BorderRadius.circular(30.r),
+                border: Border.all(color: AppColors.colorEABB00, width: 1.w),
               ),
               child: Row(
                 children: List.generate(teams.length, (index) {
@@ -59,7 +60,7 @@ class OverviewTab extends StatelessWidget {
                         ),
                         child: CommonText(
                           text: teams[index].toUpperCase(),
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: isSelected ? AppColors.white : AppColors.primaryColor,
                           textAlign: TextAlign.center,
@@ -82,7 +83,7 @@ class OverviewTab extends StatelessWidget {
                 children: [
                   CommonText(
                     text: "MATCH INFO",
-                    fontSize: 17.sp,
+                    fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primaryColor,
                   ),
@@ -112,7 +113,7 @@ class OverviewTab extends StatelessWidget {
                 children: [
                   CommonText(
                     text: AppString.keyEvents,
-                    fontSize: 17.sp,
+                    fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primaryColor,
                   ),
@@ -152,13 +153,13 @@ class OverviewTab extends StatelessWidget {
                       children: [
                         CommonText(
                           text: 'Formation Setup',
-                          fontSize: 18.sp,
+                          fontSize: 18,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white,
                         ),
                         CommonText(
                           text: '${currentSelection?.teamFormation ?? "9"} aside',
-                          fontSize: 18.sp,
+                          fontSize: 18,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white,
                         ),
@@ -169,13 +170,13 @@ class OverviewTab extends StatelessWidget {
                     color: Colors.white,
                     padding: EdgeInsets.all(12.r),
                     child: AspectRatio(
-                      aspectRatio: 335 / 440,
+                      aspectRatio: 335 / 220,
                       child: Stack(
                         children: [
                           Positioned.fill(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12.r),
-                              child: SvgPicture.asset(
+                              child: Image.asset(
                                 AppImages.stadium,
                                 fit: BoxFit.cover,
                               ),
@@ -202,22 +203,31 @@ class OverviewTab extends StatelessWidget {
     final starters = selection.players.where((p) => !p.substitute).toList();
     final String formation = selection.teamFormation;
     
-    final layout = _getLayout(formation);
-    int globalIndex = 0;
+    // Get columns left to right (GK -> Def -> Mid -> Fwd)
+    final layoutWithIndices = _getHorizontalLayout(formation);
 
-    return Column(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: layout.map((row) {
-        return Row(
+      children: layoutWithIndices.map((column) {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: row.map((pos) {
-            final nodeIdx = globalIndex++;
+          children: column.map((posInfo) {
+            final int nodeIdx = posInfo['index'] as int;
+            final String posName = posInfo['label'] as String;
+            
             final p = starters.firstWhereOrNull((player) => player.positionIndex == nodeIdx);
             
+            // Map long names to short codes if needed, or just use initials
+            String displayPos = posName;
+            if (posName.contains('Goalkeeper')) displayPos = 'GK';
+            else if (posName == 'Defender') displayPos = 'DF';
+            else if (posName == 'Midfielder') displayPos = 'CM';
+            else if (posName == 'Forward' || posName == 'Striker') displayPos = 'ST';
+
             return _PlayerNode(
-              initial: p != null ? (p.player.firstName?[0] ?? "P").toUpperCase() : "", 
+              initial: p != null ? (p.player.firstName?[0] ?? p.player.userName?[0] ?? "P").toUpperCase() : displayPos, 
               name: p != null ? (p.player.firstName ?? "Player") : "", 
-              position: pos,
+              position: posName,
               imageUrl: p?.player.profile,
             );
           }).toList(),
@@ -226,14 +236,30 @@ class OverviewTab extends StatelessWidget {
     );
   }
 
-  List<List<String>> _getLayout(String formation) {
+  List<List<Map<String, dynamic>>> _getHorizontalLayout(String formation) {
     final count = int.tryParse(formation) ?? 9;
     if (count == 5) {
-      return [['Forward'], ['Midfielder', 'Midfielder'], ['Defender'], ['Goalkeeper']];
+      return [
+        [{'label': 'Goalkeeper', 'index': 4}],
+        [{'label': 'Defender', 'index': 3}],
+        [{'label': 'Midfielder', 'index': 1}, {'label': 'Midfielder', 'index': 2}],
+        [{'label': 'Forward', 'index': 0}],
+      ];
     } else if (count == 7) {
-      return [['Forward'], ['Midfielder', 'Midfielder', 'Midfielder'], ['Defender', 'Defender'], ['Goalkeeper']];
+      return [
+        [{'label': 'Goalkeeper', 'index': 6}],
+        [{'label': 'Defender', 'index': 4}, {'label': 'Defender', 'index': 5}],
+        [{'label': 'Midfielder', 'index': 1}, {'label': 'Midfielder', 'index': 2}, {'label': 'Midfielder', 'index': 3}],
+        [{'label': 'Forward', 'index': 0}],
+      ];
     } else {
-      return [['Forward', 'Forward'], ['Midfielder', 'Midfielder', 'Midfielder'], ['Defender', 'Defender', 'Defender'], ['Goalkeeper']];
+      // 9 Aside
+      return [
+        [{'label': 'Goalkeeper', 'index': 8}],
+        [{'label': 'Defender', 'index': 5}, {'label': 'Defender', 'index': 6}, {'label': 'Defender', 'index': 7}],
+        [{'label': 'Midfielder', 'index': 2}, {'label': 'Midfielder', 'index': 3}, {'label': 'Midfielder', 'index': 4}],
+        [{'label': 'Forward', 'index': 0}, {'label': 'Forward', 'index': 1}],
+      ];
     }
   }
 }
@@ -272,12 +298,12 @@ class _InfoRow extends StatelessWidget {
             children: [
               CommonText(
                 text: label,
-                fontSize: 12.sp,
+                fontSize: 12,
                 color: AppColors.textSecondaryColor,
               ),
               CommonText(
                 text: value,
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: AppColors.primaryColor,
               ),
@@ -301,6 +327,7 @@ class _SectionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withAlpha(10),
@@ -347,13 +374,13 @@ class _KeyEventRow extends StatelessWidget {
             children: [
               CommonText(
                 text: playerName,
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppColors.primaryColor,
               ),
               CommonText(
                 text: description,
-                fontSize: 12.sp,
+                fontSize: 12,
                 color: AppColors.textSecondaryColor,
               ),
             ],
@@ -361,7 +388,7 @@ class _KeyEventRow extends StatelessWidget {
         ),
         CommonText(
           text: minute,
-          fontSize: 14.sp,
+          fontSize: 14,
           fontWeight: const FontWeight(590),
           color: AppColors.primaryColor,
         ),
@@ -405,7 +432,7 @@ class _PlayerNode extends StatelessWidget {
                       : Center(
                           child: CommonText(
                             text: initial,
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: AppColors.white,
                           ),
@@ -417,7 +444,7 @@ class _PlayerNode extends StatelessWidget {
           width: 70.w,
           child: CommonText(
             text: name,
-            fontSize: 10.sp,
+            fontSize: 10,
             fontWeight: FontWeight.w700,
             color: AppColors.white,
             maxLines: 1,
@@ -427,7 +454,7 @@ class _PlayerNode extends StatelessWidget {
         ),
         CommonText(
           text: position,
-          fontSize: 8.sp,
+          fontSize: 8,
           textAlign: TextAlign.center,
           color: AppColors.white.withValues(alpha: 0.8),
         ),

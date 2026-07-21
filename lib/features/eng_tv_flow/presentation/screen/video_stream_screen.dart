@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:get/get.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/temp_image.dart';
 import '../controller/video_streem_controller.dart';
 import '../widget/custom_video_player.dart';
 import '../widget/video_news_card.dart';
@@ -66,7 +68,7 @@ class VideoStreamScreen extends StatelessWidget {
                         CommonText(
                           text: video.title.toUpperCase(),
                           fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
+                          fontSize: 16,
                           color: AppColors.primaryColor,
                           maxLines: 3,
                           textAlign: TextAlign.start,
@@ -75,7 +77,7 @@ class VideoStreamScreen extends StatelessWidget {
                         CommonText(
                           text: video.description.toUpperCase(),
                           fontWeight: FontWeight.w400,
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           color: AppColors.color6B6B6B,
                           maxLines: 10,
                           textAlign: TextAlign.start,
@@ -84,7 +86,7 @@ class VideoStreamScreen extends StatelessWidget {
                         CommonText(
                           text: video.createdAt.toUpperCase(),
                           fontWeight: FontWeight.w400,
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           color: AppColors.color6B6B6B,
                           maxLines: 3,
                           textAlign: TextAlign.start,
@@ -104,57 +106,71 @@ class VideoStreamScreen extends StatelessWidget {
   }
 
   Widget _buildRelatedSection(VideoStreamController controller) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CommonText(
-            text: "related".toUpperCase(),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-          SizedBox(height: 5.h),
-          Container(
-            height: 1.h,
-            width: 75.w,
-            decoration: const BoxDecoration(color: AppColors.yellow),
-          ),
-          SizedBox(height: 5.h),
-          ListView.builder(
-            itemCount: controller.videoList.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 10.h),
-            itemBuilder: (context, index) {
-              final item = controller.videoList[index];
-              return GestureDetector(
-                onTap: () {
-                  // controller.videoLink.value = item["videoLink"]!;
-                },
-                child: VideoNewsCard(
-                  title: item["title"]!,
-                  description: item["description"]!,
-                  timeAgo: item["timeAgo"]!,
-                  imageUrl: item["image"]!,
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
+    return Obx(() {
+      if (controller.isRelatedLoading.value) {
+        return const Padding(
+          padding: EdgeInsets.all(20),
+          child: Center(child: CircularProgressIndicator(color: AppColors.yellow)),
+        );
+      }
+
+      if (controller.relatedVideos.isEmpty) {
+        return const SizedBox.shrink();
+      }
+
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CommonText(
+              text: "related".toUpperCase(),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+            SizedBox(height: 5.h),
+            Container(
+              height: 1.h,
+              width: 75.w,
+              decoration: const BoxDecoration(color: AppColors.yellow),
+            ),
+            SizedBox(height: 5.h),
+            ListView.builder(
+              itemCount: controller.relatedVideos.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              itemBuilder: (context, index) {
+                final video = controller.relatedVideos[index];
+                return GestureDetector(
+                  onTap: () {
+                    // Update main video content
+                    controller.fetchVideoById(video.id);
+                  },
+                  child: VideoNewsCard(
+                    title: video.title,
+                    description: video.description,
+                    timeAgo: video.publishDateTime,
+                    imageUrl: video.thumbnail,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   Widget _buildPlayerTag({
@@ -184,7 +200,7 @@ class VideoStreamScreen extends StatelessWidget {
           CommonText(
             text: name.toUpperCase(),
             fontWeight: FontWeight.w400,
-            fontSize: 12.sp,
+            fontSize: 12,
             color: AppColors.primaryColor,
             maxLines: 1,
           ),

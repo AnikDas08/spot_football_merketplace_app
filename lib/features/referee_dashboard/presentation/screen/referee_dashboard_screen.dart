@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-import 'package:untitled/utils/extensions/extension.dart';
 import 'package:intl/intl.dart';
 import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
+import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/temp_image.dart';
+import '../../../../utils/extensions/extension.dart';
 import '../../../home/data/match_model.dart';
 import '../controller/referee_dashboard_controller.dart';
 
@@ -80,7 +80,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                     : activeTabIndex == 2 
                         ? 'No Upcoming Matches' 
                         : 'No History Available',
-            fontSize: 16.sp,
+            fontSize: 16,
             color: Colors.grey,
           ),
         ),
@@ -430,7 +430,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                           child: ElevatedButton(
                             onPressed: isToggling ? null : () => controller.toggleMatchStatus(match.id),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFE53935), // Red for Full Time
+                              backgroundColor: AppColors.primaryColor, // Changed from Red to Primary Black
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
                               elevation: 0,
                             ),

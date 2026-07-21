@@ -43,7 +43,7 @@ class CustomInfoCard extends StatelessWidget {
             children: [
               CommonText(
                 text: title.toUpperCase(),
-                fontSize: 20.sp,
+                fontSize: 20,
                 fontWeight: FontWeight.w600,
                 color: AppColors.primaryColor,
               ),
@@ -85,7 +85,7 @@ class CustomInfoCard extends StatelessWidget {
           Expanded(
             child: CommonText(
               text: label,
-              fontSize: 15.sp,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
               color: AppColors.color373737,
               textAlign: TextAlign.start,
@@ -93,7 +93,7 @@ class CustomInfoCard extends StatelessWidget {
           ),
           CommonText(
             text: value,
-            fontSize: 15.sp,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
             color: Colors.black,
           ),

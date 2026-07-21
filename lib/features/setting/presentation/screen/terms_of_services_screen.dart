@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-
+import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/other_widgets/common_loader.dart';
 import '../../../../component/screen/error_screen.dart';
 import '../../../../component/text/common_text.dart';
@@ -41,7 +40,7 @@ class TermsOfServicesScreen extends StatelessWidget {
                     child: CommonText(
                       text: AppString.legalProtoCol.toUpperCase(),
                       color: AppColors.primaryColor,
-                      fontSize: 32.sp,
+                      fontSize: 32,
                       fontWeight: FontWeight.w700,
                       textAlign: TextAlign.center,
                     ),
@@ -49,7 +48,7 @@ class TermsOfServicesScreen extends StatelessWidget {
                   CommonText(
                     text: AppString.lastUpdatedOctober2024.toUpperCase(),
                     color: AppColors.color6B6B6B,
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,
                   ),

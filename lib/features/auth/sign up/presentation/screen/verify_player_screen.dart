@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/controller/verify_player_controller.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../component/button/common_button.dart';
+import '../../../../../component/image/common_image.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
+import '../controller/verify_player_controller.dart';
 
 class VerifyPlayerScreen extends StatelessWidget {
   VerifyPlayerScreen({super.key});
@@ -286,13 +286,19 @@ class VerifyPlayerScreen extends StatelessWidget {
         const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
-          child: Container(
-            height: 56.h,
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: Colors.grey.shade200),
+          child: InputDecorator(
+            decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide: BorderSide(color: Colors.grey.shade200),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide: const BorderSide(color: Colors.black),
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

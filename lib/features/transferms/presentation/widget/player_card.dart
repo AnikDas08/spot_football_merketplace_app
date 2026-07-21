@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
+
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
 
 class PlayerCard extends StatelessWidget {
   final String imageUrl;
@@ -84,7 +85,7 @@ class PlayerCard extends StatelessWidget {
                     ),
                     child: CommonText(
                       text: status,
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                     ),
@@ -106,7 +107,7 @@ class PlayerCard extends StatelessWidget {
                   CommonText(
                     text: playerName.toUpperCase(),
                     color: AppColors.white,
-                    fontSize: 20.sp,
+                    fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
                   SizedBox(height: 6.h),
@@ -122,7 +123,7 @@ class PlayerCard extends StatelessWidget {
                         child: CommonText(
                           text: academyName.toUpperCase(),
                           color: Colors.white,
-                          fontSize: 10.sp,
+                          fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -130,7 +131,7 @@ class PlayerCard extends StatelessWidget {
                       CommonText(
                         text: '$price COINS',
                         color: Colors.white,
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                     ],

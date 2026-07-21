@@ -1,11 +1,15 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
+import '../../../component/blur_reveal/blur_reveal.dart';
 import '../../../utils/constants/app_colors.dart';
+import '../../drawer/presentation/screen/app_drawer.dart';
 import '../controller/navbar_controller.dart';
+import '../../../../component/common_appbar/common_appbar.dart';
 
 class NavBarScreen extends StatelessWidget {
   const NavBarScreen({super.key});
@@ -14,11 +18,33 @@ class NavBarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<NavBarController>();
 
-    return Scaffold(
-      extendBody: true,
-      drawer: const AppDrawer(),
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
-      bottomNavigationBar: Container(
+    return BlurReveal(
+      child: Obx(() => Scaffold(
+        extendBody: true,
+        drawer: const AppDrawer(),
+        onDrawerChanged: (isOpen) {
+          controller.isDrawerOpen.value = isOpen;
+        },
+        drawerScrimColor: Colors.black.withValues(alpha: 0.3),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(80.h),
+          child: CommonAppbar(title: controller.titles[controller.selectedIndex.value]),
+        ),
+        body: Stack(
+          children: [
+            Obx(() => controller.screens[controller.selectedIndex.value]),
+            if (controller.isDrawerOpen.value)
+              Positioned.fill(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                  child: Container(
+                    color: Colors.black.withValues(alpha: 0.1),
+                  ),
+                ),
+              ),
+          ],
+        ),
+        bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -29,7 +55,7 @@ class NavBarScreen extends StatelessWidget {
             ),
           ],
           border: const Border(
-            top: BorderSide(color: Color(0xFFEEEEEE), width: 1),
+            top: BorderSide(color: AppColors.colorEABB00, width: 1),
           ),
         ),
         child: SafeArea(
@@ -116,6 +142,6 @@ class NavBarScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
+    )));
   }
 }

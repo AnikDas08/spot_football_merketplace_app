@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/common_dropdown_field/common_dropdown_field.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/features/home/presentation/controllers/club_profile_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
+
+import '../../../../component/common_dropdown_field/common_dropdown_field.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
+import '../../../../utils/constants/app_colors.dart';
 import '../../../home/data/point_table_model.dart';
+import '../../../home/presentation/controllers/club_profile_controller.dart';
 
 class LeagueTablesScreen extends StatefulWidget {
-  const LeagueTablesScreen({super.key});
+  final bool fromBottomNav;
+  const LeagueTablesScreen({super.key, this.fromBottomNav = false});
 
   @override
   State<LeagueTablesScreen> createState() => _LeagueTablesScreenState();
@@ -23,116 +24,111 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
   Widget build(BuildContext context) {
     final controller = Get.put(ClubProfileController());
 
-    return Scaffold(
-      extendBody: true,
-      backgroundColor: AppColors.background,
-      appBar: const SecondaryAppBar(title: 'LEAGUE TABLES'),
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () => controller.fetchPointTable(),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: GetBuilder<ClubProfileController>(
-                    builder: (controller) {
-                      final currentLeague = controller.allLeagues.isNotEmpty 
-                          ? controller.allLeagues[controller.selectedLeagueIndex].league 
-                          : null;
-                      
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 100.h),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: CommonDropdownField<int>(
-                                      hintText: currentLeague?.leagueName ?? 'Select League',
-                                      borderColor: Colors.transparent,
-                                      fillColor: AppColors.white,
-                                      borderRadius: 8,
-                                      paddingVertical: 12,
-                                      value: controller.allLeagues.isNotEmpty ? controller.selectedLeagueIndex : null,
-                                      items: List.generate(
-                                        controller.allLeagues.length,
-                                        (index) => DropdownMenuItem<int>(
-                                          value: index,
-                                          child: Text(
-                                            controller.allLeagues[index].league.leagueName,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                          ),
+    return SafeArea(
+      child: RefreshIndicator(
+        onRefresh: () => controller.fetchPointTable(),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: GetBuilder<ClubProfileController>(
+                  builder: (controller) {
+                    final currentLeague = controller.allLeagues.isNotEmpty 
+                        ? controller.allLeagues[controller.selectedLeagueIndex].league 
+                        : null;
+                    
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 100.h),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: CommonDropdownField<int>(
+                                    hintText: currentLeague?.leagueName ?? 'Select League',
+                                    borderColor: Colors.transparent,
+                                    fillColor: AppColors.white,
+                                    borderRadius: 8,
+                                    paddingVertical: 12,
+                                    value: controller.allLeagues.isNotEmpty ? controller.selectedLeagueIndex : null,
+                                    items: List.generate(
+                                      controller.allLeagues.length,
+                                      (index) => DropdownMenuItem<int>(
+                                        value: index,
+                                        child: Text(
+                                          controller.allLeagues[index].league.leagueName,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
                                         ),
                                       ),
-                                      onChanged: (value) {
-                                        if (value != null) {
-                                          controller.selectLeague(value);
-                                        }
-                                      },
                                     ),
-                                  ),
-                                  SizedBox(width: 12.w),
-                                  Expanded(
-                                    child: CommonDropdownField<String>(
-                                      hintText: currentLeague?.season ?? 'Season',
-                                      borderColor: Colors.transparent,
-                                      fillColor: AppColors.white,
-                                      borderRadius: 8,
-                                      paddingVertical: 12,
-                                      value: currentLeague?.season,
-                                      items: controller.allLeagues.isNotEmpty 
-                                          ? [DropdownMenuItem<String>(
-                                              value: currentLeague?.season,
-                                              child: Text(
-                                                currentLeague?.season ?? "",
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                              ),
-                                            )]
-                                          : [],
-                                      onChanged: (value) {},
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            
-                            if (currentLeague != null)
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: CommonText(
-                                    text: '${currentLeague.leagueName} ${currentLeague.season}',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.color6B6B6B,
+                                    onChanged: (value) {
+                                      if (value != null) {
+                                        controller.selectLeague(value);
+                                      }
+                                    },
                                   ),
                                 ),
+                                SizedBox(width: 12.w),
+                                Expanded(
+                                  child: CommonDropdownField<String>(
+                                    hintText: currentLeague?.season ?? 'Season',
+                                    borderColor: Colors.transparent,
+                                    fillColor: AppColors.white,
+                                    borderRadius: 8,
+                                    paddingVertical: 12,
+                                    value: currentLeague?.season,
+                                    items: controller.allLeagues.isNotEmpty 
+                                        ? [DropdownMenuItem<String>(
+                                            value: currentLeague?.season,
+                                            child: Text(
+                                              currentLeague?.season ?? "",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                            ),
+                                          )]
+                                        : [],
+                                    onChanged: (value) {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                          if (currentLeague != null)
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: CommonText(
+                                  text: '${currentLeague.leagueName} ${currentLeague.season}',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.color6B6B6B,
+                                ),
                               ),
+                            ),
 
-                            SizedBox(height: 12.h),
+                          SizedBox(height: 12.h),
 
-                            if (controller.isLoading.value)
-                              const TableShimmer()
-                            else if (controller.pointTable.isEmpty)
-                              _buildNoData(controller.pointTableMessage)
-                            else
-                              _buildStandingsTable(controller.pointTable),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                          if (controller.isLoading.value)
+                            const TableShimmer()
+                          else if (controller.pointTable.isEmpty)
+                            _buildNoData(controller.pointTableMessage)
+                          else
+                            _buildStandingsTable(controller.pointTable),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              );
-            }
-          ),
+              ),
+            );
+          }
         ),
       ),
     );
@@ -150,7 +146,7 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
       child: Center(
         child: CommonText(
           text: message.isNotEmpty ? message : "No data available",
-          fontSize: 14.sp,
+          fontSize: 14,
           fontWeight: FontWeight.w400,
           color: AppColors.color6B6B6B,
         ),
@@ -184,8 +180,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                       width: 30.w,
                       child: CommonText(
                         text: 'Pos',
-                        fontSize: 14.sp,
-                        fontWeight: const FontWeight(510),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),
                     ),
@@ -194,8 +190,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                         padding: EdgeInsets.only(left: 22.w),
                         child: CommonText(
                           text: 'Club',
-                          fontSize: 14.sp,
-                          fontWeight: const FontWeight(510),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
                           color: AppColors.white,
                         ),
                       ),
@@ -204,8 +200,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                       width: 30.w,
                       child: CommonText(
                         text: 'PL',
-                        fontSize: 14.sp,
-                        fontWeight: const FontWeight(510),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                       ),
@@ -214,8 +210,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                       width: 36.w,
                       child: CommonText(
                         text: 'GD',
-                        fontSize: 14.sp,
-                        fontWeight: const FontWeight(510),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                       ),
@@ -224,8 +220,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                       width: 36.w,
                       child: CommonText(
                         text: 'PTS',
-                        fontSize: 14.sp,
-                        fontWeight: const FontWeight(510),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                       ),
@@ -258,8 +254,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                           width: 30.w,
                           child: CommonText(
                             text: '${index + 1}.',
-                            fontSize: 16.sp,
-                            fontWeight: const FontWeight(510),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                           ),
                         ),
@@ -276,8 +272,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                               Expanded(
                                 child: CommonText(
                                   text: item.team.teamName,
-                                  fontSize: 14.sp,
-                                  fontWeight: const FontWeight(510),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
                                   color: AppColors.primaryColor,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -290,8 +286,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                           width: 30.w,
                           child: CommonText(
                             text: '${item.played}',
-                            fontSize: 16.sp,
-                            fontWeight: const FontWeight(510),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
                           ),
@@ -300,8 +296,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                           width: 36.w,
                           child: CommonText(
                             text: gdText,
-                            fontSize: 16.sp,
-                            fontWeight: const FontWeight(510),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
                           ),
@@ -310,8 +306,8 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                           width: 36.w,
                           child: CommonText(
                             text: '${item.points}',
-                            fontSize: 16.sp,
-                            fontWeight: const FontWeight(510),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
                           ),

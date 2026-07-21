@@ -84,7 +84,7 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                     child: CommonText(
                       text: AppString.reset,
                       color: AppColors.yellow,
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontWeight: FontWeight(500),
                     ),
                   ),
@@ -100,7 +100,7 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                   // TEAM label
                   CommonText(
                     text: AppString.team.toUpperCase(),
-                    fontSize: 15.sp,
+                    fontSize: 15,
                     fontWeight: FontWeight(650),
                     color: AppColors.primaryColor,
                   ),
@@ -139,7 +139,7 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                           .map(
                             (t) => DropdownMenuItem(
                               value: t,
-                              child: CommonText(text: t, fontSize: 14.sp),
+                              child: CommonText(text: t, fontSize: 14),
                             ),
                           )
                           .toList(),
@@ -150,7 +150,7 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                   SizedBox(height: 20.h),
                   CommonText(
                     text: AppString.dateRange,
-                    fontSize: 15.sp,
+                    fontSize: 15,
                     fontWeight: FontWeight(650),
                     color: AppColors.primaryColor,
                   ),
@@ -225,7 +225,7 @@ class _SheetTab extends StatelessWidget {
           alignment: Alignment.center,
           child: CommonText(
             text: label,
-            fontSize: 16.sp,
+            fontSize: 16,
             fontWeight: FontWeight(590),
             color: selected ? AppColors.white : AppColors.primaryColor,
           ),
@@ -260,7 +260,7 @@ class _DateChip extends StatelessWidget {
         ),
         child: CommonText(
           text: label,
-          fontSize: 16.sp,
+          fontSize: 16,
           fontWeight: selected ? FontWeight.w700 : FontWeight(590),
           color: selected ? AppColors.white : AppColors.primaryColor,
         ),
@@ -296,12 +296,12 @@ class _CalendarWidget extends StatelessWidget {
             children: [
               CommonText(
                 text: monthName,
-                fontSize: 25.sp,
+                fontSize: 25,
                 fontWeight: FontWeight(510),
               ),
               CommonText(
                 text: '${c.focusedMonth.year}',
-                fontSize: 25.sp,
+                fontSize: 25,
                 fontWeight: FontWeight(510),
               ),
               Row(
@@ -463,7 +463,7 @@ class _DayCell extends StatelessWidget {
         alignment: Alignment.center,
         child: CommonText(
           text: '$day',
-          fontSize: 15.sp,
+          fontSize: 15,
           color: textColor,
           fontWeight: fw,
         ),

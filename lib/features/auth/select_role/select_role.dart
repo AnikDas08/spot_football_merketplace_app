@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/controller/sign_up_controller.dart';
-import 'package:untitled/utils/constants/app_images.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
+import '../../../utils/constants/app_images.dart';
 import '../sign in/presentation/widgets/signup_appbar.dart';
+import '../sign up/presentation/controller/sign_up_controller.dart';
 
 class SelectRole extends StatelessWidget {
   const SelectRole({super.key});

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
 
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
 class VideoNewsCard extends StatelessWidget {
   final String title;
   final String description;
@@ -32,7 +33,7 @@ class VideoNewsCard extends StatelessWidget {
                 child: CommonText(
                   text: title.toUpperCase(),
 
-                  fontSize: 14.sp,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
 
@@ -49,11 +50,11 @@ class VideoNewsCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(6.r),
-                    child: Image.asset(
-                      imageUrl,
+                    child: CommonImage(
+                      imageSrc: imageUrl,
                       width: 120.w,
                       height: 66.h,
-                      fit: BoxFit.cover,
+                      fill: BoxFit.cover,
                     ),
                   ),
                   Container(
@@ -80,7 +81,7 @@ class VideoNewsCard extends StatelessWidget {
           CommonText(
             text: description.toUpperCase(),
 
-            fontSize: 13.sp,
+            fontSize: 13,
             fontWeight: FontWeight.w400,
             color: AppColors.color6B6B6B,
 
@@ -93,7 +94,7 @@ class VideoNewsCard extends StatelessWidget {
           CommonText(
             text: timeAgo.toUpperCase(),
 
-            fontSize: 13.sp,
+            fontSize: 13,
             fontWeight: FontWeight.w400,
             color: AppColors.color6B6B6B,
 

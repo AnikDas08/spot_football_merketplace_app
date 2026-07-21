@@ -2,14 +2,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/button/common_button.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/component/text_field/common_text_field.dart';
-import 'package:untitled/features/auth/referee_info/presentation/controller/referee_info_controller.dart';
-import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/helpers/validation.dart';
+
+import '../../../../../component/button/common_button.dart';
+import '../../../../../component/image/common_image.dart';
+import '../../../../../component/text/common_text.dart';
+import '../../../../../component/text_field/common_text_field.dart';
+import '../../../../../utils/constants/app_colors.dart';
+import '../../../../../utils/helpers/validation.dart';
+import '../../../sign in/presentation/widgets/signup_appbar.dart';
+import '../controller/referee_info_controller.dart';
 
 class RefereeInfoScreen extends StatefulWidget {
   const RefereeInfoScreen({super.key});
@@ -240,13 +241,19 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
           builder: (controller) {
             return InkWell(
               onTap: () => controller.selectDate(context),
-              child: Container(
-                height: 56.h,
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.r),
-                  border: Border.all(color: Colors.grey.shade200),
+              child: InputDecorator(
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                    borderSide: BorderSide(color: Colors.grey.shade200),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                    borderSide: const BorderSide(color: AppColors.primaryColor),
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

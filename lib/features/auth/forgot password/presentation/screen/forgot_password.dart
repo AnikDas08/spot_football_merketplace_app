@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../component/button/common_button.dart';
@@ -10,6 +9,7 @@ import '../../../../../component/text_field/common_text_field.dart';
 import '../../../../../config/route/app_routes.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/helpers/validation.dart';
+import '../../../sign in/presentation/widgets/signup_appbar.dart';
 import '../controller/forget_password_controller.dart';
 import '../../../../../../../utils/constants/app_string.dart';
 

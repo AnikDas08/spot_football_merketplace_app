@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../player_profile/presentation/widgets/eng_record_widget.dart';
 import '../../../player_profile/presentation/widgets/personal_details_widget.dart';
 import '../../../player_profile/presentation/widgets/player_header_widget.dart';

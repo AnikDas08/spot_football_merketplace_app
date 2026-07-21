@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_images.dart';
+
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_images.dart';
 import '../../../../utils/constants/app_string.dart';
 
 class EngRecordWidget extends StatelessWidget {
@@ -14,15 +15,6 @@ class EngRecordWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (stats == null) return const SizedBox.shrink();
-
-    final int goals = stats!['goals'] ?? 0;
-    final int assists = stats!['assists'] ?? 0;
-    final int yellowCards = stats!['yellowCards'] ?? 0;
-    final int redCards = stats!['redCards'] ?? 0;
-
-    if (goals == 0 && assists == 0 && yellowCards == 0 && redCards == 0) {
-      return const SizedBox.shrink();
-    }
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
@@ -36,7 +28,7 @@ class EngRecordWidget extends StatelessWidget {
         children: [
           CommonText(
             text: AppString.engRecord,
-            fontSize: 20.sp,
+            fontSize: 20,
             fontWeight: const FontWeight(650),
             color: AppColors.primaryColor,
           ),
@@ -137,21 +129,21 @@ class _RecordCard extends StatelessWidget {
             children: [
               CommonText(
                 text: title,
-                fontSize: 10.sp,
+                fontSize: 10,
                 color: AppColors.textSecondaryColor,
                 fontWeight: const FontWeight(590),
               ),
               SizedBox(height: 6.h),
               CommonText(
                 text: value,
-                fontSize: 32.sp,
+                fontSize: 32,
                 fontWeight: FontWeight.w700,
                 color: textColor ?? AppColors.primaryColor,
               ),
               const Spacer(),
               CommonText(
                 text: sub,
-                fontSize: 12.sp,
+                fontSize: 12,
                 fontWeight: const FontWeight(590),
                 color: color,
               ),

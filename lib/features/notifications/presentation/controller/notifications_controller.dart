@@ -1,98 +1,157 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled/utils/app_snackbar.dart';
-
 import '../../data/model/notification_model.dart';
 import '../../repository/notification_repository.dart';
 
-class NotificationsController extends GetxController {
-  /// Notification list
-  final List<NotificationModel> notifications = [];
-  bool isLoading = false;
-  bool isLoadingMore = false;
-  bool hasNoData = false;
-  int page = 1;
+import '../../../../services/api/api_client.dart';
+import '../../../../services/api/api_service.dart';
+import '../../../../services/storage/storage_services.dart';
+import '../../../../config/api/api_end_point.dart';
 
-  /// Scroll controller
+class NotificationsController extends GetxController {
+  final ApiClient apiClient = DioApiClient();
+  final RxList<NotificationModel> notifications = <NotificationModel>[].obs;
+  var unreadCount = 0.obs;
+  var isLoading = false.obs;
+  var isLoadingMore = false.obs;
+  var hasNoData = false.obs;
+  
+  int page = 1;
+  int totalPage = 0;
+
   final ScrollController scrollController = ScrollController();
 
-  /// Get instance
-  static NotificationsController get instance =>
-      Get.find<NotificationsController>();
-
-  /// Init
-  @override
+  @override 
   void onInit() {
     super.onInit();
     scrollController.addListener(_onScroll);
     getNotifications();
+    getUnreadCount();
   }
 
-  /// Scroll listener
   void _onScroll() {
-    if (scrollController.position.pixels >=
-        scrollController.position.maxScrollExtent) {
+    if (isLoading.value || isLoadingMore.value || totalPage == 0 || page > totalPage) return;
+
+    if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 100) {
       loadMore();
     }
   }
 
-  /// Fetch notifications (first load)
+  Future<void> getUnreadCount() async {
+    try {
+      final response = await apiClient.get(
+        ApiEndPoint.unreadNotificationCount,
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+      if (response.statusCode == 200) {
+        unreadCount.value = response.data['data']['unreadCount'] ?? 0;
+      }
+    } catch (e) {
+      debugPrint('❌ getUnreadCount error: $e');
+    }
+  }
+
+  Future<void> markAllAsRead() async {
+    try {
+      final response = await apiClient.patch(
+        ApiEndPoint.readAllNotifications,
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+      if (response.statusCode == 200) {
+        unreadCount.value = 0;
+        for (var n in notifications) {
+          // Note: NotificationModel is immutable, but we can update list if needed
+          // For simplicity, we can refresh or just update the UI state
+        }
+        refreshNotifications();
+      }
+    } catch (e) {
+      debugPrint('❌ markAllAsRead error: $e');
+    }
+  }
+
+  Future<void> markAsRead(String id) async {
+    try {
+      final response = await apiClient.patch(
+        "${ApiEndPoint.markAsRead}$id/read",
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+      if (response.statusCode == 200) {
+        getUnreadCount();
+        // Locally update the item if found
+        int index = notifications.indexWhere((n) => n.id == id);
+        if (index != -1) {
+          final n = notifications[index];
+          notifications[index] = NotificationModel(
+            id: n.id,
+            type: n.type,
+            title: n.title,
+            message: n.message,
+            receiver: n.receiver,
+            isRead: true,
+            createdAt: n.createdAt,
+            updatedAt: DateTime.now(),
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint('❌ markAsRead error: $e');
+    }
+  }
+
   Future<void> getNotifications() async {
-    if (isLoading) return;
+    if (isLoading.value) return;
+    
     try {
-      isLoading = true;
-      update();
+      isLoading.value = true;
+      hasNoData.value = false;
+      page = 1;
+      
+      final result = await notificationRepository(page);
+      final List<NotificationModel> list = result['notifications'] ?? [];
+      totalPage = result['totalPage'] ?? 1;
 
-      final list = await notificationRepository(page);
-
-      if (list.isEmpty) {
-        hasNoData = true;
+      notifications.assignAll(list);
+      
+      if (notifications.isEmpty) {
+        hasNoData.value = true;
       } else {
-        notifications.addAll(list);
         page++;
       }
     } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
+      debugPrint('❌ getNotifications error: $e');
     } finally {
-      isLoading = false;
-      update();
+      isLoading.value = false;
     }
   }
 
-  /// Load more notifications (pagination)
   Future<void> loadMore() async {
-    if (isLoadingMore || hasNoData) return;
+    if (isLoading.value || isLoadingMore.value || page > totalPage) return;
 
     try {
-      isLoadingMore = true;
-      update();
+      isLoadingMore.value = true;
+      
+      final result = await notificationRepository(page);
+      final List<NotificationModel> list = result['notifications'] ?? [];
+      totalPage = result['totalPage'] ?? 1;
 
-      final list = await notificationRepository(page);
-
-      if (list.isEmpty) {
-        hasNoData = true;
-      } else {
+      if (list.isNotEmpty) {
         notifications.addAll(list);
         page++;
       }
     } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
+      debugPrint('❌ loadMore error: $e');
     } finally {
-      isLoadingMore = false;
-      update();
+      isLoadingMore.value = false;
     }
   }
 
-  /// Refresh manually
-  @override
-  Future<void> refresh() async {
+  Future<void> refreshNotifications() async {
     page = 1;
-    hasNoData = false;
-    notifications.clear();
+    totalPage = 0;
     await getNotifications();
   }
 
-  /// Dispose
   @override
   void onClose() {
     scrollController.dispose();

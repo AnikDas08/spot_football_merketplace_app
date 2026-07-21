@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
 
-import 'package:untitled/component/image/common_image.dart';
-
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/temp_image.dart';
 class PlayerHeaderWidget extends StatelessWidget {
   final String playerName;
   final String position;
@@ -46,7 +45,7 @@ class PlayerHeaderWidget extends StatelessWidget {
                     SizedBox(height: 4.h),
                     CommonText(
                       text: position,
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       color: AppColors.white,
                       fontWeight: const FontWeight(500),
                     ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
 
 class ContractDurationResultCard extends StatelessWidget {
   final String durationTitle;
@@ -49,7 +49,7 @@ class ContractDurationResultCard extends StatelessWidget {
               children: [
                 CommonText(
                   text: durationTitle,
-                  fontSize: 14.sp,
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: AppColors.primaryColor,
                 ),
@@ -57,14 +57,14 @@ class ContractDurationResultCard extends StatelessWidget {
                   children: [
                     CommonText(
                       text: yearsText,
-                      fontSize: 24.sp,
+                      fontSize: 24,
                       fontWeight: FontWeight.w600,
                       color: AppColors.primaryColor,
                     ),
                     SizedBox(width: 2.w),
                     CommonText(
                       text: "($dateText)",
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: AppColors.color6B6B6B,
                     ),

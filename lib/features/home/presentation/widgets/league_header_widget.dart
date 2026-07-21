@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/image/common_image.dart';
-
+import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
@@ -59,7 +58,7 @@ class LeagueHeaderWidget extends StatelessWidget {
               children: [
                 CommonText(
                   text: (teamName ?? 'PHOENIX UTDS').toUpperCase(),
-                  fontSize: 24.sp,
+                  fontSize: 24,
                   fontWeight: FontWeight.w700,
                   color: AppColors.white,
                   maxLines: 1,
@@ -77,7 +76,7 @@ class LeagueHeaderWidget extends StatelessWidget {
                     Expanded(
                       child: CommonText(
                         text: subtitle ?? 'Founded 1902',
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         color: AppColors.white.withValues(alpha: 0.9),
                         fontWeight: FontWeight.w400,
                       ),

@@ -92,7 +92,7 @@ class CommonDropdownField<T> extends StatelessWidget {
       borderRadius: BorderRadius.circular(borderRadius.r),
       borderSide: BorderSide(
         color: borderColor == AppColors.transparent
-            ? Colors.grey.withValues(alpha: 0.3)
+            ? AppColors.colorEABB00
             : borderColor,
       ),
     );

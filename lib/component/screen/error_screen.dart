@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled/utils/extensions/extension.dart';
+
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/constants/app_string.dart';
+import '../../utils/extensions/extension.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key, required this.onTap});

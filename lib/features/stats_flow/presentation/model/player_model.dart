@@ -4,26 +4,38 @@ class PlayerModel {
   final String position;
   final String image;
 
-  // Stats fields
-  final int appearances;
-  final int goals;
-  final int assists;
-  final int cleanSheets;
-  final int saves;
-  final int yellowCards;
-  final int redCards;
+  // Stats fields made nullable to handle "hidden" logic correctly
+  final int? appearances;
+  final int? goals;
+  final int? assists;
+  final int? cleanSheets;
+  final int? saves;
+  final int? yellowCards;
+  final int? redCards;
+
+  // Additional public info
+  final String? strongFoot;
+  final int? engCoins;
+  final String? dob;
+  final String? debutDate;
+  final String? teamName;
 
   PlayerModel({
     required this.id,
     required this.name,
     required this.position,
     required this.image,
-    this.appearances = 0,
-    this.goals = 0,
-    this.assists = 0,
-    this.cleanSheets = 0,
-    this.saves = 0,
-    this.yellowCards = 0,
-    this.redCards = 0,
+    this.appearances,
+    this.goals,
+    this.assists,
+    this.cleanSheets,
+    this.saves,
+    this.yellowCards,
+    this.redCards,
+    this.strongFoot,
+    this.engCoins,
+    this.dob,
+    this.debutDate,
+    this.teamName,
   });
 }

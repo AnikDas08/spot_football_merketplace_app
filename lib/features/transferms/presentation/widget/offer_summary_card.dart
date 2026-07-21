@@ -40,7 +40,7 @@ class OfferSummaryCard extends StatelessWidget {
         children: [
           CommonText(
             text: "Offer Summary",
-            fontSize: 20.sp,
+            fontSize: 20,
             fontWeight: FontWeight.w500,
             color: AppColors.primaryColor,
           ),
@@ -81,13 +81,13 @@ class OfferSummaryCard extends StatelessWidget {
         children: [
           CommonText(
             text: title,
-            fontSize: 14.sp,
+            fontSize: 14,
             fontWeight: FontWeight.w500,
             color: AppColors.primaryColor,
           ),
           CommonText(
             text: value,
-            fontSize: 20.sp,
+            fontSize: 20,
             fontWeight: FontWeight.w600,
             color: isProbability ? const Color(0xFF00C566) : AppColors.black,
           ),

@@ -1,24 +1,20 @@
 class NotificationModel {
   final String id;
-  final String alertType;
+  final String type;
   final String title;
-  final String subtitle;
-  final String linkId;
-  final String role;
+  final String message;
   final String receiver;
-  final int v;
+  final bool isRead;
   final DateTime createdAt;
   final DateTime updatedAt;
 
   const NotificationModel({
     required this.id,
-    required this.alertType,
+    required this.type,
     required this.title,
-    required this.subtitle,
-    required this.linkId,
-    required this.role,
+    required this.message,
     required this.receiver,
-    required this.v,
+    required this.isRead,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -26,13 +22,11 @@ class NotificationModel {
   factory NotificationModel.fromJson(Map<String, dynamic>? json) {
     return NotificationModel(
       id: json?['_id'] ?? '',
-      alertType: json?['type'] ?? '',
+      type: json?['type'] ?? '',
       title: json?['title'] ?? '',
-      subtitle: json?['subtitle'] ?? '',
-      linkId: json?['linkId'] ?? '',
-      role: json?['role'] ?? '',
+      message: json?['message'] ?? '',
       receiver: json?['receiver'] ?? '',
-      v: json?['__v'] ?? 0,
+      isRead: json?['isRead'] ?? false,
       createdAt:
           DateTime.tryParse(json?['createdAt'] ?? '') ??
           DateTime.fromMillisecondsSinceEpoch(0),

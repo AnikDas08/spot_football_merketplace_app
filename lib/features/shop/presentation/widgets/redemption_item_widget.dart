@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/api/api_end_point.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../data/reward_response.dart';
 
 class RedemptionItemWidget extends StatelessWidget {
@@ -26,6 +26,7 @@ class RedemptionItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -38,7 +39,7 @@ class RedemptionItemWidget extends StatelessWidget {
         children: [
           CommonText(
             text: product?.productType ?? '',
-            fontSize: 14.sp,
+            fontSize: 14,
             fontWeight: FontWeight.w600,
             color: AppColors.primaryColor,
             maxLines: 1,
@@ -65,13 +66,13 @@ class RedemptionItemWidget extends StatelessWidget {
             children: [
               CommonText(
                 text: AppString.totalCoins,
-                fontSize: 12.sp,
+                fontSize: 12,
                 color: AppColors.textSecondaryColor,
                 fontWeight: FontWeight.w400,
               ),
               CommonText(
                 text: " ${product?.point ?? 0}",
-                fontSize: 14.sp,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppColors.yellow,
               ),
@@ -82,12 +83,13 @@ class RedemptionItemWidget extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 8.h),
             decoration: BoxDecoration(
-              color: AppColors.black,
+              color: AppColors.primaryColor,
               borderRadius: BorderRadius.circular(10.r),
+              border: Border.all(color: AppColors.colorEABB00, width: 1.w),
             ),
             child: CommonText(
               text: AppString.redeem,
-              fontSize: 14.sp,
+              fontSize: 14,
               fontWeight: FontWeight.w600,
               color: AppColors.white,
               textAlign: TextAlign.center,

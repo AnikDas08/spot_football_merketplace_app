@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/features/profile/presentation/controller/profile_controller.dart';
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-
+import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
+import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../../utils/constants/temp_image.dart';
+import '../controller/profile_controller.dart';
 
 class MyChildrenScreen extends StatelessWidget {
   const MyChildrenScreen({super.key});
@@ -68,14 +67,14 @@ class MyChildrenScreen extends StatelessWidget {
         children: [
           CommonText(
             text: AppString.activeAthletes,
-            fontSize: 24.sp,
+            fontSize: 24,
             fontWeight: FontWeight.w700,
             color: AppColors.black,
             bottom: 8,
           ),
           CommonText(
             text: AppString.manageYourChildrenSports,
-            fontSize: 14.sp,
+            fontSize: 14,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
             maxLines: 2,
@@ -122,7 +121,7 @@ class MyChildrenScreen extends StatelessWidget {
                   children: [
                     CommonText(
                       text: name,
-                      fontSize: 18.sp,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: AppColors.black,
                     ),
@@ -154,13 +153,13 @@ class MyChildrenScreen extends StatelessWidget {
                   children: [
                     CommonText(
                       text: AppString.nextGame,
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textSecondaryColor,
                     ),
                     CommonText(
                       text: "TBA",
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: AppColors.primaryColor,
                     ),
@@ -177,7 +176,7 @@ class MyChildrenScreen extends StatelessWidget {
                     children: [
                       CommonText(
                         text: AppString.viewProfile,
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primaryColor,
                       ),
@@ -210,7 +209,7 @@ class MyChildrenScreen extends StatelessWidget {
           ],
           CommonText(
             text: text,
-            fontSize: 12.sp,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
             color: isTeam ? const Color(0xFF19CA77) : AppColors.textSecondaryColor,
           ),

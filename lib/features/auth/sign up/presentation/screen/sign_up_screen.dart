@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
 import '../../../../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../utils/constants/app_colors.dart';
+import '../../../sign in/presentation/widgets/signup_appbar.dart';
 import '../controller/sign_up_controller.dart';
 import '../../../../../../../utils/constants/app_string.dart';
 import '../widget/already_accunt_rich_text.dart';
@@ -45,7 +45,7 @@ class SignUpScreen extends StatelessWidget {
 
                   /// ── Subtitle ──
                   const CommonText(
-                    text: 'Enter the ENG. Claim Your Legacy.',
+                    text: 'Register For the ENG App Today',
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     textAlign: TextAlign.start,

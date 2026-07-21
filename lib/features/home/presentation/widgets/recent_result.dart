@@ -1,20 +1,28 @@
+import 'package:eng_sports/features/home/presentation/widgets/recent_result_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/features/home/presentation/widgets/recent_result_card.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
 import '../../data/match_model.dart';
 
 class RecentResult extends StatelessWidget {
   final List<MatchModel> matches;
   final bool isLoading;
+  final Color? titleColor;
+  final Color? viewAllColor;
 
   const RecentResult({
     super.key,
     required this.matches,
     this.isLoading = false,
+    this.titleColor,
+    this.viewAllColor,
   });
 
   @override
@@ -33,46 +41,82 @@ class RecentResult extends StatelessWidget {
 
     if (matches.isEmpty) return const SizedBox.shrink();
 
+    final displayMatches = matches.length > 5 ? matches.take(5).toList() : matches;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonText(
-            text: "RECENT RESULTS",
-            fontSize: 20.sp,
-            fontWeight: const FontWeight(590),
-            color: AppColors.primaryColor,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CommonText(
+                text: "RECENT RESULTS",
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: titleColor ?? AppColors.primaryColor,
+                fontFamily: 'Montserrat',
+              ),
+              InkWell(
+                onTap: () {
+                  Get.toNamed(AppRoutes.allResults, arguments: {'title': "RECENT RESULTS"});
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CommonText(
+                      text: "View All",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                      color: viewAllColor ?? AppColors.primaryColor,
+                    ),
+                    const SizedBox(width: 5),
+                    SvgPicture.asset(
+                      AppIcons.arrowRight,
+                      colorFilter: ColorFilter.mode(
+                        viewAllColor ?? AppColors.primaryColor,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 12.h),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: matches.length,
-            itemBuilder: (context, index) {
-              final match = matches[index];
+          SizedBox(
+            height: 130.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: displayMatches.length,
+              itemBuilder: (context, index) {
+                final match = displayMatches[index];
 
-              // Formatting Date and Time
-              String formattedDate = match.matchDate != null 
-                  ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()
-                  : 'TBA';
-              String formattedTime = match.matchDate != null 
-                  ? DateFormat('HH:mm a').format(match.matchDate!)
-                  : '';
+                String formattedDate = match.matchDate != null 
+                    ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()
+                    : 'TBA';
+                String formattedTime = match.matchDate != null 
+                    ? DateFormat('HH:mm a').format(match.matchDate!)
+                    : '';
 
-              return Padding(
-                padding: EdgeInsets.only(bottom: 14.h),
-                child: RecentResultCard(
-                  id: match.id, // সঠিক ID পাস করা হলো
-                  time: formattedTime,
-                  date: formattedDate,
-                  homeTeam: match.homeTeam.teamName,
-                  awayTeam: match.awayTeam.teamName,
-                  homeScore: match.homeScore,
-                  awayScore: match.awayScore,
-                ),
-              );
-            },
+                return Padding(
+                  padding: EdgeInsets.only(right: 12.w),
+                  child: RecentResultCard(
+                    id: match.id,
+                    time: formattedTime,
+                    date: formattedDate,
+                    homeTeam: match.homeTeam.teamName,
+                    awayTeam: match.awayTeam.teamName,
+                    homeScore: match.homeScore,
+                    awayScore: match.awayScore,
+                    homeLogo: match.homeTeam.teamLogo,
+                    awayLogo: match.awayTeam.teamLogo,
+                    width: 320.w,
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),

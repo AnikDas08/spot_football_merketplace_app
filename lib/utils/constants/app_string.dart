@@ -77,7 +77,7 @@ class AppString {
   static const String unknownError = 'Unknown Error';
 
   // home screen added by ajijul
-  static const String community = "COMMUNITY";
+  static const String community = "PLAY THE GAME";
   static const String home = "HOME";
   static const String watchEngLive = "WATCH ENG TV LIVE";
   static const String latestNews = "latest News";
@@ -216,7 +216,7 @@ class AppString {
   static const perSeason = '/Season';
   static const changeSubscriptionPlan = 'Change Your Subscriptions Plan';
   static const subcriptionDetails = "Subscription Details";
-  static const String fixture = "Fixture";
+  static const String fixture = "FIXTURES";
   static const String allTeam = "All Team";
   static const String specific = "Specific";
   static const String selectATeam = "Select a Team";
