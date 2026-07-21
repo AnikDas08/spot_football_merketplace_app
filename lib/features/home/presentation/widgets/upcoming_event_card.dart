@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/config/api/api_end_point.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../data/event_response.dart';
 
 class UpcomingEventCard extends StatelessWidget {
@@ -140,14 +141,17 @@ class UpcomingEventCard extends StatelessWidget {
 
                   /// Action Button
                   GestureDetector(
-                    onTap: () {
-                      // Logic for event details
+                    onTap: () async {
+                      final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
+                      if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                        throw Exception('Could not launch $url');
+                      }
                     },
                     child: Container(
                       width: double.infinity,
                       height: 52.h,
                       decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
+                        color: AppColors.primaryColor, // Reverted to Primary Black
                         borderRadius: BorderRadius.circular(16.r),
                         border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                       ),

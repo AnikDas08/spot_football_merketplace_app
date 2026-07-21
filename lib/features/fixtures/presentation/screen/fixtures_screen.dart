@@ -3,15 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
-import 'package:untitled/features/home/presentation/widgets/upcoming_fixture_card.dart';
-import 'package:untitled/features/navbar/controller/navbar_controller.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
 
 import '../../../../component/common_appbar/common_appbar.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_string.dart';
+import '../../../home/presentation/widgets/upcoming_fixture_card.dart';
+import '../../../navbar/controller/navbar_controller.dart';
 import '../controller/fixtures_controller.dart';
 import '../widget/fixtures_filter_sheet.dart';
 
@@ -68,7 +67,7 @@ class _TabRow extends StatelessWidget {
               ),
               child: CommonText(
                 text: c.tabs[i],
-                fontSize: 16,
+                fontSize: 12,
                 fontWeight: selected ? FontWeight.w700 : const FontWeight(590),
                 color: selected ? AppColors.white : AppColors.primaryColor,
               ),

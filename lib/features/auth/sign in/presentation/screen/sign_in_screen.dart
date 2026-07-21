@@ -79,9 +79,9 @@ class SignInScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.red, // Text color
+                          color: AppColors.primaryColor, // Changed from Red to Primary Black
                           decoration: TextDecoration.underline, // Underline
-                          decorationColor: AppColors.red, // Underline color
+                          decorationColor: AppColors.primaryColor, // Underline color
                           decorationThickness:
                               2, // (optional) underline thickness
                           fontFamily: 'SFProDisplay',

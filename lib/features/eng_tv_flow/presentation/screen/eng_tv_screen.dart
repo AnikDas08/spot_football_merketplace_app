@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../home/data/video_model.dart';
+import '../../../home/presentation/widgets/latest_videos.dart';
 import '../widget/video_thumbnail_card.dart';
 import 'package:get/get.dart';
 import '../../../home/presentation/controllers/banner_controller.dart';
@@ -139,7 +137,7 @@ class EngTvScreen extends StatelessWidget {
                           child: VideoThumbnailCard(
                             thumbnail: firstVideo.thumbnail,
                             title: firstVideo.title,
-                            duration: 'LIVE',
+                            duration: '0:0',
                             onWatchNow: () {
                               Get.toNamed(
                                 AppRoutes.videoStreamScreen,

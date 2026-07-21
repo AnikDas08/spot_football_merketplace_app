@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/api/api_end_point.dart';
-import 'package:untitled/features/home/presentation/widgets/latest_news.dart';
-import 'package:untitled/features/news/data/models/news_model.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_images.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-
-import 'package:untitled/features/news/presentation/controller/news_controller.dart';
-
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_images.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../../utils/constants/temp_image.dart';
+import '../../../home/presentation/widgets/latest_news.dart';
 import '../../../home/presentation/widgets/latest_videos.dart';
+import '../../../news/data/models/news_model.dart';
+import '../../../news/presentation/controller/news_controller.dart';
 
 class NewsDetailsScreen extends StatefulWidget {
   const NewsDetailsScreen({super.key});

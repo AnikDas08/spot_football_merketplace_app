@@ -8,6 +8,7 @@ class ApiEndPoint {
   static const videoUrl = 'https://api.engsportsevents.co.uk';
 
   static const signUp = '/user/';
+  static const updateFcmToken = '/user';
   static const playerProfile = '/user/player';
   static const managerProfile = '/user/manager';
   static const refereeProfile = '/user/referee';

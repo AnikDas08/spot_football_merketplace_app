@@ -1,12 +1,8 @@
 import 'package:get/get.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/controller/manager_registation_controller.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/controller/player_registatio_controller.dart';
-import 'package:untitled/features/fixtures/presentation/controller/fixtures_controller.dart';
-import 'package:untitled/features/shop/presentation/controllers/shop_controller.dart';
-import 'package:untitled/features/stats_flow/presentation/controller/stats_controller.dart';
-import 'package:untitled/features/transferms_history/presentation/controllers/tab_controller.dart';
+import '../../features/auth/sign up/presentation/controller/manager_registation_controller.dart';
+import '../../features/auth/sign up/presentation/controller/player_registatio_controller.dart';
+import '../../features/fixtures/presentation/controller/fixtures_controller.dart';
 import '../../features/player_profile/presentation/controllers/player_profile_controller.dart';
-
 import '../../features/auth/change_password/presentation/controller/change_password_controller.dart';
 import '../../features/auth/forgot password/presentation/controller/forget_password_controller.dart';
 import '../../features/auth/sign in/presentation/controller/sign_in_controller.dart';
@@ -14,8 +10,6 @@ import '../../features/auth/sign up/presentation/controller/sign_up_controller.d
 import '../../features/eng_tv_flow/presentation/controller/video_streem_controller.dart';
 import '../../features/home/presentation/controllers/banner_controller.dart';
 import '../../features/match_info/presentation/controllers/tabs_controller.dart';
-import '../../features/message/presentation/controller/chat_controller.dart';
-import '../../features/message/presentation/controller/message_controller.dart';
 import '../../features/my_subscription/presentation/controller/subscription_controller.dart';
 import '../../features/navbar/controller/navbar_controller.dart';
 import '../../features/notifications/presentation/controller/notifications_controller.dart';
@@ -23,9 +17,12 @@ import '../../features/profile/presentation/controller/profile_controller.dart';
 import '../../features/setting/presentation/controller/privacy_policy_controller.dart';
 import '../../features/setting/presentation/controller/setting_controller.dart';
 import '../../features/setting/presentation/controller/terms_of_services_controller.dart';
+import '../../features/shop/presentation/controllers/shop_controller.dart';
 import '../../features/stats_flow/presentation/controller/add_player_controller.dart';
+import '../../features/stats_flow/presentation/controller/stats_controller.dart';
 import '../../features/transferms/presentation/controller/transfer_form_controller.dart';
 import '../../features/transferms/presentation/controller/transfer_request_controller.dart';
+import '../../features/transferms_history/presentation/controllers/tab_controller.dart';
 
 class DependencyInjection extends Bindings {
   @override
@@ -35,8 +32,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => ForgetPasswordController(), fenix: true);
     Get.lazyPut(() => ChangePasswordController(), fenix: true);
     Get.lazyPut(() => NotificationsController(), fenix: true);
-    Get.lazyPut(() => ChatController(), fenix: true);
-    Get.lazyPut(() => MessageController(), fenix: true);
     Get.lazyPut(() => SubscriptionController(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
     Get.lazyPut(() => SettingController(), fenix: true);

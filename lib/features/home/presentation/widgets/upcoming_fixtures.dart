@@ -1,15 +1,14 @@
+import 'package:eng_sports/features/home/presentation/widgets/upcoming_fixture_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/features/home/presentation/widgets/upcoming_fixture_card.dart';
-import 'package:untitled/features/navbar/controller/navbar_controller.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
+import '../../../navbar/controller/navbar_controller.dart';
 import '../../data/match_model.dart';
 
 class UpcomingFixtures extends StatelessWidget {
@@ -96,9 +95,9 @@ class UpcomingFixtures extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 20),
           SizedBox(
-            height: 250.h,
+            height: 230.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: displayFixtures.length,

@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
-import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
-import 'package:untitled/features/home/presentation/widgets/league_preview.dart';
-import 'package:untitled/features/home/presentation/widgets/live_matches.dart';
-import 'package:untitled/features/home/presentation/widgets/upcoming_fixtures.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../news/presentation/controller/news_controller.dart';
@@ -14,14 +9,18 @@ import '../controllers/club_profile_controller.dart';
 import '../controllers/event_controller.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/latest_news.dart';
+import '../widgets/latest_videos.dart';
+import '../widgets/league_preview.dart';
+import '../widgets/live_matches.dart';
 import '../widgets/recent_result.dart';
 import '../../../../utils/constants/app_string.dart';
 import '../../../../component/common_appbar/common_appbar.dart';
 import '../widgets/upcoming_events.dart';
 import '../widgets/book_scout_section.dart';
 import '../widgets/eng_tv_home_section.dart';
+import '../widgets/upcoming_fixtures.dart';
 
-import 'package:untitled/component/blur_reveal/blur_reveal.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

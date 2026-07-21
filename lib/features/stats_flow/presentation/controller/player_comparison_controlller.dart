@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:untitled/features/stats_flow/presentation/model/player_model.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../../services/api/api_client.dart';
 import '../../../../services/api/api_service.dart';
+import '../model/player_model.dart';
 
 class PlayerComparisonController extends GetxController {
   final ApiClient apiClient = DioApiClient();

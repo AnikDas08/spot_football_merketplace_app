@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
 
 class LatestVideoCard extends StatelessWidget {
@@ -169,13 +168,14 @@ class LatestVideoCard extends StatelessWidget {
                       width: double.infinity,
                       height: 52.h,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFE53935), // Brand Red
+                        color: AppColors.primaryColor, // Reverted to Primary Black
                         borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                       ),
                       alignment: Alignment.center,
                       child: CommonText(
                         text: "Watch Now",
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                         fontFamily: 'Montserrat',

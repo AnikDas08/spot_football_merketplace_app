@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/config/route/app_routes.dart';
-
 import '../../../../component/common_appbar/secondary_appbar.dart';
 
 import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
 import '../controller/player_comparison_controlller.dart';
 import '../widget/add_player_placeholder.dart';
 import '../widget/compareInfo_card.dart';

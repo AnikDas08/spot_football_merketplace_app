@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/common_appbar.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/common_dropdown_field/common_dropdown_field.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import '../../../../component/common_appbar/common_appbar.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../component/common_dropdown_field/common_dropdown_field.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../controllers/club_profile_controller.dart';
 import '../../data/point_table_model.dart';
 

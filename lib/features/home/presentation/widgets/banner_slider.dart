@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/features/home/presentation/widgets/banner_card.dart';
-import 'package:untitled/features/home/presentation/widgets/banner_slider_indicator.dart';
 
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../controllers/banner_controller.dart';
+import 'banner_card.dart';
+import 'banner_slider_indicator.dart';
 
 class BannerSlider extends StatelessWidget {
   const BannerSlider({super.key});

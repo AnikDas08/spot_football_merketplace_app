@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:untitled/utils/app_snackbar.dart';
 import '../../../../../config/api/api_end_point.dart';
 import '../../../../../config/route/app_routes.dart';
 import '../../../../../services/api/api_client.dart';
 import '../../../../../services/api/api_service.dart';
+import '../../../../../services/notification/notification_service.dart';
 import '../../../../../services/storage/storage_keys.dart';
 import '../../../../../services/storage/storage_services.dart';
+import '../../../../../utils/app_snackbar.dart';
 import '../../../../profile/presentation/controller/profile_controller.dart';
 
 class SignInController extends GetxController {
@@ -61,6 +62,9 @@ class SignInController extends GetxController {
         await LocalStorage.setString(LocalStorageKeys.profileStatus, profileStatus);
         await LocalStorage.setBool(LocalStorageKeys.paymentStatus, paymentStatus);
         await LocalStorage.setString(LocalStorageKeys.role, role);
+
+        // Update FCM Token
+        await NotificationService.updateToken();
 
         // Fetch profile data immediately after login to get latest statuses
         await Get.find<ProfileController>().getProfileData();

@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/services/storage/storage_keys.dart';
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/extensions/extension.dart';
-
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_images.dart';
 import '../../../../utils/constants/app_string.dart';
-
+import '../../component/blur_reveal/blur_reveal.dart';
 import '../../component/button/common_button.dart';
 import '../../component/text/common_text.dart';
+import '../../services/storage/storage_keys.dart';
+import '../../services/storage/storage_services.dart';
+import '../../utils/constants/app_colors.dart';
 
-import 'package:untitled/component/blur_reveal/blur_reveal.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -58,7 +55,7 @@ class OnboardingScreen extends StatelessWidget {
                 children: [
                   const CommonText(
                     text: "PLAY THE GAME",
-                    fontSize: 14,
+                    fontSize: 12,
                     color: AppColors.colorEABB00,
                     fontWeight: FontWeight.w700,
                   ),

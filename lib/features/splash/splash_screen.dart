@@ -1,12 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_images.dart';
 import '../../../../config/route/app_routes.dart';
 import 'package:get/get.dart';
 
+import '../../services/storage/storage_services.dart';
+import '../../utils/constants/app_colors.dart';
+import '../../utils/constants/app_images.dart';
 import '../profile/presentation/controller/profile_controller.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -102,7 +102,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _navigate() async {
     await LocalStorage.getAllPrefData();
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
 
     if (LocalStorage.isLogIn) {
       // Refresh profile data to get latest statuses (profileStatus, paymentStatus)
