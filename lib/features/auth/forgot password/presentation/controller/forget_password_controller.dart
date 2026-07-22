@@ -75,7 +75,7 @@ class ForgetPasswordController extends GetxController {
         Get.toNamed(AppRoutes.verifyEmail);
       } else {
         AppSnackbar.error(
-          title: response.statusCode.toString(),
+          title: 'Error',
           message: response.message,
         );
       }

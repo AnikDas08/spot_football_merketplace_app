@@ -61,7 +61,7 @@ class RefereeDashboardController extends GetxController {
         await fetchMyMatches(); // Refresh the list
         AppSnackbar.success(
           title: 'Success',
-          message: response.data['message'] ?? 'Match status updated',
+          message: response.message,
         );
       }
     } catch (e) {

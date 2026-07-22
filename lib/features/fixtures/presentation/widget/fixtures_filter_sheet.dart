@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../component/button/common_button.dart';
 import '../../../../component/common_dropdown_field/common_dropdown_field.dart';
@@ -30,97 +31,91 @@ void showFilterSheet(BuildContext context, FixturesController c) {
             // Header
             Container(
               color: Colors.black,
-              padding: EdgeInsets.only(
-                top: 60,
-                left: 16,
-                right: 16,
-                bottom: 16,
-              ),
+              padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 40, bottom: 16),
               child: Row(
-                mainAxisAlignment: .spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // 1. Custom Back Button
+                  // 1. Custom Close Button
                   GestureDetector(
                     onTap: () => Get.back(),
                     child: Container(
-                      width: 48.w,
-                      height: 36.h,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 8.h,
-                      ),
+                      width: 44.w,
+                      height: 44.h,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(8.r),
                         border: Border.all(
-                          color: AppColors.color2A2A2A, // Grey border
+                          color: AppColors.colorEABB00,
                           width: 1,
                         ),
                       ),
                       child: Icon(
                         Icons.close,
                         color: Colors.white,
-                        size: 14.sp,
+                        size: 20.sp,
                       ),
                     ),
                   ),
 
                   // 2. Centered Title
-                  Center(
-                    child: Text(
-                      AppString.filter.toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5,
-                      ),
+                  Text(
+                    AppString.filter,
+                    style: GoogleFonts.playfairDisplay(
+                      color: Colors.white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
+
                   TextButton(
                     onPressed: () {
                       c.resetFilters();
                     },
-                    child: CommonText(
-                      text: AppString.reset,
-                      color: AppColors.yellow,
-                      fontSize: 16,
-                      fontWeight: FontWeight(500),
+                    child: Text(
+                      AppString.reset,
+                      style: GoogleFonts.playfairDisplay(
+                        color: AppColors.yellow,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.w),
               child: Column(
-                crossAxisAlignment: .start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
                   // TEAM label
-                  CommonText(
-                    text: AppString.team.toUpperCase(),
-                    fontSize: 15,
-                    fontWeight: FontWeight(650),
-                    color: AppColors.primaryColor,
+                  Text(
+                    AppString.team,
+                    style: GoogleFonts.playfairDisplay(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primaryColor,
+                    ),
                   ),
                   SizedBox(height: 12.h),
 
                   // All Teams / Specific toggle
                   Container(
+                    padding: EdgeInsets.all(4.w),
                     decoration: BoxDecoration(
                       color: AppColors.white,
-                      borderRadius: BorderRadius.circular(30.r),
+                      borderRadius: BorderRadius.circular(15.r),
+                      border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                     ),
                     child: Row(
-                      spacing: 16,
                       children: [
                         _SheetTab(
                           label: AppString.allTeam,
                           selected: c.teamTab == 0,
                           onTap: () => c.selectTeamTab(0),
                         ),
-                        SizedBox(width: 10.w),
+                        SizedBox(width: 8.w),
                         _SheetTab(
                           label: AppString.specific,
                           selected: c.teamTab == 1,
@@ -131,7 +126,7 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                   ),
 
                   if (c.teamTab == 1) ...[
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 12.h),
                     CommonDropdownField<String>(
                       hintText: AppString.selectATeam,
                       value: c.selectedTeam,
@@ -147,14 +142,16 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                     ),
                   ],
 
-                  SizedBox(height: 20.h),
-                  CommonText(
-                    text: AppString.dateRange,
-                    fontSize: 15,
-                    fontWeight: FontWeight(650),
-                    color: AppColors.primaryColor,
+                  SizedBox(height: 24.h),
+                  Text(
+                    AppString.dateRange,
+                    style: GoogleFonts.playfairDisplay(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primaryColor,
+                    ),
                   ),
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 12.h),
 
                   // Date range chips
                   Row(
@@ -178,18 +175,20 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                       ),
                     ],
                   ),
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 16.h),
 
                   // Calendar
                   _CalendarWidget(c: c),
 
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 24.h),
                   CommonButton(
                     titleText: AppString.applyFilters,
                     onTap: c.applyFilters,
                     buttonWidth: double.infinity,
                     buttonColor: AppColors.primaryColor,
                     titleColor: AppColors.white,
+                    buttonHeight: 50,
+                    buttonRadius: 12.r,
                   ),
                 ],
               ),
@@ -217,17 +216,19 @@ class _SheetTab extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12),
+          padding: EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
             color: selected ? AppColors.primaryColor : Colors.transparent,
             borderRadius: BorderRadius.circular(12.r),
           ),
           alignment: Alignment.center,
-          child: CommonText(
-            text: label,
-            fontSize: 16,
-            fontWeight: FontWeight(590),
-            color: selected ? AppColors.white : AppColors.primaryColor,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+              color: selected ? AppColors.white : AppColors.primaryColor,
+            ),
           ),
         ),
       ),
@@ -250,19 +251,22 @@ class _DateChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: selected ? AppColors.primaryColor : AppColors.white,
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: selected ? AppColors.primaryColor : AppColors.background,
+            color: selected ? AppColors.primaryColor : AppColors.colorEABB00,
+            width: 1.w,
           ),
         ),
-        child: CommonText(
-          text: label,
-          fontSize: 16,
-          fontWeight: selected ? FontWeight.w700 : FontWeight(590),
-          color: selected ? AppColors.white : AppColors.primaryColor,
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+            color: selected ? AppColors.white : AppColors.primaryColor,
+          ),
         ),
       ),
     );
@@ -287,38 +291,38 @@ class _CalendarWidget extends StatelessWidget {
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(color: AppColors.colorEABB00, width: 1.w),
       ),
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: .spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CommonText(
-                text: monthName,
-                fontSize: 25,
-                fontWeight: FontWeight(510),
-              ),
-              CommonText(
-                text: '${c.focusedMonth.year}',
-                fontSize: 25,
-                fontWeight: FontWeight(510),
+              Text(
+                '$monthName ${c.focusedMonth.year}',
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primaryColor,
+                ),
               ),
               Row(
                 children: [
                   GestureDetector(
                     onTap: c.previousMonth,
-                    child: Icon(Icons.chevron_left, size: 30.r),
+                    child: Icon(Icons.chevron_left, size: 24.r, color: AppColors.primaryColor),
                   ),
+                  SizedBox(width: 8.w),
                   GestureDetector(
                     onTap: c.nextMonth,
-                    child: Icon(Icons.chevron_right, size: 30.r),
+                    child: Icon(Icons.chevron_right, size: 24.r, color: AppColors.primaryColor),
                   ),
                 ],
               )
             ],
           ),
-          SizedBox(height: 8.h),
+          SizedBox(height: 12.h),
           _buildGrid(daysInMonth, startWeekday),
         ],
       ),
@@ -438,7 +442,7 @@ class _DayCell extends StatelessWidget {
     Color textColor = isCurrentMonth
         ? AppColors.primaryColor
         : AppColors.background;
-    FontWeight fw = FontWeight(510);
+    FontWeight fw = FontWeight.w500;
 
     if (isSelected) {
       bg = AppColors.primaryColor;
@@ -461,11 +465,13 @@ class _DayCell extends StatelessWidget {
           borderRadius: !isSelected && isInRange ? BorderRadius.circular(0) : (isSelected ? null : BorderRadius.circular(12.r)),
         ),
         alignment: Alignment.center,
-        child: CommonText(
-          text: '$day',
-          fontSize: 15,
-          color: textColor,
-          fontWeight: fw,
+        child: Text(
+          '$day',
+          style: TextStyle(
+            fontSize: 14.sp,
+            color: textColor,
+            fontWeight: fw,
+          ),
         ),
       ),
     );

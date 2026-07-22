@@ -98,7 +98,7 @@ class SignInController extends GetxController {
         passwordController.clear();
 
         AppSnackbar.success(
-          title: response.statusCode.toString(),
+          title: 'Success',
           message: response.message,
         );
       } else {
@@ -126,7 +126,7 @@ class SignInController extends GetxController {
         }
 
         AppSnackbar.error(
-          title: response.statusCode.toString(),
+          title: 'Error',
           message: response.message,
         );
       }

@@ -44,13 +44,72 @@ class AppDrawer extends StatelessWidget {
                       children: [
                         _buildProfile(profileController),
                         SizedBox(height: 36.h),
+                        
+                        // 1. Fixtures
+                        _buildMenuItem(
+                          label: "Fixtures",
+                          onTap: () {
+                            Get.back();
+                            Get.find<NavBarController>().selectedIndex.value = 1;
+                          },
+                        ),
+                        
+                        // 2. League tables
+                        _buildMenuItem(
+                          label: "League tables",
+                          onTap: () {
+                            Get.back();
+                            Get.find<NavBarController>().selectedIndex.value = 2;
+                          },
+                        ),
+                        
+                        // 3. ENG TV
+                        _buildMenuItem(
+                          label: "ENG TV",
+                          onTap: () {
+                            Get.back();
+                            Get.find<NavBarController>().selectedIndex.value = 3;
+                          },
+                        ),
+                        
+                        // 4. Upcoming Events
+                        _buildMenuItem(
+                          label: "Upcoming Events",
+                          onTap: () async {
+                            final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
+                            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
+                        ),
+                        
+                        // 5. Book a Scout
+                        _buildMenuItem(
+                          label: "Book a Scout",
+                          onTap: () async {
+                            final Uri url = Uri.parse('https://www.engsportsevents.co.uk/bookscout');
+                            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
+                        ),
+                        
+                        // 6. Stats
+                        _buildMenuItem(
+                          label: "Stats",
+                          onTap: () {
+                            Get.back();
+                            Get.find<NavBarController>().selectedIndex.value = 4;
+                          },
+                        ),
+
+                        // Other role-specific items
                         if (!LocalStorage.isGuest) ...[
+                          SizedBox(height: 20.h),
                           _buildMenuItem(
                             label: AppString.editProfile,
                             onTap: () => Get.toNamed(AppRoutes.editProfile),
                           ),
-                        ],
-                        if (!LocalStorage.isGuest) ...[
                           if (role == "REFEREE") ...[
                             _buildMenuItem(
                               label: "Referee Dashboard",
@@ -93,58 +152,14 @@ class AppDrawer extends StatelessWidget {
                             onTap: () => Get.toNamed(AppRoutes.changePassword),
                           ),
                         ],
-                        _buildMenuItem(
-                          label: "Book a Scout",
-                          onTap: () async {
-                            final Uri url = Uri.parse('https://www.engsportsevents.co.uk/bookscout');
-                            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-                              throw Exception('Could not launch $url');
-                            }
-                          },
-                        ),
-                        _buildMenuItem(
-                          label: "Upcoming Events",
-                          onTap: () async {
-                            final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
-                            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-                              throw Exception('Could not launch $url');
-                            }
-                          },
-                        ),
-                        if (LocalStorage.isGuest) ...[
-                          _buildMenuItem(
-                            label: "Fixtures",
-                            onTap: () {
-                              Get.back();
-                              Get.find<NavBarController>().selectedIndex.value = 1;
-                            },
-                          ),
-                          _buildMenuItem(
-                            label: "League Tables",
-                            onTap: () {
-                              Get.back();
-                              Get.find<NavBarController>().selectedIndex.value = 2;
-                            },
-                          ),
-                          _buildMenuItem(
-                            label: "ENG TV",
-                            onTap: () {
-                              Get.back();
-                              Get.find<NavBarController>().selectedIndex.value = 3;
-                            },
-                          ),
-                          _buildMenuItem(
-                            label: "Statistics",
-                            onTap: () {
-                              Get.back();
-                              Get.find<NavBarController>().selectedIndex.value = 4;
-                            },
-                          ),
-                        ],
+
+                        // 7. Privacy policy
                         _buildMenuItem(
                           label: AppString.privacyPolicy,
                           onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
                         ),
+                        
+                        // 8. Terms of service
                         _buildMenuItem(
                           label: AppString.termsOfServices,
                           onTap: () => Get.toNamed(AppRoutes.termsOfServices),
@@ -209,8 +224,8 @@ class AppDrawer extends StatelessWidget {
         SizedBox(height: 14.h),
         CommonText(
           text: name.isEmpty ? 'User Name' : name,
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
+          fontSize: isGuest ? 16 : 20,
+          fontWeight: isGuest ? FontWeight.w400 : FontWeight.w700,
           color: AppColors.primaryColor,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -277,7 +292,7 @@ class AppDrawer extends StatelessWidget {
     
     return SizedBox(
       width: double.infinity,
-      height: 52.h,
+      height: 48.h,
       child: ElevatedButton.icon(
         onPressed: () {
           if (isGuest) {
@@ -326,7 +341,7 @@ class AppDrawer extends StatelessWidget {
               colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
             ),
         label: CommonText(
-          text: isGuest ? "Login / Sign Up" : AppString.logout,
+          text: isGuest ? "Login" : AppString.logout,
           fontSize: 16,
           fontWeight: FontWeight.w600,
           color: AppColors.white,

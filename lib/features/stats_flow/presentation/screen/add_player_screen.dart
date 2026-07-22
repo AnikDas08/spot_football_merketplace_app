@@ -18,7 +18,7 @@ class AddPlayerScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: ActionAppBar(
-        title: 'SELECT PLAYER', 
+        title: 'Select player', 
         onResetTap: () => controller.resetFilters(),
         onSearchChanged: (value) => controller.onSearch(value),
       ),

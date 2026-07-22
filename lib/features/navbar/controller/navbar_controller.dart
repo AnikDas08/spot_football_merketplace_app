@@ -30,9 +30,9 @@ class NavBarController extends GetxController {
 
   final List<String> titles = [
     AppString.community,
-    AppString.fixture,
-    'League Tables',
-    "ENG TV",
+    'Fixtures',
+    'Tables',
+    "Eng tv",
     'Stats',
   ];
 
@@ -40,7 +40,7 @@ class NavBarController extends GetxController {
     'Home',
     'Fixtures',
     'Leagues',
-    "ENG TV",
+    "Eng tv",
     "Stats"
   ];
 

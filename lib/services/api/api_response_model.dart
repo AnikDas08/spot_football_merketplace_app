@@ -13,7 +13,24 @@ class ApiResponseModel {
     if (_statusCode == 502) {
       return AppString.startServer;
     }
-    return _data?['message'] ?? AppString.someThingWrong;
+    
+    // Check various common message fields in the response data
+    if (_data != null) {
+      if (_data!['message'] != null && _data!['message'].toString().isNotEmpty) {
+        return _data!['message'].toString();
+      }
+      if (_data!['msg'] != null && _data!['msg'].toString().isNotEmpty) {
+        return _data!['msg'].toString();
+      }
+      if (_data!['error'] != null && _data!['error'].toString().isNotEmpty) {
+        return _data!['error'].toString();
+      }
+      if (_data!['error_description'] != null && _data!['error_description'].toString().isNotEmpty) {
+        return _data!['error_description'].toString();
+      }
+    }
+
+    return AppString.someThingWrong;
   }
 
   Map<String, dynamic> get data => _data ?? {};

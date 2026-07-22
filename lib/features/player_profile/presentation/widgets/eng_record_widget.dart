@@ -6,6 +6,7 @@ import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_images.dart';
 import '../../../../utils/constants/app_string.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EngRecordWidget extends StatelessWidget {
   final Map<String, dynamic>? stats;
@@ -24,13 +25,17 @@ class EngRecordWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
+
+
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonText(
-            text: AppString.engRecord,
-            fontSize: 20,
-            fontWeight: const FontWeight(650),
-            color: AppColors.primaryColor,
+          Text(
+            AppString.engRecord,
+            style: GoogleFonts.playfairDisplay(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.primaryColor,
+            ),
           ),
           SizedBox(height: 16.h),
           GridView.count(

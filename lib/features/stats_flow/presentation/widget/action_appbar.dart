@@ -6,6 +6,8 @@ import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../controller/add_player_controller.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onResetTap;
@@ -60,11 +62,13 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
                 // Title
                 Expanded(
                   child: Center(
-                    child: CommonText(
-                      text: title.toUpperCase(),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                    child: Text(
+                      title,
+                      style: GoogleFonts.playfairDisplay(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),

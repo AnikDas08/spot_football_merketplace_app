@@ -20,7 +20,7 @@ class PlayerComparisonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SecondaryAppBar(title: 'player comparison'),
+      appBar: SecondaryAppBar(title: 'Player comparison'),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(

@@ -96,11 +96,11 @@ class TransferRequestController extends GetxController {
       if (response.statusCode == 200) {
         AppSnackbar.success(
           title: 'Success',
-          message: 'Offer for $playerName has been withdrawn.',
+          message: response.message,
         );
         fetchRequests(); // Refresh the list
       } else {
-        throw Exception(response.data['message'] ?? 'Failed to withdraw offer');
+        throw Exception(response.message);
       }
     } catch (e) {
       AppSnackbar.error(title: 'Error', message: e.toString());
@@ -124,11 +124,11 @@ class TransferRequestController extends GetxController {
       if (response.statusCode == 200) {
         AppSnackbar.success(
           title: 'Success',
-          message: 'Transfer request for $playerName approved.',
+          message: response.message,
         );
         fetchRequests();
       } else {
-        throw Exception(response.data['message'] ?? 'Failed to approve transfer');
+        throw Exception(response.message);
       }
     } catch (e) {
       AppSnackbar.error(title: 'Error', message: e.toString());
@@ -152,11 +152,11 @@ class TransferRequestController extends GetxController {
       if (response.statusCode == 200) {
         AppSnackbar.success(
           title: 'Rejected',
-          message: 'Transfer request for $playerName rejected.',
+          message: response.message,
         );
         fetchRequests();
       } else {
-        throw Exception(response.data['message'] ?? 'Failed to reject transfer');
+        throw Exception(response.message);
       }
     } catch (e) {
       AppSnackbar.error(title: 'Error', message: e.toString());

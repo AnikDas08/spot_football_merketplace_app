@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_string.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RecentPerformance extends StatelessWidget {
   final List<dynamic>? matches;
@@ -18,13 +19,17 @@ class RecentPerformance extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
+
+
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonText(
-            text: AppString.recentPerformance.toUpperCase(),
-            fontSize: 20,
-            fontWeight: const FontWeight(590),
-            color: AppColors.primaryColor,
+          Text(
+            AppString.recentPerformance,
+            style: GoogleFonts.playfairDisplay(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.primaryColor,
+            ),
           ),
           const SizedBox(height: 10),
           Column(

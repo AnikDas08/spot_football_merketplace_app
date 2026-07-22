@@ -19,7 +19,7 @@ class SeasonStatsScreen extends StatelessWidget {
     final SeassonStatsController controller = Get.put(SeassonStatsController());
 
     return Scaffold(
-      appBar: SecondaryAppBar(title: 'season stats'),
+      appBar: SecondaryAppBar(title: 'Season stats'),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(

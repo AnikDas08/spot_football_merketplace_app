@@ -10,6 +10,7 @@ import '../../../../utils/constants/app_icons.dart';
 import '../controller/stats_controller.dart';
 import '../widget/player_statcard.dart';
 import '../widget/season_stats_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StatsScreen extends StatelessWidget {
   StatsScreen({super.key});
@@ -29,22 +30,26 @@ class StatsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
+
+
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CommonText(
-                      text: "Statistics",
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.primaryColor,
-                      fontFamily: 'Montserrat',
+                    Text(
+                      "Statistics",
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.primaryColor,
+                      ),
                     ),
                     SizedBox(height: 4.h),
-                    CommonText(
-                      text: "2026/27 Top Stats",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.color373737,
-                      fontFamily: 'Montserrat',
+                    Text(
+                      "2026/27 Top stats",
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.color373737,
+                      ),
                     ),
                   ],
                 ),

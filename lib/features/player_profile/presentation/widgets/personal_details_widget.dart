@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_images.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PersonalDetailsWidget extends StatelessWidget {
   final Map<String, dynamic>? playerData;
@@ -45,14 +46,18 @@ class PersonalDetailsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CommonText(
-                text: 'PERSONAL DETAILS',
-                fontSize: 20,
-                fontWeight: const FontWeight(590),
-                color: AppColors.primaryColor,
+              Text(
+                'Personal details',
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primaryColor,
+                ),
               ),
               if (playerData!['status'] == 'APPROVED')
                 Image.asset(AppImages.approved, width: 90.w,fit: .fill,),

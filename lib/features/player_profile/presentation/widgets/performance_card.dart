@@ -76,7 +76,7 @@ class PerformanceCard extends StatelessWidget {
                     ),
                     CommonText(
                       maxLines: 2,
-                      text: AppString.premierLeagueAway.toUpperCase(),
+                      text: AppString.premierLeagueAway,
                       fontSize: 14,
                       fontWeight: FontWeight(590),
                       color: AppColors.color6B6B6B,

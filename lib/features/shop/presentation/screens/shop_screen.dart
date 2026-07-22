@@ -19,7 +19,7 @@ class ShopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const SecondaryAppBar(title: 'SHOP'),
+      appBar: const SecondaryAppBar(title: 'Shop'),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -15,6 +15,7 @@ import '../widgets/league_context_widget.dart';
 import '../widgets/league_header_widget.dart';
 import '../widgets/recent_result.dart';
 import '../widgets/upcoming_fixtures.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ClubProfileScreen extends StatelessWidget {
   ClubProfileScreen({super.key});
@@ -98,14 +99,18 @@ class ClubProfileScreen extends StatelessWidget {
                   UpcomingFixtures(fixtures: controller.upcomingMatches),
                   SizedBox(height: 20.h),
 
+
+
                   if (sortedPositions.isNotEmpty) ...[
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: CommonText(
-                        text: 'TOTAL SQUADS',
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.primaryColor,
+                      child: Text(
+                        'Total squads',
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.primaryColor,
+                        ),
                       ),
                     ),
                     SizedBox(height: 12.h),

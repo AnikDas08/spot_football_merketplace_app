@@ -77,10 +77,10 @@ class AppString {
   static const String unknownError = 'Unknown Error';
 
   // home screen added by ajijul
-  static const String community = "PLAY THE GAME";
+  static const String community = "Home";
   static const String home = "HOME";
-  static const String watchEngLive = "WATCH ENG TV LIVE";
-  static const String latestNews = "latest News";
+  static const String watchEngLive = "Watch ENG TV live";
+  static const String latestNews = "Latest news";
 
   // added by arif
 
@@ -97,21 +97,21 @@ class AppString {
   static const String strLblContractDuration = "Contract Duration";
   static const String strHintContractDuration = "Select Season";
 
-  static const String recentResult = "Recent Results";
+  static const String recentResult = "Recent results";
   static const String upcomingFixtures = "Upcoming Fixtures";
   static const String vs = "VS";
   static const String titansSc = "Titans SC";
   static const String vortexFc = "Vortex FC";
-  static const String leaguePreview = "League Preview";
-  static const String viewAll = "View All";
+  static const String leaguePreview = "League preview";
+  static const String viewAll = "View all";
   static const String arsenal = "Arsenal";
-  static const String latestVideos = "latest Videos";
+  static const String latestVideos = "Latest videos";
   static const String thingsYouMayHaveMissedFromMatchweek20 =
       "Things you may have missed from Matchweek 20";
   static const String engCommunityAcademyStarOfTheWeek =
       "ENG Community Academy Star of the Week-Name:Leo";
   static const String feature = "Feature";
-  static const String transfer = "TRANSFER";
+  static const String transfer = "Transfer";
   static const String twoMinutesAgo = "2 min ago";
   static const String neonUnitedAddsNewMidfielder =
       "Neon United adds new midfielder";
@@ -144,7 +144,7 @@ class AppString {
 
   // news details page added by ajijul
 
-  static const String newsDetails = 'News Details';
+  static const String newsDetails = 'News details';
   static const String thisWeekWereProudToCelebrateLeoAsOurStarOfTheWeek =
       "This week, we’re proud to celebrate Leo as our Star of the Week!";
   static const String
@@ -155,13 +155,13 @@ class AppString {
   static const String
   keepUpTheAmazingWorkLeoYourHardWorkIsPayingOffWeExcitedToSeeYourContinuedProgress =
       "Keep up the amazing work, Leo — your hard work is paying off, and we’re excited to see your continued progress!";
-  static const String related = "RELATED";
-  static const String playerProfile = "PLAYER PROFILE";
-  static const String engRecord = "ENG RECORD";
-  static const String recentPerformance = "Recent Performance";
+  static const String related = "Related";
+  static const String playerProfile = "Player profile";
+  static const String engRecord = "Eng record";
+  static const String recentPerformance = "Recent performance";
   static const String oct12 = "OCT 24";
   static const String vsRangerUnited = "vs Rangers United";
-  static const String premierLeagueAway = "Premier League • Away";
+  static const String premierLeagueAway = "Premier league • Away";
   static const String twoGoal = "2 Goals";
   static const String rewardsRedemption = "Rewards / Redemption";
   static const String mySubscriptions = "My Subscriptions";
@@ -216,14 +216,14 @@ class AppString {
   static const perSeason = '/Season';
   static const changeSubscriptionPlan = 'Change Your Subscriptions Plan';
   static const subcriptionDetails = "Subscription Details";
-  static const String fixture = "FIXTURES";
+  static const String fixture = "Fixtures";
   static const String allTeam = "All Team";
   static const String specific = "Specific";
   static const String selectATeam = "Select a Team";
   static const String reset = "Reset";
   static const String team = "Team";
   static const String filter = "Filter";
-  static const String dateRange = "Date Range";
+  static const String dateRange = "Date range";
   static const String today = "Today";
   static const String thisWeek = "This Week";
   static const String thisMonth = "This Month";
@@ -233,10 +233,10 @@ class AppString {
   static const filterByLeague = 'Filter by League';
 
   static const String labelVideo = "Video";
-  static const String labelWatchNow = "Watch Now";
+  static const String labelWatchNow = "Watch now";
   static const String trending = "Trending";
   static const String liveStadium = "Live Stadium";
-  static const String recentOffers = "Recent Offers";
+  static const String recentOffers = "Recent offers";
   static const String offerTrial = "OFFER TRIAL";
   static const String pendingApproval = "pending approval";
   static const String offerSubmitted = "Offer Submitted";
@@ -245,11 +245,11 @@ class AppString {
   static const String contractDuration = "CONTRACT DURATION";
   static const String backToTransfers = "Back to Transfers";
 
-  static const String upcomingEvents = "Upcoming Events";
+  static const String upcomingEvents = "Upcoming events";
   static const String limitedSlots = "Limited Slots";
   static const String summerFootballTournament2026 = "Summer Football Tournament 2026";
   static const String ageGroupUnder12_16 = "Age Group:Under 12 - 16";
-  static const String viewDetails = "View Details";
+  static const String viewDetails = "View details";
   static const String top10GoalsWeek24 = "Top 10 Goals: Week 24";
   static const String threeHourAgoEngOriginal = "3h ago • ENG Original";
   static const String duration7m = "7m";

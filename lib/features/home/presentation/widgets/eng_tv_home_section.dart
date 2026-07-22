@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../component/text/common_text.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../eng_tv_flow/presentation/widget/video_thumbnail_card.dart';
 import '../../../navbar/controller/navbar_controller.dart';
 import '../controllers/banner_controller.dart';
@@ -39,13 +42,15 @@ class EngTvHomeSection extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
               children: [
-                CommonText(
-                  text: "ENG TV",
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'Montserrat',
-                  color: titleColor,
+                Text(
+                  "Eng tv",
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                    color: titleColor ?? AppColors.primaryColor,
+                  ),
                 ),
                 InkWell(
                   onTap: () {
@@ -54,11 +59,13 @@ class EngTvHomeSection extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      CommonText(
-                        text: "View All",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: viewAllColor ?? AppColors.primaryColor,
+                      Text(
+                        AppString.viewAll,
+                        style: GoogleFonts.playfairDisplay(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          color: viewAllColor ?? AppColors.primaryColor,
+                        ),
                       ),
                       const SizedBox(width: 5),
                       SvgPicture.asset(

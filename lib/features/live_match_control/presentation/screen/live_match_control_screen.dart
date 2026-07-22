@@ -19,7 +19,7 @@ class LiveMatchControlScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      appBar: SecondaryAppBar(title: "LIVE MATCH CONTROL"),
+      appBar: SecondaryAppBar(title: "Live match control"),
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(

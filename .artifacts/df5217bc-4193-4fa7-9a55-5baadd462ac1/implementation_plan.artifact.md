@@ -1,51 +1,38 @@
-# Implementation Plan - Navigation & Menu Changes (Point 2)
+# Implementation Plan - Robust API Message Handling and Snackbar Fixes
 
-Refactor navigation titles, menu ordering, and button styles based on client feedback.
-
-## User Review Required
-
-> [!IMPORTANT]
-> The menu in the drawer will be restructured to prioritize the requested items (Fixtures, Tables, etc.) for all users, including guests and registered users.
+Improve the extraction of meaningful messages from API responses and fix snackbars that display status codes instead of descriptive titles.
 
 ## Proposed Changes
 
-### [Constants & Metadata]
+### [Core Services]
 
-#### [MODIFY] [app_string.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/utils/constants/app_string.dart)
-- Change `community` from `"PLAY THE GAME"` to `"Home"`.
-- Change `latestNews` from `"latest News"` to `"Home"`.
+#### [MODIFY] [api_response_model.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/services/api/api_response_model.dart)
+- Enhance the `message` getter to check for multiple common fields (`message`, `msg`, `error`, `error_description`).
+- Add logic to handle cases where the API response might be a direct string or nested under a `data` object (e.g., `data['message']`).
+- Fallback to `AppString.someThingWrong` only if no descriptive text is found.
 
-### [Navigation & Menu]
+### [Authentication Controllers]
 
-#### [MODIFY] [navbar_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/navbar/controller/navbar_controller.dart)
-- Update `labels` to ensure consistency (already seems to have 'Home').
-- Update `titles` to reflect "Home" for the first index.
+#### [MODIFY] [sign_in_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/auth/sign%20in/presentation/controller/sign_in_controller.dart)
+- Replace `title: response.statusCode.toString()` with `title: 'Success'` in the success snackbar.
+- Replace `title: response.statusCode.toString()` with `title: 'Error'` in the error snackbar.
 
-#### [MODIFY] [app_drawer.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/drawer/presentation/screen/app_drawer.dart)
-- **Reorder Menu Items**:
-    1.  Fixtures (Link to NavBar index 1)
-    2.  League Tables (Link to NavBar index 2)
-    3.  ENG TV (Link to NavBar index 3)
-    4.  Upcoming Events (Link to external URL)
-    5.  Book a Scout (Link to external URL)
-    6.  Stats (Link to NavBar index 4)
-    7.  Privacy Policy
-    8.  Terms of Service
-- **UI Tweaks**:
-    - "Guest User" text: Set `FontWeight.w400` and reduce `fontSize`.
-    - "Login / Sign Up" button: Reduce `height` and `padding`.
+#### [MODIFY] [forget_password_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/auth/forgot%20password/presentation/controller/forget_password_controller.dart)
+- Replace `title: response.statusCode.toString()` with `title: 'Error'` in the error snackbar within `sendForgetPasswordEmail`.
 
-### [Onboarding & Auth UI]
+### [Consistency & Cleanup]
 
-#### [MODIFY] [onboarding_screen.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/onboarding_screen/onboarding_screen.dart)
-- Reduce size/height of "Sign Up" and "Sign in" buttons.
-- Reduce `fontSize` of "Continue with Limited Access".
+#### [MODIFY] Multiple Controllers
+Refactor the following controllers to use `response.message` instead of manually accessing `response.data['message']` for better consistency and error handling:
+- [live_match_control_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/live_match_control/presentation/controller/live_match_control_controller.dart)
+- [record_goal_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/live_match_control/presentation/controller/record_goal_controller.dart)
+- [player_profile_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/player_profile/presentation/controllers/player_profile_controller.dart)
+- [referee_dashboard_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/referee_dashboard/presentation/controller/referee_dashboard_controller.dart)
+- [transfer_request_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/transferms/presentation/controller/transfer_request_controller.dart)
 
 ## Verification Plan
 
 ### Manual Verification
-- **Titles**: Open the app and verify the top app bar says "Home" instead of "PLAY THE GAME".
-- **Home Screen**: Scroll down to the news section and verify the title is "Home" instead of "LATEST NEWS".
-- **Drawer**: Open the drawer and verify the menu items are in the correct order.
-- **Drawer Profile**: Verify "Guest User" text is smaller and not bold.
-- **Buttons**: Check the Login/Sign-Up button in the drawer and the buttons on the Onboarding screen to ensure they appear smaller.
+- **Sign In**: Attempt to sign in with incorrect credentials. Verify the snackbar title says "Error" and the message is descriptive (e.g., "Invalid email or password").
+- **Forget Password**: Enter an invalid email. Verify the snackbar title says "Error" and shows a meaningful message.
+- **Other Actions**: Perform actions like approving a transfer or recording a goal. Verify that snackbars show descriptive text from the API rather than generic messages or codes.

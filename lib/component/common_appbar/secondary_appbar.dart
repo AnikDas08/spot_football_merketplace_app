@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 
 import '../../utils/constants/app_colors.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
@@ -65,11 +67,11 @@ class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Padding(
                 padding: EdgeInsets.only(right: 70.w), // Offset for the back button width
                 child: Text(
-                  title.toUpperCase(),
-                  style: TextStyle(
+                  title,
+                  style: GoogleFonts.playfairDisplay(
                     color: Colors.white,
                     fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                     letterSpacing: 0.5,
                   ),
                 ),

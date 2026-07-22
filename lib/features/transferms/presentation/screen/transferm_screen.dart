@@ -11,6 +11,7 @@ import '../../../drawer/presentation/screen/app_drawer.dart';
 import '../controller/transfer_controller.dart';
 import '../widget/player_card.dart';
 import '../widget/trial_offer_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TransferScreen extends StatelessWidget {
   const TransferScreen({super.key});
@@ -18,7 +19,7 @@ class TransferScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(TransferController());
     return Scaffold(
-      appBar: SecondaryAppBar(title: AppString.transfer.toUpperCase()),
+      appBar: SecondaryAppBar(title: AppString.transfer),
       drawer: const AppDrawer(),
       body: SafeArea(
         child: GetBuilder<TransferController>(
@@ -71,14 +72,18 @@ class TransferScreen extends StatelessWidget {
                     //   ),
                     // ),
                     // SizedBox(height: 32.h),
+
+
                     if (controller.isLoading.value || controller.playerList.isNotEmpty) ...[
                       Padding(
                         padding: const EdgeInsets.only(left: 16, right: 16, top: 0),
-                        child: CommonText(
-                          text: AppString.recentOffers.toUpperCase(),
-                          color: AppColors.primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
+                        child: Text(
+                          AppString.recentOffers,
+                          style: GoogleFonts.playfairDisplay(
+                            color: AppColors.primaryColor,
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                       SizedBox(height: 16.h),

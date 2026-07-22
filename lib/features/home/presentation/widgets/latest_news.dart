@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../component/blur_reveal/blur_reveal.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
@@ -95,12 +97,13 @@ class _LatestNewsState extends State<LatestNews> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: CommonText(
-                          text: AppString.latestNews.toUpperCase(),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Montserrat',
-                          color: widget.titleColor,
+                        child: Text(
+                          AppString.latestNews,
+                          style: GoogleFonts.playfairDisplay(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500,
+                            color: widget.titleColor ?? AppColors.primaryColor,
+                          ),
                         ),
                       ),
                       InkWell(
@@ -110,11 +113,13 @@ class _LatestNewsState extends State<LatestNews> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            CommonText(
-                              text: AppString.viewAll,
-                              fontWeight: const FontWeight(500),
-                              fontSize: 14,
-                              color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
+                            Text(
+                              AppString.viewAll,
+                              style: GoogleFonts.playfairDisplay(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                                color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
+                              ),
                             ),
                             const SizedBox(width: 5),
                             SvgPicture.asset(

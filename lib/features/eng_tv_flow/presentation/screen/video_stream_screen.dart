@@ -10,6 +10,7 @@ import '../../../../utils/constants/temp_image.dart';
 import '../controller/video_streem_controller.dart';
 import '../widget/custom_video_player.dart';
 import '../widget/video_news_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class VideoStreamScreen extends StatelessWidget {
   VideoStreamScreen({super.key});
@@ -66,7 +67,7 @@ class VideoStreamScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 16.h),
                         CommonText(
-                          text: video.title.toUpperCase(),
+                          text: video.title,
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: AppColors.primaryColor,
@@ -75,7 +76,7 @@ class VideoStreamScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 8.h),
                         CommonText(
-                          text: video.description.toUpperCase(),
+                          text: video.description,
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
                           color: AppColors.color6B6B6B,
@@ -84,7 +85,7 @@ class VideoStreamScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 12.h),
                         CommonText(
-                          text: video.createdAt.toUpperCase(),
+                          text: video.createdAt,
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
                           color: AppColors.color6B6B6B,
@@ -134,10 +135,14 @@ class VideoStreamScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CommonText(
-              text: "related".toUpperCase(),
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+
+
+            Text(
+              "Related",
+              style: GoogleFonts.playfairDisplay(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             SizedBox(height: 5.h),
             Container(
@@ -198,7 +203,7 @@ class VideoStreamScreen extends StatelessWidget {
           ),
           SizedBox(width: 6.w),
           CommonText(
-            text: name.toUpperCase(),
+            text: name,
             fontWeight: FontWeight.w400,
             fontSize: 12,
             color: AppColors.primaryColor,

@@ -92,19 +92,18 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Phase 3: Slogan Sequential Reveal (0.85 - 1.0)
-    // Only starts after logo is clear
+    // Phase 3: Slogan Reveal (Synchronized with Logo Phase 2)
     _sloganOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.85, 1.0, curve: Curves.easeIn),
+        curve: const Interval(0.4, 0.75, curve: Curves.easeIn),
       ),
     );
 
     _textOffset = Tween<double>(begin: 20.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.85, 1.0, curve: Curves.easeOut),
+        curve: const Interval(0.4, 0.75, curve: Curves.easeOut),
       ),
     );
 
@@ -199,9 +198,8 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Transform.scale(
                     scale: _contentScale.value,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Spacer(),
                         // Logo Section with Sweep Reveal
                         Stack(
                           alignment: Alignment.center,
@@ -245,8 +243,8 @@ class _SplashScreenState extends State<SplashScreen>
                             ),
                           ],
                         ),
-                        const Spacer(),
-                        // 3. Slogan: Sequential Reveal (Fades up at current position)
+                        SizedBox(height: 24.h),
+                        // 3. Slogan: Revealed together with logo (Higher position)
                         Opacity(
                           opacity: _sloganOpacity.value,
                           child: Transform.translate(
@@ -262,7 +260,6 @@ class _SplashScreenState extends State<SplashScreen>
                             ),
                           ),
                         ),
-                        SizedBox(height: 60.h)
                       ],
                     ),
                   ),

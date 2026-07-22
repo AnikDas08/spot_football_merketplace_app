@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
 import '../../data/match_model.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LiveMatches extends StatelessWidget {
   final List<MatchModel> matches;
@@ -36,14 +38,17 @@ class LiveMatches extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
+
+
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonText(
-            text: "LIVE MATCHES",
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Montserrat',
-            color: titleColor,
+          Text(
+            "Live matches",
+            style: GoogleFonts.playfairDisplay(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: titleColor ?? AppColors.primaryColor,
+            ),
           ),
           SizedBox(height: 12.h),
           ListView.builder(

@@ -145,10 +145,10 @@ class PlayerProfileController extends GetxController {
         Get.back();
         AppSnackbar.success(
           title: 'Success',
-          message: response.data['message'] ?? 'Trial offer sent successfully',
+          message: response.message,
         );
       } else {
-        throw Exception(response.data['message'] ?? 'Failed to send offer');
+        throw Exception(response.message);
       }
     } catch (e) {
       AppSnackbar.error(title: 'Error', message: e.toString());

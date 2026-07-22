@@ -10,6 +10,8 @@ import '../../utils/constants/app_images.dart';
 import '../../features/notifications/presentation/controller/notifications_controller.dart';
 import '../text/common_text.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   const CommonAppbar({super.key, required this.title});
@@ -27,13 +29,15 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: 80.h,
       centerTitle: true,
       backgroundColor: AppColors.primaryColor,
-      title: CommonText(
-        text: title.toUpperCase(),
-        color: AppColors.white,
-        fontSize: 20.sp,
+      title: Text(
+        title,
+        style: GoogleFonts.playfairDisplay(
+          color: AppColors.white,
+          fontSize: 22.sp,
+          fontWeight: FontWeight.w500,
+        ),
         maxLines: 1,
-        fontFamily: 'Montserrat',
-        fontWeight: FontWeight.w700,
+        overflow: TextOverflow.ellipsis,
       ),
 
       actions: [

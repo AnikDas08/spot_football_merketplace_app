@@ -135,15 +135,15 @@ class LiveMatchControlController extends GetxController {
         final newStatus = response.data['data']['status'];
         if (newStatus == 'finished') {
           Get.back(); // Go back to dashboard if finished
-          AppSnackbar.success(
-            title: 'Success',
-            message: response.data['message'] ?? 'Match finished successfully',
-          );
+        AppSnackbar.success(
+          title: 'Success',
+          message: response.message,
+        );
         } else {
-          AppSnackbar.success(
-            title: 'Success',
-            message: response.data['message'] ?? 'Status updated to ${newStatus.toUpperCase()}',
-          );
+        AppSnackbar.success(
+          title: 'Success',
+          message: response.message,
+        );
           await fetchMatchDetails(matchId); // Refresh details for current screen
         }
       }

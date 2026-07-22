@@ -4,6 +4,7 @@ import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LeagueHeaderWidget extends StatelessWidget {
   final String? teamName;
@@ -55,12 +56,16 @@ class LeagueHeaderWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
+
+
               children: [
-                CommonText(
-                  text: (teamName ?? 'PHOENIX UTDS').toUpperCase(),
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.white,
+                Text(
+                  teamName ?? 'Phoenix utds',
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.white,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

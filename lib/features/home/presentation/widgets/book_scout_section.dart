@@ -6,6 +6,7 @@ import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BookScoutSection extends StatelessWidget {
   final Color? titleColor;
@@ -21,16 +22,18 @@ class BookScoutSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
+
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonText(
-            text: "BOOK A SCOUT",
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Montserrat',
-            color: titleColor,
+          Text(
+            "Book a scout",
+            style: GoogleFonts.playfairDisplay(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: titleColor ?? AppColors.primaryColor,
+            ),
           ),
           SizedBox(height: 16.h),
           Container(
@@ -96,7 +99,7 @@ class BookScoutSection extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: const CommonText(
-                            text: "Professional Scouting",
+                            text: "Professional scouting",
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,

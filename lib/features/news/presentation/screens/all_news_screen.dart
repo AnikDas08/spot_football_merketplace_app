@@ -21,7 +21,7 @@ class AllNewsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: SecondaryAppBar(title: title.toUpperCase()),
+      appBar: SecondaryAppBar(title: title),
       body: Obx(() {
         if (controller.isLoading.value && controller.newsList.isEmpty) {
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));

@@ -10,6 +10,7 @@ import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_string.dart';
 import '../../data/point_table_model.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LeaguePreview extends StatelessWidget {
   final bool isSeeAll;
@@ -46,15 +47,17 @@ class LeaguePreview extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 Expanded(
-                  child: CommonText(
-                    text: AppString.leaguePreview.toUpperCase(),
-                    fontWeight: const FontWeight(600),
-                    fontSize: 16,
+                  child: Text(
+                    AppString.leaguePreview,
+                    style: GoogleFonts.playfairDisplay(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.sp,
+                      color: titleColor ?? AppColors.primaryColor,
+                    ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    fontFamily: 'Montserrat',
-                    color: titleColor,
                   ),
                 ),
                 InkWell(
@@ -64,11 +67,13 @@ class LeaguePreview extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      CommonText(
-                        text: AppString.viewAll,
-                        fontWeight: const FontWeight(500),
-                        fontSize: 14,
-                        color: viewAllColor ?? AppColors.primaryColor,
+                      Text(
+                        AppString.viewAll,
+                        style: GoogleFonts.playfairDisplay(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          color: viewAllColor ?? AppColors.primaryColor,
+                        ),
                       ),
                       const SizedBox(width: 5),
                       SvgPicture.asset(

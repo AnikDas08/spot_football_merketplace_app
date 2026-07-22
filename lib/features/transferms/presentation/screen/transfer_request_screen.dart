@@ -21,7 +21,7 @@ class TransferRequestScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SecondaryAppBar(title: 'TRANSFERS REQUEST'),
+      appBar: const SecondaryAppBar(title: 'Transfers request'),
       body: Column(
         children: [
           _buildTransferPortalBanner(),

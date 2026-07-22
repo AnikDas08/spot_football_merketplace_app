@@ -99,7 +99,7 @@ class UpcomingEventCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: const CommonText(
-                      text: "Upcoming Event",
+                      text: "Upcoming event",
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,

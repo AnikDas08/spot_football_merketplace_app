@@ -1,10 +1,11 @@
-# Navigation & Menu Refinement Tasks (Point 2)
+# API Message Handling & Snackbar Fix Tasks
 
-- `[ ]` Update `AppString` constants for "Home" titles
-- `[ ]` Update `NavBarController` labels and titles
-- `[ ]` Reorder `AppDrawer` menu items to match client request
-- `[ ]` Adjust `AppDrawer` Guest User profile styling (smaller, non-bold)
-- `[ ]` Adjust `AppDrawer` Logout/Login button size
-- `[ ]` Update `OnboardingScreen` button sizes and guest access text
-- `[ ]` Update `LatestNews` widget title text
-- `[ ]` Verify all navigation and UI changes
+- `[x]` Enhance `ApiResponseModel` message extraction logic
+- `[x]` Fix snackbar titles in `SignInController` (Replace status codes with Success/Error)
+- `[x]` Fix snackbar titles in `ForgetPasswordController`
+- `[x]` Refactor `LiveMatchControlController` to use `response.message`
+- `[x]` Refactor `RecordGoalController` to use `response.message`
+- `[x]` Refactor `PlayerProfileController` to use `response.message`
+- `[x]` Refactor `RefereeDashboardController` to use `response.message`
+- `[x]` Refactor `TransferRequestController` to use `response.message`
+- `[x]` Verify snackbar messages across authentication and action flows

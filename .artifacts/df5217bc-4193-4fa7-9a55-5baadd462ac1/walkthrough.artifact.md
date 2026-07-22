@@ -1,33 +1,33 @@
-# SplashScreen Animation Refinement Walkthrough
+# API Message Handling & Snackbar Improvements Walkthrough
 
-The `SplashScreen` has been updated with a more professional and sequential animation flow.
+I have improved how the app handles API messages and fixed several snackbars that were displaying technical details instead of user-friendly information.
 
 ## Changes Made
 
-### 1. Enhanced Animation Timing
-- Increased the total duration to **5000ms** to allow each phase to breathe.
-- Re-calculated all `Interval` values to ensure a smooth transition from the background reveal to the logo reveal, and finally the slogan.
+### 1. Robust Message Extraction
+Updated `ApiResponseModel` to intelligently extract messages from API responses. It now checks for multiple common fields (`message`, `msg`, `error`, `error_description`) and handles various response structures. This ensures that if the server provides a specific reason for a failure, the app displays it correctly.
 
-### 2. Left-to-Right "Sweep" Reveal & Scaling
-- Implemented a layered `Stack` for the logo:
-    - **Background**: A blurred version of the logo that slowly gains sharpness.
-    - **Foreground**: A sharp version of the logo that is revealed using a `ShaderMask` with a `LinearGradient`.
-- Added a **Scaling Animation**: The logo now starts from **0.5x size** and expands to its full size as it becomes clear.
-- The "blur-to-clear" sweep is now **slower and starts later** (delayed) for a more dramatic effect.
+### 2. Standardized Snackbar Titles
+Fixed snackbars in the authentication flow (`SignInController` and `ForgetPasswordController`) that were previously using status codes (like "200", "400") as titles. They now use descriptive titles:
+- **"Success"**: For successful actions.
+- **"Error"**: For failed actions.
+- **"Rejected"**: For rejection actions (e.g., rejecting a transfer).
 
-### 3. White Flash Elimination
-- The solid `primaryColor` background now kicks in at **20%** of the animation progress.
-- Since the circle covers the screen by 25%, this overlap ensures there is **zero white screen** visible during the transition.
-
-### 4. Sequential Slogan "Fade Up"
-- Separated the slogan from the logo's blur effect so it stays crisp.
-- Added a new phase (starting at 85% of the animation) where the slogan fades in and slides up slightly, but only **after** the logo has become fully sharp and scaled.
+### 3. Centralized Message Logic
+Refactored several controllers to use the standardized `response.message` property. This removes redundant manual parsing logic from the UI layer and ensures consistency across the app.
+Affected controllers:
+- `LiveMatchControlController`
+- `RecordGoalController`
+- `PlayerProfileController`
+- `RefereeDashboardController`
+- `TransferRequestController`
 
 ## Verification Results
 
-- [x] Background circle expansion is smooth with no white flash.
-- [x] Logo starts blurred and small (0.5x), then becomes sharp and full-sized (1.0x) via a left-to-right sweep.
-- [x] Slogan "HARDWORKDEDICATION" triggers only after the sweep and scaling are complete.
-- [x] Redirection to next screen happens exactly after the 5-second animation finishes.
+- [x] Sign-in errors now show "Error" instead of "400" or "401".
+- [x] Forget password success/error titles are corrected.
+- [x] Action snackbars (recording goals, approving transfers) now pull their text directly from the server's descriptive `message` field when available.
 
-render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/features/splash/splash_screen.dart)
+render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/services/api/api_response_model.dart)
+render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/features/auth/sign%20in/presentation/controller/sign_in_controller.dart)
+render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/features/transferms/presentation/controller/transfer_request_controller.dart)

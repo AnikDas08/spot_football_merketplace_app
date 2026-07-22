@@ -10,6 +10,8 @@ import '../../../../services/storage/storage_services.dart';
 import '../../../../utils/extensions/extension.dart';
 import '../controller/profile_controller.dart';
 
+import '../../../../component/common_appbar/secondary_appbar.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -20,13 +22,7 @@ class ProfileScreen extends StatelessWidget {
     }
     return Scaffold(
       /// App bar
-      appBar: AppBar(
-        title: const CommonText(
-          text: AppString.profile,
-          fontWeight: .w600,
-          fontSize: 24,
-        ),
-      ),
+      appBar: const SecondaryAppBar(title: AppString.profile),
 
       /// Body
       body: GetBuilder<ProfileController>(

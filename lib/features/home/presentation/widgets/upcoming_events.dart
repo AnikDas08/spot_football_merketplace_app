@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
-import 'package:eng_sports/features/home/presentation/widgets/upcoming_event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../component/blur_reveal/blur_reveal.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
@@ -13,6 +14,7 @@ import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_string.dart';
 import '../controllers/event_controller.dart';
+import 'upcoming_event_card.dart';
 
 class UpcomingEvents extends StatefulWidget {
   final Color? titleColor;
@@ -94,13 +96,16 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+
+
                       Expanded(
-                        child: CommonText(
-                          text: AppString.upcomingEvents.toUpperCase(),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Montserrat',
-                          color: widget.titleColor,
+                        child: Text(
+                          AppString.upcomingEvents,
+                          style: GoogleFonts.playfairDisplay(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500,
+                            color: widget.titleColor ?? AppColors.primaryColor,
+                          ),
                         ),
                       ),
                       InkWell(
@@ -110,11 +115,13 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            CommonText(
-                              text: AppString.viewAll,
-                              fontWeight: const FontWeight(500),
-                              fontSize: 14,
-                              color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
+                            Text(
+                              AppString.viewAll,
+                              style: GoogleFonts.playfairDisplay(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                                color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
+                              ),
                             ),
                             const SizedBox(width: 5),
                             SvgPicture.asset(

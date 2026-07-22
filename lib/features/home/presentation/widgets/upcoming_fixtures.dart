@@ -8,8 +8,10 @@ import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../navbar/controller/navbar_controller.dart';
 import '../../data/match_model.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class UpcomingFixtures extends StatelessWidget {
   final List<MatchModel> fixtures;
@@ -60,15 +62,18 @@ class UpcomingFixtures extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CommonText(
-                text: "UPCOMING FIXTURES",
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: titleColor ?? AppColors.primaryColor,
-                fontFamily: 'Montserrat',
+              Text(
+                "Upcoming fixtures",
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                  color: titleColor ?? AppColors.primaryColor,
+                ),
               ),
               InkWell(
                 onTap: () {
@@ -77,11 +82,13 @@ class UpcomingFixtures extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CommonText(
-                      text: "View All",
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: viewAllColor ?? AppColors.primaryColor,
+                    Text(
+                      AppString.viewAll,
+                      style: GoogleFonts.playfairDisplay(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                        color: viewAllColor ?? AppColors.primaryColor,
+                      ),
                     ),
                     const SizedBox(width: 5),
                     SvgPicture.asset(

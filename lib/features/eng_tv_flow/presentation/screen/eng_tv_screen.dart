@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../home/data/video_model.dart';
+import '../../../home/presentation/controllers/banner_controller.dart';
 import '../../../home/presentation/widgets/latest_videos.dart';
 import '../widget/video_thumbnail_card.dart';
-import 'package:get/get.dart';
-import '../../../home/presentation/controllers/banner_controller.dart';
 
 String timeago(DateTime date) {
   Duration diff = DateTime.now().difference(date);
@@ -25,12 +27,12 @@ class EngTvScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, String> categoryTitles = {
-      'goals_of_the_week': 'Goals Of The Week',
-      'league_highlights': 'League Highlights',
-      'save_of_the_week': 'Save Of The Week',
-      'ref_cam': 'Ref Cam',
-      'coach_cam': 'Coach Cam',
-      'eng_sln_binge': 'ENG SIn Bin',
+      'goals_of_the_week': 'Goals of the week',
+      'league_highlights': 'League highlights',
+      'save_of_the_week': 'Save of the week',
+      'ref_cam': 'Ref cam',
+      'coach_cam': 'Coach cam',
+      'eng_sln_binge': 'Eng sin bin',
     };
 
     final List<String> categoryOrder = [
@@ -124,12 +126,13 @@ class EngTvScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                          child: CommonText(
-                            text: "FEATURED",
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Montserrat',
-                            color: AppColors.primaryColor,
+                          child: Text(
+                            "Featured",
+                            style: GoogleFonts.playfairDisplay(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.primaryColor,
+                            ),
                           ),
                         ),
                         Padding(

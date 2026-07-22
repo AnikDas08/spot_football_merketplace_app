@@ -13,7 +13,7 @@ class TransfersHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const SecondaryAppBar(title: 'TRANSFERS HISTORY'),
+      appBar: const SecondaryAppBar(title: 'Transfers history'),
       body: SingleChildScrollView(
         child: Column(
           children: [

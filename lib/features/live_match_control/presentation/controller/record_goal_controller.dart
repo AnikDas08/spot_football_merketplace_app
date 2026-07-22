@@ -150,7 +150,7 @@ class RecordGoalController extends GetxController {
         Get.back();
         AppSnackbar.success(
           title: 'Success',
-          message: response.data['message'] ?? 'Match event recorded',
+          message: response.message,
         );
       }
     } catch (e) {

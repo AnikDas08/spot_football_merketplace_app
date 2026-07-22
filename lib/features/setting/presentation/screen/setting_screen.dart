@@ -10,6 +10,8 @@ import '../controller/setting_controller.dart';
 import '../../../../../../utils/constants/app_string.dart';
 import '../widgets/setting_item.dart';
 
+import '../../../../component/common_appbar/secondary_appbar.dart';
+
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
@@ -20,13 +22,7 @@ class SettingScreen extends StatelessWidget {
     }
     return Scaffold(
       /// AppBar
-      appBar: AppBar(
-        title: const CommonText(
-          text: AppString.settings,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      appBar: const SecondaryAppBar(title: AppString.settings),
 
       /// Body
       body: GetBuilder<SettingController>(

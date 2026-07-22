@@ -37,7 +37,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SecondaryAppBar(title: AppString.newsDetails.toUpperCase()),
+      appBar: SecondaryAppBar(title: AppString.newsDetails),
       body: GetBuilder<NewsController>(
         builder: (controller) {
           final NewsModel? news =

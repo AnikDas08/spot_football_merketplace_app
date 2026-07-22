@@ -22,7 +22,7 @@ class AllEventsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: SecondaryAppBar(title: title.toUpperCase()),
+      appBar: SecondaryAppBar(title: title),
       body: Obx(() {
         if (controller.isLoading.value && controller.eventList.isEmpty) {
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
