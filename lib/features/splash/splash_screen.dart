@@ -24,77 +24,87 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _circleScale;
   late Animation<double> _circleOpacity;
 
-  // Phase 2: final logo mark + text fade/scale in after the reveal
+  // Phase 2: logo sweep + blur -> clear reveal
   late Animation<double> _contentOpacity;
   late Animation<double> _contentScale;
-
-  // Blur -> clear animation for the final logo/text
   late Animation<double> _blurSigma;
+  late Animation<double> _sweepPosition;
 
-  // Text slides up from below while it fades in
-  late Animation<double> _textOffset;
+  // Phase 3: Slogan fades up sequentially after logo is sharp
   late Animation<double> _sloganOpacity;
+  late Animation<double> _textOffset;
 
   @override
   void initState() {
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 5000),
       vsync: this,
     );
 
-    // Circle grows from its original size to big enough to cover the whole screen
-    _circleScale = Tween<double>(begin: 1.0, end: 35.0).animate(
+    // Phase 1: Background Circle Reveal (0.0 - 0.25)
+    // Faster coverage to avoid any white gap
+    _circleScale = Tween<double>(begin: 1.0, end: 40.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.0, 0.4, curve: Curves.easeInOutCubic),
+        curve: const Interval(0.0, 0.25, curve: Curves.easeInOutCubic),
       ),
     );
 
-    // Circle fades out right after it has fully covered the screen
-    _circleOpacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+    _circleOpacity = Tween<double>(begin: 1.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.35, 0.45, curve: Curves.easeIn),
+        curve: const Interval(0.0, 0.3, curve: Curves.linear),
       ),
     );
 
-    // Final logo + text fade in
+    // Phase 2: Logo Sharpness & Sweep Reveal (0.3 - 0.85)
+    // Starting later and lasting longer for more "delay" and smoothness
     _contentOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.4, 0.6, curve: Curves.easeOut),
+        curve: const Interval(0.3, 0.45, curve: Curves.easeIn),
       ),
     );
 
-    _sloganOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+    // Logo grows from 0.5 to 1.0 during the reveal
+    _contentScale = Tween<double>(begin: 0.5, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.6, 0.9, curve: Curves.easeIn),
+        curve: const Interval(0.3, 0.8, curve: Curves.easeOutBack),
       ),
     );
 
-    _contentScale = Tween<double>(begin: 0.75, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.4, 0.7, curve: Curves.easeOutBack),
-      ),
-    );
-
-    // Starts blurred (sigma 20), smoothly becomes sharp (sigma 0)
+    // Blur goes from 20 to 0 (more delay, slower reveal)
     _blurSigma = Tween<double>(begin: 20.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.4, 0.8, curve: Curves.easeOut),
+        curve: const Interval(0.3, 0.85, curve: Curves.easeOut),
       ),
     );
 
-    // Text starts 24px below its final position and slides up as it fades in
-    _textOffset = Tween<double>(begin: 30.0, end: 0.0).animate(
+    // Controls the left-to-right sweep mask
+    _sweepPosition = Tween<double>(begin: -1.0, end: 2.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.6, 0.9, curve: Curves.easeOut),
+        curve: const Interval(0.4, 0.85, curve: Curves.easeInOutSine),
+      ),
+    );
+
+    // Phase 3: Slogan Sequential Reveal (0.85 - 1.0)
+    // Only starts after logo is clear
+    _sloganOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.85, 1.0, curve: Curves.easeIn),
+      ),
+    );
+
+    _textOffset = Tween<double>(begin: 20.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.85, 1.0, curve: Curves.easeOut),
       ),
     );
 
@@ -110,7 +120,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _navigate() async {
     await LocalStorage.getAllPrefData();
-    await Future.delayed(const Duration(seconds: 3));
+    // Adjusted delay to match the 5s duration
+    await Future.delayed(const Duration(milliseconds: 5200));
 
     if (LocalStorage.isLogIn) {
       // Refresh profile data to get latest statuses (profileStatus, paymentStatus)
@@ -159,7 +170,11 @@ class _SplashScreenState extends State<SplashScreen>
           return Stack(
             fit: StackFit.expand,
             children: [
-              // Growing circle that reveals the primary color across the screen
+              // 0. Solid background visible after circle covers
+              if (_controller.value >= 0.2)
+                Container(color: AppColors.primaryColor),
+
+              // 1. Growing circle that reveals the primary color across the screen
               Center(
                 child: Opacity(
                   opacity: _circleOpacity.value,
@@ -177,47 +192,78 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
 
-              // Solid background locked in once the circle has fully covered the screen
-              // (prevents a white flash when the circle above fades out)
-              if (_controller.value >= 0.5)
-                Container(color: AppColors.primaryColor),
-
               // Final logo + text — blurred at first, becomes sharp smoothly
               Center(
                 child: Opacity(
                   opacity: _contentOpacity.value,
                   child: Transform.scale(
                     scale: _contentScale.value,
-                    child: ImageFiltered(
-                      imageFilter: ImageFilter.blur(
-                        sigmaX: _blurSigma.value,
-                        sigmaY: _blurSigma.value,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset(
-                            AppImages.appLogo,
-                            width: 180.w,
-                          ),
-                          SizedBox(height: 24.h),
-                          Opacity(
-                            opacity: _sloganOpacity.value,
-                            child: Transform.translate(
-                              offset: Offset(0, _textOffset.value),
-                              child: Text(
-                                'HARDWORKDEDICATION',
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 2.w,
-                                ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Spacer(),
+                        // Logo Section with Sweep Reveal
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            // 1. Bottom Layer: Blurred Logo
+                            ImageFiltered(
+                              imageFilter: ImageFilter.blur(
+                                sigmaX: _blurSigma.value,
+                                sigmaY: _blurSigma.value,
+                              ),
+                              child: Image.asset(
+                                AppImages.appLogo,
+                                width: 180.w,
+                              ),
+                            ),
+                            // 2. Top Layer: Sharp Logo revealed by Sweep
+                            ShaderMask(
+                              shaderCallback: (rect) {
+                                return LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: const [
+                                    Colors.white,
+                                    Colors.white,
+                                    Colors.transparent,
+                                    Colors.transparent,
+                                  ],
+                                  stops: [
+                                    0.0,
+                                    _sweepPosition.value,
+                                    _sweepPosition.value + 0.1,
+                                    1.0,
+                                  ],
+                                ).createShader(rect);
+                              },
+                              blendMode: BlendMode.dstIn,
+                              child: Image.asset(
+                                AppImages.appLogo,
+                                width: 180.w,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        // 3. Slogan: Sequential Reveal (Fades up at current position)
+                        Opacity(
+                          opacity: _sloganOpacity.value,
+                          child: Transform.translate(
+                            offset: Offset(0, _textOffset.value),
+                            child: Text(
+                              'HARDWORKDEDICATION',
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 2.w,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 60.h)
+                      ],
                     ),
                   ),
                 ),

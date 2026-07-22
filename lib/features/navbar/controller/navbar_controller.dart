@@ -31,13 +31,13 @@ class NavBarController extends GetxController {
   final List<String> titles = [
     AppString.community,
     AppString.fixture,
-    'LEAGUE TABLES',
+    'League Tables',
     "ENG TV",
-    'STATS',
+    'Stats',
   ];
 
   final List<String> labels = const [
-    'Lastest',
+    'Home',
     'Fixtures',
     'Leagues',
     "ENG TV",
