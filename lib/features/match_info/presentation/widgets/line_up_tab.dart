@@ -310,9 +310,12 @@ class _PitchNode extends StatelessWidget {
             child: name.isEmpty 
               ? const SizedBox.shrink() 
               : ClipOval(
-                  child: imageUrl != null && imageUrl!.isNotEmpty
-                      ? CommonImage(imageSrc: imageUrl!, width: 45.w, height: 45.w, fill: BoxFit.cover)
-                      : Center(child: CommonText(text: initial, fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
+                  child: CommonImage(
+                    imageSrc: imageUrl ?? "",
+                    width: 45.w,
+                    height: 45.w,
+                    fill: BoxFit.cover,
+                  ),
                 ),
           ),
           SizedBox(height: 4.h),
@@ -360,19 +363,12 @@ class _PlayerRow extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8.r),
-              child: imageUrl != null && imageUrl!.isNotEmpty
-                  ? CommonImage(
-                      imageSrc: imageUrl!,
-                      width: 52.w,
-                      height: 52.h,
-                      fill: BoxFit.cover,
-                    )
-                  : Image.asset(
-                      TempImage.playerWithFootball,
-                      width: 52.w,
-                      height: 52.h,
-                      fit: BoxFit.contain,
-                    ),
+              child: CommonImage(
+                imageSrc: imageUrl ?? "",
+                width: 52.w,
+                height: 52.h,
+                fill: BoxFit.cover,
+              ),
             ),
             SizedBox(width: 12.w),
             Expanded(

@@ -391,16 +391,12 @@ class TeamSheetScreen extends StatelessWidget {
                   child: isEmpty
                       ? const Icon(Icons.add, color: Colors.white, size: 20)
                       : ClipOval(
-                          child: imageUrl != null && imageUrl.isNotEmpty
-                              ? CommonImage(imageSrc: imageUrl, width: 45.w, height: 45.w, fill: BoxFit.cover)
-                              : Center(
-                                  child: CommonText(
-                                    text: initial,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                          child: CommonImage(
+                            imageSrc: imageUrl ?? "",
+                            width: 45.w,
+                            height: 45.w,
+                            fill: BoxFit.cover,
+                          ),
                         ),
                 ),
               ),
@@ -492,8 +488,8 @@ class TeamSheetScreen extends StatelessWidget {
                           child: ClipOval(
                             child: CommonImage(
                               imageSrc: playerData['profile'] ?? "",
-                              width: 36.r,
-                              height: 36.r,
+                              width: 36.w,
+                              height: 36.w,
                               fill: BoxFit.cover,
                             ),
                           ),

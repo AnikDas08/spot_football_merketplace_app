@@ -25,12 +25,15 @@ class CommonImage extends StatelessWidget {
     this.width,
     this.size,
     this.fill = BoxFit.contain,
-    this.defaultImage = AppImages.profile,
+    this.defaultImage = AppImages.appLogo,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (imageSrc.isEmpty) {
+      return _buildErrorWidget();
+    }
     if (imageSrc.contains('assets/icons')) {
       return _buildSvgImage();
     } else if (imageSrc.contains('assets/images')) {

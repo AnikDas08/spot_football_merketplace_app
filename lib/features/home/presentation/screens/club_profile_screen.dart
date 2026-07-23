@@ -211,19 +211,12 @@ class _PlayerRow extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8.r),
-              child: imageUrl != null && imageUrl!.isNotEmpty
-                  ? CommonImage(
-                      imageSrc: imageUrl!,
-                      width: 52.w,
-                      height: 52.h,
-                      fill: BoxFit.cover,
-                    )
-                  : Image.asset(
-                      TempImage.playerWithFootball,
-                      width: 52.w,
-                      height: 52.h,
-                      fit: BoxFit.contain,
-                    ),
+              child: CommonImage(
+                imageSrc: imageUrl ?? "",
+                width: 52.w,
+                height: 52.h,
+                fill: BoxFit.cover,
+              ),
             ),
 
             SizedBox(width: 12.w),

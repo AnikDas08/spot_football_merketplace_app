@@ -8,8 +8,15 @@ import '../../../../../utils/constants/app_images.dart';
 
 class SignupAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
+  final VoidCallback? onBack;
+  final bool showBackButton;
 
-  const SignupAppbar({super.key, this.backgroundColor});
+  const SignupAppbar({
+    super.key,
+    this.backgroundColor,
+    this.onBack,
+    this.showBackButton = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,53 +30,55 @@ class SignupAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: Row(
         children: [
-
           /// ⬅️ Custom Back Button
-          GestureDetector(
-            onTap: () {
-              if (Navigator.canPop(context)) {
-                Get.back();
-              } else {
-                Get.offAllNamed(AppRoutes.navBarScreen);
-              }
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(
-                  color: AppColors.colorEABB00,
-                  width: 1,
+          if (showBackButton)
+            GestureDetector(
+              onTap: onBack ?? () {
+                if (Navigator.canPop(context)) {
+                  Get.back();
+                } else {
+                  Get.offAllNamed(AppRoutes.navBarScreen);
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(8.r),
+                  border: Border.all(
+                    color: AppColors.colorEABB00,
+                    width: 1,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.white,
+                      size: 14.sp,
+                    ),
+                    SizedBox(width: 8.w),
+                    Text(
+                      'Back',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.arrow_back_ios_new,
-                    color: Colors.white,
-                    size: 14.sp,
-                  ),
-                  SizedBox(width: 8.w),
-                  Text(
-                    'Back',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+            )
+          else
+            SizedBox(width: 80.w), // Spacer to maintain alignment if needed
 
           /// CENTER LOGO ⭐
           Expanded(
             child: Center(
               child: Padding(
-                padding: EdgeInsets.only(left: 12.w),
+                padding: EdgeInsets.only(left: showBackButton ? 0 : 12.w),
                 child: Image.asset(
                   AppImages.appLogo,
                 ),

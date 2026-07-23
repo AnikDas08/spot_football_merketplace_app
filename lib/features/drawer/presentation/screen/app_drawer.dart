@@ -206,7 +206,7 @@ class AppDrawer extends StatelessWidget {
               backgroundColor: isGuest ? AppColors.primaryColor : AppColors.color6B6B6B.withValues(alpha: 0.1),
               child: ClipOval(
                 child: CommonImage(
-                  imageSrc: image.isEmpty ? AppImages.appLogo : image,
+                  imageSrc: image,
                   height: 100.r,
                   width: 100.r,
                   fill: image.isEmpty ? .contain : BoxFit.cover,

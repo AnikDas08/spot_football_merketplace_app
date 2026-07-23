@@ -59,18 +59,12 @@ class PlayerHeaderWidget extends StatelessWidget {
         Positioned(
           right: 0,
           bottom: 0,
-          child: profileImage != null && profileImage!.isNotEmpty
-              ? CommonImage(
-                  imageSrc: profileImage!,
-                  height: 230.h,
-                  width: 200.w,
-                  fill: BoxFit.contain,
-                )
-              : Image.asset(
-                  TempImage.playerWithFootball,
-                  height: 230.h,
-                  fit: BoxFit.fill,
-                ),
+          child: CommonImage(
+            imageSrc: profileImage ?? "",
+            height: 230.h,
+            width: 200.w,
+            fill: (profileImage != null && profileImage!.isNotEmpty) ? BoxFit.contain : BoxFit.contain,
+          ),
         ),
       ],
     );

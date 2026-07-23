@@ -32,121 +32,163 @@ class MySubscriptionScreen extends StatelessWidget {
     if (role.isEmpty) role = "User";
     String titleRole = role[0].toUpperCase() + role.substring(1).toLowerCase();
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SignupAppbar(),
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(color: AppColors.primaryColor),
-          );
-        }
+    return Obx(() {
+      final subscription = profileController.profileData['subscription'];
+      final bool hasSubscription = subscription != null &&
+          subscription is Map &&
+          subscription['package'] != null;
 
-        final subscription = profileController.profileData['subscription'];
-        final bool hasSubscription = subscription != null && 
-                                   subscription is Map && 
-                                   subscription['package'] != null;
-
-        if (hasSubscription && !controller.isChangingPlan.value && !isFromRegistration) {
-          return _buildSubscriptionDetails(controller, subscription);
-        }
-
-        if (controller.packages.isEmpty) {
-          return Center(
-            child: CommonText(text: "No subscription plans available."),
-          );
-        }
-
-        return SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20.h),
-                CommonText(
-                  text: '$titleRole Registration',
-                  fontSize: 32,
-                  fontWeight: FontWeight.w500,
-                  textAlign: TextAlign.start,
-                  color: AppColors.black,
-                  bottom: 10.h,
-                  fontFamily: 'PlayfairDisplay',
-                ),
-                CommonText(
-                  text:
-                      'Please Select One Of The Following Which Applies To You - All Registrations Pending ENG Admin Approval',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  textAlign: TextAlign.start,
-                  maxLines: 3,
-                  color: AppColors.black,
-                  bottom: 32.h,
-                ),
-
-                // Plans
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.packages.length,
-                  itemBuilder: (context, index) {
-                    final package = controller.packages[index];
-                    final bool isCurrentPlan = hasSubscription && 
-                        subscription['package']?['_id'] == package.id;
-                    
-                    return _RegistrationPlanCard(
-                      package: package,
-                      isSelected:
-                          controller.selectedPackage.value?.id == package.id,
-                      isCurrentPlan: isCurrentPlan,
-                      icon: _getIconForPackage(package.title ?? ""),
-                      onSelect: () => controller.selectPackage(package),
-                    );
-                  },
-                ),
-
-                if (controller.selectedPackage.value != null &&
-                    hasSubscription &&
-                    subscription['package']?['_id'] == controller.selectedPackage.value?.id)
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.h),
-                    child: Center(
-                      child: CommonText(
-                        text: "You are currently subscribed to this plan",
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-
-                SizedBox(height: 24.h),
-
-                CommonButton(
-                  titleText: 'Continue',
-                  isLoading: controller.isCheckingOut.value,
-                  buttonColor: (controller.selectedPackage.value == null || 
-                               (hasSubscription && subscription['package']?['_id'] == controller.selectedPackage.value?.id))
-                      ? Colors.grey.shade400
-                      : AppColors.black,
-                  onTap: (controller.selectedPackage.value != null && 
-                         (!hasSubscription || subscription['package']?['_id'] != controller.selectedPackage.value?.id))
-                      ? () {
-                          controller.generateCheckoutUrl(
-                            packageId: controller.selectedPackage.value!.id!,
-                            isFromRegistration: isFromRegistration,
-                            profileController: profileController,
-                          );
-                        }
-                      : null,
-                ),
-                SizedBox(height: 24.h),
-              ],
-            ),
+      return PopScope(
+        canPop: hasSubscription || controller.isChangingPlan.value,
+        onPopInvokedWithResult: (didPop, result) {
+          if (didPop) return;
+          if (controller.isChangingPlan.value) {
+            controller.toggleChangingPlan(false);
+          } else {
+            AppSnackbar.error(
+              title: "Action Required",
+              message: "Please select a plan and complete payment to continue.",
+            );
+          }
+        },
+        child: Scaffold(
+          backgroundColor: const Color(0xFFF3F3F3),
+          appBar: SignupAppbar(
+            showBackButton: hasSubscription || controller.isChangingPlan.value,
+            onBack: () {
+              if (controller.isChangingPlan.value) {
+                controller.toggleChangingPlan(false);
+              } else if (hasSubscription) {
+                if (Navigator.canPop(context)) {
+                  Get.back();
+                } else {
+                  Get.offAllNamed(AppRoutes.navBarScreen);
+                }
+              }
+            },
           ),
-        );
-      }),
-    );
+          body: controller.isLoading.value
+              ? const Center(
+                  child: CircularProgressIndicator(color: AppColors.primaryColor),
+                )
+              : (hasSubscription &&
+                      !controller.isChangingPlan.value &&
+                      !isFromRegistration)
+                  ? _buildSubscriptionDetails(controller, subscription)
+                  : controller.packages.isEmpty
+                      ? const Center(
+                          child: CommonText(text: "No subscription plans available."),
+                        )
+                      : SingleChildScrollView(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 20.h),
+                                CommonText(
+                                  text: '$titleRole Registration',
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w500,
+                                  textAlign: TextAlign.start,
+                                  color: AppColors.black,
+                                  bottom: 10.h,
+                                  fontFamily: 'PlayfairDisplay',
+                                ),
+                                CommonText(
+                                  text:
+                                      'Please Select One Of The Following Which Applies To You - All Registrations Pending ENG Admin Approval',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  textAlign: TextAlign.start,
+                                  maxLines: 3,
+                                  color: AppColors.black,
+                                  bottom: 32.h,
+                                ),
+
+                                // Plans
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: controller.packages.length,
+                                  itemBuilder: (context, index) {
+                                    final package = controller.packages[index];
+                                    final bool isCurrentPlan = hasSubscription &&
+                                        subscription['package']?['_id'] ==
+                                            package.id;
+
+                                    return _RegistrationPlanCard(
+                                      package: package,
+                                      isSelected:
+                                          controller.selectedPackage.value?.id ==
+                                              package.id,
+                                      isCurrentPlan: isCurrentPlan,
+                                      icon: _getIconForPackage(
+                                          package.title ?? ""),
+                                      onSelect: () =>
+                                          controller.selectPackage(package),
+                                    );
+                                  },
+                                ),
+
+                                if (controller.selectedPackage.value != null &&
+                                    hasSubscription &&
+                                    subscription['package']?['_id'] ==
+                                        controller.selectedPackage.value?.id)
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 16.h),
+                                    child: const Center(
+                                      child: CommonText(
+                                        text:
+                                            "You are currently subscribed to this plan",
+                                        color: AppColors.primaryColor,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+
+                                SizedBox(height: 24.h),
+
+                                CommonButton(
+                                  titleText: 'Continue',
+                                  isLoading: controller.isCheckingOut.value,
+                                  buttonColor: (controller.selectedPackage.value ==
+                                              null ||
+                                          (hasSubscription &&
+                                              subscription['package']?['_id'] ==
+                                                  controller.selectedPackage
+                                                      .value?.id))
+                                      ? Colors.grey.shade400
+                                      : AppColors.black,
+                                  onTap: (controller.selectedPackage.value !=
+                                              null &&
+                                          (!hasSubscription ||
+                                              subscription['package']?['_id'] !=
+                                                  controller.selectedPackage
+                                                      .value?.id))
+                                      ? () {
+                                          controller.generateCheckoutUrl(
+                                            packageId: controller
+                                                .selectedPackage.value!.id!,
+                                            isFromRegistration:
+                                                isFromRegistration,
+                                            profileController:
+                                                profileController,
+                                          );
+                                        }
+                                      : null,
+                                ),
+                                SizedBox(height: 24.h),
+                              ],
+                            ),
+                          ),
+                        ),
+        ),
+      );
+    });
+
   }
 
   Widget _buildSubscriptionDetails(SubscriptionController controller, dynamic subscription) {
