@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../component/button/common_button.dart';
 import '../../../../component/text/common_text.dart';
-
-import '../../../../component/image/common_image.dart';
+import '../../../../component/video/dynamic_video_thumbnail.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_string.dart';
@@ -12,15 +11,15 @@ import '../../../../utils/constants/app_string.dart';
 class VideoThumbnailCard extends StatelessWidget {
   final String thumbnail;
   final String title;
-  final String duration;
+  final String? videoUrl;
   final VoidCallback onWatchNow;
 
   const VideoThumbnailCard({
     super.key,
     required this.thumbnail,
     required this.title,
-    required this.duration,
     required this.onWatchNow,
+    this.videoUrl,
   });
 
   @override
@@ -39,88 +38,80 @@ class VideoThumbnailCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: CommonImage(
-                imageSrc: thumbnail,
-                fill: BoxFit.cover,
+              child: DynamicVideoThumbnail(
+                videoUrl: videoUrl ?? "",
+                thumbnailUrl: thumbnail,
+                fit: BoxFit.cover,
+
               ),
             ),
-          // Gradient Overlay
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: const [0.3, 1.0],
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withValues(alpha: 0.9),
-                  ],
+            // Gradient Overlay
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [0.3, 1.0],
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withValues(alpha: 0.9),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
 
-          Padding(
-            padding: EdgeInsets.all(16.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CommonText(
-                  text: title, // From API
-                  fontSize: 28,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                  fontFamily: 'PlayfairDisplay',
-                ),
-                SizedBox(height: 4.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CommonText(
-                      text:AppString. labelVideo, // Static Variable
-                      fontSize: 16,
-                      color: Colors.white70,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(width: 8.w),
-                    Icon(Icons.circle, size: 6.sp, color: AppColors.yellow),
-                    SizedBox(width: 8.w),
-                    CommonText(
-                      text: duration, // From API
-                      fontSize: 16,
-                      color: Colors.white70,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16.h),
-
-                CommonButton(
-                  onTap: onWatchNow,
-                  titleText: AppString. labelWatchNow, // Static Variable
-                  titleWeight: FontWeight.w700,
-                  titleSize: 14,
-                  buttonHeight: 50,
-                  buttonRadius: 16,
-                  // Reverted to default Primary Black
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CommonText(
+                    text: title,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                    fontFamily: 'PlayfairDisplay',
+                  ),
+                  SizedBox(height: 8.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CommonText(
+                        text: AppString.labelVideo,
+                        fontSize: 16,
+                        color: Colors.white70,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16.h),
+                  CommonButton(
+                    onTap: onWatchNow,
+                    titleText: AppString.labelWatchNow,
+                    titleWeight: FontWeight.w700,
+                    titleSize: 14,
+                    buttonHeight: 50,
+                    buttonRadius: 16,
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          // Play Icon
-          Positioned(
-            top: 12.h,
-            left: 12.w,
-            child: SvgPicture.asset(
-              AppIcons.play,
-              height: 40.sp,
-              width: 40.w,
+            // Play Icon
+            Positioned(
+              top: 12.h,
+              left: 12.w,
+              child: SvgPicture.asset(
+                AppIcons.play,
+                height: 40.sp,
+                width: 40.w,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

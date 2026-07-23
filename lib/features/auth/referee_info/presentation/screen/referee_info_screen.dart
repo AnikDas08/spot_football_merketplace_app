@@ -40,7 +40,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
                 const CommonText(
                   text: 'Referee Info',
                   fontSize: 40,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                   color: AppColors.black,
                   bottom: 8,
                 ),
@@ -94,7 +94,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
                 const CommonText(
                   text: "ID Card",
                   fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   color: AppColors.black,
                   bottom: 8,
                 ),
@@ -124,7 +124,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
                         Center(
                           child: CommonText(
                             text:
-                                "Uploading: \${(controller.uploadProgress.value * 100).toStringAsFixed(0)}%",
+                                "Uploading: ${(controller.uploadProgress.value * 100).toStringAsFixed(0)}%",
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -196,7 +196,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
                               padding: EdgeInsets.symmetric(horizontal: 16.w),
                               child: Text(
                                 file.path
-                                    .split(Platform.isWindows ? '\\\\' : '/')
+                                    .split(Platform.isWindows ? '\\' : '/')
                                     .last,
                                 textAlign: TextAlign.center,
                                 maxLines: 2,
@@ -234,7 +234,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
         const CommonText(
           text: "Date Of Birth",
           fontSize: 16,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
           bottom: 8,
         ),
         GetBuilder<RefereeInfoController>(

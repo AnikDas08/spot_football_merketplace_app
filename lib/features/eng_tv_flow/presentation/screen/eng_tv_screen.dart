@@ -4,47 +4,21 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/helpers/video_metadata_helper.dart';
 import '../../../home/data/video_model.dart';
 import '../../../home/presentation/controllers/banner_controller.dart';
 import '../../../home/presentation/widgets/latest_videos.dart';
 import '../widget/video_thumbnail_card.dart';
-
-String timeago(DateTime date) {
-  Duration diff = DateTime.now().difference(date);
-  if (diff.inDays > 365) return "${(diff.inDays / 365).floor()}y ago";
-  if (diff.inDays > 30) return "${(diff.inDays / 30).floor()}mo ago";
-  if (diff.inDays > 0) return "${diff.inDays}d ago";
-  if (diff.inHours > 0) return "${diff.inHours}h ago";
-  if (diff.inMinutes > 0) return "${diff.inMinutes}m ago";
-  return "just now";
-}
 
 class EngTvScreen extends StatelessWidget {
   const EngTvScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, String> categoryTitles = {
-      'goals_of_the_week': 'Goals of the week',
-      'league_highlights': 'League highlights',
-      'save_of_the_week': 'Save of the week',
-      'ref_cam': 'Ref cam',
-      'coach_cam': 'Coach cam',
-      'eng_sln_binge': 'Eng sin bin',
-    };
-
-    final List<String> categoryOrder = [
-      'goals_of_the_week',
-      'league_highlights',
-      'save_of_the_week',
-      'ref_cam',
-      'coach_cam',
-      'eng_sln_binge',
-    ];
-
-    final List<Color> sectionBgColors = [
+    final List<Color> sectionBgColors =  [
       AppColors.black,
       const Color(0xFFF9F9F9),
       Colors.white,
@@ -80,37 +54,12 @@ class EngTvScreen extends StatelessWidget {
           // Group videos by category
           Map<String, List<VideoModel>> groupedVideos = {};
           for (var video in videos) {
-            String cat = video.category;
+            String cat = VideoMetadataHelper.formatCategory(video.category);
             if (!groupedVideos.containsKey(cat)) groupedVideos[cat] = [];
             groupedVideos[cat]!.add(video);
           }
 
-          // Decide the order of display
-          // 1. Predefined categories in order
-          // 2. Any other categories found in data
-          List<String> displayOrder = [];
-          for (var key in categoryOrder) {
-            // Match case-insensitively
-            String? actualKey;
-            for (var k in groupedVideos.keys) {
-              if (k.toLowerCase().replaceAll(' ', '_') == key.toLowerCase() || 
-                  k.toLowerCase() == categoryTitles[key]?.toLowerCase()) {
-                actualKey = k;
-                break;
-              }
-            }
-            
-            if (actualKey != null && groupedVideos[actualKey]!.isNotEmpty) {
-              displayOrder.add(actualKey);
-            }
-          }
-
-          // Add categories that were not in the predefined list
-          for (var cat in groupedVideos.keys) {
-            if (!displayOrder.contains(cat)) {
-              displayOrder.add(cat);
-            }
-          }
+          final List<String> displayOrder = groupedVideos.keys.toList();
 
           return RefreshIndicator(
             onRefresh: () => controller.fetchBannerVideos(),
@@ -138,9 +87,11 @@ class EngTvScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: VideoThumbnailCard(
-                            thumbnail: firstVideo.thumbnail,
+                            thumbnail: firstVideo.thumbnail.isNotEmpty
+                                ? "${ApiEndPoint.imageUrl}${firstVideo.thumbnail}"
+                                : '',
+                            videoUrl: "${ApiEndPoint.videoUrl}${firstVideo.videoUrl}",
                             title: firstVideo.title,
-                            duration: '0:0',
                             onWatchNow: () {
                               Get.toNamed(
                                 AppRoutes.videoStreamScreen,
@@ -161,24 +112,10 @@ class EngTvScreen extends StatelessWidget {
                     final bgColor = sectionBgColors[index % sectionBgColors.length];
                     final titleColor = bgColor == AppColors.black ? Colors.white : null;
 
-                    // Get a friendly title if predefined, else use raw name
-                    String displayTitle = catName;
-                    String? predefinedKey;
-                    for (var entry in categoryTitles.entries) {
-                      if (entry.value.toLowerCase() == catName.toLowerCase()) {
-                        predefinedKey = entry.key;
-                        break;
-                      }
-                    }
-
-                    if (predefinedKey != null) {
-                      displayTitle = categoryTitles[predefinedKey]!;
-                    }
-
                     return _buildSection(
                       backgroundColor: bgColor,
                       child: LatestVideos(
-                        title: displayTitle,
+                        title: catName,
                         titleColor: titleColor,
                         videos: videosInCat,
                       ),

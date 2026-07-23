@@ -188,6 +188,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
             fontSize: 24,
             fontWeight: FontWeight.w500,
             color: AppColors.white,
+            fontFamily: 'Montserrat',
           ),
           CommonText(
             text: label,

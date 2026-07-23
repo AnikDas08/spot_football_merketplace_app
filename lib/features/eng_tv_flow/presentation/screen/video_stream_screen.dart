@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
 import '../controller/video_streem_controller.dart';
 import '../widget/custom_video_player.dart';
 import '../widget/video_news_card.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class VideoStreamScreen extends StatelessWidget {
   VideoStreamScreen({super.key});
@@ -111,7 +110,8 @@ class VideoStreamScreen extends StatelessWidget {
       if (controller.isRelatedLoading.value) {
         return const Padding(
           padding: EdgeInsets.all(20),
-          child: Center(child: CircularProgressIndicator(color: AppColors.yellow)),
+          child: Center(
+              child: CircularProgressIndicator(color: AppColors.yellow)),
         );
       }
 
@@ -135,8 +135,6 @@ class VideoStreamScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-
             Text(
               "Related",
               style: GoogleFonts.playfairDisplay(
@@ -160,14 +158,16 @@ class VideoStreamScreen extends StatelessWidget {
                 final video = controller.relatedVideos[index];
                 return GestureDetector(
                   onTap: () {
-                    // Update main video content
                     controller.fetchVideoById(video.id);
                   },
                   child: VideoNewsCard(
                     title: video.title,
                     description: video.description,
                     timeAgo: video.publishDateTime,
-                    imageUrl: video.thumbnail,
+                    imageUrl: video.thumbnail.isNotEmpty
+                        ? "${ApiEndPoint.imageUrl}${video.thumbnail}"
+                        : '',
+                    videoUrl: "${ApiEndPoint.videoUrl}${video.videoUrl}",
                   ),
                 );
               },
@@ -213,32 +213,32 @@ class VideoStreamScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-PreferredSize buildAppBar(BuildContext context) {
-  return PreferredSize(
-    preferredSize: Size.fromHeight(60.h),
-    child: AppBar(
-      backgroundColor: AppColors.primaryColor,
-      elevation: 0,
-      automaticallyImplyLeading: false,
-      titleSpacing: 20.w,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () => Get.back(),
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 6.r, horizontal: 10.r),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.color2A2A2A, width: 1),
-                borderRadius: BorderRadius.circular(8.r),
+  PreferredSize buildAppBar(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(60.h),
+      child: AppBar(
+        backgroundColor: AppColors.primaryColor,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        titleSpacing: 20.w,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () => Get.back(),
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 6.r, horizontal: 10.r),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.color2A2A2A, width: 1),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Icon(Icons.close, color: Colors.white, size: 20.sp),
               ),
-              child: Icon(Icons.close, color: Colors.white, size: 20.sp),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

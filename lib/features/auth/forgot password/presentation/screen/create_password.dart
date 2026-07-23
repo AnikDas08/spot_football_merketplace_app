@@ -19,21 +19,21 @@ class CreatePassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFF3F3F3),
-      appBar: SignupAppbar(),
+        backgroundColor: const Color(0xFFF3F3F3),
+      appBar: const SignupAppbar(),
 
       /// Body Section starts here
       body: GetBuilder<ForgetPasswordController>(
         builder: (controller) {
           return SingleChildScrollView(
-            padding: .symmetric(horizontal: 20.w, vertical: 24.h),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const CommonText(
                   text: 'Reset Password',
                   fontSize: 40,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
                   color: AppColors.black,
                   bottom: 10,
@@ -53,7 +53,7 @@ class CreatePassword extends StatelessWidget {
                 Form(
                   key: _formKey,
                   child: Column(
-                    crossAxisAlignment: .start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CommonTextField(
                         title: "Password",
@@ -70,7 +70,10 @@ class CreatePassword extends StatelessWidget {
                         controller: controller.confirmPasswordController,
                         isPassword: true,
                         hintText: 'Confirm Password',
-                        validator: AppValidation.password,
+                        validator: (value) => AppValidation.confirmPassword(
+                          value,
+                          controller.passwordController,
+                        ),
                       ),
 
                       64.height,

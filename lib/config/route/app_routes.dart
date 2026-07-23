@@ -1,6 +1,7 @@
 
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
+import '../../features/auth/delete_account/presentation/screen/delete_account_screen.dart';
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
@@ -117,6 +118,7 @@ class AppRoutes {
   static const String transferRequestScreen = '/transfer_request_screen';
   static const String teamSheetScreen = '/team_sheet_screen';
   static const String trialList = '/trial-list';
+  static const String deleteAccount = '/delete_account';
 
   static List<GetPage<String>> routes = [
     GetPage(name: allNews, page: () => const AllNewsScreen()),
@@ -188,5 +190,6 @@ class AppRoutes {
     GetPage(name: teamSheetScreen, page: () => const TeamSheetScreen()),
     GetPage(name: clubProfileScreen, page: () =>  ClubProfileScreen()),
     GetPage(name: trialList, page: () =>  TransferScreen()),
+    GetPage(name: deleteAccount, page: () => const DeleteAccountScreen()),
   ];
 }

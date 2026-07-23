@@ -117,8 +117,9 @@ class LeaderboardCard extends StatelessWidget {
                         CommonText(
                           text: topPlayerScore,
                           fontSize: 48,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white,
+                          fontFamily: 'Montserrat',
                         ),
                       ],
                     ),
@@ -215,7 +216,8 @@ class LeaderboardCard extends StatelessWidget {
           CommonText(
             text: player.score,
             fontSize: 24,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Montserrat',
           ),
         ],
       ),

@@ -27,8 +27,8 @@ class _VerifyUserState extends State<VerifyUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF3F3F3),
-      appBar: SignupAppbar(),
+      backgroundColor: const Color(0xFFF3F3F3),
+      appBar: const SignupAppbar(),
 
       /// Body Section starts here
       body: GetBuilder<SignUpController>(
@@ -46,7 +46,7 @@ class _VerifyUserState extends State<VerifyUser> {
                   const CommonText(
                     text: "Verify Account",
                     fontSize: 40,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
                     color: AppColors.black,
                     bottom: 10,
@@ -67,15 +67,16 @@ class _VerifyUserState extends State<VerifyUser> {
 
                   /// Card with PIN Code, Timer, and Resend Text
                   Card(
-                    margin: .all(0),
+                    margin: EdgeInsets.zero,
                     elevation: 2,
-                    color: Color(0xffFFFFFF),
+                    color: const Color(0xffFFFFFF),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Column(
                       children: [
-                        /// PIN Code Fields - 4 boxes only
+                        SizedBox(height: 48.h),
+                        /// PIN Code Fields - 6 boxes
                         Center(
                           child: CommonPinCodeField(
                             controller: controller.otpController,
@@ -106,7 +107,7 @@ class _VerifyUserState extends State<VerifyUser> {
                               CommonText(
                                 text: controller.time,
                                 fontSize: 14,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.w500,
                                 color: AppColors.black,
                               ),
                             ],
@@ -139,7 +140,7 @@ class _VerifyUserState extends State<VerifyUser> {
                                   text: "Resend Code",
                                   style: TextStyle(
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w500,
                                     color: AppColors.black,
                                   ),
                                 ),
@@ -153,18 +154,14 @@ class _VerifyUserState extends State<VerifyUser> {
                           isLoading: controller.isLoading,
                           onTap: () {
                                controller.verifyOtp();
-                            // if (_formKey.currentState!.validate()) {
-                            //
-                            // }
                           },
                         ),
+                        SizedBox(height: 48.h),
                       ],
                     ),
                   ),
 
                   SizedBox(height: 48.h),
-
-                  ///  Submit Button
                 ],
               ),
             ),

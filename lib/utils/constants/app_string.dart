@@ -5,11 +5,11 @@ class AppString {
   static const String noInternet = 'No Internet';
   static const String checkInternet = 'Check Internet';
   static const String back = 'Back';
-  static const String youSureWantToLogout = 'You sure want to logout';
+  static const String youSureWantToLogout = 'You Sure Want To Logout';
   static const String no = 'No';
   static const String yes = 'Yes';
-  static const String areYouSure = 'Are you sure';
-  static const String enterYouPassword = 'Enter you password';
+  static const String areYouSure = 'Are You Sure';
+  static const String enterYouPassword = 'Enter Your Password';
   static const String cancel = 'Cancel';
   static const String done = 'Done';
   static const String deleteDetails =
@@ -31,13 +31,13 @@ class AppString {
   static const String continues = 'Continue';
   static const String email = 'Email';
   static const String emailAddress = 'EmailAddress';
-  static const String codeHasBeenSendTo = 'Code has been send to';
-  static const String otpIsInValid = 'Otp is inValid';
+  static const String codeHasBeenSendTo = 'Code Has Been Sent To';
+  static const String otpIsInValid = 'Otp Is Invalid';
   static const String resendCode = 'Resend Code';
-  static const String resendCodeIn = 'Resend code in';
-  static const String minute = 'minute';
+  static const String resendCodeIn = 'Resend Code In';
+  static const String minute = 'Minute';
   static const String verify = 'Verify';
-  static const String logIntoYourAccount = 'Login to Your Account';
+  static const String logIntoYourAccount = 'Login To Your Account';
   static const String login = 'Login';
   static const String loginText = 'LogIn';
   static const String signIn = 'Sign in';
@@ -48,32 +48,32 @@ class AppString {
   static const String createYourAccount = 'Create Account';
   static const String otpVerify = 'OTP Verify';
   static const String inbox = 'Inbox';
-  static const String searchDoctor = 'search a doctor';
+  static const String searchDoctor = 'Search A Doctor';
   static const String activeNow = 'Active Now';
-  static const String messageHere = 'message here';
+  static const String messageHere = 'Message Here';
   static const String notifications = 'Notifications';
   static const String contact = 'Contact';
-  static const String dateOfBirth = 'Date of birth';
+  static const String dateOfBirth = 'Date Of Birth';
   static const String age = 'Age';
   static const String aboutMe = 'About Me';
   static const String gender = 'Gender';
   static const String profile = 'Profile';
-  static const String saveAndChanges = 'Save and Changes';
+  static const String saveAndChanges = 'Save And Changes';
   static const String editProfile = 'Edit Profile';
   static const String settings = 'Settings';
   static const String logOut = 'Log Out';
   static const String privacyPolicy = 'Privacy Policy';
-  static const String deleteAccount = 'Delete account';
-  static const String termsOfServices = 'Terms of Services';
+  static const String deleteAccount = 'Delete Account';
+  static const String termsOfServices = 'Terms Of Services';
   static const String noInternetConnection = 'No internet connection';
   static const String badResponseRequest = 'Bad Response Request';
   static const String requestTimeOut = 'Request Time Out';
-  static const String thisFieldIsRequired = 'This field is required';
-  static const String enterValidEmail = 'Enter valid email';
+  static const String thisFieldIsRequired = 'This Field Is Required';
+  static const String enterValidEmail = 'Enter Valid Email';
   static const String passwordMustBeeEightCharacters =
-      'Password must be 8 characters & contain both alphabets and numerics';
-  static const String thePasswordDoesNotMatch = 'The password does not match';
-  static const String startServer = 'Please, start the Server';
+      'Password Must Be 8 Characters & Contain Both Alphabets And Numerics';
+  static const String thePasswordDoesNotMatch = 'The Password Does Not Match';
+  static const String startServer = 'Please, Start The Server';
   static const String unknownError = 'Unknown Error';
 
   // home screen added by ajijul
@@ -107,29 +107,29 @@ class AppString {
   static const String arsenal = "Arsenal";
   static const String latestVideos = "Latest Videos";
   static const String thingsYouMayHaveMissedFromMatchweek20 =
-      "Things you may have missed from Matchweek 20";
+      "Things You May Have Missed From Matchweek 20";
   static const String engCommunityAcademyStarOfTheWeek =
-      "ENG Community Academy Star of the Week-Name:Leo";
+      "ENG Community Academy Star Of The Week-Name: Leo";
   static const String feature = "Feature";
   static const String transfer = "Transfer";
-  static const String twoMinutesAgo = "2 min ago";
+  static const String twoMinutesAgo = "2 Min Ago";
   static const String neonUnitedAddsNewMidfielder =
-      "Neon United adds new midfielder";
+      "Neon United Adds New Midfielder";
   static const String grealishOfficialjoinsTheStartingXIforSunday =
-      "S. Grealish officially joins the starting XI for Sunday.";
+      "S. Grealish Officially Joins The Starting XI For Sunday.";
   static const String theApexArenaVancouver = "The Apex Arena, Vancouver";
-  static const String matchInfo = "MATCH INFO";
-  static const String attendance = "ATT. 42,500";
-  static String seeMore = "See more";
+  static const String matchInfo = "Match Info";
+  static const String attendance = "Att. 42,500";
+  static String seeMore = "See More";
   static const String moreNews = "More News";
 
   // match info added by ajijul
 
-  static const String clinialFinishFromTheBox = "Clinical finish from the box";
+  static const String clinialFinishFromTheBox = "Clinical Finish From The Box";
   static const String keyEvents = "Key Events";
   static const String mVane = "M. Vane";
   static const String kTanaka = "K. Tanaka";
-  static const String tacticalFoulInMidfield = "Tactical foul in midfield";
+  static const String tacticalFoulInMidfield = "Tactical Foul In Midfield";
   static const String matchSummary = "Match Summary";
   static const String theTitans =
       '"The Titans have dominated the central thirds, utilizing a high-press system that caught Phoenix off guard early in the second half. Vane\'s strike at 62\' has shifted the momentum entirely."';
@@ -144,9 +144,9 @@ class AppString {
 
   // news details page added by ajijul
 
-  static const String newsDetails = 'News details';
+  static const String newsDetails = 'News Details';
   static const String thisWeekWereProudToCelebrateLeoAsOurStarOfTheWeek =
-      "This week, we’re proud to celebrate Leo as our Star of the Week!";
+      "This Week We’re Proud To Celebrate Leo As Our Star Of The Week!";
   static const String
   leoHasShownOutstandingDedicationEffortAndAFantasticAttitudeBothOnAndOffTheField =
       "Leo has shown outstanding dedication, effort, and a fantastic attitude both on and off the field. His commitment to improving his skills, supporting his teammates, and always giving 100% makes him a true role model within the academy.";
@@ -159,7 +159,7 @@ class AppString {
   static const String playerProfile = "Player Profile";
   static const String engRecord = "Eng Record";
   static const String recentPerformance = "Recent Performance";
-  static const String oct12 = "OCT 24";
+  static const String oct12 = "Oct 24";
   static const String vsRangerUnited = "Vs Rangers United";
   static const String premierLeagueAway = "Premier League • Away";
   static const String twoGoal = "2 Goals";
@@ -203,15 +203,15 @@ class AppString {
   static const String assists = "Assists";
   static const String matches = "Matches";
   static const String avgRating = "Avg Rating";
-  static const String plus3ThisMonth = "+3 this month";
+  static const String plus3ThisMonth = "+3 This Month";
   static const String top5PercentLeague = "Top 5% League";
-  static const String mvpForm = "MVP Form";
+  static const String mvpForm = "Mvp Form";
   static const String coffle = "Coffle";
 
-  static const semiPro = 'SEMI PRO';
+  static const semiPro = 'Semi Pro';
   static const enhancedTeamRegistration = 'Enhanced Team Registration';
   static const detailedPlayerStats = 'Detailed Player Stats';
-  static const noEngCoins = 'No ENG Coins';
+  static const noEngCoins = 'No Eng Coins';
   static const semiProPrice = '£9.95';
   static const perSeason = '/Season';
   static const changeSubscriptionPlan = 'Change Your Subscriptions Plan';
@@ -219,18 +219,18 @@ class AppString {
   static const String fixture = "Fixtures";
   static const String allTeam = "All Team";
   static const String specific = "Specific";
-  static const String selectATeam = "Select a Team";
+  static const String selectATeam = "Select A Team";
   static const String reset = "Reset";
   static const String team = "Team";
   static const String filter = "Filter";
-  static const String dateRange = "Date range";
+  static const String dateRange = "Date Range";
   static const String today = "Today";
   static const String thisWeek = "This Week";
   static const String thisMonth = "This Month";
   static const applyFilters = "Apply Filters";
   static const matchesFound = 'Matches Found';
   static const noMatchesFound = 'No Matches Found';
-  static const filterByLeague = 'Filter by League';
+  static const filterByLeague = 'Filter By League';
 
   static const String labelVideo = "Video";
   static const String labelWatchNow = "Watch Now";
@@ -248,14 +248,15 @@ class AppString {
   static const String upcomingEvents = "Upcoming Events";
   static const String limitedSlots = "Limited Slots";
   static const String summerFootballTournament2026 = "Summer Football Tournament 2026";
-  static const String ageGroupUnder12_16 = "Age Group:Under 12 - 16";
+  static const String ageGroupUnder12_16 = "Age Group: Under 12 - 16";
   static const String viewDetails = "View Details";
   static const String top10GoalsWeek24 = "Top 10 Goals: Week 24";
-  static const String threeHourAgoEngOriginal = "3h ago • ENG Original";
+  static const String threeHourAgoEngOriginal = "3h Ago • ENG Original";
   static const String duration7m = "7m";
   static const String skipForNow = "Skip For Now";
   static const String all = "All";
   static const String trialListAvailable = "Trial List";
-
-
+  static const String reasonForDeletion = "Reason For Deletion";
+  static const String accountDeletionInstructions = "Please provide the reason why you want to delete your account. This request will be sent to our support team for verification.";
+  static const String sendRequest = "Send Request";
 }

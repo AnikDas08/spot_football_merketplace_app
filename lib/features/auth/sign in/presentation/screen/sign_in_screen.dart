@@ -8,8 +8,6 @@ import '../../../../../../../utils/helpers/validation.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
-import '../../../../../services/storage/storage_keys.dart';
-import '../../../../../services/storage/storage_services.dart';
 import '../controller/sign_in_controller.dart';
 import '../../../sign in/presentation/widgets/do_not_account.dart';
 import '../widgets/signup_appbar.dart';
@@ -164,7 +162,6 @@ class SignInScreen extends StatelessWidget {
                       ),
 
                       40.height,
-                      32.height,
 
                       const DoNotHaveAccount(),
 

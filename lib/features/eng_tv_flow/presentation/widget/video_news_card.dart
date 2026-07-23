@@ -4,11 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../component/video/dynamic_video_thumbnail.dart';
+
 class VideoNewsCard extends StatelessWidget {
   final String title;
   final String description;
   final String timeAgo;
   final String imageUrl;
+  final String? videoUrl; 
 
   const VideoNewsCard({
     super.key,
@@ -16,21 +19,19 @@ class VideoNewsCard extends StatelessWidget {
     required this.description,
     required this.timeAgo,
     required this.imageUrl,
+    this.videoUrl, 
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12.h, ),
-
+      padding: EdgeInsets.symmetric(vertical: 12.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-
               Expanded(
                 child: Text(
                   title,
@@ -44,19 +45,18 @@ class VideoNewsCard extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
               ),
-
               SizedBox(width: 16.w),
-
               Stack(
                 alignment: Alignment.bottomRight,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(6.r),
-                    child: CommonImage(
-                      imageSrc: imageUrl,
+                    child: DynamicVideoThumbnail(
+                      videoUrl: videoUrl ?? "",
+                      thumbnailUrl: imageUrl,
                       width: 120.w,
                       height: 66.h,
-                      fill: BoxFit.cover,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Container(
@@ -89,7 +89,6 @@ class VideoNewsCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start,
           ),
-
           SizedBox(height: 8.h),
           CommonText(
             text: timeAgo,
@@ -103,9 +102,8 @@ class VideoNewsCard extends StatelessWidget {
           SizedBox(height: 8.h),
           Container(
             height: 1.h,
-            decoration: BoxDecoration(color: Color(0xFFF3F3F3)),
+            decoration: const BoxDecoration(color: Color(0xFFF3F3F3)),
           ),
-
         ],
       ),
     );

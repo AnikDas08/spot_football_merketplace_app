@@ -7,13 +7,14 @@ import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_images.dart';
 
 class SignupAppbar extends StatelessWidget implements PreferredSizeWidget {
+  final Color? backgroundColor;
 
-  const SignupAppbar({super.key});
+  const SignupAppbar({super.key, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.transparent,
+      color: backgroundColor ?? Colors.black,
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top + 10.h,
         bottom: 10.h,

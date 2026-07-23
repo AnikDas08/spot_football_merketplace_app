@@ -97,8 +97,9 @@ class PerformanceCard extends StatelessWidget {
                     child: CommonText(
                       text: "9.2",
                       fontSize: 14,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       color: AppColors.white,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                   CommonText(

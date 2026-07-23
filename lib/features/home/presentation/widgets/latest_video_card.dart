@@ -3,11 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
-import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_string.dart';
+import '../../../../utils/helpers/video_metadata_helper.dart';
+import '../../../../component/video/dynamic_video_thumbnail.dart';
 
 class LatestVideoCard extends StatelessWidget {
   final String imagePath;
@@ -15,8 +16,8 @@ class LatestVideoCard extends StatelessWidget {
   final String category;
   final String description;
   final String time;
-  final String duration;
   final String? videoId;
+  final String? videoUrl; 
   final double? width;
   final double? height;
   final bool isLoading;
@@ -28,8 +29,8 @@ class LatestVideoCard extends StatelessWidget {
     required this.category,
     required this.description,
     required this.time,
-    required this.duration,
     this.videoId,
+    this.videoUrl, 
     this.width,
     this.height,
     this.isLoading = false,
@@ -53,6 +54,8 @@ class LatestVideoCard extends StatelessWidget {
       );
     }
 
+    final String formattedCategory = VideoMetadataHelper.formatCategory(category);
+
     return Container(
       width: width ?? double.infinity,
       height: height ?? 450.h,
@@ -73,13 +76,12 @@ class LatestVideoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24.r),
         child: Stack(
           children: [
-            /// Background Image
+            /// Background Image (Dynamic)
             Positioned.fill(
-              child: CommonImage(
-                imageSrc: imagePath,
-                width: double.infinity,
-                height: double.infinity,
-                fill: BoxFit.cover,
+              child: DynamicVideoThumbnail(
+                videoUrl: videoUrl ?? "",
+                thumbnailUrl: imagePath,
+                fit: BoxFit.cover,
               ),
             ),
 
@@ -127,7 +129,7 @@ class LatestVideoCard extends StatelessWidget {
                 children: [
                   /// Info Row (Category & Time)
                   CommonText(
-                    text: "$category  •  $time",
+                    text: time.isNotEmpty ? "$formattedCategory  •  $time" : formattedCategory,
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: Colors.white,

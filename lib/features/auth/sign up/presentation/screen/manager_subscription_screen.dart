@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../config/route/app_routes.dart';
+import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_images.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
 import '../controller/manager_registation_controller.dart';
@@ -20,7 +21,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      appBar: SignupAppbar(),
+      appBar: const SignupAppbar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         child: Form(
@@ -29,9 +30,9 @@ class ManagerSubscriptionScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CommonText(
-                text: 'Become an ENG\nManager',
+                text: 'Become an Eng\nManager',
                 fontSize: 40,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 bottom: 10,
               ),
               const CommonText(
@@ -48,7 +49,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                 icon: Icons.rocket_launch_rounded,
                 iconBgColor: const Color(0xFFEEEEEE),
                 iconColor: const Color(0xFF5383EC),
-                title: 'START FOR FREE',
+                title: 'Start For Free',
                 description: 'Access basic manager features with no cost. Perfect for individual learning and initial growth.',
                 buttonText: 'Sign Up Free',
                 onTap: () {
@@ -63,8 +64,8 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                 icon: Icons.stars_rounded,
                 iconBgColor: const Color(0xFFE8F0FE),
                 iconColor: const Color(0xFF1A73E8),
-                title: 'EARN ENG MANAGER COINS',
-                description: 'Upgrade to earn ENG Manager Coins and unlock premium features, exclusive analytics, and team tools.',
+                title: 'Earn Eng Manager Coins',
+                description: 'Upgrade to earn Eng Manager Coins and unlock premium features, exclusive analytics, and team tools.',
                 price: '£4.95',
                 buttonText: 'Pay & Upgrade',
                 onTap: () {
@@ -114,7 +115,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                 child: CommonText(
                   text: title,
                   fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -125,6 +126,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
             fontSize: 14,
             maxLines: 4,
             color: Colors.black54,
+            textAlign: TextAlign.start,
           ),
           if (price != null) ...[
             SizedBox(height: 16.h),
@@ -134,9 +136,9 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                   TextSpan(
                     text: price,
                     style: TextStyle(
-                      color: const Color(0xFFEAB308), // Golden Yellow
+                      color: AppColors.yellow,
                       fontSize: 32.sp,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   TextSpan(

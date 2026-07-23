@@ -1,51 +1,53 @@
-# Implementation Plan - Universal Auth Background & Final Branding
+# Implementation Plan - Comprehensive Default Profile Image Standardization
 
-Apply the `auth_bg.png` background and Title Case consistency to all remaining authentication and onboarding screens. Refine the App Bar action buttons and ensure all text weights and fonts are aligned with the premium brand identity.
+Standardize the default profile image across the entire application to use the ENG logo (`AppImages.appLogo`) whenever a player or user profile image is missing, empty, or fails to load.
 
 ## User Review Required
 
 > [!IMPORTANT]
-> - All authentication-related screens (Forget Password, Verify, Create Password, Select Role, etc.) will now use the **full-screen `auth_bg.png`** with a dark gradient overlay.
-> - **Sign Up / Sign In / Forget Password / Verify** headers will be set to `FontWeight.w500` to avoid being "too bold".
-> - The **"Play The Game"** text on the Onboarding screen and the **"Welcome To"** text will strictly use the **Montserrat** font family as requested.
+> This change will globally replace all profile placeholders (silhouettes, generic player images, etc.) with the ENG logo. This ensures a consistent, branded experience in player lists, lineups, the drawer, and management screens.
 
 ## Proposed Changes
 
-### [Authentication Screens]
-The following screens will be wrapped in a `Stack` with the full-screen background and gradient:
-1.  **Forgot Password** (`forgot_password.dart`)
-2.  **Verify OTP** (`verify_screen.dart` and `verify_user.dart`)
-3.  **Create/Reset Password** (`create_password.dart`)
-4.  **Role Selection** (`select_role.dart`)
-5.  **Role Registration Info** (`verify_player_screen.dart`, `manager_registation_screen.dart`, `referee_info_screen.dart`, `trial_registration_screen.dart`)
+### [Common Components]
 
-**Styling for these screens:**
-- `extendBodyBehindAppBar: true` and `extendBody: true`.
-- Titles/Labels/Subtitle text set to `Colors.white` or `Colors.white70`.
-- All `CommonTextField` instances updated with `fillColor: Colors.white.withOpacity(0.1)` and `textColor: Colors.white`.
-- App Bar set to transparent.
+#### [MODIFY] [CommonImage](file:///D:/Ajijul/spot_football_merketplace_app/lib/component/image/common_image.dart)
+- Update `defaultImage` default value to `AppImages.appLogo`.
+- Enhance the `build` method to explicitly check if `imageSrc` is empty or null. If so, return `_buildErrorWidget()` (the default logo).
 
-### [Branding & Case Consistency]
+### [UI Components & Screens - Comprehensive Audit]
 
-#### [MODIFY] [AppString](file:///D:/Ajijul/spot_football_merketplace_app/lib/utils/constants/app_string.dart)
-- Manually audit and fix any remaining non-Title Case strings.
-- Example: `"News details"` -> `"News Details"`, `"Select your role"` -> `"Select Your Role"`.
+I will remove manual fallbacks and ensure `CommonImage` handles the branding in the following locations:
 
-#### [MODIFY] [NavBarController](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/navbar/controller/navbar_controller.dart)
-- Update bottom navigation labels to Title Case: "Home", "Fixtures", "Leagues", "Eng TV", "Stats".
+#### [MODIFY] [AppDrawer](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/drawer/presentation/screen/app_drawer.dart)
+- Remove manual ternary check for `image.isEmpty`.
+- Let `CommonImage` handle the default logo for the logged-in user.
 
-### [UI Components]
+#### [MODIFY] [ClubProfileScreen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/home/presentation/screens/club_profile_screen.dart)
+- In `_PlayerRow`, replace manual `Image.asset(TempImage.playerWithFootball)` with a clean `CommonImage` call.
 
-#### [MODIFY] [CommonAppbar](file:///D:/Ajijul/spot_football_merketplace_app/lib/component/common_appbar/common_appbar.dart)
-- Reduce the size of the Notification and Menu buttons (set height/width to `36.h`, icon size to `18.sp`).
-- Ensure the unread count text uses `Playfair Display`.
+#### [MODIFY] [TeamSheetScreen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/team_sheet/presentation/screen/team_sheet_screen.dart)
+- In `_buildPlayerNode` (tactical board nodes), use the default logo instead of initials when no image exists, for a cleaner look.
+- In `_buildSubstitutesList` and the player selection bottom sheet, ensure `CommonImage` is used without manual fallbacks.
+
+#### [MODIFY] [LineupsTab](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/match_info/presentation/widgets/line_up_tab.dart)
+- Update `_PitchNode` and `_PlayerRow` to use the standardized default logo.
+
+#### [MODIFY] [RecordGoalScreen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/live_match_control/presentation/screen/record_goal_screen.dart)
+- Update the horizontal player list in `_buildPlayerList` to use the new default.
+
+#### [MODIFY] [PlayerHeaderWidget](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/player_profile/presentation/widgets/player_header_widget.dart)
+- Update the large player image fallback in the header.
+
+#### [MODIFY] [MyChildrenScreen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/profile/presentation/screens/my_children_screen.dart)
+- Standardize the athlete list avatars.
+
+#### [MODIFY] [EditProfile](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/profile/presentation/screen/edit_profile.dart)
+- Standardize the profile image preview placeholder.
 
 ## Verification Plan
 
 ### Manual Verification
-- **Visual Audit**: Navigate through the entire sign-up and forgot-password flows.
-    - Confirm the background image is present and full-screen on every step.
-    - Confirm all headings are Title Case.
-    - Confirm no text appears "Extra Bold" (all should be `w500`).
-- **Onboarding Check**: Verify "Play The Game" and "Welcome To" use Montserrat.
-- **App Bar Check**: Verify action buttons are compact and properly aligned.
+- **Drawer & Profiles**: Navigate through App Drawer, Club Profiles, and Match Lineups. Verify that any player/user without an image shows the ENG logo.
+- **Management**: Open the Team Sheet and Record Goal screens. Verify avatars in lists and on the tactical board.
+- **Branding Check**: Ensure the logo is properly sized (contain/cover) in each context to maintain a professional look.

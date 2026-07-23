@@ -192,14 +192,25 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       ),
                     ),
                     Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 22.w),
-                        child: CommonText(
-                          text: 'Club',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.white,
-                        ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 22.w),
+                            child: CommonText(
+                              text: 'Club',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.white,
+                            ),
+                          ),
+                          const Spacer(),
+                          Image.asset(
+                            'assets/images/white.png',
+                            width: 50.w,
+                            fit: BoxFit.contain,
+                          ),
+                          const Spacer(),
+                        ],
                       ),
                     ),
                     SizedBox(
@@ -263,6 +274,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
+                            fontFamily: 'Montserrat',
                           ),
                         ),
                         Expanded(
@@ -296,6 +308,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                             fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
+                            fontFamily: 'Montserrat',
                           ),
                         ),
                         SizedBox(
@@ -306,6 +319,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                             fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
+                            fontFamily: 'Montserrat',
                           ),
                         ),
                         SizedBox(
@@ -316,6 +330,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                             fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
+                            fontFamily: 'Montserrat',
                           ),
                         ),
                       ],

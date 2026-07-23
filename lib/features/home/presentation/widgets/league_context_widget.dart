@@ -81,6 +81,7 @@ class LeagueContextWidget extends StatelessWidget {
           fontSize: 32,
           fontWeight: FontWeight.w500,
           color: const Color(0xFFEABB00),
+          fontFamily: 'Montserrat',
         ),
         CommonText(
           text: label,

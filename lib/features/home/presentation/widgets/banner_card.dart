@@ -9,13 +9,21 @@ import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_string.dart';
 import '../../data/video_model.dart';
+import '../../../../component/video/dynamic_video_thumbnail.dart';
+import '../../../../utils/helpers/video_metadata_helper.dart';
 
 class BannerCard extends StatelessWidget {
   final VideoModel videoModel;
-  const BannerCard({super.key, required this.videoModel});
+
+  const BannerCard({
+    super.key,
+    required this.videoModel,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final String formattedCategory = VideoMetadataHelper.formatCategory(videoModel.category);
+
     return InkWell(
       onTap: () {
         Get.toNamed(AppRoutes.videoStreamScreen, arguments: videoModel.id);
@@ -35,22 +43,17 @@ class BannerCard extends StatelessWidget {
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(14.r),
           child: Stack(
-
             fit: StackFit.expand,
-
             children: [
-
-              Image.network(
-                "${ApiEndPoint.imageUrl}${videoModel.thumbnail}", // Fallback or if videoUrl can be used for thumbnail
+              DynamicVideoThumbnail(
+                videoUrl: "${ApiEndPoint.videoUrl}${videoModel.videoUrl}",
+                thumbnailUrl: videoModel.thumbnail.isNotEmpty
+                    ? "${ApiEndPoint.imageUrl}${videoModel.thumbnail}"
+                    : '',
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Image.network(
-                   'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg',
-                   fit: BoxFit.cover,
-                ),
               ),
-
 
               Container(
                 decoration: BoxDecoration(
@@ -67,58 +70,41 @@ class BannerCard extends StatelessWidget {
                 ),
               ),
 
-
               Positioned(
-                left: 16,
-                right: 16,
-                bottom: 16,
+                left: 16.w,
+                right: 16.w,
+                bottom: 16.h,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-
-
                     CommonText(
                       text: videoModel.title,
                       fontSize: 14,
                       color: AppColors.white,
                       fontWeight: FontWeight.w500,
                     ),
-
                     SizedBox(height: 2.h),
-
-
                     CommonText(
-                      text: videoModel.category,
+                      text: formattedCategory,
                       color: AppColors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
-
-
-                    SizedBox(height: 4.h),
-
-                    // CommonText(
-                    //   text: videoModel.status,
-                    //   color: AppColors.white,
-                    //   fontSize: 14,
-                    //   fontWeight: FontWeight.w500,
-                    // ),
-                    //
                     SizedBox(height: 12.h),
-
                     InkWell(
                       onTap: () {
-                         Get.toNamed(AppRoutes.videoStreamScreen, arguments: videoModel.id);
+                        Get.toNamed(AppRoutes.videoStreamScreen,
+                            arguments: videoModel.id);
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20.w,
+                          vertical: 10.h,
                         ),
                         decoration: BoxDecoration(
                           color: AppColors.transparent,
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30.r),
                           border: Border.all(
                             color: AppColors.colorEABB00,
                             width: 1.2,
@@ -126,7 +112,7 @@ class BannerCard extends StatelessWidget {
                         ),
                         child: Text(
                           AppString.watchEngLive,
-                          style: GoogleFonts.playfairDisplay(
+                          style: GoogleFonts.montserrat(
                             color: AppColors.white,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
@@ -134,12 +120,9 @@ class BannerCard extends StatelessWidget {
                         ),
                       ),
                     ),
-
-
                   ],
                 ),
               ),
-
             ],
           ),
         ),

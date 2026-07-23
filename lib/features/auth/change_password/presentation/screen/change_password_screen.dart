@@ -28,28 +28,27 @@ class ChangePasswordScreen extends StatelessWidget {
       body: GetBuilder<ChangePasswordController>(
         builder: (controller) {
           return SingleChildScrollView(
-            padding: .symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Form(
               key: _formKey,
               child: Column(
-                spacing: 10,
-                crossAxisAlignment: .start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  30.height,
-                  CommonText(
-                    text: AppString.updateCredentials,
+                  SizedBox(height: 30.h),
+                  const CommonText(
+                    text: 'Update Credentials',
                     fontSize: 32,
-                    fontWeight: FontWeight(700),
+                    fontWeight: FontWeight.w500,
                     maxLines: 2,
                   ),
-                  CommonText(
-                    text: AppString.ensureYourPerformanceData,
+                  const CommonText(
+                    text: 'Ensure your performance data remains secure with a high-entropy password.',
                     fontSize: 16,
-                    fontWeight: FontWeight(400),
+                    fontWeight: FontWeight.w400,
                     maxLines: 2,
                   ),
 
-                  40.height,
+                  SizedBox(height: 40.h),
 
                   /// current Password section
                   CommonTextField(
@@ -60,6 +59,8 @@ class ChangePasswordScreen extends StatelessWidget {
                     isPassword: true,
                   ),
 
+                  SizedBox(height: 20.h),
+
                   CommonTextField(
                     title: AppString.newPassword,
                     controller: controller.newPasswordController,
@@ -67,6 +68,8 @@ class ChangePasswordScreen extends StatelessWidget {
                     validator: AppValidation.password,
                     isPassword: true,
                   ),
+
+                  SizedBox(height: 20.h),
 
                   CommonTextField(
                     title: AppString.confirmPassword,
@@ -81,13 +84,13 @@ class ChangePasswordScreen extends StatelessWidget {
 
                   /// forget Password button
                   Align(
-                    alignment: .centerLeft,
+                    alignment: Alignment.centerLeft,
                     child: InkWell(
                       onTap: () => Get.toNamed(AppRoutes.forgotPassword),
                       child: CommonText(
                         text: AppString.forgotPassword,
                         color: AppColors.primaryColor,
-                        fontWeight: .w600,
+                        fontWeight: FontWeight.w500,
                         fontSize: 18,
                         top: 16.h,
                         bottom: 20.h,
@@ -101,11 +104,9 @@ class ChangePasswordScreen extends StatelessWidget {
                     isLoading: controller.isLoading,
                     onTap: () {
                       controller.changePasswordRepo();
-
-                      // if (_formKey.currentState!.validate()) {
-                      // }
                     },
                   ),
+                  SizedBox(height: 30.h),
                 ],
               ),
             ),

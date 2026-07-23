@@ -37,9 +37,9 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CommonText(
-                    text: "Get discovered\nby clubs",
+                    text: "Get Discovered\nBy Clubs",
                     fontSize: 40,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     bottom: 10,
                   ),
                   const CommonText(
@@ -108,7 +108,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                   ),
                   SizedBox(height: 30.h),
 
-                   CommonText(
+                   const CommonText(
                     text: "Document / ID Card",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -157,7 +157,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                   ),
 
                   SizedBox(height: 32.h),
-                   Center(
+                   const Center(
                     child: CommonText(
                       text: "By submitting, you agree to the\nAthlete Terms of Service",
                       fontSize: 16,
@@ -181,7 +181,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         CommonText(
+         const CommonText(
           text: "Select Team",
           fontSize: 16,
           fontWeight: FontWeight.w500,
@@ -210,7 +210,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         CommonText(
+         const CommonText(
           text: "Strong Foot",
           fontSize: 16,
           fontWeight: FontWeight.w500,
@@ -239,7 +239,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonText(
+        const CommonText(
           text: "Position",
           fontSize: 16,
           fontWeight: FontWeight.w500,
@@ -341,7 +341,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
+         const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
           child: InputDecorator(

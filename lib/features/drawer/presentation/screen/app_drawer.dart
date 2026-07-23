@@ -54,9 +54,9 @@ class AppDrawer extends StatelessWidget {
                           },
                         ),
                         
-                        // 2. League tables
+                        // 2. League Tables
                         _buildMenuItem(
-                          label: "League tables",
+                          label: "League Tables",
                           onTap: () {
                             Get.back();
                             Get.find<NavBarController>().selectedIndex.value = 2;
@@ -83,9 +83,9 @@ class AppDrawer extends StatelessWidget {
                           },
                         ),
                         
-                        // 5. Book a Scout
+                        // 5. Book A Scout
                         _buildMenuItem(
-                          label: "Book a Scout",
+                          label: "Book A Scout",
                           onTap: () async {
                             final Uri url = Uri.parse('https://www.engsportsevents.co.uk/bookscout');
                             if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
@@ -163,6 +163,17 @@ class AppDrawer extends StatelessWidget {
                           label: AppString.termsOfServices,
                           onTap: () => Get.toNamed(AppRoutes.termsOfServices),
                         ),
+
+                        if (!LocalStorage.isGuest) ...[
+                          SizedBox(height: 16.h),
+                          _buildMenuItem(
+                            label: AppString.deleteAccount,
+                            backgroundColor: Colors.red.withValues(alpha: 0.05),
+                            showArrow: false,
+                            centerText: true,
+                            onTap: () => Get.toNamed(AppRoutes.deleteAccount),
+                          ),
+                        ],
                       ],
                     ),
                   ),
@@ -247,13 +258,20 @@ class AppDrawer extends StatelessWidget {
   Widget _buildMenuItem({
     required String label,
     required VoidCallback onTap,
+    Color? backgroundColor,
+    bool showArrow = true,
+    bool centerText = false,
   }) {
     return Column(
       children: [
         InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(8.r),
-          child: Padding(
+          child: Container(
+            decoration: BoxDecoration(
+              color: backgroundColor ?? Colors.transparent,
+              borderRadius: BorderRadius.circular(8.r),
+            ),
             padding: EdgeInsets.only(left: 16.w, right: 8.w, top: 14.h, bottom: 14.h),
             child: Row(
               children: [
@@ -262,18 +280,19 @@ class AppDrawer extends StatelessWidget {
                     text: label,
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.primaryColor,
-                    textAlign: TextAlign.start,
+                    color: backgroundColor != null ? Colors.red.shade700 : AppColors.primaryColor,
+                    textAlign: centerText ? TextAlign.center : TextAlign.start,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                if (showArrow)
                 SvgPicture.asset(
                   AppIcons.chevronRight,
                   width: 18.w,
                   height: 18.h,
-                  colorFilter: const ColorFilter.mode(
-                    AppColors.primaryColor,
+                  colorFilter: ColorFilter.mode(
+                    backgroundColor != null ? Colors.red.shade700 : AppColors.primaryColor,
                     BlendMode.srcIn,
                   ),
                 ),
@@ -281,7 +300,8 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
         ),
-        Divider(color: AppColors.colorCCCCCC.withValues(alpha: 0.5), height: 1),
+        if (backgroundColor == null)
+          Divider(color: AppColors.colorCCCCCC.withValues(alpha: 0.5), height: 1),
       ],
     );
   }

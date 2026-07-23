@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../../component/text/common_text.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
@@ -85,9 +83,11 @@ class EngTvHomeSection extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: VideoThumbnailCard(
-              thumbnail: "${ApiEndPoint.imageUrl}${firstVideo.thumbnail}",
+              thumbnail: firstVideo.thumbnail.isNotEmpty
+                  ? "${ApiEndPoint.imageUrl}${firstVideo.thumbnail}"
+                  : '',
+              videoUrl: "${ApiEndPoint.videoUrl}${firstVideo.videoUrl}",
               title: firstVideo.title,
-              duration: 'LIVE',
               onWatchNow: () {
                 Get.toNamed(AppRoutes.videoStreamScreen, arguments: firstVideo.id);
               },

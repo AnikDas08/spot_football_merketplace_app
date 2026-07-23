@@ -75,6 +75,7 @@ class PlayerStatCard extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,
+                fontFamily: 'Montserrat',
               ),
               SizedBox(height: 10),
             ],

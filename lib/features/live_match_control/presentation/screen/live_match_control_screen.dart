@@ -159,6 +159,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                         text: '${match.homeScore}',
                         fontSize: 48,
                         fontWeight: FontWeight.w500,
+                        fontFamily: 'Montserrat',
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -167,12 +168,14 @@ class LiveMatchControlScreen extends StatelessWidget {
                           fontSize: 32,
                           fontWeight: FontWeight.w300,
                           color: const Color(0xFFCCCCCC),
+                          fontFamily: 'Montserrat',
                         ),
                       ),
                       CommonText(
                         text: '${match.awayScore}',
                         fontSize: 48,
                         fontWeight: FontWeight.w500,
+                        fontFamily: 'Montserrat',
                       ),
                     ],
                   ),

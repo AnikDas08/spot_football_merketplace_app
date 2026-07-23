@@ -23,11 +23,11 @@ class ForgotPasswordScreen extends StatelessWidget {
     return GetBuilder<ForgetPasswordController>(
       builder: (controller) => Scaffold(
         backgroundColor: const Color(0xFFF3F3F3),
-        appBar: SignupAppbar(),
+        appBar: const SignupAppbar(),
 
         /// body section
         body: SingleChildScrollView(
-          padding: .symmetric(horizontal: 20.w, vertical: 24.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -37,7 +37,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               const CommonText(
                 text: 'Forget\nPassword',
                 fontSize: 40,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 textAlign: TextAlign.start,
                 color: AppColors.black,
                 bottom: 10,
@@ -57,7 +57,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               Form(
                 key: _formKey,
                 child: Column(
-                  crossAxisAlignment: .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// forget password take email for reset Password
                     CommonTextField(
@@ -84,9 +84,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                         TextSpan(
                           text: "Remember Me? ",
                           style: GoogleFonts.plusJakartaSans(
-                            color: Color(0xff373737),
+                            color: const Color(0xff373737),
                             fontSize: 16,
-                            fontWeight: .w500,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
 
@@ -95,12 +95,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                           text: "Go Back",
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Get.toNamed(AppRoutes.signUp);
+                              Get.back();
                             },
                           style: GoogleFonts.plusJakartaSans(
                             color: AppColors.primaryColor,
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                             decoration: TextDecoration.underline,      // underline
                             decorationColor: AppColors.primaryColor,   // underline color
                             decorationThickness: 2,                    // optional thickness
@@ -108,7 +108,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    textAlign: .center,
+                    textAlign: TextAlign.center,
                   ),
                 )
                   ],

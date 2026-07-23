@@ -31,6 +31,7 @@ class TransferSummaryCard extends StatelessWidget {
             fontSize: 32,
             fontWeight: FontWeight.w500,
             color: AppColors.primaryColor,
+            fontFamily: 'Montserrat',
           ),
           SizedBox(height: 14.h),
           Container(

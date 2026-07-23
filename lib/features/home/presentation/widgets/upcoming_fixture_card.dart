@@ -69,6 +69,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,
                 bottom: 16.h,
+                fontFamily: 'Montserrat',
               ),
 
               Row(
@@ -111,6 +112,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: AppColors.black,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
 

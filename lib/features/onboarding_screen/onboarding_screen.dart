@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_images.dart';
 import '../../../../utils/constants/app_string.dart';
@@ -78,7 +79,7 @@ class OnboardingScreen extends StatelessWidget {
 
                   /// Subtitle
                   CommonText(
-                    text: "Your club. Your app. Every goal, every story, every moment on one platform",
+                    text: "Your Club. Your App. Every Goal, Every Story, Every Moment On One Platform",
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: Colors.white.withValues(alpha: 0.8),
@@ -125,7 +126,7 @@ class OnboardingScreen extends StatelessWidget {
                     },
                     child: Text(
                       "Continue With Limited Access",
-                      style: TextStyle(
+                      style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,

@@ -110,6 +110,7 @@ class RecentResultCard extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: AppColors.white,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
 

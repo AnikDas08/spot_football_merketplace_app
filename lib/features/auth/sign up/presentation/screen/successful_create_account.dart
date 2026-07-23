@@ -11,9 +11,7 @@ import '../../../../../services/storage/storage_services.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
 
 class SuccessfulCreateAccount extends StatelessWidget {
-  SuccessfulCreateAccount({super.key});
-
-  final _formKey = GlobalKey<FormState>();
+  const SuccessfulCreateAccount({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +34,8 @@ class SuccessfulCreateAccount extends StatelessWidget {
                 const CommonText(
                   text: 'Account\nCreated',
                   fontSize: 40,
-                  fontWeight: FontWeight.w700,
-                  textAlign: TextAlign.start,
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.center,
                   color: AppColors.black,
                   bottom: 10,
                 ),
@@ -47,7 +45,7 @@ class SuccessfulCreateAccount extends StatelessWidget {
                   text: 'Welcome to the League. Your arena is ready.',
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  textAlign: TextAlign.start,
+                  textAlign: TextAlign.center,
                   maxLines: 3,
                   color: AppColors.primaryColor,
                   bottom: 32,
@@ -61,7 +59,7 @@ class SuccessfulCreateAccount extends StatelessWidget {
                       LocalStorage.isLogIn = true;
                       Get.offAllNamed(AppRoutes.navBarScreen);
                     },
-                    titleText: "Continue to App"
+                    titleText: "Continue To App"
                 ),
 
                 SizedBox(height: 30.h,),

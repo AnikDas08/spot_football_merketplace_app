@@ -144,6 +144,7 @@ class _RecordCard extends StatelessWidget {
                 fontSize: 32,
                 fontWeight: FontWeight.w500,
                 color: textColor ?? AppColors.primaryColor,
+                fontFamily: 'Montserrat',
               ),
               const Spacer(),
               CommonText(

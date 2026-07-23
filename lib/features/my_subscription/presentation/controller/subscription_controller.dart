@@ -100,7 +100,7 @@ class SubscriptionController extends GetxController {
 
       if (role.isNotEmpty) {
         if (role == "OTHER_CLUBS") {
-          role = "Club";
+          role = "Other";
         } else {
           role = role[0].toUpperCase() + role.substring(1).toLowerCase();
         }

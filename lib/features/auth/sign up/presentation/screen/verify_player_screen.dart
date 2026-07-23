@@ -18,7 +18,7 @@ class VerifyPlayerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      appBar: SignupAppbar(),
+      appBar: const SignupAppbar(),
       body: GetBuilder<VerifyPlayerController>(
         init: VerifyPlayerController(),
         builder: (controller) {
@@ -32,7 +32,7 @@ class VerifyPlayerScreen extends StatelessWidget {
                   const CommonText(
                     text: 'Verify Your\nStatus',
                     fontSize: 40,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     bottom: 10,
                   ),
                   const CommonText(
@@ -91,7 +91,7 @@ class VerifyPlayerScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const CommonText(text: "Select Team", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+                            const CommonText(text: "Select Team", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
                             DropdownButtonFormField<String>(
                               initialValue: controller.selectedTeam,
                               isExpanded: true,
@@ -137,11 +137,10 @@ class VerifyPlayerScreen extends StatelessWidget {
                   ),
 
                   SizedBox(height: 30.h),
-                  CommonText(
-                    text: "Proof / ID (Optional)",
+                  const CommonText(
+                    text: "Proof / Id (Optional)",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.primaryColor,
                     bottom: 10,
                   ),
 
@@ -239,14 +238,13 @@ class VerifyPlayerScreen extends StatelessWidget {
   Widget _buildDropdownField({
     required String title,
     required String hint,
-    required String? value,
-    required List<String> items,
+    required String? value,    required List<String> items,
     required Function(String?) onChanged,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonText(text: title, fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+        CommonText(text: title, fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
         DropdownButtonFormField<String>(
           initialValue: value,
           isExpanded: true,
@@ -283,7 +281,7 @@ class VerifyPlayerScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
           child: InputDecorator(

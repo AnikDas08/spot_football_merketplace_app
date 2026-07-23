@@ -68,7 +68,7 @@ class UpcomingFixtures extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Upcoming fixtures",
+                "Upcoming Fixtures",
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w500,

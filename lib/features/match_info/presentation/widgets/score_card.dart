@@ -139,6 +139,7 @@ class ScoreCard extends StatelessWidget {
                           fontSize: 42,
                           fontWeight: FontWeight.w500,
                           color: AppColors.primaryColor,
+                          fontFamily: 'Montserrat',
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 4.w),
@@ -147,6 +148,7 @@ class ScoreCard extends StatelessWidget {
                             fontSize: 42,
                             fontWeight: FontWeight.w500,
                             color: AppColors.primaryColor,
+                            fontFamily: 'Montserrat',
                           ),
                         ),
                         CommonText(
@@ -154,6 +156,7 @@ class ScoreCard extends StatelessWidget {
                           fontSize: 42,
                           fontWeight: FontWeight.w500,
                           color: AppColors.primaryColor,
+                          fontFamily: 'Montserrat',
                         ),
                       ],
                     ),

@@ -49,14 +49,14 @@ class AllVideosScreen extends StatelessWidget {
                       initialBlur: 5,
                       child: LatestVideoCard(
                         videoId: video.id,
-                        imagePath: video.videoUrl.isNotEmpty
+                        videoUrl: "${ApiEndPoint.videoUrl}${video.videoUrl}",
+                        imagePath: video.thumbnail.isNotEmpty
                             ? "${ApiEndPoint.imageUrl}${video.thumbnail}"
-                            : 'https://images.unsplash.com/photo-1551958219-acbc630e2914?w=600',
+                            : '',
                         title: video.title,
                         category: video.category,
                         description: video.description,
                         time: video.publishDateTime,
-                        duration: "0:00",
                       ),
                     );
                   },

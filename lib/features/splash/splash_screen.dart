@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../config/route/app_routes.dart';
 import 'package:get/get.dart';
 
+import '../../component/text/common_text.dart';
 import '../../services/storage/storage_services.dart';
 import '../../utils/constants/app_colors.dart';
 import '../../utils/constants/app_images.dart';
@@ -249,14 +250,24 @@ class _SplashScreenState extends State<SplashScreen>
                           opacity: _sloganOpacity.value,
                           child: Transform.translate(
                             offset: Offset(0, _textOffset.value),
-                            child: Text(
-                              'Welcome to The Official Eng Sports App!',
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 2.w,
-                              ),
+                            child: Column(
+                              children: [
+                                const CommonText(
+                                  text: "Welcome back",
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  fontFamily: 'PlayfairDisplay',
+                                ),
+                                SizedBox(height: 8.h),
+                                CommonText(
+                                  text: "The Official ENG Sports App!",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white.withValues(alpha: 0.8),
+                                  fontFamily: 'Montserrat',
+                                ),
+                              ],
                             ),
                           ),
                         ),

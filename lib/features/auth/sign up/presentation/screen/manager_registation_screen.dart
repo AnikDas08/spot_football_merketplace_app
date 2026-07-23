@@ -20,7 +20,7 @@ class ManagerRegistationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      appBar: SignupAppbar(),
+      appBar: const SignupAppbar(),
       body: GetBuilder<ManagerRegistationController>(
         init: ManagerRegistationController(),
         builder: (controller) {
@@ -32,9 +32,10 @@ class ManagerRegistationScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CommonText(
-                    text: 'Become an ENG\nManager',
+                    text: 'Become an Eng\nManager',
                     fontSize: 40,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black,
                     bottom: 10,
                   ),
                   const CommonText(
@@ -72,7 +73,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const CommonText(text: "Select Team", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+                            const CommonText(text: "Select Team", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
                             DropdownButtonFormField<String>(
                               initialValue: controller.selectedTeam,
                               isExpanded: true,
@@ -121,7 +122,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                   ),
 
                   SizedBox(height: 30.h),
-                  CommonText(
+                  const CommonText(
                     text: "DBS / DOB Document",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -136,7 +137,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                   ),
 
                   SizedBox(height: 24.h),
-                  CommonText(
+                  const CommonText(
                     text: "Medical Certificate",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -258,7 +259,7 @@ class ManagerRegistationScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w600, bottom: 8),
+        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
           child: InputDecorator(
