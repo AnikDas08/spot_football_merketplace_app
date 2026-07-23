@@ -59,7 +59,7 @@ class VideoStreamScreen extends StatelessWidget {
                           children: [
                             _buildPlayerTag(
                               name: video.category,
-                              image: TempImage.playerProfile2,
+                              image: TempImage.football,
                               borderColor: AppColors.color6B6B6B,
                             ),
                           ],
