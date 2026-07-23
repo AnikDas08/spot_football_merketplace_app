@@ -37,7 +37,7 @@ class SignUpScreen extends StatelessWidget {
                   const CommonText(
                     text: AppString.createYourAccount,
                     fontSize: 40,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
                     color: AppColors.black,
                     bottom: 10,

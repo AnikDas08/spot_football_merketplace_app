@@ -34,7 +34,7 @@ class ClubProfileScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      appBar: const SecondaryAppBar(title: "Club profile"),
+      appBar: const SecondaryAppBar(title: "Club Profile"),
       body: GetBuilder<ClubProfileController>(
         builder: (controller) {
           if (controller.isLoading.value) {

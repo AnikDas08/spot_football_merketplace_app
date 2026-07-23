@@ -81,8 +81,9 @@ class TransferRequestScreen extends StatelessWidget {
           CommonText(
             text: 'Transfer Portal',
             fontSize: 24,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
             color: Colors.black,
+            fontFamily: 'PlayfairDisplay',
           ),
           SizedBox(height: 8.h),
           SizedBox(
@@ -121,7 +122,7 @@ class TransferRequestScreen extends StatelessWidget {
                   child: CommonText(
                     text: 'Incoming',
                     fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: controller.isIncoming ? Colors.white : Colors.black,
                   ),
                 ),
@@ -139,7 +140,7 @@ class TransferRequestScreen extends StatelessWidget {
                   child: CommonText(
                     text: 'Outgoing',
                     fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: !controller.isIncoming ? Colors.white : Colors.black,
                   ),
                 ),
@@ -362,7 +363,7 @@ class TransferRequestScreen extends StatelessWidget {
         : CommonText(
             text: text,
             fontSize: 16,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
             color: textColor,
           ),
     );

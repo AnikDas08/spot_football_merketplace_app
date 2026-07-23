@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../component/text/common_text.dart';
 import '../../../../config/api/api_end_point.dart';
@@ -81,7 +82,7 @@ class BannerCard extends StatelessWidget {
                       text: videoModel.title,
                       fontSize: 14,
                       color: AppColors.white,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w500,
                     ),
 
                     SizedBox(height: 2.h),
@@ -91,7 +92,7 @@ class BannerCard extends StatelessWidget {
                       text: videoModel.category,
                       color: AppColors.white,
                       fontSize: 12,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                     ),
 
 
@@ -101,7 +102,7 @@ class BannerCard extends StatelessWidget {
                       text: videoModel.status,
                       color: AppColors.white,
                       fontSize: 14,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w500,
                     ),
 
                     SizedBox(height: 12.h),
@@ -123,11 +124,13 @@ class BannerCard extends StatelessWidget {
                             width: 1.2,
                           ),
                         ),
-                        child: CommonText(
-                          text: AppString.watchEngLive,
-                          color: AppColors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
+                        child: Text(
+                          AppString.watchEngLive,
+                          style: GoogleFonts.playfairDisplay(
+                            color: AppColors.white,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),

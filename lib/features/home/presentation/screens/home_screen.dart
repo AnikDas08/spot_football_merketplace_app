@@ -56,10 +56,12 @@ class HomeScreen extends StatelessWidget {
                   if (controller.isLoading.value ||
                       controller.upcomingMatches.isNotEmpty) ...[
                     _buildSection(
-                      backgroundColor: Colors.white,
+                      backgroundColor: AppColors.primaryColor,
                       child: UpcomingFixtures(
                         fixtures: controller.upcomingMatches,
                         isLoading: controller.isLoading.value,
+                        titleColor: Colors.white,
+                        viewAllColor: AppColors.colorEABB00,
                       ),
                     ),
                     SizedBox(height: 12.h),

@@ -74,9 +74,9 @@ class TrialOfferCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CommonText(
-                            text: title.toUpperCase(),
+                            text: title,
                             fontSize: 18,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                             color: AppColors.primaryColor,
                             maxLines: 2,
                             textAlign: TextAlign.start,
@@ -93,10 +93,10 @@ class TrialOfferCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20.r),
                             ),
                             child: CommonText(
-                              text: '$matchPercentage MATCH',
+                              text: '$matchPercentage Match',
                               color: AppColors.green,
                               fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                       ],

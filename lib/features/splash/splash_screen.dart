@@ -250,7 +250,7 @@ class _SplashScreenState extends State<SplashScreen>
                           child: Transform.translate(
                             offset: Offset(0, _textOffset.value),
                             child: Text(
-                              'HARDWORKDEDICATION',
+                              'Welcome to The Official Eng Sports App!',
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 14.sp,

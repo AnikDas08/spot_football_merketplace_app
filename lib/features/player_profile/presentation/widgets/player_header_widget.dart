@@ -39,7 +39,7 @@ class PlayerHeaderWidget extends StatelessWidget {
                     CommonText(
                       text: playerName,
                       fontSize: 32,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       color: AppColors.white,
                     ),
                     SizedBox(height: 4.h),

@@ -226,7 +226,7 @@ class _SheetTab extends StatelessWidget {
             label,
             style: TextStyle(
               fontSize: 14.sp,
-              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+              fontWeight: selected ? FontWeight.w500 : FontWeight.w500,
               color: selected ? AppColors.white : AppColors.primaryColor,
             ),
           ),
@@ -264,7 +264,7 @@ class _DateChip extends StatelessWidget {
           label,
           style: TextStyle(
             fontSize: 14.sp,
-            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+            fontWeight: selected ? FontWeight.w500 : FontWeight.w500,
             color: selected ? AppColors.white : AppColors.primaryColor,
           ),
         ),

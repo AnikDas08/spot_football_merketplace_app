@@ -124,6 +124,7 @@ class _LatestNewsState extends State<LatestNews> {
                             const SizedBox(width: 5),
                             SvgPicture.asset(
                               AppIcons.arrowRight,
+                              height: 18.h,
                               colorFilter: ColorFilter.mode(
                                 widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
                                 BlendMode.srcIn,

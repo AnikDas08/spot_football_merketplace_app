@@ -21,9 +21,9 @@ class LeagueContextWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CommonText(
-          text: 'LEAGUE CONTEXT',
+          text: 'League Context',
           fontSize: 20,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
           color: AppColors.primaryColor,
         ),
         SizedBox(height: 6.h),
@@ -79,13 +79,13 @@ class LeagueContextWidget extends StatelessWidget {
         CommonText(
           text: value,
           fontSize: 32,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w500,
           color: const Color(0xFFEABB00),
         ),
         CommonText(
           text: label,
           fontSize: 12,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
           color: Colors.grey.shade600,
         ),
       ],

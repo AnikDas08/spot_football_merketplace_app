@@ -82,6 +82,7 @@ class RecentResult extends StatelessWidget {
                     const SizedBox(width: 5),
                     SvgPicture.asset(
                       AppIcons.arrowRight,
+                      height: 18.h,
                       colorFilter: ColorFilter.mode(
                         viewAllColor ?? AppColors.primaryColor,
                         BlendMode.srcIn,

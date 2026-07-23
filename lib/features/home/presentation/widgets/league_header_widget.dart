@@ -60,7 +60,7 @@ class LeagueHeaderWidget extends StatelessWidget {
 
               children: [
                 Text(
-                  teamName ?? 'Phoenix utds',
+                  teamName ?? 'Phoenix Utds',
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.w500,

@@ -1,38 +1,57 @@
-# Implementation Plan - Robust API Message Handling and Snackbar Fixes
+# Implementation Plan - Universal Typography & Branding Overhaul
 
-Improve the extraction of meaningful messages from API responses and fix snackbars that display status codes instead of descriptive titles.
+Standardize the app's visual identity by applying Title Case to all headings, switching *all* prominent and large text to Modern Serif (Playfair Display), and removing all bold font weights project-wide.
+
+## User Review Required
+
+> [!WARNING]
+> This is a project-wide change that will affect the appearance of every screen.
+>
+> 1. **Project-wide Weight Normalization**: I will replace all instances of `FontWeight.bold`, `w600`, `w700`, `w800`, and `w900` with `FontWeight.w500` (Medium) to ensure no text appears too dark or heavy.
+> 2. **Universal Serif Font**: The `Playfair Display` font will be applied to all "Big Text" elements, including headings, buttons, and prominent labels (e.g., large numbers or hero text).
 
 ## Proposed Changes
 
-### [Core Services]
+### [Constants & Metadata]
 
-#### [MODIFY] [api_response_model.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/services/api/api_response_model.dart)
-- Enhance the `message` getter to check for multiple common fields (`message`, `msg`, `error`, `error_description`).
-- Add logic to handle cases where the API response might be a direct string or nested under a `data` object (e.g., `data['message']`).
-- Fallback to `AppString.someThingWrong` only if no descriptive text is found.
+#### [MODIFY] [AppString](file:///D:/Ajijul/spot_football_merketplace_app/lib/utils/constants/app_string.dart)
+- Update all string constants to Title Case (e.g., `"Latest News"`, `"Upcoming Fixtures"`, `"Recent Results"`, `"Live Matches"`).
 
-### [Authentication Controllers]
+### [Common Components]
 
-#### [MODIFY] [sign_in_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/auth/sign%20in/presentation/controller/sign_in_controller.dart)
-- Replace `title: response.statusCode.toString()` with `title: 'Success'` in the success snackbar.
-- Replace `title: response.statusCode.toString()` with `title: 'Error'` in the error snackbar.
+#### [MODIFY] [CommonText](file:///D:/Ajijul/spot_football_merketplace_app/lib/component/text/common_text.dart)
+- Update the default logic to apply `Playfair Display` for text above a certain size threshold (e.g., `fontSize >= 18`).
+- Ensure no bold weights are applied by default.
 
-#### [MODIFY] [forget_password_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/auth/forgot%20password/presentation/controller/forget_password_controller.dart)
-- Replace `title: response.statusCode.toString()` with `title: 'Error'` in the error snackbar within `sendForgetPasswordEmail`.
+#### [MODIFY] [CommonButton](file:///D:/Ajijul/spot_football_merketplace_app/lib/component/button/common_button.dart)
+- Set default `titleWeight` to `w500`.
+- Apply `GoogleFonts.playfairDisplay()` to all button text.
 
-### [Consistency & Cleanup]
+### [Screens & Feature UI]
 
-#### [MODIFY] Multiple Controllers
-Refactor the following controllers to use `response.message` instead of manually accessing `response.data['message']` for better consistency and error handling:
-- [live_match_control_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/live_match_control/presentation/controller/live_match_control_controller.dart)
-- [record_goal_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/live_match_control/presentation/controller/record_goal_controller.dart)
-- [player_profile_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/player_profile/presentation/controllers/player_profile_controller.dart)
-- [referee_dashboard_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/referee_dashboard/presentation/controller/referee_dashboard_controller.dart)
-- [transfer_request_controller.dart](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/transferms/presentation/controller/transfer_request_controller.dart)
+#### [MODIFY] [OnboardingScreen], [SignInScreen], [SignUpScreen]
+- Update welcome headings and large labels (e.g., "Welcome back", "Login", "Create Account") to use Title Case and Playfair Display.
+
+#### [MODIFY] Home Screen Widgets
+- Ensure `LatestNews`, `UpcomingEvents`, `LeaguePreview`, `LiveMatches`, `RecentResults`, and `BookScoutSection` headings are Title Case and Playfair Display.
+
+#### [MODIFY] Player & Club Profiles
+- Update "Personal Details", "Eng Record", "Recent Performance", and "Total Squads" headings.
+
+### [Global Audit]
+
+#### [REPLACE] Project-wide Style Normalization
+- Search and replace all `FontWeight` declarations:
+    - `FontWeight.bold` -> `FontWeight.w500`
+    - `FontWeight.w600` -> `FontWeight.w500`
+    - `FontWeight.w700` -> `FontWeight.w500`
+    - `FontWeight.w800` -> `FontWeight.w500`
 
 ## Verification Plan
 
 ### Manual Verification
-- **Sign In**: Attempt to sign in with incorrect credentials. Verify the snackbar title says "Error" and the message is descriptive (e.g., "Invalid email or password").
-- **Forget Password**: Enter an invalid email. Verify the snackbar title says "Error" and shows a meaningful message.
-- **Other Actions**: Perform actions like approving a transfer or recording a goal. Verify that snackbars show descriptive text from the API rather than generic messages or codes.
+- **Audit Screen-by-Screen**:
+    - Verify that every heading is Title Case.
+    - Verify that all "Big Text" (Onboarding headers, Auth headers, Section titles, Buttons) uses the Serif font.
+    - Verify that absolutely no text appears bold or excessively dark compared to its surroundings.
+- **Consistency Check**: Ensure "Sign Up" and "Fixtures" headings look identical in style.

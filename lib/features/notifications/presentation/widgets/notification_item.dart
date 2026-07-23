@@ -75,7 +75,7 @@ class NotificationCard extends StatelessWidget {
                       CommonText(
                         text: alertType,
                         fontSize: 10,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w500,
                         color: color,
                       ),
                       SizedBox(width: 6.w),
@@ -91,7 +91,7 @@ class NotificationCard extends StatelessWidget {
                       CommonText(
                         text: timeAgo,
                         fontSize: 10,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.textSecondaryColor,
                       ),
                     ],
@@ -102,8 +102,9 @@ class NotificationCard extends StatelessWidget {
                     maxLines: 2,
                     text: title,
                     fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: AppColors.primaryColor,
+                    fontFamily: 'PlayfairDisplay',
                   ),
                   SizedBox(height: 2.h),
                   CommonText(

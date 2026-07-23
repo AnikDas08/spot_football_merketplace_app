@@ -66,7 +66,7 @@ class UpcomingFixtureCard extends StatelessWidget {
               CommonText(
                 text: date,
                 fontSize: 14,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: AppColors.black,
                 bottom: 16.h,
               ),
@@ -87,7 +87,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                         CommonText(
                           text: homeTeam,
                           fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -109,7 +109,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                     child: CommonText(
                       text: time,
                       fontSize: 16,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       color: AppColors.black,
                     ),
                   ),
@@ -128,7 +128,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                         CommonText(
                           text: awayTeam,
                           fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -188,7 +188,7 @@ class UpcomingFixtureCard extends StatelessWidget {
       child: CommonText(
         text: title,
         fontSize: 13,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w500,
         color: textCol,
       ),
     );

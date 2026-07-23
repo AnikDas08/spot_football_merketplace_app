@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../config/api/api_end_point.dart';
@@ -111,9 +112,9 @@ class UpcomingEventCard extends StatelessWidget {
                   CommonText(
                     text: event!.title,
                     fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: Colors.white,
-                    fontFamily: 'Montserrat',
+                    fontFamily: 'PlayfairDisplay',
                     maxLines: 2,
                     textAlign: TextAlign.start,
                     bottom: 8.h,
@@ -132,7 +133,6 @@ class UpcomingEventCard extends StatelessWidget {
                           color: Colors.white.withValues(alpha: 0.8),
                           maxLines: 1,
                           textAlign: TextAlign.start,
-                          fontFamily: 'Montserrat',
                         ),
                       ),
                     ],
@@ -156,12 +156,13 @@ class UpcomingEventCard extends StatelessWidget {
                         border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                       ),
                       alignment: Alignment.center,
-                      child: CommonText(
-                        text: AppString.viewDetails,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        fontFamily: 'Montserrat',
+                      child: Text(
+                        AppString.viewDetails,
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

@@ -36,7 +36,7 @@ class SignInScreen extends StatelessWidget {
                   const CommonText(
                     text: 'Login',
                     fontSize: 40,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
                     color: AppColors.black,
                     bottom: 10,

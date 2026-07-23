@@ -78,6 +78,7 @@ class LeaguePreview extends StatelessWidget {
                       const SizedBox(width: 5),
                       SvgPicture.asset(
                         AppIcons.arrowRight,
+                        height: 18.h,
                         colorFilter: viewAllColor != null
                             ? ColorFilter.mode(viewAllColor!, BlendMode.srcIn)
                             : ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),

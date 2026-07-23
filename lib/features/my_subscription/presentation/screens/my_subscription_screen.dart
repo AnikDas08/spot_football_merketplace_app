@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../utils/constants/app_colors.dart';
@@ -65,11 +66,12 @@ class MySubscriptionScreen extends StatelessWidget {
                 SizedBox(height: 20.h),
                 CommonText(
                   text: '$titleRole Registration',
-                  fontSize: 40,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
                   color: AppColors.black,
                   bottom: 10.h,
+                  fontFamily: 'PlayfairDisplay',
                 ),
                 CommonText(
                   text:
@@ -188,11 +190,12 @@ class MySubscriptionScreen extends StatelessWidget {
         children: [
           SizedBox(height: 20.h),
           CommonText(
-            text: 'SUBSCRIPTION DETAILS',
+            text: 'Subscription Details',
             fontSize: 24,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
             color: AppColors.black,
             bottom: 32.h,
+            fontFamily: 'PlayfairDisplay',
           ),
           Container(
             padding: EdgeInsets.all(24.r),
@@ -215,10 +218,11 @@ class MySubscriptionScreen extends StatelessWidget {
                     Image.asset(AppImages.appLogo, height: 24.r, width: 24.r),
                     SizedBox(width: 12.w),
                     CommonText(
-                      text: title.toUpperCase(),
+                      text: title,
                       fontSize: 22,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       color: AppColors.black,
+                      fontFamily: 'PlayfairDisplay',
                     ),
                   ],
                 ),
@@ -245,9 +249,9 @@ class MySubscriptionScreen extends StatelessWidget {
                       children: [
                         Text(
                           '£$price',
-                          style: TextStyle(
+                          style: GoogleFonts.playfairDisplay(
                             fontSize: 32.sp,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w500,
                             color: const Color(0xFFEABB00),
                           ),
                         ),
@@ -327,10 +331,11 @@ class _RegistrationPlanCard extends StatelessWidget {
                 Image.asset(AppImages.appLogo, height: 24.r, width: 24.r),
                 SizedBox(width: 12.w),
                 CommonText(
-                  text: package.title?.toUpperCase() ?? "",
+                  text: package.title ?? "",
                   fontSize: 18,
-                  fontWeight: FontWeight.w700, 
+                  fontWeight: FontWeight.w500, 
                   color: AppColors.black,
+                  fontFamily: 'PlayfairDisplay',
                 ),
               ],
             ),
@@ -367,9 +372,9 @@ class _RegistrationPlanCard extends StatelessWidget {
                     children: [
                       Text(
                         '£${package.price}',
-                        style: TextStyle(
+                        style: GoogleFonts.playfairDisplay(
                           fontSize: 26.sp,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                           color: priceColor,
                         ),
                       ),
@@ -399,10 +404,10 @@ class _RegistrationPlanCard extends StatelessWidget {
                 ),
                 child: CommonText(
                   text: isCurrentPlan 
-                      ? 'CURRENT PLAN' 
-                      : 'SELECT ${package.title?.toUpperCase() ?? ""}',
+                      ? 'Current Plan' 
+                      : 'Select ${package.title ?? ""}',
                   fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   color: isCurrentPlan ? Colors.grey.shade600 : AppColors.white,
                 ),
               ),

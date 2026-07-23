@@ -54,20 +54,20 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const CommonText(
-                    text: "PLAY THE GAME",
+                    text: "Play The Game",
                     fontSize: 18,
                     color: AppColors.colorEABB00,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                   ),
                   const Spacer(flex: 12),
 
                   /// Welcome Text
                   CommonText(
-                    text: "Welcome to",
+                    text: "Welcome To",
                     fontSize: 24,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                     color: Colors.white,
-                    fontFamily: 'Montserrat',
+                    fontFamily: 'PlayfairDisplay',
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10.h),
@@ -91,18 +91,20 @@ class OnboardingScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: CommonButton(
+                          buttonHeight: 48.h,
                           buttonRadius: 50,
                           titleText: "Sign Up",
-                          titleSize: 16.sp,
+                          titleSize: 14.sp,
                           onTap: () => Get.toNamed(AppRoutes.signUp),
                         ),
                       ),
                       SizedBox(width: 12.w),
                       Expanded(
                         child: CommonButton(
+                          buttonHeight : 48.h,
                           buttonRadius: 50,
                           titleText: AppString.signIn,
-                          titleSize: 16.sp,
+                          titleSize: 14.sp,
                           onTap: () => Get.toNamed(AppRoutes.signIn),
                         ),
                       ),
@@ -118,7 +120,7 @@ class OnboardingScreen extends StatelessWidget {
                       Get.offAllNamed(AppRoutes.navBarScreen);
                     },
                     child: Text(
-                      "Continue with Limited Access",
+                      "Continue With Limited Access",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,

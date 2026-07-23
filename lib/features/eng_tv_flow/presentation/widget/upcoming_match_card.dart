@@ -41,9 +41,9 @@ class UpcomingMatchCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CommonText(
-                  text: date.toUpperCase(),
+                  text: date,
                   fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                   color: AppColors.primaryColor,
                 ),
                 SizedBox(height: 4.h),
@@ -75,7 +75,7 @@ class UpcomingMatchCard extends StatelessWidget {
                 CommonText(
                   text: matchTitle,
                   fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   color: AppColors.primaryColor,
                   maxLines: 2,
                   textAlign: TextAlign.start,

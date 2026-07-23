@@ -147,7 +147,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                           ? 'John Smith'
                           : LocalStorage.myName,
                       fontSize: 20,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       color: AppColors.white,
                     ),
                     const CommonText(
@@ -186,7 +186,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
           CommonText(
             text: value,
             fontSize: 24,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
             color: AppColors.white,
           ),
           CommonText(
@@ -283,9 +283,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                   ),
                   SizedBox(width: 8.w),
                   const CommonText(
-                    text: 'LIVE MATCH',
+                    text: 'Live Match',
                     fontSize: 14,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: AppColors.white,
                   ),
                 ],
@@ -300,9 +300,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                   children: [
                     _buildTeamInfo(match.homeTeam.teamLogo, match.homeTeam.teamName),
                     const CommonText(
-                      text: 'VS',
+                      text: 'Vs',
                       fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       color: Color(0xFF9E9E9E),
                     ),
                     _buildTeamInfo(match.awayTeam.teamLogo, match.awayTeam.teamName),
@@ -504,7 +504,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
               ),
               TextSpan(
                 text: value,
-                style: const TextStyle(fontWeight: FontWeight.w700),
+                style: const TextStyle(fontWeight: FontWeight.w500),
               ),
             ],
           ),

@@ -45,7 +45,7 @@ class EngTvHomeSection extends StatelessWidget {
 
               children: [
                 Text(
-                  "Eng tv",
+                  "Eng TV",
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
@@ -70,6 +70,7 @@ class EngTvHomeSection extends StatelessWidget {
                       const SizedBox(width: 5),
                       SvgPicture.asset(
                         AppIcons.arrowRight,
+                        height: 18.h,
                         colorFilter: viewAllColor != null
                             ? ColorFilter.mode(viewAllColor!, BlendMode.srcIn)
                             : null,

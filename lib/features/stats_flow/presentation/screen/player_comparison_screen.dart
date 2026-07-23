@@ -20,7 +20,7 @@ class PlayerComparisonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SecondaryAppBar(title: 'Player comparison'),
+      appBar: const SecondaryAppBar(title: 'Player Comparison'),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
@@ -32,11 +32,12 @@ class PlayerComparisonScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: CommonText(
-                  text: "SELECT TWO PLAYERS TO COMPARE THEIR STATS",
+                  text: "Select Two Players To Compare Their Stats",
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                   maxLines: 2,
+                  fontFamily: 'PlayfairDisplay',
                 ),
               ),
 

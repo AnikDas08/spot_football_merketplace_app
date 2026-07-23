@@ -18,9 +18,9 @@ class TransferTabWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonText(
-                text: 'MY TRANSFERS',
+                text: 'My Transfers',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: AppColors.primaryColor,
               ),
               SizedBox(height: 12.h),

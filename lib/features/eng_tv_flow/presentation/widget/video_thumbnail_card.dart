@@ -69,8 +69,9 @@ class VideoThumbnailCard extends StatelessWidget {
                 CommonText(
                   text: title, // From API
                   fontSize: 28,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   color: Colors.white,
+                  fontFamily: 'PlayfairDisplay',
                 ),
                 SizedBox(height: 4.h),
                 Row(

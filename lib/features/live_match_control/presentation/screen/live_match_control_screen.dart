@@ -19,7 +19,7 @@ class LiveMatchControlScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      appBar: SecondaryAppBar(title: "Live match control"),
+      appBar: SecondaryAppBar(title: "Live Match Control"),
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(
@@ -112,9 +112,9 @@ class LiveMatchControlScreen extends StatelessWidget {
                 const Icon(Icons.watch_later_outlined, size: 20),
                 SizedBox(width: 8.w),
                 CommonText(
-                  text: 'LIVE', // Can be dynamic if duration is tracked
+                  text: 'Live', // Can be dynamic if duration is tracked
                   fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                 ),
               ],
             ),
@@ -144,9 +144,9 @@ class LiveMatchControlScreen extends StatelessWidget {
                         const Icon(Icons.circle, size: 8, color: Colors.white),
                         SizedBox(width: 4.w),
                         CommonText(
-                          text: match.status.toUpperCase(),
+                          text: match.status,
                           fontSize: 10,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white,
                         ),
                       ],
@@ -158,7 +158,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                       CommonText(
                         text: '${match.homeScore}',
                         fontSize: 48,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w500,
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -172,7 +172,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                       CommonText(
                         text: '${match.awayScore}',
                         fontSize: 48,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w500,
                       ),
                     ],
                   ),
@@ -216,7 +216,7 @@ class LiveMatchControlScreen extends StatelessWidget {
             child: CommonText(
               text: name,
               fontSize: 12,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w500,
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
@@ -264,7 +264,7 @@ class LiveMatchControlScreen extends StatelessWidget {
             CommonText(
               text: teamName,
               fontSize: 14,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w500,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -293,9 +293,10 @@ class LiveMatchControlScreen extends StatelessWidget {
               const Icon(Icons.assignment_outlined, color: Color(0xFF8E24AA)),
               SizedBox(width: 8.w),
               CommonText(
-                text: 'TEAM CONDUCT RATING',
+                text: 'Team Conduct Rating',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'PlayfairDisplay',
               ),
             ],
           ),
@@ -303,9 +304,9 @@ class LiveMatchControlScreen extends StatelessWidget {
 
           // Home Team Marks
           CommonText(
-            text: "add ${match.homeTeam.teamName} Marks",
+            text: "Add ${match.homeTeam.teamName} Marks",
             fontSize: 14,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             bottom: 8,
           ),
           _buildMarkDropdown(controller.homeTeamRating),
@@ -314,9 +315,9 @@ class LiveMatchControlScreen extends StatelessWidget {
 
           // Away Team Marks
           CommonText(
-            text: "add ${match.awayTeam.teamName} Marks",
+            text: "Add ${match.awayTeam.teamName} Marks",
             fontSize: 14,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             bottom: 8,
           ),
           _buildMarkDropdown(controller.awayTeamRating),
@@ -325,9 +326,9 @@ class LiveMatchControlScreen extends StatelessWidget {
 
           // Player Of The Day
           CommonText(
-            text: 'add Player Of The Day',
+            text: 'Add Player Of The Day',
             fontSize: 14,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             bottom: 8,
           ),
           Container(
@@ -373,7 +374,7 @@ class LiveMatchControlScreen extends StatelessWidget {
           SizedBox(height: 16.h),
           CommonText(
             text:
-                'RATING AFFECTS SEASON FAIR-PLAY BONUSES AND DISCIPLINARY REVIEW PRIORITY.',
+                'Rating Affects Season Fair-play Bonuses And Disciplinary Review Priority.',
             fontSize: 10,
             fontWeight: FontWeight.w500,
             color: const Color(0xFF424242),
@@ -403,7 +404,7 @@ class LiveMatchControlScreen extends StatelessWidget {
                   "Marks 0-100: [$val]",
                   style: TextStyle(
                     fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               );

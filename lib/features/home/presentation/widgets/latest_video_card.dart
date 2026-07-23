@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 
 class LatestVideoCard extends StatelessWidget {
   final String imagePath;
@@ -137,9 +139,9 @@ class LatestVideoCard extends StatelessWidget {
                   CommonText(
                     text: title,
                     fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: Colors.white,
-                    fontFamily: 'Montserrat',
+                    fontFamily: 'PlayfairDisplay',
                     maxLines: 2,
                     textAlign: TextAlign.start,
                     bottom: 12.h,
@@ -154,7 +156,6 @@ class LatestVideoCard extends StatelessWidget {
                     maxLines: 2,
                     textAlign: TextAlign.start,
                     bottom: 24.h,
-                    fontFamily: 'Montserrat',
                   ),
 
                   /// Watch Button
@@ -173,12 +174,13 @@ class LatestVideoCard extends StatelessWidget {
                         border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                       ),
                       alignment: Alignment.center,
-                      child: CommonText(
-                        text: "Watch Now",
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        fontFamily: 'Montserrat',
+                      child: Text(
+                        AppString.labelWatchNow,
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

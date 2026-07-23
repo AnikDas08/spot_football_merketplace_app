@@ -22,7 +22,7 @@ class TeamSheetScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SecondaryAppBar(title: 'Team sheet'),
+      appBar: const SecondaryAppBar(title: 'Team Sheet'),
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));

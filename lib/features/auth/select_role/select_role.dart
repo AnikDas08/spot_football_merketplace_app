@@ -30,9 +30,10 @@ class SelectRole extends StatelessWidget {
               const CommonText(
                 text: 'Select Your Role',
                 fontSize: 24,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: AppColors.black,
                 bottom: 8,
+                fontFamily: 'PlayfairDisplay',
               ),
               const CommonText(
                 text:
@@ -48,7 +49,7 @@ class SelectRole extends StatelessWidget {
               // --- Player Selection ---
               Obx(
                 () => _RoleCard(
-                  title: 'PLAYER',
+                  title: 'Player',
                   subtitle: 'Register For A Club For The\n26/27 Season',
                   imagePath: AppImages.appLogo,
                   iconColor: const Color(0xFF19CA77),
@@ -62,7 +63,7 @@ class SelectRole extends StatelessWidget {
               // --- Find a Team (Trial) ---
               Obx(
                 () => _RoleCard(
-                  title: 'FIND A TEAM (TRIAL)',
+                  title: 'Find A Team (Trial)',
                   subtitle: 'Create a profile and get\ndiscovered by clubs',
                   imagePath: AppImages.appLogo,
                   iconColor: const Color(0xFF131B6A),
@@ -76,7 +77,7 @@ class SelectRole extends StatelessWidget {
               // --- Manager Selection ---
               Obx(
                 () => _RoleCard(
-                  title: 'MANAGER',
+                  title: 'Manager',
                   subtitle: 'Manage team & transfers',
                   imagePath: AppImages.appLogo,
                   iconColor: const Color(0xFFFF0000),
@@ -90,7 +91,7 @@ class SelectRole extends StatelessWidget {
               // --- Referee Selection ---
               Obx(
                 () => _RoleCard(
-                  title: 'REFEREE',
+                  title: 'Referee',
                   subtitle: 'Manage match reporting, disciplinary actions, and earn certifications within the global officiating network.',
                   imagePath: AppImages.appLogo,
                   iconColor: const Color(0xFFEABB00),
@@ -230,8 +231,9 @@ class _RoleCard extends StatelessWidget {
                   CommonText(
                     text: title,
                     fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: AppColors.black,
+                    fontFamily: 'PlayfairDisplay',
                   ),
                   CommonText(
                     text: subtitle,

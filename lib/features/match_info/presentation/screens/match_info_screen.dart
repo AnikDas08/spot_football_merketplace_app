@@ -63,7 +63,7 @@ class _MatchInfoScreenState extends State<MatchInfoScreen> {
                 awayTeamId: match.awayTeam.id,
                 homeScore: "${match.homeScore}",
                 awayScore: "${match.awayScore}",
-                status: match.status.toUpperCase(),
+                status: match.status,
                 isLive: match.status.toLowerCase() == 'live',
                 venue: match.venueName,
               ),

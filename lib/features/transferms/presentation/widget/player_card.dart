@@ -94,7 +94,7 @@ class PlayerCard extends StatelessWidget {
 
                   // Position and Age
                   Text(
-                    '${position.toUpperCase()} • $age YRS',
+                    '$position • $age Yrs',
                     style: TextStyle(
                       color: AppColors.white,
                       fontSize: 12.sp,
@@ -105,10 +105,11 @@ class PlayerCard extends StatelessWidget {
 
                   // Player Name
                   CommonText(
-                    text: playerName.toUpperCase(),
+                    text: playerName,
                     color: AppColors.white,
                     fontSize: 20,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'PlayfairDisplay',
                   ),
                   SizedBox(height: 6.h),
 
@@ -121,18 +122,18 @@ class PlayerCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(40.r),
                         ),
                         child: CommonText(
-                          text: academyName.toUpperCase(),
+                          text: academyName,
                           color: Colors.white,
                           fontSize: 10,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       SizedBox(width: 12.w),
                       CommonText(
-                        text: '$price COINS',
+                        text: '$price Coins',
                         color: Colors.white,
                         fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                       ),
                     ],
                   ),

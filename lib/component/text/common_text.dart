@@ -44,16 +44,30 @@ class CommonText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 1. Normalize FontWeight (No bold text allowed)
+    FontWeight normalizedWeight = fontWeight;
+    if (fontWeight == FontWeight.bold || 
+        fontWeight == FontWeight.w600 || 
+        fontWeight == FontWeight.w700 || 
+        fontWeight == FontWeight.w800 || 
+        fontWeight == FontWeight.w900) {
+      normalizedWeight = FontWeight.w500;
+    }
+
     TextStyle textStyle = TextStyle(
       letterSpacing: letterSpacing,
       fontSize: fontSize.sp,
-      fontWeight: fontWeight,
+      fontWeight: normalizedWeight,
       color: color ?? AppColors.black,
       height: height,
       decoration: decoration,
     );
 
-    if (fontFamily == 'Montserrat') {
+    // 2. Apply Font Style
+    // Use Playfair Display for headers/big text (>= 18) or if explicitly requested
+    if (fontSize >= 18 || fontFamily == 'PlayfairDisplay') {
+      textStyle = GoogleFonts.playfairDisplay(textStyle: textStyle);
+    } else if (fontFamily == 'Montserrat') {
       textStyle = GoogleFonts.montserrat(textStyle: textStyle);
     } else if (fontFamily == 'Poppins') {
       textStyle = GoogleFonts.poppins(textStyle: textStyle);

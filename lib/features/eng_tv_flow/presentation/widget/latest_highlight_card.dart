@@ -74,7 +74,7 @@ class LatestHighlightCard extends StatelessWidget {
             child: CommonText(
               text: title,
               fontSize: 14,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               maxLines: 1,
               color: AppColors.primaryColor,
             ),
@@ -93,7 +93,7 @@ class LatestHighlightCard extends StatelessWidget {
            child: CommonText(
              text: leagueName??"",
              fontSize: 14,
-             fontWeight: FontWeight.w600,
+             fontWeight: FontWeight.w500,
              color: AppColors.primaryColor,
              maxLines: 1,
            ),

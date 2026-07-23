@@ -20,16 +20,16 @@ class TransferSummaryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonText(
-            text: 'TOTAL EXPENDITURE',
+            text: 'Total Expenditure',
             fontSize: 14,
             color: AppColors.textSecondaryColor,
-            fontWeight: FontWeight(510),
+            fontWeight: FontWeight.w500,
           ),
           SizedBox(height: 8.h),
           CommonText(
             text: '€42,500,000',
             fontSize: 32,
-            fontWeight: FontWeight(590),
+            fontWeight: FontWeight.w500,
             color: AppColors.primaryColor,
           ),
           SizedBox(height: 14.h),

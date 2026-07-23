@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
@@ -130,9 +131,9 @@ class NewsCard extends StatelessWidget {
                   CommonText(
                     text: displayTitle,
                     fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: Colors.white,
-                    fontFamily: 'Montserrat',
+                    fontFamily: 'PlayfairDisplay',
                     maxLines: 2,
                     textAlign: TextAlign.start,
                     bottom: 12.h,
@@ -147,7 +148,6 @@ class NewsCard extends StatelessWidget {
                     maxLines: 2,
                     textAlign: TextAlign.start,
                     bottom: 24.h,
-                    fontFamily: 'Montserrat',
                   ),
 
                   /// Read Button
@@ -162,12 +162,13 @@ class NewsCard extends StatelessWidget {
                         border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                       ),
                       alignment: Alignment.center,
-                      child: CommonText(
-                        text: "Read",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        fontFamily: 'Montserrat',
+                      child: Text(
+                        "Read",
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

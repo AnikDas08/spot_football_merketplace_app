@@ -42,12 +42,11 @@ class CustomInfoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonText(
-                text: title.toUpperCase(),
+                text: title,
                 fontSize: 20,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
                 color: AppColors.primaryColor,
               ),
-
             ],
           ),
 

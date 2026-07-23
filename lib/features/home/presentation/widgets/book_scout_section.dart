@@ -109,11 +109,11 @@ class BookScoutSection extends StatelessWidget {
 
                         /// Headline
                         const CommonText(
-                          text: "Showcase Your Talent to the Pros",
+                          text: "Showcase Your Talent To The Pros",
                           fontSize: 22,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white,
-                          fontFamily: 'Montserrat',
+                          fontFamily: 'PlayfairDisplay',
                           maxLines: 2,
                           textAlign: TextAlign.start,
                           bottom: 12,
@@ -128,7 +128,6 @@ class BookScoutSection extends StatelessWidget {
                           maxLines: 3,
                           textAlign: TextAlign.start,
                           bottom: 24.h,
-                          fontFamily: 'Montserrat',
                         ),
 
                         /// Book Button
@@ -143,12 +142,13 @@ class BookScoutSection extends StatelessWidget {
                               border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                             ),
                             alignment: Alignment.center,
-                            child: const CommonText(
-                              text: "Book Now",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              fontFamily: 'Montserrat',
+                            child: Text(
+                              "Book Now",
+                              style: GoogleFonts.playfairDisplay(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

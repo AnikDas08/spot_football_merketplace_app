@@ -27,8 +27,8 @@ class EditProfileAllFiled extends StatelessWidget {
           controller: controller.firstNameController,
           validator: AppValidation.required,
           hintText: "Enter first name",
-          borderColor: AppColors.black,
-          fillColor: AppColors.transparent,
+          borderColor: AppColors.colorEABB00,
+          fillColor: AppColors.white,
         ),
         20.height,
 
@@ -38,8 +38,8 @@ class EditProfileAllFiled extends StatelessWidget {
           controller: controller.lastNameController,
           validator: AppValidation.required,
           hintText: "Enter last name",
-          borderColor: AppColors.black,
-          fillColor: AppColors.transparent,
+          borderColor: AppColors.colorEABB00,
+          fillColor: AppColors.white,
         ),
         20.height,
 
@@ -49,8 +49,8 @@ class EditProfileAllFiled extends StatelessWidget {
           controller: controller.emailController,
           validator: AppValidation.email,
           hintText: "Enter email",
-          borderColor: AppColors.black,
-          fillColor: AppColors.transparent,
+          borderColor: AppColors.colorEABB00,
+          fillColor: AppColors.white,
           readOnly: controller.emailController.text.isNotEmpty,
         ),
         20.height,
@@ -61,8 +61,8 @@ class EditProfileAllFiled extends StatelessWidget {
           controller: controller.phoneController,
           validator: AppValidation.required,
           hintText: "Enter phone number",
-          borderColor: AppColors.black,
-          fillColor: AppColors.transparent,
+          borderColor: AppColors.colorEABB00,
+          fillColor: AppColors.white,
           readOnly: controller.phoneController.text.isNotEmpty,
         ),
         20.height,
@@ -77,7 +77,7 @@ class EditProfileAllFiled extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: AppColors.black),
+              border: Border.all(color: AppColors.colorEABB00),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,7 +182,7 @@ class EditProfileAllFiled extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.r),
-        borderSide: const BorderSide(color: AppColors.black),
+        borderSide: const BorderSide(color: AppColors.colorEABB00),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.r),

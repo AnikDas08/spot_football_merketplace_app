@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/constants/app_colors.dart'; // Adjust path
 import '../text/common_text.dart'; // Adjust path
 
+import 'package:google_fonts/google_fonts.dart';
+
 class CommonButton extends StatelessWidget {
   final VoidCallback? onTap;
   final String titleText;
@@ -26,7 +28,7 @@ class CommonButton extends StatelessWidget {
     this.buttonColor = AppColors.primaryColor, // Reverted to black (primary)
     this.titleSize = 14,
     this.buttonRadius = 12,
-    this.titleWeight = FontWeight.w700,
+    this.titleWeight = FontWeight.w500, // Changed from w700
     this.buttonHeight = 52, 
     this.borderWidth = 1.0,
     this.isLoading = false,
@@ -64,11 +66,13 @@ class CommonButton extends StatelessWidget {
             strokeWidth: 2,
           ),
         )
-            : CommonText(
-          text: titleText,
-          color: titleColor,
-          fontSize: titleSize,
-          fontWeight: titleWeight,
+            : Text(
+          titleText,
+          style: GoogleFonts.playfairDisplay(
+            color: titleColor,
+            fontSize: titleSize.sp,
+            fontWeight: titleWeight,
+          ),
         ),
       ),
     );

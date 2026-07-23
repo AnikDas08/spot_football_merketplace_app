@@ -79,33 +79,33 @@ class AppString {
   // home screen added by ajijul
   static const String community = "Home";
   static const String home = "HOME";
-  static const String watchEngLive = "Watch ENG TV live";
-  static const String latestNews = "Latest news";
+  static const String watchEngLive = "Watch ENG TV Live";
+  static const String latestNews = "Latest News";
 
   // added by arif
 
-  static const String strAppBarTitle = "pending approval";
+  static const String strAppBarTitle = "Pending Approval";
   static String strOfferStatus = "Offer Submitted";
   static String strOfferDesc =
       "Your transfer offer for Marcus Vancore is pending admin approval and team response.";
-  static String strBtnBack = "Back to Transfers";
-  static String lblTransferFee = "TRANSFER FEE";
-  static String lblContractDuration = "CONTRACT DURATION";
+  static String strBtnBack = "Back To Transfers";
+  static String lblTransferFee = "Transfer Fee";
+  static String lblContractDuration = "Contract Duration";
   static const String strBtnPermanent = "Permanent";
   static const String strLblTransferFee = "Transfer Fee (ENG Coins)";
   static const String strHintTransferFee = "ENG Coins 0.00";
   static const String strLblContractDuration = "Contract Duration";
   static const String strHintContractDuration = "Select Season";
 
-  static const String recentResult = "Recent results";
+  static const String recentResult = "Recent Results";
   static const String upcomingFixtures = "Upcoming Fixtures";
   static const String vs = "VS";
   static const String titansSc = "Titans SC";
   static const String vortexFc = "Vortex FC";
-  static const String leaguePreview = "League preview";
-  static const String viewAll = "View all";
+  static const String leaguePreview = "League Preview";
+  static const String viewAll = "View All";
   static const String arsenal = "Arsenal";
-  static const String latestVideos = "Latest videos";
+  static const String latestVideos = "Latest Videos";
   static const String thingsYouMayHaveMissedFromMatchweek20 =
       "Things you may have missed from Matchweek 20";
   static const String engCommunityAcademyStarOfTheWeek =
@@ -156,19 +156,19 @@ class AppString {
   keepUpTheAmazingWorkLeoYourHardWorkIsPayingOffWeExcitedToSeeYourContinuedProgress =
       "Keep up the amazing work, Leo — your hard work is paying off, and we’re excited to see your continued progress!";
   static const String related = "Related";
-  static const String playerProfile = "Player profile";
-  static const String engRecord = "Eng record";
-  static const String recentPerformance = "Recent performance";
+  static const String playerProfile = "Player Profile";
+  static const String engRecord = "Eng Record";
+  static const String recentPerformance = "Recent Performance";
   static const String oct12 = "OCT 24";
-  static const String vsRangerUnited = "vs Rangers United";
-  static const String premierLeagueAway = "Premier league • Away";
+  static const String vsRangerUnited = "Vs Rangers United";
+  static const String premierLeagueAway = "Premier League • Away";
   static const String twoGoal = "2 Goals";
   static const String rewardsRedemption = "Rewards / Redemption";
   static const String mySubscriptions = "My Subscriptions";
-  static const String legalProtoCol = "LEGAL PROTOCOL";
-  static const String lastUpdatedOctober2024 = "LAST UPDATED: OCTOBER 2024";
-  static const String updateYourCredentials = "1.UPDATE YOUR CREDENTIALS";
-  static const String usageRight = "2.USAGE RIGHTS";
+  static const String legalProtoCol = "Legal Protocol";
+  static const String lastUpdatedOctober2024 = "Last Updated: October 2024";
+  static const String updateYourCredentials = "1. Update Your Credentials";
+  static const String usageRight = "2. Usage Rights";
   static const String atVoltageAthletic =
       "At Voltage Athletic, we gather specific high- performance metrics to optimize your digital arena experience. This includes biometric data synchronized from wearable devices, location tracking for outdoor circuit mapping, and competitive interaction logs.";
   static const String informationCollection =
@@ -177,32 +177,32 @@ class AppString {
       "Voltage Athletic retains the right to utilize anonymized performance data to calibrate global leaderboards and refine our algorithmic training models. Your individual identifiable data remains shielded within our encrypted";
 
 
-  static const String updateCredentials  = "UPDATE YOUR CREDENTIALS";
+  static const String updateCredentials  = "Update Your Credentials";
   static const String ensureYourPerformanceData = "Ensure your performance data remains secure with a high-entropy password.";
   static const String marcus = "Marcus Vane";
   static const String updateAvatar = "Update Avatar";
-  static const String prizeRedemptionFeed = "PRIZE REDEMPTION FEED";
+  static const String prizeRedemptionFeed = "Prize Redemption Feed";
   static const String myPlayer = "Player";
   static const String activeAthletes = "Active Athletes";
   static const String manageYourChildrenSports = "Manage your children's sports schedules and team activities in one place.";
-  static const String nextGame = "NEXT GAME";
-  static const String viewProfile = "View profile";
-  static const String engWristBand = "ENG WRIST BAND";
-  static const String purchase5CupsGet1Free = "PURCHASE 5 CUPS GET 1 FREE";
+  static const String nextGame = "Next Game";
+  static const String viewProfile = "View Profile";
+  static const String engWristBand = "ENG Wrist Band";
+  static const String purchase5CupsGet1Free = "Purchase 5 Cups Get 1 Free";
   static const String totalCoins = "Total Coins: ";
   static const String redeem = "Redeem";
   static const String myProfile = "My Profile";
-  static const String personalDetails = "PERSONAL DETAILS";
+  static const String personalDetails = "Personal Details";
   static const String approved = "Approved";
   static const String nationality = "Nationality";
   static const String club = "Club";
   static const String position = "Position";
   static const String engDebut = "ENG Debut";
   static const String engCoins = "ENG Coins";
-  static const String goals = "GOALS";
-  static const String assists = "ASSISTS";
-  static const String matches = "MATCHES";
-  static const String avgRating = "AVG RATING";
+  static const String goals = "Goals";
+  static const String assists = "Assists";
+  static const String matches = "Matches";
+  static const String avgRating = "Avg Rating";
   static const String plus3ThisMonth = "+3 this month";
   static const String top5PercentLeague = "Top 5% League";
   static const String mvpForm = "MVP Form";
@@ -233,27 +233,27 @@ class AppString {
   static const filterByLeague = 'Filter by League';
 
   static const String labelVideo = "Video";
-  static const String labelWatchNow = "Watch now";
+  static const String labelWatchNow = "Watch Now";
   static const String trending = "Trending";
   static const String liveStadium = "Live Stadium";
-  static const String recentOffers = "Recent offers";
-  static const String offerTrial = "OFFER TRIAL";
-  static const String pendingApproval = "pending approval";
+  static const String recentOffers = "Recent Offers";
+  static const String offerTrial = "Offer Trial";
+  static const String pendingApproval = "Pending Approval";
   static const String offerSubmitted = "Offer Submitted";
   static const String transferPendingMessage = "Your transfer offer for Marcus Vancore is pending admin approval and team response.";
-  static const String transferFee = "TRANSFER FEE";
-  static const String contractDuration = "CONTRACT DURATION";
-  static const String backToTransfers = "Back to Transfers";
+  static const String transferFee = "Transfer Fee";
+  static const String contractDuration = "Contract Duration";
+  static const String backToTransfers = "Back To Transfers";
 
-  static const String upcomingEvents = "Upcoming events";
+  static const String upcomingEvents = "Upcoming Events";
   static const String limitedSlots = "Limited Slots";
   static const String summerFootballTournament2026 = "Summer Football Tournament 2026";
   static const String ageGroupUnder12_16 = "Age Group:Under 12 - 16";
-  static const String viewDetails = "View details";
+  static const String viewDetails = "View Details";
   static const String top10GoalsWeek24 = "Top 10 Goals: Week 24";
   static const String threeHourAgoEngOriginal = "3h ago • ENG Original";
   static const String duration7m = "7m";
-  static const String skipForNow = "Skip for now";
+  static const String skipForNow = "Skip For Now";
   static const String all = "All";
   static const String trialListAvailable = "Trial List";
 

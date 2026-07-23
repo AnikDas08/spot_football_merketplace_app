@@ -116,9 +116,9 @@ class ScoreCard extends StatelessWidget {
                           ),
                           SizedBox(height: 8.h),
                           CommonText(
-                            text: homeTeam.toUpperCase(),
+                            text: homeTeam,
                             fontSize: 13,
-                            fontWeight: const FontWeight(590),
+                            fontWeight: const FontWeight(500),
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
                             maxLines: 2,
@@ -137,7 +137,7 @@ class ScoreCard extends StatelessWidget {
                         CommonText(
                           text: homeScore,
                           fontSize: 42,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w500,
                           color: AppColors.primaryColor,
                         ),
                         Padding(
@@ -145,14 +145,14 @@ class ScoreCard extends StatelessWidget {
                           child: CommonText(
                             text: ":",
                             fontSize: 42,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w500,
                             color: AppColors.primaryColor,
                           ),
                         ),
                         CommonText(
                           text: awayScore,
                           fontSize: 42,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w500,
                           color: AppColors.primaryColor,
                         ),
                       ],
@@ -184,9 +184,9 @@ class ScoreCard extends StatelessWidget {
                           ),
                           SizedBox(height: 8.h),
                           CommonText(
-                            text: awayTeam.toUpperCase(),
+                            text: awayTeam,
                             fontSize: 13,
-                            fontWeight: const FontWeight(590),
+                            fontWeight: const FontWeight(500),
                             color: AppColors.primaryColor,
                             textAlign: TextAlign.center,
                             maxLines: 2,
@@ -238,7 +238,7 @@ class ScoreCard extends StatelessWidget {
                     CommonText(
                       text: AppString.attendance,
                       fontSize: 12,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       color: AppColors.colorEABB00,
                     ),
                   ],

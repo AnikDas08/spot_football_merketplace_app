@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
@@ -29,14 +29,16 @@ class VideoNewsCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+
               Expanded(
-                child: CommonText(
-                  text: title.toUpperCase(),
-
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-
+                child: Text(
+                  title,
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.start,
@@ -79,12 +81,10 @@ class VideoNewsCard extends StatelessWidget {
           ),
           SizedBox(height: 8.h),
           CommonText(
-            text: description.toUpperCase(),
-
+            text: description,
             fontSize: 13,
             fontWeight: FontWeight.w400,
             color: AppColors.color6B6B6B,
-
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start,
@@ -92,12 +92,10 @@ class VideoNewsCard extends StatelessWidget {
 
           SizedBox(height: 8.h),
           CommonText(
-            text: timeAgo.toUpperCase(),
-
+            text: timeAgo,
             fontSize: 13,
             fontWeight: FontWeight.w400,
             color: AppColors.color6B6B6B,
-
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start,

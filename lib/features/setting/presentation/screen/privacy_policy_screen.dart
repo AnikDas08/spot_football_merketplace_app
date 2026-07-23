@@ -35,15 +35,16 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 children: [
                   Align(
                     child: CommonText(
-                      text: AppString.legalProtoCol.toUpperCase(),
+                      text: AppString.legalProtoCol,
                       color: AppColors.primaryColor,
                       fontSize: 32,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
+                      fontFamily: 'PlayfairDisplay',
                     ),
                   ),
                   CommonText(
-                    text: AppString.lastUpdatedOctober2024.toUpperCase(),
+                    text: AppString.lastUpdatedOctober2024,
                     color: AppColors.color6B6B6B,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,

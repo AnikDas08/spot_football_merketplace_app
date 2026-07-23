@@ -19,7 +19,7 @@ class SeasonStatsScreen extends StatelessWidget {
     final SeassonStatsController controller = Get.put(SeassonStatsController());
 
     return Scaffold(
-      appBar: SecondaryAppBar(title: 'Season stats'),
+      appBar: const SecondaryAppBar(title: 'Season Stats'),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
@@ -52,10 +52,11 @@ class SeasonStatsScreen extends StatelessWidget {
                   children: [
                     if (data.goal != null && data.goal!.isNotEmpty) ...[
                       CommonText(
-                        text: "goals".toUpperCase(),
+                        text: "Goals",
                         fontSize: 20,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.primaryColor,
+                        fontFamily: 'PlayfairDisplay',
                       ),
                       SizedBox(height: 16.h),
                       _buildLeaderboardCard(data.goal!),
@@ -63,10 +64,11 @@ class SeasonStatsScreen extends StatelessWidget {
                     ],
                     if (data.assist != null && data.assist!.isNotEmpty) ...[
                       CommonText(
-                        text: "Most Assists".toUpperCase(),
+                        text: "Most Assists",
                         fontSize: 20,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.primaryColor,
+                        fontFamily: 'PlayfairDisplay',
                       ),
                       SizedBox(height: 16.h),
                       _buildLeaderboardCard(data.assist!),

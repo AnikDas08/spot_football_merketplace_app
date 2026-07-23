@@ -32,7 +32,7 @@ class NavBarController extends GetxController {
     AppString.community,
     'Fixtures',
     'Tables',
-    "Eng tv",
+    "Eng TV",
     'Stats',
   ];
 

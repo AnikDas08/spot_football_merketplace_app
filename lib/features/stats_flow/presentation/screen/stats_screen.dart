@@ -44,7 +44,7 @@ class StatsScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      "2026/27 Top stats",
+                      "2026/27 Top Stats",
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
@@ -96,7 +96,7 @@ class StatsScreen extends StatelessWidget {
                               CommonText(
                                 text: controller.selectedAge.value,
                                 fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.black,
                               ),
                             ],

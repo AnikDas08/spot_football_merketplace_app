@@ -105,7 +105,6 @@ class AppDrawer extends StatelessWidget {
 
                         // Other role-specific items
                         if (!LocalStorage.isGuest) ...[
-                          SizedBox(height: 20.h),
                           _buildMenuItem(
                             label: AppString.editProfile,
                             onTap: () => Get.toNamed(AppRoutes.editProfile),
@@ -225,7 +224,7 @@ class AppDrawer extends StatelessWidget {
         CommonText(
           text: name.isEmpty ? 'User Name' : name,
           fontSize: isGuest ? 16 : 20,
-          fontWeight: isGuest ? FontWeight.w400 : FontWeight.w700,
+          fontWeight: isGuest ? FontWeight.w400 : FontWeight.w500,
           color: AppColors.primaryColor,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -343,7 +342,7 @@ class AppDrawer extends StatelessWidget {
         label: CommonText(
           text: isGuest ? "Login" : AppString.logout,
           fontSize: 16,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
           color: AppColors.white,
         ),
       ),

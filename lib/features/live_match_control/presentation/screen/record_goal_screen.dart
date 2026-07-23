@@ -16,7 +16,7 @@ class RecordGoalScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SecondaryAppBar(title: 'Record match event'),
+      appBar: const SecondaryAppBar(title: 'Record Match Event'),
       body: Obx(() {
         if (controller.isLoading.value && controller.teamPlayers.isEmpty) {
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
