@@ -7,6 +7,7 @@ import '../../../../component/text/common_text.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
+import '../../../../utils/helpers/video_metadata_helper.dart';
 import '../controller/video_streem_controller.dart';
 import '../widget/custom_video_player.dart';
 import '../widget/video_news_card.dart';
@@ -58,7 +59,7 @@ class VideoStreamScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _buildPlayerTag(
-                              name: video.category,
+                              name: VideoMetadataHelper.formatCategory(video.category),
                               image: TempImage.football,
                               borderColor: AppColors.color6B6B6B,
                             ),

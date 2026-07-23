@@ -135,10 +135,12 @@ class SelectRole extends StatelessWidget {
                         }
                       },
                       buttonColor: controller.selectedRole.value == 0
-                          ? Colors.grey.shade400
+                          ? AppColors.color6B6B6B.withValues(alpha: 0.15)
                           : AppColors.black,
                       titleText: "Continue",
-                      titleColor: AppColors.white,
+                      titleColor: controller.selectedRole.value == 0
+                          ? AppColors.color6B6B6B
+                          : AppColors.white,
                     ),
                   );
                 }
@@ -188,15 +190,19 @@ class _RoleCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: isSelected 
+              ? AppColors.colorEABB00.withValues(alpha: 0.05) 
+              : AppColors.white,
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: isSelected ? AppColors.black : AppColors.transparent,
-            width: 1.5,
+            color: isSelected ? AppColors.colorEABB00 : AppColors.transparent,
+            width: isSelected ? 2.0 : 1.5,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
+              color: isSelected 
+                  ? AppColors.colorEABB00.withValues(alpha: 0.1) 
+                  : Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),

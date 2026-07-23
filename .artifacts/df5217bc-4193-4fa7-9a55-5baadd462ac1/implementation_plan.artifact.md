@@ -1,44 +1,24 @@
-# Implementation Plan - Dynamic Stripe Checkout Integration
+# Implementation Plan - Fix Subscription Controller & Package Loading
 
-Update the subscription flow to use the dynamic checkout URL generation endpoint instead of the static `paymentLink` from the package model.
+Restore the missing package loading logic in `SubscriptionController` and ensure the dynamic checkout process uses the correct package ID from the API response.
 
 ## User Review Required
 
-> [!IMPORTANT]
-> The app will now call `GET /package/{id}/checkout` to obtain a fresh Stripe checkout URL every time the "Continue" button is pressed. This ensures the checkout session is correctly tied to the user's current context.
+> [!CAUTION]
+> I accidentally removed the package loading logic in a previous update. I am now restoring the full implementation to ensure packages are fetched correctly from the server and can be selected for payment.
 
 ## Proposed Changes
 
-### [Subscription Logic]
+### [Subscription Feature]
 
 #### [MODIFY] [SubscriptionController](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/my_subscription/presentation/controller/subscription_controller.dart)
-- Add `isCheckingOut` observable to track the API request state.
-- Implement `handleCheckout(String packageId, bool isFromRegistration, ProfileController profileController)`:
-    - Calls the new endpoint: `${ApiEndPoint.packages}/$packageId/checkout`.
-    - Retrieves the `checkoutUrl` from the response.
-    - Navigates to `WebViewScreen` with the generated URL.
-    - Handles payment success logic (navigation and status updates).
-
-### [UI Components]
-
-#### [MODIFY] [MySubscriptionScreen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/my_subscription/presentation/screens/my_subscription_screen.dart)
-- Update the "Continue" button:
-    - Bind its `isLoading` property to `controller.isCheckingOut.value`.
-    - Update `onTap` to invoke `controller.handleCheckout`.
-- Ensure the checkout process provides visual feedback while fetching the URL.
+- **Restore `fetchPackages`**: Re-implement the logic to fetch packages based on user role (Player, Manager, Other) and handle authentication tokens from both `Get.arguments` and `LocalStorage`.
+- **Verify `PackageModel`**: Ensure the `id` field maps correctly to `_id` from the JSON response.
+- **Dynamic Checkout**: Ensure `generateCheckoutUrl` uses the verified package ID and handles the redirect to `WebViewScreen` correctly with all required dependencies imported.
 
 ## Verification Plan
 
 ### Manual Verification
-- **Registration Flow**:
-    - Start a new registration.
-    - Reach the subscription screen.
-    - Select a package and click "Continue".
-    - Verify that a loader appears on the button and then the Stripe checkout page opens in a WebView.
-- **Plan Upgrade Flow**:
-    - Log in as an existing user.
-    - Navigate to "My Subscriptions" -> "Change Your Subscription Plan".
-    - Select a new package and click "Continue".
-    - Verify the same dynamic checkout behavior.
-- **Error Handling**:
-    - Verify that a descriptive error snackbar appears if the checkout URL cannot be generated.
+- **Package Loading**: Open the Subscription screen and verify that the plans (Amateur, Semi-Pro, Pro) are visible and populated from the server.
+- **Selection**: Click on a plan and ensure the Golden border appears.
+- **Checkout**: Click "Continue" and verify the app successfully fetches a dynamic Stripe URL and opens it in the WebView.

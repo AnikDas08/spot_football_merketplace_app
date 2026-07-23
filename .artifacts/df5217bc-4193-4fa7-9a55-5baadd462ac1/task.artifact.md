@@ -1,7 +1,10 @@
-# Account Deletion Request Feature Tasks
+# Video UI Cleanup & Role Selection Refinement Tasks
 
-- `[x]` Update `AppString` with deletion-related labels
-- `[x]` Create `DeleteAccountScreen` in `lib/features/auth/delete_account/presentation/screen/`
-- `[x]` Register `/delete_account` route in `AppRoutes`
-- `[x]` Add "Delete Account" menu item to `AppDrawer` for logged-in users
-- `[x]` Verify email intent logic
+- `[x]` Fix `VideoStreamScreen` category formatting (Remove `_`, Title Case)
+- `[ ]` Refine `SelectRole` screen (White Design):
+    - `[ ]` Update selected card border to Gold (`AppColors.colorEABB00`) for better visibility
+    - `[ ]` Add a subtle background color to selected card
+    - `[ ]` Improve "Continue" button visibility when disabled
+- `[x]` Ensure no inline GetX controllers in UI files
+- `[ ]` Verify all video cards have no durations
+- `[ ]` Final UI consistency check

@@ -59,10 +59,10 @@ class BookScoutSection extends StatelessWidget {
                   /// Background Image
                   Positioned.fill(
                     child: CommonImage(
-                      imageSrc: TempImage.playerWithFootball,
+                      imageSrc: TempImage.playerProfile2,
                       width: double.infinity,
                       height: double.infinity,
-                      fill: BoxFit.contain,
+                      fill: BoxFit.fitHeight,
                     ),
                   ),
 

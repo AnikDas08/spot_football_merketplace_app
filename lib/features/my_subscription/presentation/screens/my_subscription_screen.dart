@@ -124,6 +124,7 @@ class MySubscriptionScreen extends StatelessWidget {
 
                 CommonButton(
                   titleText: 'Continue',
+                  isLoading: controller.isCheckingOut.value,
                   buttonColor: (controller.selectedPackage.value == null || 
                                (hasSubscription && subscription['package']?['_id'] == controller.selectedPackage.value?.id))
                       ? Colors.grey.shade400
@@ -131,39 +132,11 @@ class MySubscriptionScreen extends StatelessWidget {
                   onTap: (controller.selectedPackage.value != null && 
                          (!hasSubscription || subscription['package']?['_id'] != controller.selectedPackage.value?.id))
                       ? () {
-                          final selected = controller.selectedPackage.value!;
-                          if (selected.paymentLink != null &&
-                              selected.paymentLink!.isNotEmpty) {
-                            Get.to(
-                              () => WebViewScreen(
-                                url: selected.paymentLink!,
-                                title: "Payment",
-                                onPaymentSuccess: () async {
-                                  if (isFromRegistration) {
-                                    Get.offAllNamed(AppRoutes.signIn);
-                                    AppSnackbar.success(
-                                      title: "Success",
-                                      message: "Payment successful! Please sign in.",
-                                    );
-                                  } else {
-                                    await LocalStorage.setBool(LocalStorageKeys.paymentStatus, true);
-                                    await profileController.getProfileData();
-                                    controller.toggleChangingPlan(false);
-                                    Get.offAllNamed(AppRoutes.navBarScreen);
-                                    AppSnackbar.success(
-                                      title: "Success",
-                                      message: "Payment successful! Welcome back.",
-                                    );
-                                  }
-                                },
-                              ),
-                            );
-                          } else {
-                            AppSnackbar.error(
-                              title: "Error",
-                              message: "Payment link not available.",
-                            );
-                          }
+                          controller.generateCheckoutUrl(
+                            packageId: controller.selectedPackage.value!.id!,
+                            isFromRegistration: isFromRegistration,
+                            profileController: profileController,
+                          );
                         }
                       : null,
                 ),
@@ -317,8 +290,8 @@ class _RegistrationPlanCard extends StatelessWidget {
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: isSelected ? AppColors.black : AppColors.transparent,
-          width: 1.5,
+          color: isSelected ? AppColors.colorEABB00 : AppColors.transparent,
+          width: 2.0,
         ),
       ),
       child: Padding(
