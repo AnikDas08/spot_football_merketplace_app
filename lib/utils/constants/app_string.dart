@@ -78,8 +78,8 @@ class AppString {
 
   // home screen added by ajijul
   static const String community = "Home";
-  static const String home = "HOME";
-  static const String watchEngLive = "Watch ENG TV Live";
+  static const String home = "Home";
+  static const String watchEngLive = "Watch Eng TV Live";
   static const String latestNews = "Latest News";
 
   // added by arif
@@ -93,15 +93,15 @@ class AppString {
   static String lblContractDuration = "Contract Duration";
   static const String strBtnPermanent = "Permanent";
   static const String strLblTransferFee = "Transfer Fee (ENG Coins)";
-  static const String strHintTransferFee = "ENG Coins 0.00";
+  static const String strHintTransferFee = "Eng Coins 0.00";
   static const String strLblContractDuration = "Contract Duration";
   static const String strHintContractDuration = "Select Season";
 
   static const String recentResult = "Recent Results";
   static const String upcomingFixtures = "Upcoming Fixtures";
-  static const String vs = "VS";
-  static const String titansSc = "Titans SC";
-  static const String vortexFc = "Vortex FC";
+  static const String vs = "Vs";
+  static const String titansSc = "Titans Sc";
+  static const String vortexFc = "Vortex Fc";
   static const String leaguePreview = "League Preview";
   static const String viewAll = "View All";
   static const String arsenal = "Arsenal";

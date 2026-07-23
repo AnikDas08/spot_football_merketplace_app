@@ -1,57 +1,51 @@
-# Implementation Plan - Universal Typography & Branding Overhaul
+# Implementation Plan - Universal Auth Background & Final Branding
 
-Standardize the app's visual identity by applying Title Case to all headings, switching *all* prominent and large text to Modern Serif (Playfair Display), and removing all bold font weights project-wide.
+Apply the `auth_bg.png` background and Title Case consistency to all remaining authentication and onboarding screens. Refine the App Bar action buttons and ensure all text weights and fonts are aligned with the premium brand identity.
 
 ## User Review Required
 
-> [!WARNING]
-> This is a project-wide change that will affect the appearance of every screen.
->
-> 1. **Project-wide Weight Normalization**: I will replace all instances of `FontWeight.bold`, `w600`, `w700`, `w800`, and `w900` with `FontWeight.w500` (Medium) to ensure no text appears too dark or heavy.
-> 2. **Universal Serif Font**: The `Playfair Display` font will be applied to all "Big Text" elements, including headings, buttons, and prominent labels (e.g., large numbers or hero text).
+> [!IMPORTANT]
+> - All authentication-related screens (Forget Password, Verify, Create Password, Select Role, etc.) will now use the **full-screen `auth_bg.png`** with a dark gradient overlay.
+> - **Sign Up / Sign In / Forget Password / Verify** headers will be set to `FontWeight.w500` to avoid being "too bold".
+> - The **"Play The Game"** text on the Onboarding screen and the **"Welcome To"** text will strictly use the **Montserrat** font family as requested.
 
 ## Proposed Changes
 
-### [Constants & Metadata]
+### [Authentication Screens]
+The following screens will be wrapped in a `Stack` with the full-screen background and gradient:
+1.  **Forgot Password** (`forgot_password.dart`)
+2.  **Verify OTP** (`verify_screen.dart` and `verify_user.dart`)
+3.  **Create/Reset Password** (`create_password.dart`)
+4.  **Role Selection** (`select_role.dart`)
+5.  **Role Registration Info** (`verify_player_screen.dart`, `manager_registation_screen.dart`, `referee_info_screen.dart`, `trial_registration_screen.dart`)
+
+**Styling for these screens:**
+- `extendBodyBehindAppBar: true` and `extendBody: true`.
+- Titles/Labels/Subtitle text set to `Colors.white` or `Colors.white70`.
+- All `CommonTextField` instances updated with `fillColor: Colors.white.withOpacity(0.1)` and `textColor: Colors.white`.
+- App Bar set to transparent.
+
+### [Branding & Case Consistency]
 
 #### [MODIFY] [AppString](file:///D:/Ajijul/spot_football_merketplace_app/lib/utils/constants/app_string.dart)
-- Update all string constants to Title Case (e.g., `"Latest News"`, `"Upcoming Fixtures"`, `"Recent Results"`, `"Live Matches"`).
+- Manually audit and fix any remaining non-Title Case strings.
+- Example: `"News details"` -> `"News Details"`, `"Select your role"` -> `"Select Your Role"`.
 
-### [Common Components]
+#### [MODIFY] [NavBarController](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/navbar/controller/navbar_controller.dart)
+- Update bottom navigation labels to Title Case: "Home", "Fixtures", "Leagues", "Eng TV", "Stats".
 
-#### [MODIFY] [CommonText](file:///D:/Ajijul/spot_football_merketplace_app/lib/component/text/common_text.dart)
-- Update the default logic to apply `Playfair Display` for text above a certain size threshold (e.g., `fontSize >= 18`).
-- Ensure no bold weights are applied by default.
+### [UI Components]
 
-#### [MODIFY] [CommonButton](file:///D:/Ajijul/spot_football_merketplace_app/lib/component/button/common_button.dart)
-- Set default `titleWeight` to `w500`.
-- Apply `GoogleFonts.playfairDisplay()` to all button text.
-
-### [Screens & Feature UI]
-
-#### [MODIFY] [OnboardingScreen], [SignInScreen], [SignUpScreen]
-- Update welcome headings and large labels (e.g., "Welcome back", "Login", "Create Account") to use Title Case and Playfair Display.
-
-#### [MODIFY] Home Screen Widgets
-- Ensure `LatestNews`, `UpcomingEvents`, `LeaguePreview`, `LiveMatches`, `RecentResults`, and `BookScoutSection` headings are Title Case and Playfair Display.
-
-#### [MODIFY] Player & Club Profiles
-- Update "Personal Details", "Eng Record", "Recent Performance", and "Total Squads" headings.
-
-### [Global Audit]
-
-#### [REPLACE] Project-wide Style Normalization
-- Search and replace all `FontWeight` declarations:
-    - `FontWeight.bold` -> `FontWeight.w500`
-    - `FontWeight.w600` -> `FontWeight.w500`
-    - `FontWeight.w700` -> `FontWeight.w500`
-    - `FontWeight.w800` -> `FontWeight.w500`
+#### [MODIFY] [CommonAppbar](file:///D:/Ajijul/spot_football_merketplace_app/lib/component/common_appbar/common_appbar.dart)
+- Reduce the size of the Notification and Menu buttons (set height/width to `36.h`, icon size to `18.sp`).
+- Ensure the unread count text uses `Playfair Display`.
 
 ## Verification Plan
 
 ### Manual Verification
-- **Audit Screen-by-Screen**:
-    - Verify that every heading is Title Case.
-    - Verify that all "Big Text" (Onboarding headers, Auth headers, Section titles, Buttons) uses the Serif font.
-    - Verify that absolutely no text appears bold or excessively dark compared to its surroundings.
-- **Consistency Check**: Ensure "Sign Up" and "Fixtures" headings look identical in style.
+- **Visual Audit**: Navigate through the entire sign-up and forgot-password flows.
+    - Confirm the background image is present and full-screen on every step.
+    - Confirm all headings are Title Case.
+    - Confirm no text appears "Extra Bold" (all should be `w500`).
+- **Onboarding Check**: Verify "Play The Game" and "Welcome To" use Montserrat.
+- **App Bar Check**: Verify action buttons are compact and properly aligned.

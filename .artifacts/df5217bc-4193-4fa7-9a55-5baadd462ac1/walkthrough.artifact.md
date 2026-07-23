@@ -1,33 +1,32 @@
-# Universal Typography & Branding Overhaul Walkthrough
+# Auth UI & Background Refinement Walkthrough
 
-I have performed a comprehensive update of the app's visual identity, focusing on Title Case standardization, Serif font application, and project-wide font weight normalization.
+I have updated the authentication screens to have a true full-screen background and improved the visibility of all UI elements.
 
 ## Changes Made
 
-### 1. Title Case Standardization
-- Updated almost all constants in `AppString` to follow **Title Case** (e.g., "Upcoming Fixtures", "Recent Results", "Match Summary").
-- This ensures that headings across the entire app are consistent and professional.
+### 1. Full-Screen Background for Auth
+- Added `auth_bg.png` to **Sign In** and **Sign Up** screens.
+- Enabled `extendBody` and `extendBodyBehindAppBar` to ensure the image covers the entire screen, including the status bar and bottom area.
+- Made the `SignupAppbar` background transparent so the image shows through.
 
-### 2. Modern Serif (Playfair Display) for Big Text
-- **Centralized Logic**: Updated the `CommonText` component to automatically apply **Playfair Display** if the `fontSize` is 18 or higher.
-- **Action Buttons**: Updated `CommonButton` to use Playfair Display for its label by default, ensuring prominent actions (Sign In, Sign Up, etc.) stand out.
-- **Manual Overrides**: Explicitly applied the Serif font to key headers on the Onboarding, Sign In, and Sign Up screens to ensure the brand identity is strong from the first interaction.
+### 2. Improved Element Visibility
+- **TextFields**: Added a subtle, semi-transparent white fill (`Colors.white.withOpacity(0.1)`) to all input fields on auth screens. This makes them stand out beautifully against the dark background.
+- **Text Colors**: Set input text, labels, and titles to white for clear readability.
+- **Account Links**: Updated "Don't have an account?" and "Already have an account?" text to a light gray and changed the "Sign Up" / "Login" links to **Yellow (Gold)** for high visibility.
 
-### 3. Project-wide Font Weight Normalization (No Bold)
-- **Automatic Handling**: Modified `CommonText` to catch any bold weights (`bold`, `w600`, `w700`, etc.) and automatically downgrade them to **`w500`** (Medium). This prevents text from looking too dark or heavy.
-- **Manual Cleanup**: Audited and updated explicit `TextStyle` and `CommonText` weight declarations in major screens (Referee Dashboard, Match Info, Subscription, etc.) to ensure a clean, "Normal" look.
-
-### 4. Navigation & Page Titles
-- Updated the `NavBarController` and all App Bar titles to follow Title Case (e.g., "Eng TV", "Player Comparison").
+### 3. Onboarding Typography Revert
+As requested, I have reverted the following elements on the **Onboarding Screen** to use the **Montserrat** font family instead of the Serif font:
+- "Play The Game" header.
+- "Welcome To" text.
+- "Sign Up" and "Sign In" button labels.
 
 ## Verification Results
 
-- [x] **Header Check**: All major section headers (Latest News, Upcoming Events, etc.) are Title Case and use the Serif font.
-- [x] **Action Check**: Login, Sign Up, and role cards are Title Case and use the Serif font.
-- [x] **Weight Check**: Scanned the app for excessively bold text; all headings and labels now feel visually balanced at `w500`.
-- [x] **Consistency**: The Serif font and Title Case are applied uniformly across Home, Auth, Profile, and Stats flows.
+- [x] Sign In and Sign Up backgrounds now fill the entire screen perfectly.
+- [x] Input fields are clearly defined with their new fill color.
+- [x] All text on the dark background is easily readable.
+- [x] Onboarding screen matches the previous font style for brand consistency.
 
-render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/utils/constants/app_string.dart)
-render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/component/text/common_text.dart)
-render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/component/button/common_button.dart)
+render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/features/auth/sign%20in/presentation/screen/sign_in_screen.dart)
+render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/features/auth/sign%20up/presentation/screen/sign_up_screen.dart)
 render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/features/onboarding_screen/onboarding_screen.dart)

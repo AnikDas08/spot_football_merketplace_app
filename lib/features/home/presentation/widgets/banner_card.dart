@@ -98,13 +98,13 @@ class BannerCard extends StatelessWidget {
 
                     SizedBox(height: 4.h),
 
-                    CommonText(
-                      text: videoModel.status,
-                      color: AppColors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-
+                    // CommonText(
+                    //   text: videoModel.status,
+                    //   color: AppColors.white,
+                    //   fontSize: 14,
+                    //   fontWeight: FontWeight.w500,
+                    // ),
+                    //
                     SizedBox(height: 12.h),
 
                     InkWell(

@@ -58,6 +58,7 @@ class OnboardingScreen extends StatelessWidget {
                     fontSize: 18,
                     color: AppColors.colorEABB00,
                     fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
                   ),
                   const Spacer(flex: 12),
 
@@ -67,7 +68,7 @@ class OnboardingScreen extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
-                    fontFamily: 'PlayfairDisplay',
+                    fontFamily: 'Montserrat',
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10.h),
@@ -84,6 +85,7 @@ class OnboardingScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     maxLines: 3,
                     bottom: 32.h,
+                    fontFamily: 'Montserrat',
                   ),
 
                   /// Action Buttons (Side by Side)
@@ -95,6 +97,7 @@ class OnboardingScreen extends StatelessWidget {
                           buttonRadius: 50,
                           titleText: "Sign Up",
                           titleSize: 14.sp,
+                          fontFamily: 'Montserrat',
                           onTap: () => Get.toNamed(AppRoutes.signUp),
                         ),
                       ),
@@ -105,6 +108,7 @@ class OnboardingScreen extends StatelessWidget {
                           buttonRadius: 50,
                           titleText: AppString.signIn,
                           titleSize: 14.sp,
+                          fontFamily: 'Montserrat',
                           onTap: () => Get.toNamed(AppRoutes.signIn),
                         ),
                       ),

@@ -40,7 +40,7 @@ class NavBarController extends GetxController {
     'Home',
     'Fixtures',
     'Leagues',
-    "Eng tv",
+    "Eng TV",
     "Stats"
   ];
 

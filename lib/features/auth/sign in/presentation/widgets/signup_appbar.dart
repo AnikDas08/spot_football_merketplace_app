@@ -13,7 +13,7 @@ class SignupAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: Colors.transparent,
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top + 10.h,
         bottom: 10.h,

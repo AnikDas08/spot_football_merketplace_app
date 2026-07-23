@@ -1,13 +1,17 @@
-# Universal Typography & Branding Overhaul Tasks
+# Universal Auth Background & Branding Tasks
 
-- `[x]` Update `AppString` constants to Title Case
-- `[x]` Enhance `CommonText` to automatically use Serif font for big text and normalize weights
-- `[x]` Update `CommonButton` to use Serif font and normalized weight
-- `[x]` Project-wide replacement of Bold weights (`FontWeight.bold`, `w600`, `w700`, `w800`) to `w500`
-- `[x]` Update page titles in `NavBarController` to Title Case
-- `[x]` Manually audit and fix "Big Text" on key screens:
-    - `[x]` Onboarding Screen
-    - `[x]` Sign In / Sign Up Screens
-    - `[x]` Profile & Settings Screens
-    - `[x]` Match Info & Stats Screens
-- `[x]` Verify consistency and ensure no text is overly bold
+- `[ ]` Update `AppString` for final Title Case audit
+- `[ ]` Refine `CommonAppbar` action button sizes and unread count font
+- `[ ]` Update `OnboardingScreen` typography (Montserrat for headers and buttons)
+- `[ ]` Add full-screen `auth_bg.png` and color updates to:
+    - `[ ]` `ForgotPasswordScreen`
+    - `[ ]` `VerifyScreen` (Forgot Password flow)
+    - `[ ]` `CreatePassword` (Forgot Password flow)
+    - `[ ]` `VerifyUser` (Sign Up flow)
+    - `[ ]` `SelectRole`
+    - `[ ]` `VerifyPlayerScreen`
+    - `[ ]` `ManagerRegistationScreen`
+    - `[ ]` `RefereeInfoScreen`
+    - `[ ]` `TrialRegistrationScreen`
+- `[ ]` Verify consistency across all navigation flows
+- `[ ]` Create final walkthrough

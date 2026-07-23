@@ -19,6 +19,7 @@ class CommonButton extends StatelessWidget {
   final double? buttonWidth;
   final bool isLoading;
   final EdgeInsetsGeometry? padding;
+  final String? fontFamily;
 
   const CommonButton({
     super.key,
@@ -35,10 +36,23 @@ class CommonButton extends StatelessWidget {
     this.buttonWidth = double.infinity,
     this.borderColor = AppColors.colorEABB00, // Default to gold border
     this.padding,
+    this.fontFamily,
   });
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textStyle = TextStyle(
+      color: titleColor,
+      fontSize: titleSize.sp,
+      fontWeight: titleWeight,
+    );
+
+    if (fontFamily == 'Montserrat') {
+      textStyle = GoogleFonts.montserrat(textStyle: textStyle);
+    } else {
+      textStyle = GoogleFonts.playfairDisplay(textStyle: textStyle);
+    }
+
     return SizedBox(
       width: buttonWidth?.w,
       height: buttonHeight.h,
@@ -68,11 +82,7 @@ class CommonButton extends StatelessWidget {
         )
             : Text(
           titleText,
-          style: GoogleFonts.playfairDisplay(
-            color: titleColor,
-            fontSize: titleSize.sp,
-            fontWeight: titleWeight,
-          ),
+          style: textStyle,
         ),
       ),
     );

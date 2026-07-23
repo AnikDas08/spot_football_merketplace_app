@@ -14,6 +14,8 @@ import '../controller/sign_in_controller.dart';
 import '../../../sign in/presentation/widgets/do_not_account.dart';
 import '../widgets/signup_appbar.dart';
 
+import '../../../../../../../utils/constants/app_images.dart';
+
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
@@ -22,158 +24,158 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF3F3F3),
+      backgroundColor: AppColors.primaryColor,
+      extendBodyBehindAppBar: true,
+      extendBody: true,
       appBar: SignupAppbar(),
-      body: GetBuilder<SignInController>(
-        builder: (controller) {
-          return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CommonText(
-                    text: 'Login',
-                    fontSize: 40,
-                    fontWeight: FontWeight.w500,
-                    textAlign: TextAlign.start,
-                    color: AppColors.black,
-                    bottom: 10,
-                  ),
-
-                  const CommonText(
-                    text:
-                        'Welcome back to the ENG. Access your stats and roster.',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    textAlign: TextAlign.start,
-                    maxLines: 3,
-                    color: AppColors.black,
-                    bottom: 32,
-                  ),
-
-                  CommonTextField(
-                    title: "Email Address",
-                    controller: controller.emailController,
-                    hintText: 'Enter credentials',
-                    validator: AppValidation.email,
-                  ),
-
-                  SizedBox(height: 24.h),
-                  CommonTextField(
-                    title: "Password",
-                    controller: controller.passwordController,
-                    isPassword: true,
-                    hintText: 'Password',
-                    validator: AppValidation.password,
-                  ),
-                  SizedBox(height: 12.h),
-
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      onTap: () => Get.toNamed(AppRoutes.forgotPassword),
-                      child: const Text(
-                        'Forget Password?',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.primaryColor, // Changed from Red to Primary Black
-                          decoration: TextDecoration.underline, // Underline
-                          decorationColor: AppColors.primaryColor, // Underline color
-                          decorationThickness:
-                              2, // (optional) underline thickness
-                          fontFamily: 'SFProDisplay',
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.h),
-
-                  CommonButton(
-                    titleText: 'Login',
-                    isLoading: controller.isLoading,
-                    onTap: () => controller.isLoading
-                        ? null
-                        : _formKey.currentState!.validate()
-                        ? controller.signInUser()
-                        : null,
-                  ),
-
-                  40.height,
-
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: AppColors.black.
-                      withValues(alpha: 0.15),
-                          thickness: 1,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: CommonText(
-                          text: 'or',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: AppColors.black.withValues(alpha: 0.15),
-                          thickness: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  40.height,
-
-                  /*_SocialButton(
-                    icon: 'assets/images/google.png',
-                    label: 'Log In With Google',
-                    onTap: () {},
-                  ),
-
-                  12.height,
-
-                  _SocialButton(
-                    icon: 'assets/images/apple.png',
-                    label: 'Log In With Apple',
-                    onTap: () {},
-                  ),*/
-
-                  32.height,
-
-                  const DoNotHaveAccount(),
-
-                  20.height,
-
-                  // /// ── Guest Button ──
-                  // Center(
-                  //   child: TextButton(
-                  //     onPressed: () async {
-                  //       await LocalStorage.setBool(LocalStorageKeys.isGuest, true);
-                  //       Get.offAllNamed(AppRoutes.navBarScreen);
-                  //     },
-                  //     child: const CommonText(
-                  //       text: 'Continue as Guest',
-                  //       fontSize: 16,
-                  //       fontWeight: FontWeight.w600,
-                  //       color: AppColors.primaryColor,
-                  //     ),
-                  //   ),
-                  // ),
-                  //
-                  // 20.height,
-                ],
+      body: Stack(
+        fit: .expand,
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              "assets/images/auth_bg.png",
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black.withValues(alpha: 0.2),
+                    Colors.black.withValues(alpha: 0.6),
+                    Colors.black.withValues(alpha: 0.95),
+                  ],
+                ),
               ),
             ),
-          );
-        },
+          ),
+          GetBuilder<SignInController>(
+            builder: (controller) {
+              return SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 100.h),
+                      const CommonText(
+                        text: 'Login',
+                        fontSize: 40,
+                        fontWeight: FontWeight.w500,
+                        textAlign: TextAlign.start,
+                        color: Colors.white,
+                        bottom: 10,
+                      ),
+
+                      const CommonText(
+                        text:
+                            'Welcome back to the ENG. Access your stats and roster.',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        textAlign: TextAlign.start,
+                        maxLines: 3,
+                        color: Colors.white70,
+                        bottom: 32,
+                      ),
+
+                      CommonTextField(
+                        title: "Email Address",
+                        titleColor: Colors.white,
+                        controller: controller.emailController,
+                        hintText: 'Enter credentials',
+                        validator: AppValidation.email,
+                        fillColor: Colors.white.withValues(alpha: 0.1),
+                        textColor: Colors.white,
+                      ),
+
+                      SizedBox(height: 24.h),
+                      CommonTextField(
+                        title: "Password",
+                        titleColor: Colors.white,
+                        controller: controller.passwordController,
+                        isPassword: true,
+                        hintText: 'Password',
+                        validator: AppValidation.password,
+                        fillColor: Colors.white.withValues(alpha: 0.1),
+                        textColor: Colors.white,
+                      ),
+                      SizedBox(height: 12.h),
+
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () => Get.toNamed(AppRoutes.forgotPassword),
+                          child: const Text(
+                            'Forget Password?',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white70,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Colors.white70,
+                              decorationThickness: 2,
+                              fontFamily: 'SFProDisplay',
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20.h),
+
+                      CommonButton(
+                        titleText: 'Login',
+                        isLoading: controller.isLoading,
+                        onTap: () => controller.isLoading
+                            ? null
+                            : _formKey.currentState!.validate()
+                            ? controller.signInUser()
+                            : null,
+                      ),
+
+                      40.height,
+
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              color: Colors.white.withValues(alpha: 0.3),
+                              thickness: 1,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: CommonText(
+                              text: 'or',
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              color: Colors.white.withValues(alpha: 0.3),
+                              thickness: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      40.height,
+                      32.height,
+
+                      const DoNotHaveAccount(),
+
+                      20.height,
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

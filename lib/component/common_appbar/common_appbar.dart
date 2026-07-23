@@ -43,21 +43,28 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Obx(() => Stack(
           children: [
-            IconButton.filled(
-              style: IconButton.styleFrom(
-                backgroundColor: AppColors.color373737,
-                side: const BorderSide(color: AppColors.colorEABB00, width: 1),
+            SizedBox(
+              height: 36.h,
+              width: 36.h,
+              child: IconButton.filled(
+                padding: EdgeInsets.zero,
+                iconSize: 18.sp,
+                style: IconButton.styleFrom(
+                  backgroundColor: AppColors.color373737,
+                  side: const BorderSide(color: AppColors.colorEABB00, width: 1),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                ),
+                color: AppColors.white,
+                onPressed: () {
+                  Get.toNamed(AppRoutes.notifications);
+                },
+                icon: SvgPicture.asset(AppIcons.notification, height: 18.h),
               ),
-              color: AppColors.white,
-              onPressed: () {
-                Get.toNamed(AppRoutes.notifications);
-              },
-              icon: SvgPicture.asset(AppIcons.notification),
             ),
             if (notificationsController.unreadCount.value > 0)
               Positioned(
-                right: 8,
-                top: 8,
+                right: 0,
+                top: 0,
                 child: Container(
                   padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
@@ -65,14 +72,14 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   constraints: const BoxConstraints(
-                    minWidth: 16,
-                    minHeight: 16,
+                    minWidth: 14,
+                    minHeight: 14,
                   ),
                   child: Text(
                     '${notificationsController.unreadCount.value}',
-                    style: const TextStyle(
+                    style: GoogleFonts.playfairDisplay(
                       color: Colors.white,
-                      fontSize: 10,
+                      fontSize: 8.sp,
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
@@ -81,17 +88,26 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
               ),
           ],
         )),
-        IconButton.filled(
-          style: IconButton.styleFrom(
-            backgroundColor: AppColors.color373737,
-            side: const BorderSide(color: AppColors.colorEABB00, width: 1),
+        SizedBox(width: 8.w),
+        SizedBox(
+          height: 36.h,
+          width: 36.h,
+          child: IconButton.filled(
+            padding: EdgeInsets.zero,
+            iconSize: 18.sp,
+            style: IconButton.styleFrom(
+              backgroundColor: AppColors.color373737,
+              side: const BorderSide(color: AppColors.colorEABB00, width: 1),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+            ),
+            color: AppColors.white,
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: SvgPicture.asset(AppIcons.menu, height: 18.h),
           ),
-          color: AppColors.white,
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: SvgPicture.asset(AppIcons.menu),
         ),
+        SizedBox(width: 16.w),
       ],
     );
   }

@@ -64,8 +64,8 @@ class CommonText extends StatelessWidget {
     );
 
     // 2. Apply Font Style
-    // Use Playfair Display for headers/big text (>= 18) or if explicitly requested
-    if (fontSize >= 18 || fontFamily == 'PlayfairDisplay') {
+    // Use Playfair Display for headers/big text (>= 18) unless another font is explicitly requested
+    if (fontFamily == 'PlayfairDisplay' || (fontSize >= 18 && fontFamily == null)) {
       textStyle = GoogleFonts.playfairDisplay(textStyle: textStyle);
     } else if (fontFamily == 'Montserrat') {
       textStyle = GoogleFonts.montserrat(textStyle: textStyle);

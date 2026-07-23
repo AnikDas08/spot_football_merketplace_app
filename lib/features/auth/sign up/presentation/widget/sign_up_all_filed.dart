@@ -6,9 +6,10 @@ import '../../../../../utils/helpers/validation.dart';
 import '../controller/sign_up_controller.dart';
 
 class SignUpAllField extends StatelessWidget {
-  const SignUpAllField({super.key, required this.controller});
+  const SignUpAllField({super.key, required this.controller, this.titleColor});
 
   final SignUpController controller;
+  final Color? titleColor;
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +19,43 @@ class SignUpAllField extends StatelessWidget {
         /// User Name here
         CommonTextField(
           title: "User name",
+          titleColor: titleColor,
           controller: controller.nameController,
           hintText: 'Enter full name here',
           validator: AppValidation.required,
+          fillColor: Colors.white.withValues(alpha: 0.1),
+          textColor: Colors.white,
         ),
         SizedBox(height: 24,),
         /// User Email here
         CommonTextField(
           title: "Email Address",
+          titleColor: titleColor,
           controller: controller.emailController,
           hintText: 'Enter credentials',
           validator: AppValidation.email,
+          fillColor: Colors.white.withValues(alpha: 0.1),
+          textColor: Colors.white,
         ),
 
         SizedBox(height: 24.h,),
 
         CommonTextField(
           title: "Password",
+          titleColor: titleColor,
           controller: controller.passwordController,
           isPassword: true,
           hintText: 'Enter Password',
           validator: AppValidation.password,
+          fillColor: Colors.white.withValues(alpha: 0.1),
+          textColor: Colors.white,
         ),
 
         SizedBox(height: 24,),
 
         CommonTextField(
           title: "Confirm Password",
+          titleColor: titleColor,
           controller: controller.confirmPasswordController,
           isPassword: true,
           hintText: 'Enter Confirm Password',
@@ -52,6 +63,8 @@ class SignUpAllField extends StatelessWidget {
             value,
             controller.passwordController,
           ),
+          fillColor: Colors.white.withValues(alpha: 0.1),
+          textColor: Colors.white,
         ),
 
         /// User Confirm Password here
