@@ -28,7 +28,7 @@ class CommonButton extends StatelessWidget {
     this.buttonRadius = 12,
     this.titleWeight = FontWeight.w700,
     this.buttonHeight = 52, 
-    this.borderWidth = 1,
+    this.borderWidth = 1.0,
     this.isLoading = false,
     this.buttonWidth = double.infinity,
     this.borderColor = AppColors.colorEABB00, // Default to gold border

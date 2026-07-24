@@ -5,12 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:untitled/features/drawer/presentation/screen/app_drawer.dart';
+import '../../../component/blur_reveal/blur_reveal.dart';
 import '../../../utils/constants/app_colors.dart';
+import '../../drawer/presentation/screen/app_drawer.dart';
 import '../controller/navbar_controller.dart';
-
-import 'package:untitled/component/blur_reveal/blur_reveal.dart';
-
 import '../../../../component/common_appbar/common_appbar.dart';
 
 class NavBarScreen extends StatelessWidget {

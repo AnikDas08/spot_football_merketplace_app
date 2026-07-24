@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
 
 class TransferSummaryCard extends StatelessWidget {
   const TransferSummaryCard({super.key});

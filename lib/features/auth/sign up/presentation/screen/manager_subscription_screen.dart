@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/config/route/app_routes.dart';
-
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
+import '../../../../../config/route/app_routes.dart';
+import '../../../../../utils/constants/app_images.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
 import '../controller/manager_registation_controller.dart';
 
@@ -107,7 +107,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                   color: iconBgColor,
                   borderRadius: BorderRadius.circular(8.r),
                 ),
-                child: Icon(icon, color: iconColor, size: 24.sp),
+                child: Image.asset(AppImages.appLogo, height: 24.sp, width: 24.sp),
               ),
               SizedBox(width: 12.w),
               Expanded(

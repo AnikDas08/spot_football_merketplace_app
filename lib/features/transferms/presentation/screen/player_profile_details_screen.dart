@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/button/common_button.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
 import 'package:get/get.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+
+import '../../../../component/button/common_button.dart';
+import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_images.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../player_profile/presentation/controllers/player_profile_controller.dart';
 import '../../../player_profile/presentation/widgets/player_header_widget.dart';
 import '../widget/customInfo_card.dart';

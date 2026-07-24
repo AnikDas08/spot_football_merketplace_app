@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
+
+import '../../utils/constants/app_colors.dart';
 
 class CommonPinCodeField extends StatefulWidget {
   final TextEditingController controller;

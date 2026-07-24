@@ -1,43 +1,40 @@
-import 'package:untitled/features/team_sheet/presentation/screen/team_sheet_screen.dart';
-import 'package:untitled/features/transferms/presentation/screen/transfer_request_screen.dart';
-import 'package:untitled/features/live_match_control/presentation/screen/record_goal_screen.dart';
-import 'package:untitled/features/live_match_control/presentation/screen/live_match_control_screen.dart';
-import 'package:untitled/features/referee_dashboard/presentation/screen/referee_dashboard_screen.dart';
-import 'package:untitled/features/league_tables/presentation/screen/league_tables_screen.dart';
-import 'package:untitled/features/auth/referee_info/presentation/screen/referee_info_screen.dart';
-import 'package:get/get.dart';
-import 'package:untitled/features/auth/select_role/select_role.dart';
-import 'package:untitled/features/auth/trial_registration/presentation/screen/trial_registration_screen.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/screen/manager_registation_screen.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/screen/manager_subscription_screen.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/screen/player_register_screen.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/screen/successful_create_account.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/screen/verify_player_screen.dart';
-import 'package:untitled/features/fixtures/presentation/screen/fixtures_screen.dart';
-import 'package:untitled/features/match_info/presentation/screens/match_info_screen.dart';
-import 'package:untitled/features/news_details/presentation/screens/news_details_screen.dart';
-import 'package:untitled/features/player_profile/presentation/screens/player_profile_screen.dart';
-import 'package:untitled/features/profile/presentation/screens/my_children_screen.dart';
-import 'package:untitled/features/transferms_history/presentation/widgets/transfer_tab_widget.dart';
+
+import 'package:get/get_navigation/src/routes/get_route.dart';
+
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
 import '../../features/auth/forgot password/presentation/screen/verify_screen.dart';
+import '../../features/auth/referee_info/presentation/screen/referee_info_screen.dart';
+import '../../features/auth/select_role/select_role.dart';
 import '../../features/auth/sign in/presentation/screen/sign_in_screen.dart';
+import '../../features/auth/sign up/presentation/screen/manager_registation_screen.dart';
+import '../../features/auth/sign up/presentation/screen/manager_subscription_screen.dart';
+import '../../features/auth/sign up/presentation/screen/player_register_screen.dart';
 import '../../features/auth/sign up/presentation/screen/sign_up_screen.dart';
+import '../../features/auth/sign up/presentation/screen/successful_create_account.dart';
+import '../../features/auth/sign up/presentation/screen/verify_player_screen.dart';
 import '../../features/auth/sign up/presentation/screen/verify_user.dart';
+import '../../features/auth/trial_registration/presentation/screen/trial_registration_screen.dart';
 import '../../features/eng_tv_flow/presentation/screen/video_stream_screen.dart';
+import '../../features/fixtures/presentation/screen/fixtures_screen.dart';
 import '../../features/home/presentation/screens/club_profile_screen.dart';
 import '../../features/home/presentation/screens/league_preview_screen.dart';
-import '../../features/message/presentation/screen/chat_screen.dart';
-import '../../features/message/presentation/screen/message_screen.dart';
+import '../../features/league_tables/presentation/screen/league_tables_screen.dart';
+import '../../features/live_match_control/presentation/screen/live_match_control_screen.dart';
+import '../../features/live_match_control/presentation/screen/record_goal_screen.dart';
+import '../../features/match_info/presentation/screens/match_info_screen.dart';
 import '../../features/my_subscription/presentation/screens/my_subscription_screen.dart';
 import '../../features/navbar/screen/navbar_screen.dart';
+import '../../features/news_details/presentation/screens/news_details_screen.dart';
 import '../../features/notifications/presentation/screen/notifications_screen.dart';
 import '../../features/onboarding_screen/onboarding_screen.dart';
+import '../../features/player_profile/presentation/screens/player_profile_screen.dart';
 import '../../features/profile/presentation/screen/edit_profile.dart';
 import '../../features/profile/presentation/screen/profile_screen.dart';
+import '../../features/profile/presentation/screens/my_children_screen.dart';
 import '../../features/profile/presentation/screens/my_profile_screen.dart';
+import '../../features/referee_dashboard/presentation/screen/referee_dashboard_screen.dart';
 import '../../features/setting/presentation/screen/privacy_policy_screen.dart';
 import '../../features/setting/presentation/screen/setting_screen.dart';
 import '../../features/setting/presentation/screen/terms_of_services_screen.dart';
@@ -46,8 +43,10 @@ import '../../features/splash/splash_screen.dart';
 import '../../features/stats_flow/presentation/screen/add_player_screen.dart';
 import '../../features/stats_flow/presentation/screen/player_comparison_screen.dart';
 import '../../features/stats_flow/presentation/screen/season_stats_screen.dart';
+import '../../features/team_sheet/presentation/screen/team_sheet_screen.dart';
 import '../../features/transferms/presentation/screen/tranasfer_pending_approval.dart';
 import '../../features/transferms/presentation/screen/player_profile_details_screen.dart';
+import '../../features/transferms/presentation/screen/transfer_request_screen.dart';
 import '../../features/transferms/presentation/screen/transferm_screen.dart';
 import '../../features/transferms_history/presentation/screens/transfers_history_screen.dart';
 
@@ -134,8 +133,6 @@ class AppRoutes {
     GetPage(name: createPassword, page: () => CreatePassword()),
     GetPage(name: changePassword, page: () => ChangePasswordScreen()),
     GetPage(name: notifications, page: () => const NotificationsScreen()),
-    GetPage(name: chat, page: () => const ChatListScreen()),
-    GetPage(name: message, page: () => const MessageScreen()),
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: editProfile, page: () => EditProfile()),
     GetPage(name: privacyPolicy, page: () => const PrivacyPolicyScreen()),

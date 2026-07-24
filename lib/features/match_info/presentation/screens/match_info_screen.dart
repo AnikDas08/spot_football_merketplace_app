@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/button/common_button.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/features/home/presentation/widgets/latest_news.dart';
-import 'package:untitled/features/home/presentation/widgets/latest_videos.dart';
-import 'package:untitled/features/match_info/presentation/controllers/match_info_controller.dart';
-import 'package:untitled/features/match_info/presentation/controllers/tabs_controller.dart';
-import 'package:untitled/features/match_info/presentation/widgets/line_up_tab.dart';
-import 'package:untitled/features/match_info/presentation/widgets/overview_tab.dart';
-import 'package:untitled/features/news/presentation/controller/news_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import '../../../../component/blur_reveal/blur_reveal.dart';
 import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../home/presentation/widgets/latest_news.dart';
+import '../../../home/presentation/widgets/latest_videos.dart';
+import '../../../news/presentation/controller/news_controller.dart';
+import '../controllers/match_info_controller.dart';
+import '../controllers/tabs_controller.dart';
+import '../widgets/line_up_tab.dart';
+import '../widgets/overview_tab.dart';
 import '../widgets/score_card.dart';
 
-import 'package:untitled/component/blur_reveal/blur_reveal.dart';
 
 class MatchInfoScreen extends StatefulWidget {
   const MatchInfoScreen({super.key});

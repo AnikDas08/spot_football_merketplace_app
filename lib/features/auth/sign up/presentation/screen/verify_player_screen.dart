@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/controller/verify_player_controller.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../component/button/common_button.dart';
+import '../../../../../component/image/common_image.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
+import '../controller/verify_player_controller.dart';
 
 class VerifyPlayerScreen extends StatelessWidget {
   VerifyPlayerScreen({super.key});

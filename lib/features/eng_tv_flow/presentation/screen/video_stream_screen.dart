@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:get/get.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/temp_image.dart';
 import '../controller/video_streem_controller.dart';
 import '../widget/custom_video_player.dart';
 import '../widget/video_news_card.dart';

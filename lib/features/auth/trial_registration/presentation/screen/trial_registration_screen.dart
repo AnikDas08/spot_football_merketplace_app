@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/button/common_button.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/component/text_field/common_text_field.dart';
-import 'package:untitled/features/auth/sign%20in/presentation/widgets/signup_appbar.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/helpers/validation.dart';
+import '../../../../../component/button/common_button.dart';
+import '../../../../../component/image/common_image.dart';
+import '../../../../../component/text/common_text.dart';
+import '../../../../../component/text_field/common_text_field.dart';
+import '../../../../../utils/constants/app_colors.dart';
+import '../../../../../utils/helpers/validation.dart';
+import '../../../sign in/presentation/widgets/signup_appbar.dart';
 import '../controller/trial_registration_controller.dart';
 
 class TrialRegistrationScreen extends StatefulWidget {

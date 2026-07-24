@@ -1,15 +1,14 @@
+import 'package:eng_sports/features/home/presentation/widgets/recent_result_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/features/home/presentation/widgets/recent_result_card.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
 import '../../data/match_model.dart';
 
 class RecentResult extends StatelessWidget {
@@ -54,7 +53,7 @@ class RecentResult extends StatelessWidget {
             children: [
               CommonText(
                 text: "RECENT RESULTS",
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: titleColor ?? AppColors.primaryColor,
                 fontFamily: 'Montserrat',
@@ -69,7 +68,7 @@ class RecentResult extends StatelessWidget {
                     CommonText(
                       text: "View All",
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: viewAllColor ?? AppColors.primaryColor,
                     ),
                     const SizedBox(width: 5),

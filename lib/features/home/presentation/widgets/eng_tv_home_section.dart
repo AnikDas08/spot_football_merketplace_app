@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:untitled/config/api/api_end_point.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/features/eng_tv_flow/presentation/widget/video_thumbnail_card.dart';
-import 'package:untitled/features/home/presentation/controllers/banner_controller.dart';
-import 'package:untitled/features/navbar/controller/navbar_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/app_string.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
+import '../../../../config/route/app_routes.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
+import '../../../eng_tv_flow/presentation/widget/video_thumbnail_card.dart';
+import '../../../navbar/controller/navbar_controller.dart';
+import '../controllers/banner_controller.dart';
 
 class EngTvHomeSection extends StatelessWidget {
   final Color? titleColor;
@@ -43,7 +42,7 @@ class EngTvHomeSection extends StatelessWidget {
               children: [
                 CommonText(
                   text: "ENG TV",
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Montserrat',
                   color: titleColor,
@@ -58,7 +57,7 @@ class EngTvHomeSection extends StatelessWidget {
                       CommonText(
                         text: "View All",
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: 14,
                         color: viewAllColor ?? AppColors.primaryColor,
                       ),
                       const SizedBox(width: 5),

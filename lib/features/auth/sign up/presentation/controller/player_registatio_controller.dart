@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/services/api/api_client.dart';
-import 'package:untitled/services/api/api_service.dart';
-import 'package:untitled/utils/app_snackbar.dart';
-import 'package:untitled/services/storage/storage_keys.dart';
-import 'package:untitled/services/storage/storage_services.dart';
+import '../../../../../config/route/app_routes.dart';
+import '../../../../../services/api/api_client.dart';
+import '../../../../../services/api/api_service.dart';
+import '../../../../../services/storage/storage_keys.dart';
+import '../../../../../services/storage/storage_services.dart';
+import '../../../../../utils/app_snackbar.dart';
 import '../../data/player_registation_model.dart';
 
 class PlayerRegistrationController extends GetxController {

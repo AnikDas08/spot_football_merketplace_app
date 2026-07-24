@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/features/setting/presentation/controller/privacy_policy_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/enum/enum.dart';
+
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../../utils/enum/enum.dart';
+import '../controller/privacy_policy_controller.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});

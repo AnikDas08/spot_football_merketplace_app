@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/features/notifications/presentation/controller/notifications_controller.dart';
-import 'package:untitled/features/notifications/presentation/widgets/notification_item.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-
 import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../controller/notifications_controller.dart';
+import '../widgets/notification_item.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});

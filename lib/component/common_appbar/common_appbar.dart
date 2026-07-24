@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
-
+import '../../config/route/app_routes.dart';
 import '../../utils/constants/app_colors.dart';
 import '../../utils/constants/app_icons.dart';
 import '../../utils/constants/app_images.dart';
 
 import '../../features/notifications/presentation/controller/notifications_controller.dart';
+import '../text/common_text.dart';
 
 class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -20,7 +19,7 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
     final NotificationsController notificationsController = Get.put(NotificationsController());
 
     return AppBar(
-      leadingWidth: 110.w,
+      leadingWidth: 100.w,
       leading: Padding(
         padding: EdgeInsets.only(left: 10.w),
         child: Image.asset(AppImages.appLogo, height: 25.h),

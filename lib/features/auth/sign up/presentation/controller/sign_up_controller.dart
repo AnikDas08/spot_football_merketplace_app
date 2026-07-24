@@ -1,13 +1,14 @@
 import 'dart:async';
+import 'package:eng_sports/features/auth/sign%20up/presentation/controller/player_registatio_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/countries.dart';
-import 'package:untitled/features/auth/sign%20up/presentation/controller/player_registatio_controller.dart';
 import '../../../../../config/route/app_routes.dart';
 import '../../../../../config/api/api_end_point.dart';
 import '../../../../../services/api/api_client.dart';
 import '../../../../../services/api/api_service.dart';
+import '../../../../../services/notification/notification_service.dart';
 import '../../../../../services/storage/storage_keys.dart';
 import '../../../../../services/storage/storage_services.dart';
 import '../../../../../utils/app_snackbar.dart';
@@ -148,6 +149,9 @@ class SignUpController extends GetxController {
         final String token = response.data['data'] ?? '';
         AppSnackbar.success(title: 'Success', message: response.message);
         
+        await LocalStorage.setString(LocalStorageKeys.token, token);
+        await NotificationService.updateToken();
+
         final args = {'token': token};
         
         if (selectRole.toUpperCase() == 'PLAYER') {

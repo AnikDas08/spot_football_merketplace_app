@@ -2,23 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:untitled/utils/constants/app_images.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-
+import '../../../../component/blur_reveal/blur_reveal.dart';
 import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
 import '../../../../services/storage/storage_keys.dart';
+import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
+import '../../../../utils/constants/app_images.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../auth/sign in/presentation/controller/sign_in_controller.dart';
 import '../../../navbar/controller/navbar_controller.dart';
 import '../../../profile/presentation/controller/profile_controller.dart';
-
-import 'package:untitled/component/blur_reveal/blur_reveal.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -99,6 +96,15 @@ class AppDrawer extends StatelessWidget {
                         _buildMenuItem(
                           label: "Book a Scout",
                           onTap: () async {
+                            final Uri url = Uri.parse('https://www.engsportsevents.co.uk/bookscout');
+                            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
+                        ),
+                        _buildMenuItem(
+                          label: "Upcoming Events",
+                          onTap: () async {
                             final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
                             if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
                               throw Exception('Could not launch $url');
@@ -108,19 +114,31 @@ class AppDrawer extends StatelessWidget {
                         if (LocalStorage.isGuest) ...[
                           _buildMenuItem(
                             label: "Fixtures",
-                            onTap: () => Get.find<NavBarController>().selectedIndex.value = 1,
+                            onTap: () {
+                              Get.back();
+                              Get.find<NavBarController>().selectedIndex.value = 1;
+                            },
                           ),
                           _buildMenuItem(
                             label: "League Tables",
-                            onTap: () => Get.find<NavBarController>().selectedIndex.value = 2,
+                            onTap: () {
+                              Get.back();
+                              Get.find<NavBarController>().selectedIndex.value = 2;
+                            },
                           ),
                           _buildMenuItem(
                             label: "ENG TV",
-                            onTap: () => Get.find<NavBarController>().selectedIndex.value = 3,
+                            onTap: () {
+                              Get.back();
+                              Get.find<NavBarController>().selectedIndex.value = 3;
+                            },
                           ),
                           _buildMenuItem(
                             label: "Statistics",
-                            onTap: () => Get.find<NavBarController>().selectedIndex.value = 4,
+                            onTap: () {
+                              Get.back();
+                              Get.find<NavBarController>().selectedIndex.value = 4;
+                            },
                           ),
                         ],
                         _buildMenuItem(
@@ -160,7 +178,7 @@ class AppDrawer extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50.r,
-              backgroundColor: AppColors.color6B6B6B.withValues(alpha: 0.1),
+              backgroundColor: isGuest ? AppColors.primaryColor : AppColors.color6B6B6B.withValues(alpha: 0.1),
               child: ClipOval(
                 child: CommonImage(
                   imageSrc: image.isEmpty ? AppImages.appLogo : image,
@@ -180,8 +198,7 @@ class AppDrawer extends StatelessWidget {
                     color: AppColors.primaryColor,
                     shape: BoxShape.circle,
                   ),
-                  child: Image.asset(
-                    AppIcons.editPencil,
+                  child: Image.asset(AppIcons.editPencil,
                     width: 12.w,
                     height: 12.h,
                   ),
@@ -293,9 +310,10 @@ class AppDrawer extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: isGuest ? AppColors.primaryColor : AppColors.logoutRed,
+          backgroundColor: AppColors.primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),
+            side: const BorderSide(color: AppColors.colorEABB00, width: 1.0),
           ),
           elevation: 0,
         ),

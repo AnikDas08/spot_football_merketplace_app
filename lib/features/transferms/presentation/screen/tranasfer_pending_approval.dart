@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
 
 import '../../../../component/button/common_button.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_string.dart';

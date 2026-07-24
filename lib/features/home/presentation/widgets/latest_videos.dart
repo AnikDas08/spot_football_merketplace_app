@@ -4,19 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/features/home/presentation/widgets/latest_video_card.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/config/api/api_end_point.dart';
-import 'package:untitled/component/text/common_text.dart';
-
 import '../../../../component/blur_reveal/blur_reveal.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
+import '../../../../config/route/app_routes.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../controllers/banner_controller.dart';
 
 import '../../data/video_model.dart';
+import 'latest_video_card.dart';
 
 class LatestVideos extends StatefulWidget {
   final String? title;
@@ -108,7 +107,7 @@ class _LatestVideosState extends State<LatestVideos> {
                       text: widget.title != null
                           ? widget.title.toString().toUpperCase()
                           : AppString.latestVideos.toUpperCase(),
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Montserrat',
                       color: widget.titleColor,
@@ -127,7 +126,7 @@ class _LatestVideosState extends State<LatestVideos> {
                         CommonText(
                           text: AppString.viewAll,
                           fontWeight: const FontWeight(500),
-                          fontSize: 16,
+                          fontSize: 14,
                           color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
                         ),
                         const SizedBox(width: 5),

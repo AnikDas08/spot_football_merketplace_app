@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:untitled/component/image/common_image.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
+
+import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/temp_image.dart';
 
 class BookScoutSection extends StatelessWidget {
   final Color? titleColor;
   const BookScoutSection({super.key, this.titleColor});
 
   Future<void> _launchURL() async {
-    final Uri url = Uri.parse('https://www.engsportsevents.co.uk/category/all-products');
+    final Uri url = Uri.parse('https://www.engsportsevents.co.uk/bookscout');
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
@@ -26,7 +27,7 @@ class BookScoutSection extends StatelessWidget {
         children: [
           CommonText(
             text: "BOOK A SCOUT",
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
             fontFamily: 'Montserrat',
             color: titleColor,
@@ -134,7 +135,7 @@ class BookScoutSection extends StatelessWidget {
                             width: double.infinity,
                             height: 52.h,
                             decoration: BoxDecoration(
-                              color: AppColors.primaryColor,
+                              color: AppColors.primaryColor, // Reverted to Primary Black
                               borderRadius: BorderRadius.circular(16.r),
                               border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                             ),

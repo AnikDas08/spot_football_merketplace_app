@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/image/common_image.dart';
 
+import '../../../../component/image/common_image.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../model/player_model.dart';
 

@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/button/common_button.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
 
+import '../../../../component/button/common_button.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 
 class TrialOfferCard extends StatelessWidget {
   final String playerImageUrl;

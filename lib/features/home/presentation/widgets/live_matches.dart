@@ -1,7 +1,7 @@
+import 'package:eng_sports/features/home/presentation/widgets/recent_result_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled/component/custom_shimmer/custom_shimmer.dart';
-import 'package:untitled/features/home/presentation/widgets/recent_result_card.dart';
+import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
 import '../../data/match_model.dart';
 
@@ -40,7 +40,7 @@ class LiveMatches extends StatelessWidget {
         children: [
           CommonText(
             text: "LIVE MATCHES",
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
             fontFamily: 'Montserrat',
             color: titleColor,

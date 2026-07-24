@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/features/profile/presentation/controller/profile_controller.dart';
-import 'package:untitled/services/storage/storage_services.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/constants/temp_image.dart';
-
+import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/image/common_image.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
+import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../../utils/constants/temp_image.dart';
+import '../controller/profile_controller.dart';
 
 class MyChildrenScreen extends StatelessWidget {
   const MyChildrenScreen({super.key});

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/features/home/data/video_model.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/config/api/api_end_point.dart';
+
+import '../../../../component/text/common_text.dart';
+import '../../../../config/api/api_end_point.dart';
+import '../../../../config/route/app_routes.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../data/video_model.dart';
 
 class BannerCard extends StatelessWidget {
   final VideoModel videoModel;
@@ -115,7 +116,7 @@ class BannerCard extends StatelessWidget {
                           vertical: 10,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
+                          color: AppColors.transparent,
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(
                             color: AppColors.colorEABB00,

@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:eng_sports/features/home/presentation/widgets/upcoming_event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:untitled/config/route/app_routes.dart';
-import 'package:untitled/features/home/presentation/widgets/upcoming_event_card.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
 import '../../../../component/blur_reveal/blur_reveal.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_string.dart';
 import '../controllers/event_controller.dart';
 
@@ -97,7 +97,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                       Expanded(
                         child: CommonText(
                           text: AppString.upcomingEvents.toUpperCase(),
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Montserrat',
                           color: widget.titleColor,
@@ -113,7 +113,7 @@ class _UpcomingEventsState extends State<UpcomingEvents> {
                             CommonText(
                               text: AppString.viewAll,
                               fontWeight: const FontWeight(500),
-                              fontSize: 16,
+                              fontSize: 14,
                               color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
                             ),
                             const SizedBox(width: 5),

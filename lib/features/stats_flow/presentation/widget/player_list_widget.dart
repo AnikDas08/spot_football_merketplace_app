@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:untitled/component/image/common_image.dart';
 
+import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../controller/add_player_controller.dart';
 import '../model/player_model.dart';

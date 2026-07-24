@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/features/home/presentation/widgets/news_card.dart';
-import 'package:untitled/features/news/presentation/controller/news_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-
-import 'package:untitled/component/blur_reveal/blur_reveal.dart';
+import '../../../../component/blur_reveal/blur_reveal.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../home/presentation/widgets/news_card.dart';
+import '../controller/news_controller.dart';
 
 class AllNewsScreen extends StatelessWidget {
   const AllNewsScreen({super.key});

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/features/shop/presentation/controllers/shop_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
+
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../controllers/shop_controller.dart';
 
 class ShopTabWidget extends StatelessWidget {
   const ShopTabWidget({super.key});

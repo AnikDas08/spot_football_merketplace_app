@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:untitled/features/fixtures/presentation/screen/fixtures_screen.dart';
-import 'package:untitled/features/home/presentation/screens/home_screen.dart';
-import 'package:untitled/features/league_tables/presentation/screen/league_tables_screen.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import '../../../utils/constants/app_icons.dart';
+import '../../../utils/constants/app_string.dart';
 import '../../eng_tv_flow/presentation/screen/eng_tv_screen.dart';
+import '../../fixtures/presentation/screen/fixtures_screen.dart';
+import '../../home/presentation/screens/home_screen.dart';
+import '../../league_tables/presentation/screen/league_tables_screen.dart';
 import '../../stats_flow/presentation/screen/stats_screen.dart';
 
 class NavBarController extends GetxController {

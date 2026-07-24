@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:untitled/services/api/api_client.dart';
-
+import '../../../../services/api/api_client.dart';
 import '../../../../services/api/api_service.dart';
 import '../../../../utils/app_snackbar.dart';
 

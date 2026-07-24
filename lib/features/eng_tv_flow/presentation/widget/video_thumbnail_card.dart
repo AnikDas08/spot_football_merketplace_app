@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:untitled/component/button/common_button.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_icons.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import '../../../../component/button/common_button.dart';
 import '../../../../component/text/common_text.dart';
 
 import '../../../../component/image/common_image.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_icons.dart';
+import '../../../../utils/constants/app_string.dart';
 
 class VideoThumbnailCard extends StatelessWidget {
   final String thumbnail;
@@ -99,9 +99,10 @@ class VideoThumbnailCard extends StatelessWidget {
                   onTap: onWatchNow,
                   titleText: AppString. labelWatchNow, // Static Variable
                   titleWeight: FontWeight.w700,
-                  titleSize: 18,
+                  titleSize: 14,
                   buttonHeight: 50,
                   buttonRadius: 16,
+                  // Reverted to default Primary Black
                 ),
               ],
             ),

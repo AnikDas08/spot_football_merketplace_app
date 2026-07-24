@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/features/home/presentation/widgets/upcoming_event_card.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
+import '../../../../component/blur_reveal/blur_reveal.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../controllers/event_controller.dart';
+import '../widgets/upcoming_event_card.dart';
 
-import 'package:untitled/component/blur_reveal/blur_reveal.dart';
 
 class AllEventsScreen extends StatelessWidget {
   const AllEventsScreen({super.key});

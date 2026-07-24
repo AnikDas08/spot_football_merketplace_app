@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:untitled/component/common_appbar/secondary_appbar.dart';
-import 'package:untitled/component/text/common_text.dart';
-import 'package:untitled/features/shop/presentation/controllers/shop_controller.dart';
-import 'package:untitled/utils/constants/app_colors.dart';
-import 'package:untitled/utils/constants/app_string.dart';
-import 'package:untitled/utils/extensions/extension.dart';
+import '../../../../component/common_appbar/secondary_appbar.dart';
+import '../../../../component/text/common_text.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
+import '../../../../utils/extensions/extension.dart';
+import '../controllers/shop_controller.dart';
 import '../widgets/redemption_grid_widget.dart';
 import '../widgets/shop_tab_widget.dart';
 
