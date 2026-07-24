@@ -100,9 +100,7 @@ class SignInScreen extends StatelessWidget {
                         ? controller.signInUser()
                         : null,
                   ),
-
                   40.height,
-
                   Row(
                     children: [
                       Expanded(
@@ -129,9 +127,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   40.height,
-
                   /*_SocialButton(
                     icon: 'assets/images/google.png',
                     label: 'Log In With Google',
@@ -145,11 +141,8 @@ class SignInScreen extends StatelessWidget {
                     label: 'Log In With Apple',
                     onTap: () {},
                   ),*/
-
                   32.height,
-
                   const DoNotHaveAccount(),
-
                   20.height,
 
                   // /// ── Guest Button ──
