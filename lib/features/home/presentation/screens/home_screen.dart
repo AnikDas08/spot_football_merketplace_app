@@ -105,7 +105,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 12.h),
                   ] else ...[
-                    ...controller.allLeagues.asMap().entries.map((entry) {
+                    ...controller.allLeagues
+                        .where((leagueData) => leagueData.standings.isNotEmpty)
+                        .toList()
+                        .asMap()
+                        .entries
+                        .map((entry) {
                       int index = entry.key;
                       var leagueData = entry.value;
                       return Column(

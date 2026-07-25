@@ -1,26 +1,19 @@
-# Subscription & Dynamic Checkout Fix Walkthrough
+# Fix Empty Space in League Preview Walkthrough
 
-I have restored the subscription package loading logic and implemented the dynamic Stripe checkout flow as requested.
+I have optimized the `HomeScreen` to prevent empty spaces or duplicate padding from being rendered when a league has no standings data.
 
 ## Changes Made
 
-### 1. Subscription Logic Restoration
-- **`SubscriptionController`**: Fully re-implemented the `fetchPackages()` method to correctly load plan data from the `${ApiEndPoint.packages}` API.
-- **Package Mapping**: Verified that the `PackageModel` correctly maps the backend `_id` field to the frontend `id` property, ensuring unique identification of plans.
+### 1. Home Screen Logic Optimization
+Updated the `HomeScreen` widget to filter the `allLeagues` list before mapping it to the UI.
 
-### 2. Dynamic Stripe Checkout
-- **Real-time URL Generation**: Implemented `generateCheckoutUrl()` which calls the new `/package/{id}/checkout` endpoint. This ensures that every payment session is generated on-demand with the correct context.
-- **Loading Feedback**: The "Continue" button now displays a loading spinner while the app fetches the dynamic checkout URL from the server.
-
-### 3. UI Enhancements
-- **Gold Selection Border**: Updated the subscription plan cards to show a **Gold** (`AppColors.colorEABB00`) border when selected, making the user's choice clearly visible.
-- **Improved Reactivity**: Used `Obx` and `GetBuilder` effectively to ensure the UI updates instantly when a package is selected or when the checkout process starts.
+- **Before**: The loop iterated over every league returned by the API. Even if a league had no data, the `_buildSection` wrapper (which contains 32dp vertical padding and a white background) was rendered, creating large white gaps on the screen.
+- **After**: Added a `.where((leagueData) => leagueData.standings.isNotEmpty)` filter. Now, the section wrapper and the `LeaguePreview` widget are only generated for leagues that actually have standings to display.
 
 ## Verification Results
 
-- [x] **Data Loading**: Plans are successfully fetched and displayed from the server.
-- [x] **Visual Selection**: The selected package is highlighted with a 2.0-width Gold border.
-- [x] **Payment Intent**: Clicking "Continue" triggers the loader and then opens the Stripe checkout page in the embedded WebView.
+- [x] **No Gaps**: Verified that leagues with empty `standings` arrays no longer create empty white boxes on the Home Screen.
+- [x] **Correct Header**: The "League Preview" title still appears correctly on the first valid league table.
+- [x] **Performance**: Filtering the list in-memory is efficient and doesn't impact scroll performance.
 
-render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/features/my_subscription/presentation/controller/subscription_controller.dart)
-render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/features/my_subscription/presentation/screens/my_subscription_screen.dart)
+render_diffs(file:///D:/Ajijul/spot_football_merketplace_app/lib/features/home/presentation/screens/home_screen.dart)

@@ -160,6 +160,8 @@ class _SplashScreenState extends State<SplashScreen>
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,7 +255,7 @@ class _SplashScreenState extends State<SplashScreen>
                             child: Column(
                               children: [
                                 const CommonText(
-                                  text: "Welcome back",
+                                  text: "Welcome",
                                   fontSize: 32,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.white,

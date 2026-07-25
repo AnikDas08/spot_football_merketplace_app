@@ -28,7 +28,7 @@ class BookScoutSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Book a scout",
+            "Book a Scout",
             style: GoogleFonts.playfairDisplay(
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,

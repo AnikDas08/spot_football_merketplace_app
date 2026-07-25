@@ -25,7 +25,7 @@ class OnboardingScreen extends StatelessWidget {
           /// Background Image
           Positioned.fill(
             child: Image.asset(
-              "assets/images/welcome_bg.png",
+              "assets/images/auth_bg.png",
               fit: BoxFit.fitHeight,
             ),
           ),
