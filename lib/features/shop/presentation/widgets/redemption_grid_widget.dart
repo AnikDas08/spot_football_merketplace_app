@@ -35,7 +35,7 @@ class RedemptionGridWidget extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 12.w,
         mainAxisSpacing: 12.h,
-        childAspectRatio: 0.75, // Adjusted for professional look with image and button
+        childAspectRatio: 0.68, // Adjusted for professional look with image and button
       ),
       itemBuilder: (_, index) {
         return RedemptionItemWidget(

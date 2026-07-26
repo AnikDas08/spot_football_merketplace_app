@@ -86,7 +86,7 @@ class SignInController extends GetxController {
           } else {
             Get.offAllNamed(AppRoutes.navBarScreen);
           }
-        } else if (!currentPaymentStatus) {
+        } else if (!currentPaymentStatus && currentRole == "PLAYER") {
           Get.offAllNamed(AppRoutes.mySubscription);
         } else {
           Get.offAllNamed(AppRoutes.navBarScreen);

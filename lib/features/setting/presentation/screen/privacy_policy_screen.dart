@@ -43,13 +43,6 @@ class PrivacyPolicyScreen extends StatelessWidget {
                       fontFamily: 'PlayfairDisplay',
                     ),
                   ),
-                  CommonText(
-                    text: AppString.lastUpdatedOctober2024,
-                    color: AppColors.color6B6B6B,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    textAlign: TextAlign.center,
-                  ),
                   SizedBox(height: 20.h),
                   Html(
                     data: controller.data.content,

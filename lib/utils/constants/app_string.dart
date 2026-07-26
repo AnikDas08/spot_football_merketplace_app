@@ -164,7 +164,7 @@ class AppString {
   static const String premierLeagueAway = "Premier League • Away";
   static const String twoGoal = "2 Goals";
   static const String rewardsRedemption = "Rewards / Redemption";
-  static const String mySubscriptions = "My Subscriptions";
+  static const String mySubscriptions = "My Membership";
   static const String legalProtoCol = "Legal Protocol";
   static const String lastUpdatedOctober2024 = "Last Updated: October 2024";
   static const String updateYourCredentials = "1. Update Your Credentials";
@@ -214,8 +214,8 @@ class AppString {
   static const noEngCoins = 'No Eng Coins';
   static const semiProPrice = '£9.95';
   static const perSeason = '/Season';
-  static const changeSubscriptionPlan = 'Change Your Subscriptions Plan';
-  static const subcriptionDetails = "Subscription Details";
+  static const changeSubscriptionPlan = 'Change Your Membership Plan';
+  static const subcriptionDetails = "Membership Details";
   static const String fixture = "Fixtures";
   static const String allTeam = "All Team";
   static const String specific = "Specific";

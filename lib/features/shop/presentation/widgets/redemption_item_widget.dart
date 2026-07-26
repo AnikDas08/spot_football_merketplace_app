@@ -41,22 +41,24 @@ class RedemptionItemWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          CommonText(
-            text: product?.productType ?? '',
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.primaryColor,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          SizedBox(
+            height: 20.h,
+            child: CommonText(
+              text: product?.productType ?? '',
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: AppColors.primaryColor,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-          SizedBox(height: 8.h),
-          const Divider(),
+          SizedBox(height: 4.h),
+          const Divider(height: 1),
           SizedBox(height: 8.h),
           Expanded(
             child: CachedNetworkImage(
               imageUrl: imageUrl,
               fit: BoxFit.contain,
-              // লোডার এর পরিবর্তে শুধুমাত্র শিমার ব্যবহার করা হয়েছে
               placeholder: (context, url) => CustomShimmer.rectangular(
                 height: 70.h,
                 width: double.infinity,
@@ -70,19 +72,20 @@ class RedemptionItemWidget extends StatelessWidget {
             children: [
               CommonText(
                 text: AppString.totalCoins,
-                fontSize: 12,
+                fontSize: 11,
                 color: AppColors.textSecondaryColor,
                 fontWeight: FontWeight.w400,
               ),
               CommonText(
                 text: " ${product?.point ?? 0}",
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: FontWeight.w700,
                 color: AppColors.yellow,
+                fontFamily: 'Montserrat',
               ),
             ],
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 8.h),
           InkWell(
             onTap: () {
               if (product?.id != null) {
@@ -97,14 +100,16 @@ class RedemptionItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(color: AppColors.colorEABB00, width: 1.w),
               ),
-              child: CommonText(
-                text: AppString.redeem,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: AppColors.white,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-              ),
+              child: controller.isRedeeming.value 
+                ? SizedBox(height: 14.h, width: 14.h, child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                : CommonText(
+                    text: AppString.redeem,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.white,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                  ),
             ),
           ),
         ],

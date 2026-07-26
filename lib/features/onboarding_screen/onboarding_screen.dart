@@ -94,7 +94,6 @@ class OnboardingScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: CommonButton(
-                          buttonHeight: 48.h,
                           buttonRadius: 50,
                           titleText: "Sign Up",
                           titleSize: 14.sp,
@@ -105,7 +104,6 @@ class OnboardingScreen extends StatelessWidget {
                       SizedBox(width: 12.w),
                       Expanded(
                         child: CommonButton(
-                          buttonHeight : 48.h,
                           buttonRadius: 50,
                           titleText: AppString.signIn,
                           titleSize: 14.sp,

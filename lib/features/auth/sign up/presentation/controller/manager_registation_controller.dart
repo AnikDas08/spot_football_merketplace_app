@@ -158,15 +158,9 @@ class ManagerRegistationController extends GetxController {
         // Update local status so app knows info is submitted
         await LocalStorage.setString(LocalStorageKeys.profileStatus, "PENDING");
         
-        // After submitting additional info, check payment status
-        if (!LocalStorage.paymentStatus) {
-          Get.offAllNamed(AppRoutes.mySubscription, arguments: {
-            'isFromRegistration': true,
-            'token': token,
-          });
-        } else {
-          Get.offAllNamed(AppRoutes.successfulCreateAccount);
-        }
+        // After submitting additional info, redirect to success screen
+        // Subscription is no longer required for Managers
+        Get.offAllNamed(AppRoutes.successfulCreateAccount);
       }
       else {
         final String errorMessage = response.message;

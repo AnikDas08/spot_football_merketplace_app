@@ -15,7 +15,7 @@ class ShopController extends GetxController {
   final ApiClient apiClient = DioApiClient();
   final ScrollController scrollController = ScrollController();
 
-  int selectedTab = 0;
+  var selectedTab = 0.obs;
   var isLoading = false.obs;
   var isMoreLoading = false.obs;
   var isRedeeming = false.obs;
@@ -36,7 +36,7 @@ class ShopController extends GetxController {
   void _onScroll() {
     if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200) {
       if (!isLoading.value && !isMoreLoading.value && hasNextPage) {
-        if (selectedTab == 0 || selectedTab == 1) {
+        if (selectedTab.value == 0 || selectedTab.value == 1) {
           loadMoreProducts();
         } else {
           loadMoreOrders();
@@ -46,7 +46,7 @@ class ShopController extends GetxController {
   }
 
   void changeTab(int index) {
-    selectedTab = index;
+    selectedTab.value = index;
     currentPage = 1;
     productList.clear();
     myOrdersList.clear();
@@ -69,7 +69,7 @@ class ShopController extends GetxController {
       }
       update();
 
-      String productTypeParam = (selectedTab == 0) ? 'nonCoffee' : 'Coffee';
+      String productTypeParam = (selectedTab.value == 0) ? 'nonCoffee' : 'Coffee';
 
       final response = await apiClient.get(
         "${ApiEndPoint.rewardProducts}?productType=$productTypeParam&page=$currentPage&limit=10",

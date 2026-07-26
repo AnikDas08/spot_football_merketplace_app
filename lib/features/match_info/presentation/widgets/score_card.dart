@@ -40,7 +40,6 @@ class ScoreCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 1.sw,
-      height: 240.h,
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         color: AppColors.white,

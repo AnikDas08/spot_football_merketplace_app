@@ -13,6 +13,7 @@ import '../../../../services/storage/storage_services.dart';
 import '../../../../utils/app_snackbar.dart';
 import '../../../../utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_images.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../auth/sign in/presentation/widgets/signup_appbar.dart';
 import '../../../profile/presentation/controller/profile_controller.dart';
 import '../controller/subscription_controller.dart';
@@ -87,7 +88,7 @@ class MySubscriptionScreen extends StatelessWidget {
                               children: [
                                 SizedBox(height: 20.h),
                                 CommonText(
-                                  text: '$titleRole Registration',
+                                  text: '$titleRole Membership',
                                   fontSize: 32,
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.start,
@@ -204,14 +205,14 @@ class MySubscriptionScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 20.h),
-          CommonText(
-            text: 'Subscription Details',
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-            color: AppColors.black,
-            bottom: 32.h,
-            fontFamily: 'PlayfairDisplay',
-          ),
+        CommonText(
+          text: AppString.subcriptionDetails,
+          fontSize: 24,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+          bottom: 32.h,
+          fontFamily: 'PlayfairDisplay',
+        ),
           Container(
             padding: EdgeInsets.all(24.r),
             decoration: BoxDecoration(
@@ -253,7 +254,7 @@ class MySubscriptionScreen extends StatelessWidget {
                           _FeatureItem(text: "Login Limit: ${package?['loginLimit'] ?? 0}", isIncluded: true),
                           SizedBox(height: 8.h),
                           _FeatureItem(
-                            text: "Credits: ${package?['credit'] ?? 0}",
+                            text: "Reward Credits: ${package?['credit'] ?? 0}",
                             isIncluded: (package?['credit'] ?? 0) > 0,
                           ),
                         ],
@@ -282,7 +283,7 @@ class MySubscriptionScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 32.h),
                 CommonButton(
-                  titleText: 'Change Your Subscriptions Plan',
+                  titleText: AppString.changeSubscriptionPlan,
                   onTap: () => controller.toggleChangingPlan(true),
                 ),
               ],
@@ -373,7 +374,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                       ),
                       SizedBox(height: 8.h),
                       _FeatureItem(
-                        text: "Credits: ${package.credit}",
+                        text: "Reward Credits: ${package.credit}",
                         isIncluded:
                             package.credit != null && package.credit! > 0,
                       ),

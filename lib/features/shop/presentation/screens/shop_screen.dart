@@ -30,7 +30,7 @@ class ShopScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Obx(() => CommonText(
-              text: controller.selectedTab == 2 ? "My Order History" : AppString.prizeRedemptionFeed,
+              text: controller.selectedTab.value == 2 ? "My Order History" : AppString.prizeRedemptionFeed,
               fontSize: 20,
               fontWeight: FontWeight.w600,
             )),
@@ -40,11 +40,11 @@ class ShopScreen extends StatelessWidget {
             child: GetBuilder<ShopController>(
               builder: (controller) {
                 if (controller.isLoading.value && 
-                    (controller.selectedTab == 2 ? controller.myOrdersList.isEmpty : controller.productList.isEmpty)) {
+                    (controller.selectedTab.value == 2 ? controller.myOrdersList.isEmpty : controller.productList.isEmpty)) {
                   return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
                 }
 
-                if (controller.selectedTab == 2) {
+                if (controller.selectedTab.value == 2) {
                   return _buildOrdersList(controller);
                 }
 

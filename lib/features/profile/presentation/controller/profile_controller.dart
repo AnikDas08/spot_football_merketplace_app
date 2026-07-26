@@ -329,12 +329,12 @@ class ProfileController extends GetxController {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        getProfileData(); // Refresh data
+        Get.back();
         AppSnackbar.success(
           title: 'Success',
           message: 'Profile updated successfully',
         );
-        getProfileData(); // Refresh data
-        Get.back();
       } else {
         throw Exception(response.message);
       }

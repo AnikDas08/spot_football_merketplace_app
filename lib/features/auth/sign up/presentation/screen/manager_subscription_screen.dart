@@ -65,7 +65,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                 iconBgColor: const Color(0xFFE8F0FE),
                 iconColor: const Color(0xFF1A73E8),
                 title: 'Earn Eng Manager Coins',
-                description: 'Upgrade to earn Eng Manager Coins and unlock premium features, exclusive analytics, and team tools.',
+                description: 'Upgrade to earn Eng Manager Coins and access advanced team management tools, exclusive analytics, and team tools.',
                 price: '£4.95',
                 buttonText: 'Pay & Upgrade',
                 onTap: () {

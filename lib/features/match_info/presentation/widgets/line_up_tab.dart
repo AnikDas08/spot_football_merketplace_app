@@ -342,61 +342,36 @@ class _PitchNode extends StatelessWidget {
       onTap: () {
         if (id != null) Get.toNamed(AppRoutes.playerProfile, arguments: id);
       },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 45.w,
-            height: 45.w,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: name.isEmpty
-                  ? Colors.white.withValues(alpha: 0.2)
-                  : const Color(0xFFF57C00),
-              border:
-                  name.isEmpty ? null : Border.all(color: AppColors.white, width: 2),
-            ),
-            child: name.isEmpty
-                ? const SizedBox.shrink()
-                : ClipOval(
-                    child: imageUrl != null && imageUrl!.isNotEmpty
-                        ? CommonImage(
-                            imageSrc: imageUrl!,
-                            width: 45.w,
-                            height: 45.w,
-                            fill: BoxFit.cover,
-                          )
-                        : Center(
-                            child: CommonText(
-                              text: initial,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.white,
-                            ),
-                          ),
-                  ),
-          ),
-          SizedBox(height: 4.h),
-          SizedBox(
-            width: 70.w,
-            child: CommonText(
-              text: name,
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
-              color: AppColors.white,
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          CommonText(
-            text: position,
-            fontSize: 8,
-            textAlign: TextAlign.center,
-            color: AppColors.white.withValues(alpha: 0.8),
-          ),
-        ],
+      child: Container(
+        width: 45.w,
+        height: 45.w,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: name.isEmpty
+              ? Colors.white.withValues(alpha: 0.2)
+              : const Color(0xFFF57C00),
+          border:
+              name.isEmpty ? null : Border.all(color: AppColors.white, width: 2),
+        ),
+        child: name.isEmpty
+            ? const SizedBox.shrink()
+            : ClipOval(
+                child: imageUrl != null && imageUrl!.isNotEmpty
+                    ? CommonImage(
+                        imageSrc: imageUrl!,
+                        width: 45.w,
+                        height: 45.w,
+                        fill: BoxFit.cover,
+                      )
+                    : Center(
+                        child: CommonText(
+                          text: initial,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.white,
+                        ),
+                      ),
+              ),
       ),
     );
   }

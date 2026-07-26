@@ -2,7 +2,7 @@ name: eng_sports
 description: "ENG SPORTS EVENTS - Football Marketplace Application"
 publish_to: 'none'
 
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: ^3.10.4
@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.8
   get: ^4.6.6
   dio: ^5.7.0

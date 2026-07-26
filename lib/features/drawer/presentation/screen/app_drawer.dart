@@ -122,10 +122,6 @@ class AppDrawer extends StatelessWidget {
                               onTap: () => Get.toNamed(AppRoutes.myChildren),
                             ),
                             _buildMenuItem(
-                              label: AppString.rewardsRedemption,
-                              onTap: () => Get.toNamed(AppRoutes.shopScreen),
-                            ),
-                            _buildMenuItem(
                               label: AppString.mySubscriptions,
                               onTap: () => Get.toNamed(AppRoutes.mySubscription),
                             ),
@@ -146,6 +142,10 @@ class AppDrawer extends StatelessWidget {
                                   Get.toNamed(AppRoutes.trialList),
                             ),
                           ],
+                          _buildMenuItem(
+                            label: AppString.rewardsRedemption,
+                            onTap: () => Get.toNamed(AppRoutes.shopScreen),
+                          ),
                           _buildMenuItem(
                             label: AppString.changePassword,
                             onTap: () => Get.toNamed(AppRoutes.changePassword),

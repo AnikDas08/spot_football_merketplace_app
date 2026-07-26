@@ -148,7 +148,7 @@ class _SplashScreenState extends State<SplashScreen>
         } else {
           Get.offAllNamed(AppRoutes.navBarScreen);
         }
-      } else if (!paymentStatus) {
+      } else if (!paymentStatus && role == "PLAYER") {
         Get.offAllNamed(AppRoutes.mySubscription);
       } else {
         Get.offAllNamed(AppRoutes.navBarScreen);

@@ -60,7 +60,6 @@ class OfferSummaryCard extends StatelessWidget {
             buttonColor: AppColors.black,
             onTap: onSubmit,
             buttonWidth: double.infinity,
-            buttonHeight: 48,
             titleWeight: FontWeight.w500,
             titleSize: 18,
           ),

@@ -13,31 +13,26 @@ class ShopTabWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ShopController>(
       builder: (controller) {
-        return Padding(
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             children: [
               _tab(
                 title: 'Redemption',
-                selected: controller.selectedTab == 0,
+                selected: controller.selectedTab.value == 0,
                 onTap: ()=> controller.changeTab(0),
               ),
               SizedBox(width: 12.w),
               _tab(
                 title: 'Coffle',
-                selected: controller.selectedTab == 1,
+                selected: controller.selectedTab.value == 1,
                 onTap: ()=> controller.changeTab(1),
               ),
               SizedBox(width: 12.w),
               _tab(
                 title: 'My Orders',
-                selected: controller.selectedTab == 2,
-                onTap: ()=> controller.changeTab(2),
-              ),
-              SizedBox(width: 12.w),
-              _tab(
-                title: 'My Orders',
-                selected: controller.selectedTab == 2,
+                selected: controller.selectedTab.value == 2,
                 onTap: ()=> controller.changeTab(2),
               ),
             ],
