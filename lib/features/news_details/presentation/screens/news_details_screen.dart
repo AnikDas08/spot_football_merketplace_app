@@ -60,6 +60,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                   width: 1.sw,
                   decoration: BoxDecoration(
                     image: DecorationImage(
+                      alignment: .topRight,
                       fit: BoxFit.cover,
                       image: AssetImage(AppImages.banner),
                     ),

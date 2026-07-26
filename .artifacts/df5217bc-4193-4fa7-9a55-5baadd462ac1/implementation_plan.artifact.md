@@ -1,27 +1,24 @@
-# Implementation Plan - Unify Stadium Visuals in Match Info
+# Implementation Plan - Unify Pitch Visuals in Match Info
 
-Synchronize the stadium/pitch visual in the **Lineups Tab** to match the styling and functionality of the **Overview Tab** within the Match Info screen.
+Ensure the stadium/pitch visual in the **Lineups Tab** correctly displays player avatars and names by synchronizing its logic and structure with the **Overview Tab**.
 
 ## Proposed Changes
 
 ### [Match Info Components]
 
 #### [MODIFY] [Lineups Tab](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/match_info/presentation/widgets/line_up_tab.dart)
-- **Header Alignment**: Update the "Tactical Lineup" header to match the "Formation Setup" style from `OverviewTab`. Use `AppColors.primaryColor` for the background, increase padding to `16.h`, and set the font size to `18`.
-- **Stadium Container**: Set the border color to `AppColors.colorEABB00` and ensure consistent border radius and shadow.
-- **Pitch Nodes**: Refactor `_PitchNode` to match `OverviewTab`'s `_PlayerNode`:
-    - Increase border width to `2.0`.
-    - Correct the logic to show player **initials** when the profile image is missing, instead of falling back to the default logo (using a manual check before `CommonImage` or passing a specific flag).
-    - Update name and position text styles (font size, weight, and colors) to be identical to the ones in `OverviewTab`.
-- **Data Consistency**: Ensure the `starters` list is handled identically to the `OverviewTab` to avoid missing players on the pitch.
+- **Refactor `_PitchNode`**: Update the `_PitchNode` widget to match `OverviewTab`'s node logic perfectly.
+- **Synchronize Pitch Build Logic**:
+    - Re-implement the pitch rendering logic within the `Obx` block to ensure it uses the exact same `starters` filtering and `positionIndex` matching as `OverviewTab`.
+    - Wrap the pitch `Row` in the same layout constraints (e.g., ensuring it fills the `AspectRatio` container correctly).
+- **Consolidate Styles**: Use the identical font sizes, colors, and border widths from the working `OverviewTab`.
 
 #### [MODIFY] [Overview Tab](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/match_info/presentation/widgets/overview_tab.dart)
-- Update `_PlayerNode` to match any improved logic from `LineupsTab` if necessary (e.g., ensuring initials are only shown if a player is actually assigned to that node).
+- Minor adjustments if any improvements are found during the `LineupsTab` refactor (e.g., ensuring consistency in fallback text).
 
 ## Verification Plan
 
 ### Manual Verification
-- **Visual Comparison**: Open the Match Info screen and toggle between the "Overview" and "Lineups" tabs. The stadium section should look identical in both tabs (header, colors, node styles).
-- **Player Display**: Verify that player names and positions are visible below the pitch circles in both tabs.
-- **Empty State Check**: Verify that nodes without assigned players show only the dashed circle or placeholder dot consistently.
-- **Missing Image Check**: Verify that players without profile images show their initials inside the pitch circle in both tabs.
+- **Visual Match**: Verify that the pitch section in the "Lineups" tab now shows player avatars and names just like the "Overview" tab.
+- **Interactivity**: Toggle between Home and Away teams in the "Lineups" tab and verify the pitch updates immediately.
+- **Empty State Check**: Ensure that nodes without assigned players still show placeholder circles.

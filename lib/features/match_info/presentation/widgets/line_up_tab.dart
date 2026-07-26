@@ -58,9 +58,6 @@ class _LineupsTabState extends State<LineupsTab> {
         });
 
       final formation = currentSelection?.teamFormation ?? "9";
-      final starters = currentSelection?.players.where((p) => !p.substitute).toList() ?? [];
-      
-      final horizontalLayout = _getHorizontalLayout(formation);
  
       return Column(
         children: [
@@ -118,24 +115,39 @@ class _LineupsTabState extends State<LineupsTab> {
                     borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(color: AppColors.colorEABB00, width: 1.w),
                     boxShadow: [
-                      BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 4)),
+                      BoxShadow(
+                        color: AppColors.black.withAlpha(10),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
                     ],
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                        color: Colors.black,
+                        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                        decoration: const BoxDecoration(color: AppColors.primaryColor),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CommonText(text: 'Tactical Lineup', fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
-                            CommonText(text: "$formation aside", fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
+                            CommonText(
+                              text: 'Tactical Lineup',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.white,
+                            ),
+                            CommonText(
+                              text: "$formation aside",
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.white,
+                            ),
                           ],
                         ),
                       ),
                       Container(
+                        color: Colors.white,
                         padding: EdgeInsets.all(12.r),
                         child: AspectRatio(
                           aspectRatio: 335 / 220,
@@ -147,27 +159,7 @@ class _LineupsTabState extends State<LineupsTab> {
                                   child: Image.asset(AppImages.stadium, fit: BoxFit.cover),
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: horizontalLayout.map((column) {
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: column.map((posInfo) {
-                                      final int nodeIdx = posInfo['index'] as int;
-                                      final String posLabel = posInfo['label'] as String;
-                                      final p = starters.firstWhereOrNull((player) => player.positionIndex == nodeIdx);
-                                      
-                                      return _PitchNode(
-                                        name: p != null ? "${p.player.firstName ?? ""} ${p.player.lastName ?? ""}".trim() : "",
-                                        initial: p != null ? (p.player.firstName?[0] ?? p.player.userName?[0] ?? "P").toUpperCase() : posLabel.substring(0, 1),
-                                        imageUrl: p?.player.profile,
-                                        position: posLabel,
-                                        id: p?.player.id,
-                                      );
-                                    }).toList(),
-                                  );
-                                }).toList(),
-                              ),
+                              _buildFormation(currentSelection),
                             ],
                           ),
                         ),
@@ -252,6 +244,55 @@ class _LineupsTabState extends State<LineupsTab> {
     });
   }
 
+  Widget _buildFormation(SelectionData? selection) {
+    if (selection == null) return const SizedBox.shrink();
+
+    final starters = selection.players.where((p) => !p.substitute).toList();
+    final String formation = selection.teamFormation;
+
+    // Get columns left to right (GK -> Def -> Mid -> Fwd)
+    final layoutWithIndices = _getHorizontalLayout(formation);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: layoutWithIndices.map((column) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: column.map((posInfo) {
+            final int nodeIdx = posInfo['index'] as int;
+            final String posName = posInfo['label'] as String;
+
+            final p = starters
+                .firstWhereOrNull((player) => player.positionIndex == nodeIdx);
+
+            // Map long names to short codes if needed, or just use initials
+            String displayPos = posName;
+            if (posName.contains('Goalkeeper')) {
+              displayPos = 'GK';
+            } else if (posName == 'Defender') {
+              displayPos = 'DF';
+            } else if (posName == 'Midfielder') {
+              displayPos = 'CM';
+            } else if (posName == 'Forward' || posName == 'Striker') {
+              displayPos = 'ST';
+            }
+
+            return _PitchNode(
+              initial: p != null
+                  ? (p.player.firstName?[0] ?? p.player.userName?[0] ?? "P")
+                      .toUpperCase()
+                  : displayPos,
+              name: p != null ? (p.player.firstName ?? "Player") : "",
+              position: posName,
+              imageUrl: p?.player.profile,
+              id: p?.player.id,
+            );
+          }).toList(),
+        );
+      }).toList(),
+    );
+  }
+
   List<List<Map<String, dynamic>>> _getHorizontalLayout(String formation) {
     final count = int.tryParse(formation) ?? 9;
     if (count == 5) {
@@ -281,13 +322,19 @@ class _LineupsTabState extends State<LineupsTab> {
 }
 
 class _PitchNode extends StatelessWidget {
-  final String name;
   final String initial;
-  final String? imageUrl;
+  final String name;
   final String position;
+  final String? imageUrl;
   final String? id;
 
-  const _PitchNode({required this.name, required this.initial, this.imageUrl, required this.position, this.id});
+  const _PitchNode({
+    required this.initial,
+    required this.name,
+    required this.position,
+    this.imageUrl,
+    this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -304,19 +351,31 @@ class _PitchNode extends StatelessWidget {
             height: 45.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: name.isEmpty ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFF57C00),
-              border: name.isEmpty ? null : Border.all(color: Colors.white, width: 1.5),
+              color: name.isEmpty
+                  ? Colors.white.withValues(alpha: 0.2)
+                  : const Color(0xFFF57C00),
+              border:
+                  name.isEmpty ? null : Border.all(color: AppColors.white, width: 2),
             ),
-            child: name.isEmpty 
-              ? const SizedBox.shrink() 
-              : ClipOval(
-                  child: CommonImage(
-                    imageSrc: imageUrl ?? "",
-                    width: 45.w,
-                    height: 45.w,
-                    fill: BoxFit.cover,
+            child: name.isEmpty
+                ? const SizedBox.shrink()
+                : ClipOval(
+                    child: imageUrl != null && imageUrl!.isNotEmpty
+                        ? CommonImage(
+                            imageSrc: imageUrl!,
+                            width: 45.w,
+                            height: 45.w,
+                            fill: BoxFit.cover,
+                          )
+                        : Center(
+                            child: CommonText(
+                              text: initial,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.white,
+                            ),
+                          ),
                   ),
-                ),
           ),
           SizedBox(height: 4.h),
           SizedBox(
@@ -324,14 +383,19 @@ class _PitchNode extends StatelessWidget {
             child: CommonText(
               text: name,
               fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              color: AppColors.white,
               maxLines: 1,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          CommonText(text: position, fontSize: 9, fontWeight: FontWeight.w500, textAlign: TextAlign.center, color: Colors.white.withValues(alpha: 0.9)),
+          CommonText(
+            text: position,
+            fontSize: 8,
+            textAlign: TextAlign.center,
+            color: AppColors.white.withValues(alpha: 0.8),
+          ),
         ],
       ),
     );

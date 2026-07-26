@@ -1,6 +1,6 @@
-# Tasks - Unify Stadium Visuals in Match Info
+# Tasks - Unify Pitch Visuals in Match Info
 
-- `[ ]` Refactor `LineupsTab` stadium header
-- `[ ]` Update `LineupsTab` stadium container styling
-- `[ ]` Sync `_PitchNode` (Lineups) with `_PlayerNode` (Overview)
-- `[ ]` Verify initials logic and text styles in both tabs
+- `[x]` Synchronize `LineupsTab` pitch rendering logic with `OverviewTab`
+- `[x]` Update `_PitchNode` to match `_PlayerNode` styling and behavior
+- `[x]` Ensure team selection reactivity for the stadium area in `LineupsTab`
+- `[x]` Final verification of visual consistency between tabs
