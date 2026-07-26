@@ -28,6 +28,18 @@ class ShopTabWidget extends StatelessWidget {
                 selected: controller.selectedTab == 1,
                 onTap: ()=> controller.changeTab(1),
               ),
+              SizedBox(width: 12.w),
+              _tab(
+                title: 'My Orders',
+                selected: controller.selectedTab == 2,
+                onTap: ()=> controller.changeTab(2),
+              ),
+              SizedBox(width: 12.w),
+              _tab(
+                title: 'My Orders',
+                selected: controller.selectedTab == 2,
+                onTap: ()=> controller.changeTab(2),
+              ),
             ],
           ),
         );

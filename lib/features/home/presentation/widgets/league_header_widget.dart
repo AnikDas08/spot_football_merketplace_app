@@ -1,3 +1,4 @@
+import 'package:eng_sports/utils/constants/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../component/image/common_image.dart';
@@ -24,11 +25,10 @@ class LeagueHeaderWidget extends StatelessWidget {
       height: 140.h,
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [Color(0xff8E7BFF), Color(0xffFF6EC7)],
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(AppImages.banner),
+          fit: BoxFit.fitWidth,
         ),
       ),
       child: Row(

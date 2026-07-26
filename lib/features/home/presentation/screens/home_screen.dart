@@ -108,6 +108,9 @@ class HomeScreen extends StatelessWidget {
                     ...controller.allLeagues
                         .where((leagueData) => leagueData.standings.isNotEmpty)
                         .toList()
+                        .reversed
+                        .take(2)
+                        .toList()
                         .asMap()
                         .entries
                         .map((entry) {
@@ -119,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                             backgroundColor: Colors.white,
                             padding: index == 0
                                 ? EdgeInsets.symmetric(vertical: 32.h)
-                                : EdgeInsets.only(bottom: 32.h),
+                                : EdgeInsets.only(top: 12.h, bottom: 32.h),
                             child: LeaguePreview(
                               standings: leagueData.standings,
                               leagueName: leagueData.league.leagueName,

@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../../services/api/api_client.dart';
 import '../../../../services/api/api_service.dart';
+import '../../../../services/storage/storage_services.dart';
+import '../../../../utils/app_snackbar.dart';
+import '../../../profile/presentation/controller/profile_controller.dart';
 import '../data/reward_response.dart';
 
 class ShopController extends GetxController {
@@ -15,8 +18,10 @@ class ShopController extends GetxController {
   int selectedTab = 0;
   var isLoading = false.obs;
   var isMoreLoading = false.obs;
+  var isRedeeming = false.obs;
 
   List<RewardProduct> productList = [];
+  List<dynamic> myOrdersList = [];
   
   int currentPage = 1;
   bool hasNextPage = true;
@@ -31,7 +36,11 @@ class ShopController extends GetxController {
   void _onScroll() {
     if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200) {
       if (!isLoading.value && !isMoreLoading.value && hasNextPage) {
-        loadMoreProducts();
+        if (selectedTab == 0 || selectedTab == 1) {
+          loadMoreProducts();
+        } else {
+          loadMoreOrders();
+        }
       }
     }
   }
@@ -40,8 +49,13 @@ class ShopController extends GetxController {
     selectedTab = index;
     currentPage = 1;
     productList.clear();
+    myOrdersList.clear();
     update();
-    fetchProducts();
+    if (index == 0 || index == 1) {
+      fetchProducts();
+    } else {
+      fetchMyOrders();
+    }
   }
 
   Future<void> fetchProducts({bool isLoadMore = false}) async {
@@ -96,9 +110,89 @@ class ShopController extends GetxController {
     }
   }
 
+  Future<void> fetchMyOrders({bool isLoadMore = false}) async {
+    try {
+      if (isLoadMore) {
+        isMoreLoading.value = true;
+      } else {
+        isLoading.value = true;
+        currentPage = 1;
+        myOrdersList.clear();
+      }
+      update();
+
+      final response = await apiClient.get(
+        "${ApiEndPoint.myOrders}?page=$currentPage&limit=10",
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+
+      if (response.statusCode == 200) {
+        final dynamic responseData = response.data['data'];
+        List<dynamic> data = [];
+        
+        if (responseData is List) {
+          data = responseData;
+          hasNextPage = false;
+        } else if (responseData is Map) {
+          data = responseData['orders'] ?? responseData['docs'] ?? [];
+          final pagination = responseData['pagination'];
+          if (pagination != null) {
+            int totalPage = pagination['totalPage'] ?? 1;
+            hasNextPage = currentPage < totalPage;
+          } else {
+            hasNextPage = false;
+          }
+        }
+        
+        if (isLoadMore) {
+          myOrdersList.addAll(data);
+        } else {
+          myOrdersList = data;
+        }
+      }
+    } catch (e) {
+      debugPrint('❌ fetchMyOrders error: $e');
+    } finally {
+      isLoading.value = false;
+      isMoreLoading.value = false;
+      update();
+    }
+  }
+
+  Future<void> redeemProduct(String productId) async {
+    try {
+      isRedeeming.value = true;
+      update();
+
+      final response = await apiClient.post(
+        ApiEndPoint.rewardOrder,
+        body: {"rewardProduct": productId},
+        headers: {'Authorization': 'Bearer ${LocalStorage.token}'},
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        AppSnackbar.success(title: 'Success', message: 'Product redeemed successfully!');
+        // Refresh profile to update coin balance
+        Get.find<ProfileController>().getProfileData();
+      } else {
+        AppSnackbar.error(title: 'Error', message: response.message);
+      }
+    } catch (e) {
+      AppSnackbar.error(title: 'Error', message: e.toString());
+    } finally {
+      isRedeeming.value = false;
+      update();
+    }
+  }
+
   Future<void> loadMoreProducts() async {
     currentPage++;
     await fetchProducts(isLoadMore: true);
+  }
+
+  Future<void> loadMoreOrders() async {
+    currentPage++;
+    await fetchMyOrders(isLoadMore: true);
   }
 
   @override

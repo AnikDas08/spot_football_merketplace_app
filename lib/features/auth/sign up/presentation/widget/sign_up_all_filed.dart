@@ -14,7 +14,7 @@ class SignUpAllField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: .start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         /// User Name here
         CommonTextField(
@@ -23,10 +23,8 @@ class SignUpAllField extends StatelessWidget {
           controller: controller.nameController,
           hintText: 'Enter full name here',
           validator: AppValidation.required,
-          fillColor: Colors.white.withValues(alpha: 0.1),
-          textColor: Colors.white,
         ),
-        SizedBox(height: 24,),
+        SizedBox(height: 24.h),
         /// User Email here
         CommonTextField(
           title: "Email Address",
@@ -34,11 +32,9 @@ class SignUpAllField extends StatelessWidget {
           controller: controller.emailController,
           hintText: 'Enter credentials',
           validator: AppValidation.email,
-          fillColor: Colors.white.withValues(alpha: 0.1),
-          textColor: Colors.white,
         ),
 
-        SizedBox(height: 24.h,),
+        SizedBox(height: 24.h),
 
         CommonTextField(
           title: "Password",
@@ -47,11 +43,9 @@ class SignUpAllField extends StatelessWidget {
           isPassword: true,
           hintText: 'Enter Password',
           validator: AppValidation.password,
-          fillColor: Colors.white.withValues(alpha: 0.1),
-          textColor: Colors.white,
         ),
 
-        SizedBox(height: 24,),
+        SizedBox(height: 24.h),
 
         CommonTextField(
           title: "Confirm Password",
@@ -63,21 +57,7 @@ class SignUpAllField extends StatelessWidget {
             value,
             controller.passwordController,
           ),
-          fillColor: Colors.white.withValues(alpha: 0.1),
-          textColor: Colors.white,
         ),
-
-        /// User Confirm Password here
-        /*const CommonText(text: AppString.confirmPassword, bottom: 8, top: 12),
-        CommonTextField(
-          controller: controller.confirmPasswordController,
-          isPassword: true,
-          hintText: AppString.confirmPassword,
-          validator: (value) => AppValidation.confirmPassword(
-            value,
-            controller.passwordController,
-          ),
-        ),*/
       ],
     );
   }

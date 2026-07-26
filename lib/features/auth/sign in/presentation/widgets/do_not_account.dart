@@ -20,7 +20,7 @@ class DoNotHaveAccount extends StatelessWidget {
             TextSpan(
               text: AppString.doNotHaveAccount,
               style: GoogleFonts.plusJakartaSans(
-                color: Colors.white.withValues(alpha: 0.8),
+                color: const Color(0xff373737),
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
@@ -34,11 +34,11 @@ class DoNotHaveAccount extends StatelessWidget {
                   Get.toNamed(AppRoutes.signUp);
                 },
               style: GoogleFonts.plusJakartaSans(
-                color: AppColors.yellow,
+                color: AppColors.primaryColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 decoration: TextDecoration.underline,      // underline
-                decorationColor: AppColors.yellow,   // underline color
+                decorationColor: AppColors.primaryColor,   // underline color
                 decorationThickness: 2,                    // optional thickness
               ),
             ),

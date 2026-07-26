@@ -11,6 +11,7 @@ class AppImages {
   static const String tempImage = '$baseurl/temp_image.png';
   static const String playerSeason = '$baseurl/player_season.png';
   static const String appLogoP = '$baseurl/app_logo_p.png';
+  static const String banner = '$baseurl/banner.png';
 
 
   // added by ajijul

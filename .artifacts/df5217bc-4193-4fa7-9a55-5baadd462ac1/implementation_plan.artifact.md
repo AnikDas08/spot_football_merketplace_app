@@ -1,47 +1,27 @@
-# Implementation Plan - Navigation Security Fix (Payment Flow)
+# Implementation Plan - Unify Stadium Visuals in Match Info
 
-Ensure users cannot bypass the payment screen and access their roles/home screen without a successful transaction.
-
-## User Review Required
-
-> [!IMPORTANT]
-> - Users who reach the `MySubscriptionScreen` after login will be **blocked** from using the back button or system gestures to navigate elsewhere.
-> - Successful payment is the **only** way to proceed to the home screen or role-specific setup.
-> - The `onWillPop` or `PopScope` will be used to prevent navigation away from the payment screen.
+Synchronize the stadium/pitch visual in the **Lineups Tab** to match the styling and functionality of the **Overview Tab** within the Match Info screen.
 
 ## Proposed Changes
 
-### [Navigation & Logic]
+### [Match Info Components]
 
-#### [MODIFY] [MySubscriptionScreen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/my_subscription/presentation/screens/my_subscription_screen.dart)
-- Wrap the `Scaffold` or its body with `PopScope` (or `WillPopScope` depending on the Flutter version used in the project).
-- In the pop handler, check `isFromRegistration` and `LocalStorage.paymentStatus`:
-    - If `paymentStatus` is false and it's a mandatory payment flow, return `false` to block the back action.
-    - Optionally, provide a logout button or a "Cancel" action that takes the user back to the onboarding/login screen instead of Home.
+#### [MODIFY] [Lineups Tab](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/match_info/presentation/widgets/line_up_tab.dart)
+- **Header Alignment**: Update the "Tactical Lineup" header to match the "Formation Setup" style from `OverviewTab`. Use `AppColors.primaryColor` for the background, increase padding to `16.h`, and set the font size to `18`.
+- **Stadium Container**: Set the border color to `AppColors.colorEABB00` and ensure consistent border radius and shadow.
+- **Pitch Nodes**: Refactor `_PitchNode` to match `OverviewTab`'s `_PlayerNode`:
+    - Increase border width to `2.0`.
+    - Correct the logic to show player **initials** when the profile image is missing, instead of falling back to the default logo (using a manual check before `CommonImage` or passing a specific flag).
+    - Update name and position text styles (font size, weight, and colors) to be identical to the ones in `OverviewTab`.
+- **Data Consistency**: Ensure the `starters` list is handled identically to the `OverviewTab` to avoid missing players on the pitch.
 
-#### [MODIFY] [SubscriptionController](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/my_subscription/presentation/controller/subscription_controller.dart)
-- Ensure that the success callback in `generateCheckoutUrl` explicitly updates `LocalStorage.paymentStatus` before navigating to the Home screen.
-
-### [Branding & UI]
-
-#### [MODIFY] [CommonImage](file:///D:/Ajijul/spot_football_merketplace_app/lib/component/image/common_image.dart)
-- Update `defaultImage` default value to `AppImages.appLogo`.
-- In the `_buildNetworkImage` error widget, ensure the `defaultImage` is returned.
-- In the `build` method, if `imageSrc` is null or empty, return the `defaultImage`.
-
-#### [MODIFY] [AppDrawer](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/drawer/presentation/screen/app_drawer.dart)
-- Remove manual ternary check for `image.isEmpty`.
-- Let `CommonImage` handle the default logo for the logged-in user.
-
-#### [MODIFY] [ClubProfileScreen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/home/presentation/screens/club_profile_screen.dart)
-- Update `_PlayerRow` to use `CommonImage` with the new default behavior.
-
-#### [MODIFY] [TeamSheetScreen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/team_sheet/presentation/screen/team_sheet_screen.dart)
-- Update tactical board nodes and lists to use `CommonImage` defaults.
+#### [MODIFY] [Overview Tab](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/match_info/presentation/widgets/overview_tab.dart)
+- Update `_PlayerNode` to match any improved logic from `LineupsTab` if necessary (e.g., ensuring initials are only shown if a player is actually assigned to that node).
 
 ## Verification Plan
 
 ### Manual Verification
-- **Security Check**: Reach the payment screen. Try the hardware back button and swipe back gesture. Verify the app stays on the payment screen.
-- **Success Check**: Complete a simulated/test payment. Verify it takes you to the Home screen correctly.
-- **Branding Check**: Navigate to various lists (Players, Lineups, Drawer). Verify any entry with a missing profile image shows the ENG logo.
+- **Visual Comparison**: Open the Match Info screen and toggle between the "Overview" and "Lineups" tabs. The stadium section should look identical in both tabs (header, colors, node styles).
+- **Player Display**: Verify that player names and positions are visible below the pitch circles in both tabs.
+- **Empty State Check**: Verify that nodes without assigned players show only the dashed circle or placeholder dot consistently.
+- **Missing Image Check**: Verify that players without profile images show their initials inside the pitch circle in both tabs.

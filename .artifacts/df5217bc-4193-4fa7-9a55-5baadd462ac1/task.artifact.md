@@ -1,5 +1,6 @@
-# Tasks - Fix Empty Space in League Preview
+# Tasks - Unify Stadium Visuals in Match Info
 
-- `[x]` Filter empty leagues on `HomeScreen`
-- `[x]` Verify UI on Home Screen
-- `[x]` Create walkthrough
+- `[ ]` Refactor `LineupsTab` stadium header
+- `[ ]` Update `LineupsTab` stadium container styling
+- `[ ]` Sync `_PitchNode` (Lineups) with `_PlayerNode` (Overview)
+- `[ ]` Verify initials logic and text styles in both tabs

@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_string.dart';
+import '../controllers/shop_controller.dart';
 import '../data/reward_response.dart';
 
 class RedemptionItemWidget extends StatelessWidget {
@@ -15,6 +17,8 @@ class RedemptionItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ShopController>();
+    
     // ইমেজ URL হ্যান্ডেল করা
     String imageUrl = product?.image ?? '';
     if (imageUrl.isNotEmpty && !imageUrl.startsWith('http')) {
@@ -79,21 +83,28 @@ class RedemptionItemWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10.h),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 8.h),
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(color: AppColors.colorEABB00, width: 1.w),
-            ),
-            child: CommonText(
-              text: AppString.redeem,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: AppColors.white,
-              textAlign: TextAlign.center,
-              maxLines: 1,
+          InkWell(
+            onTap: () {
+              if (product?.id != null) {
+                controller.redeemProduct(product!.id!);
+              }
+            },
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 8.h),
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor,
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(color: AppColors.colorEABB00, width: 1.w),
+              ),
+              child: CommonText(
+                text: AppString.redeem,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+              ),
             ),
           ),
         ],
