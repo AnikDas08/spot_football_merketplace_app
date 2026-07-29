@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../component/sheet/common_selection_sheet.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../component/text_field/common_text_field.dart';
+import '../../../../component/widget/selection_trigger_widget.dart';
 import '../../../../services/storage/storage_services.dart';
 import '../../../../utils/extensions/extension.dart';
 import '../../../../utils/helpers/validation.dart';
@@ -103,22 +105,20 @@ class EditProfileAllFiled extends StatelessWidget {
         /// Role Specific Fields
         if (role == 'PLAYER' || role == 'OTHER_CLUBS' || role == 'TRIAL' || role == 'MANAGER') ...[
           /// Team Selection
-          _buildLabel(role == 'MANAGER' ? "Your Team" : "Select Team"),
-          DropdownButtonFormField<String>(
-            initialValue: controller.teams.any((t) => t['_id'] == controller.selectedTeam)
-                ? controller.selectedTeam
-                : null,
-            isExpanded: true,
-            icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
-            style: TextStyle(fontSize: 14.sp, color: AppColors.black),
-            decoration: _dropdownDecoration("Select team..."),
-            items: controller.teams.map((team) {
-              return DropdownMenuItem<String>(
-                value: team['_id'],
-                child: Text(team['teamName'] ?? "", overflow: TextOverflow.ellipsis),
-              );
-            }).toList(),
-            onChanged: (val) => controller.setTeam(val!),
+          SelectionTriggerWidget(
+            label: role == 'MANAGER' ? "Your Team" : "Select Team",
+            value: controller.selectedTeamName ?? "Select team...",
+            onTap: () => showCommonSelectionSheet(
+              context,
+              title: "Select Team",
+              onSearch: (val) => controller.fetchTeams(search: val),
+              onLoadMore: controller.loadMoreTeams,
+              items: controller.teamsList,
+              isLoading: controller.isTeamsLoading,
+              isMoreLoading: controller.isMoreTeamsLoading,
+              itemLabel: (item) => item['teamName'],
+              onSelect: (val) => controller.setTeam(val['_id'], val['teamName']),
+            ),
           ),
           20.height,
         ],

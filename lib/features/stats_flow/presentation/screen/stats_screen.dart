@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../../../component/sheet/common_selection_sheet.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../component/widget/selection_trigger_widget.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_icons.dart';
@@ -30,8 +32,6 @@ class StatsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
-
-
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -55,18 +55,18 @@ class StatsScreen extends StatelessWidget {
                 ),
 
                 Obx(
-                  () => PopupMenuButton<String>(
-                    onSelected: (String value) {
-                      controller.updateAge(value);
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return controller.ageOptions.map((String age) {
-                        return PopupMenuItem<String>(
-                          value: age,
-                          child: Text("Under $age"),
-                        );
-                      }).toList();
-                    },
+                  () => GestureDetector(
+                    onTap: () => showCommonSelectionSheet(
+                      context,
+                      title: "Select League",
+                      onSearch: (val) => controller.fetchLeagues(search: val),
+                      onLoadMore: controller.loadMoreLeagues,
+                      items: controller.leaguesList,
+                      isLoading: controller.isLeaguesLoading,
+                      isMoreLoading: controller.isMoreLeaguesLoading,
+                      itemLabel: (item) => item['leagueName'],
+                      onSelect: (val) => controller.updateAge(val['leagueName']),
+                    ),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: 12.w,
@@ -88,16 +88,19 @@ class StatsScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               CommonText(
-                                text: "Under",
+                                text: "Filter By League",
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black54,
                               ),
                               CommonText(
-                                text: controller.selectedAge.value,
+                                text: controller.selectedAge.value.isEmpty 
+                                    ? "Select" 
+                                    : controller.selectedAge.value,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
+                                fontFamily: 'PlayfairDisplay',
                               ),
                             ],
                           ),
@@ -150,9 +153,6 @@ class StatsScreen extends StatelessWidget {
               final String scorerGoals = topScorer is Map
                   ? (topScorer['totalGoals']?.toString() ?? "0")
                   : "0";
-              final String scorerImage = topScorer is Map
-                  ? (topScorer['profile'] ?? "")
-                  : "";
 
               // Top Assist Player
               final topAssist = data['topAssistPlayer'];
@@ -163,33 +163,18 @@ class StatsScreen extends StatelessWidget {
               final String assistCount = topAssist is Map
                   ? (topAssist['totalAssists']?.toString() ?? "0")
                   : "0";
-              final String assistImage = topAssist is Map
-                  ? (topAssist['profile'] ?? "")
-                  : "";
 
               // Top Goal Team
               final topGoalTeam = data['topGoalTeam'];
               final String goalTeamName = topGoalTeam is Map
                   ? (topGoalTeam['teamName'] ?? "N/A")
                   : "N/A";
-              final String goalTeamCount = topGoalTeam is Map
-                  ? (topGoalTeam['totalGoals']?.toString() ?? "0")
-                  : "0";
-              final String goalTeamImage = topGoalTeam is Map
-                  ? (topGoalTeam['teamLogo'] ?? "")
-                  : "";
 
               // Top Assist Team
               final topAssistTeam = data['topAssistTeam'];
               final String assistTeamName = topAssistTeam is Map
                   ? (topAssistTeam['teamName'] ?? "N/A")
                   : "N/A";
-              final String assistTeamCount = topAssistTeam is Map
-                  ? (topAssistTeam['totalAssists']?.toString() ?? "0")
-                  : "0";
-              final String assistTeamImage = topAssistTeam is Map
-                  ? (topAssistTeam['teamLogo'] ?? "")
-                  : "";
 
               return Column(
                 children: [
@@ -247,7 +232,6 @@ class StatsScreen extends StatelessWidget {
 
             SeasonStatsButton(
               title: "Season Stats",
-
               onTap: () {
                 Get.toNamed(AppRoutes.seasonStatsScreen);
               },

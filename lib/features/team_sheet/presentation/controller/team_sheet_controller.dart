@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../config/api/api_end_point.dart';
 import '../../../../services/api/api_client.dart';
@@ -14,7 +15,9 @@ class TeamSheetController extends GetxController {
 
   // Selection state
   final RxString selectedTeamId = "".obs;
+  final RxString selectedTeamName = "".obs;
   final RxString selectedMatchId = "".obs;
+  final RxString selectedMatchName = "".obs;
   final RxString selectedFormation = "9".obs; // Default to 9 aside
   final RxString existingSelectionId = "".obs;
 
@@ -22,6 +25,11 @@ class TeamSheetController extends GetxController {
   final RxList<MatchModel> upcomingMatches = <MatchModel>[].obs;
   final RxList<dynamic> teamSquad = <dynamic>[].obs;
   final List<String> formations = ['5', '7', '9'];
+
+  // Paginated/Searchable Teams (local for this screen)
+  final RxList<Map<String, String>> availableTeams = <Map<String, String>>[].obs;
+  final RxList<Map<String, String>> filteredTeams = <Map<String, String>>[].obs;
+  final RxBool isTeamsLoading = false.obs;
 
   // UI state
   final RxBool isLoading = false.obs;
@@ -57,28 +65,19 @@ class TeamSheetController extends GetxController {
         upcomingMatches.assignAll(data.map((e) => MatchModel.fromJson(e)).toList());
         
         if (upcomingMatches.isNotEmpty) {
-          // Unique teams from matches
-          final List<TeamModel> teams = [];
-          final Set<String> seenIds = {};
-          
+          final Map<String, String> teamMap = {};
           for (var match in upcomingMatches) {
-            // We need to know which team belongs to the manager. 
-            // For now, let's just collect all teams involved in these matches.
-            if (!seenIds.contains(match.homeTeam.id)) {
-              teams.add(match.homeTeam);
-              seenIds.add(match.homeTeam.id);
-            }
-            if (!seenIds.contains(match.awayTeam.id)) {
-              teams.add(match.awayTeam);
-              seenIds.add(match.awayTeam.id);
-            }
+            teamMap[match.homeTeam.id] = match.homeTeam.teamName;
+            teamMap[match.awayTeam.id] = match.awayTeam.teamName;
           }
           
-          // Filter: only keep teams that appear as homeTeam in the manager's matches
-          // (Backend usually returns matches where manager's team is homeTeam for manager context)
-          // For now, let's just use the first match's home team as the default.
-          selectedTeamId.value = upcomingMatches.first.homeTeam.id;
-          updateVenue(upcomingMatches.first.id);
+          availableTeams.assignAll(teamMap.entries.map((e) => {'id': e.key, 'name': e.value}).toList());
+          filteredTeams.assignAll(availableTeams);
+
+          final defaultTeam = availableTeams.first;
+          selectedTeamId.value = defaultTeam['id']!;
+          selectedTeamName.value = defaultTeam['name']!;
+          updateTeam(selectedTeamId.value, selectedTeamName.value);
         }
       }
     } catch (e) {
@@ -89,18 +88,28 @@ class TeamSheetController extends GetxController {
     }
   }
 
-  void updateTeam(String teamId) {
+  void searchTeams(String query) {
+    if (query.isEmpty) {
+      filteredTeams.assignAll(availableTeams);
+    } else {
+      filteredTeams.assignAll(availableTeams.where((t) => t['name']!.toLowerCase().contains(query.toLowerCase())).toList());
+    }
+  }
+
+  void updateTeam(String teamId, String teamName) {
     selectedTeamId.value = teamId;
+    selectedTeamName.value = teamName;
     // Find first match for this team and select it
     final firstMatch = upcomingMatches.firstWhere(
       (m) => m.homeTeam.id == teamId || m.awayTeam.id == teamId,
       orElse: () => upcomingMatches.first
     );
-    updateVenue(firstMatch.id);
+    updateVenue(firstMatch.id, "${firstMatch.venueName} (${firstMatch.matchDate != null ? DateFormat('MMM dd').format(firstMatch.matchDate!) : "TBA"})");
   }
 
-  void updateVenue(String matchId) {
+  void updateVenue(String matchId, String venueName) {
     selectedMatchId.value = matchId;
+    selectedMatchName.value = venueName;
     
     // Reset lineup
     fieldPlayers.clear();

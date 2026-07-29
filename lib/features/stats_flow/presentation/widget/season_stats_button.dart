@@ -34,6 +34,7 @@ class SeasonStatsButton extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w500,
               color: AppColors.primaryColor,
+              fontFamily: 'PlayfairDisplay',
             ),
 
             SvgPicture.asset(

@@ -8,8 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class PersonalDetailsWidget extends StatelessWidget {
   final Map<String, dynamic>? playerData;
+  final dynamic marketValue;
 
-  const PersonalDetailsWidget({super.key, this.playerData});
+  const PersonalDetailsWidget({super.key, this.playerData, this.marketValue});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,13 @@ class PersonalDetailsWidget extends StatelessWidget {
       strongFoot = 'N/A';
     } else {
       strongFoot = strongFoot.toUpperCase();
+    }
+
+    // Handle market value formatting
+    String formattedMarketValue = 'N/A';
+    final dynamic mv = marketValue ?? playerData!['marketValue'];
+    if (mv != null) {
+      formattedMarketValue = "£$mv";
     }
 
     return Container(
@@ -72,6 +80,7 @@ class PersonalDetailsWidget extends StatelessWidget {
           _item('Position', playerData!['position'] ?? 'N/A'),
           _item('ENG Debut', _formatDate(playerData!['createdAt'])),
           _item('Strong Foot', strongFoot),
+          _item('Market Value', formattedMarketValue),
           _item(
             'ENG Coins',
             playerData!['engCoine']?.toString() ?? '0',

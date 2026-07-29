@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/image/common_image.dart';
+import '../../../../../component/sheet/common_selection_sheet.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
+import '../../../../../component/widget/selection_trigger_widget.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/helpers/validation.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
@@ -90,7 +92,21 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                   SizedBox(height: 24.h),
 
                   /// Team Selection
-                  _buildTeamDropdown(controller),
+                  SelectionTriggerWidget(
+                    label: "Select Team",
+                    value: controller.selectedTeamName ?? "Select team...",
+                    onTap: () => showCommonSelectionSheet(
+                      context,
+                      title: "Select Team",
+                      onSearch: (val) => controller.fetchTeams(search: val),
+                      onLoadMore: controller.loadMoreTeams,
+                      items: controller.teamsList,
+                      isLoading: controller.isTeamsLoading,
+                      isMoreLoading: controller.isMoreTeamsLoading,
+                      itemLabel: (item) => item['teamName'],
+                      onSelect: (val) => controller.setTeam(val['_id'], val['teamName']),
+                    ),
+                  ),
                   SizedBox(height: 24.h),
 
                   /// Strong Foot and Position
@@ -174,35 +190,6 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
           );
         },
       ),
-    );
-  }
-
-  Widget _buildTeamDropdown(TrialRegistrationController controller) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-         const CommonText(
-          text: "Select Team",
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          bottom: 8,
-        ),
-        DropdownButtonFormField<String>(
-          initialValue: controller.selectedTeam,
-          isExpanded: true,
-          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
-          style: TextStyle(fontSize: 14.sp, color: AppColors.black),
-          decoration: _dropdownDecoration("Select team..."),
-          items: controller.teams.map((team) {
-            return DropdownMenuItem<String>(
-              value: team['_id'],
-              child: Text(team['teamName'] ?? "", overflow: TextOverflow.ellipsis),
-            );
-          }).toList(),
-          onChanged: (val) => controller.setTeam(val!),
-          validator: (value) => value == null ? 'Field is required' : null,
-        ),
-      ],
     );
   }
 

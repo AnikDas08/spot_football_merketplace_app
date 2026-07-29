@@ -19,6 +19,8 @@ import '../widgets/upcoming_events.dart';
 import '../widgets/book_scout_section.dart';
 import '../widgets/eng_tv_home_section.dart';
 import '../widgets/upcoming_fixtures.dart';
+import '../widgets/social_media_section.dart';
+import '../widgets/gallery_section.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -35,6 +37,8 @@ class HomeScreen extends StatelessWidget {
         await Future.wait([
           controller.fetchMatches(),
           controller.fetchPointTable(),
+          controller.fetchSocialMedia(),
+          controller.fetchGallery(),
           bannerController.fetchBannerVideos(),
           newsController.fetchNews(),
           eventController.fetchEvents(),
@@ -190,6 +194,20 @@ class HomeScreen extends StatelessWidget {
                         return const SizedBox.shrink();
                       });
                     },
+                  ),
+                  SizedBox(height: 12.h),
+
+                  _buildSection(
+                    backgroundColor: AppColors.background,
+                    padding: EdgeInsets.symmetric(vertical: 24.h),
+                    child: const SocialMediaSection(),
+                  ),
+                  SizedBox(height: 12.h),
+
+                  _buildSection(
+                    backgroundColor: AppColors.primaryColor,
+                    padding: EdgeInsets.only(top: 12.h, bottom: 32.h),
+                    child: const GallerySection(titleColor: Colors.white),
                   ),
                   SizedBox(height: 32.h),
                 ],

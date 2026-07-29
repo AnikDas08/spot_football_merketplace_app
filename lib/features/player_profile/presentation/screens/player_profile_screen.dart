@@ -60,7 +60,10 @@ class PlayerProfileScreen extends StatelessWidget {
                     profileImage: player?['profile'],
                   ),
                   SizedBox(height: 16.h),
-                  PersonalDetailsWidget(playerData: player),
+                  PersonalDetailsWidget(
+                    playerData: player,
+                    marketValue: controller.dashboardData?['marketValue'],
+                  ),
                   
                   // Submit Offer Button for Managers only
                   if (isManager)

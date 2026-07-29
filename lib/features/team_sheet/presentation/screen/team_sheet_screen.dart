@@ -8,7 +8,9 @@ import 'package:intl/intl.dart';
 import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/image/common_image.dart';
+import '../../../../component/sheet/common_selection_sheet.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../component/widget/selection_trigger_widget.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_images.dart';
 import '../controller/team_sheet_controller.dart';
@@ -44,34 +46,45 @@ class TeamSheetScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CommonText(
-                                text: 'SELECT TEAM',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black87,
-                              ),
-                              SizedBox(height: 8.h),
-                              _buildTeamDropdown(controller),
-                            ],
+                          child: SelectionTriggerWidget(
+                            label: 'SELECT TEAM',
+                            value: controller.selectedTeamName.value,
+                            onTap: () => showCommonSelectionSheet(
+                              context,
+                              title: "Select Team",
+                              onSearch: (val) => controller.searchTeams(val),
+                              onLoadMore: () {},
+                              items: controller.filteredTeams,
+                              isLoading: controller.isTeamsLoading,
+                              isMoreLoading: false.obs,
+                              itemLabel: (item) => item['name']!,
+                              onSelect: (val) => controller.updateTeam(val['id']!, val['name']!),
+                            ),
                           ),
                         ),
                         SizedBox(width: 12.w),
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CommonText(
-                                text: 'SELECT VENUE',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black87,
-                              ),
-                              SizedBox(height: 8.h),
-                              _buildVenueDropdown(controller),
-                            ],
+                          child: SelectionTriggerWidget(
+                            label: 'SELECT VENUE',
+                            value: controller.selectedMatchName.value,
+                            onTap: () {
+                              final teamMatches = controller.upcomingMatches.where(
+                                (m) => m.homeTeam.id == controller.selectedTeamId.value || m.awayTeam.id == controller.selectedTeamId.value
+                              ).toList();
+                              
+                              showCommonSelectionSheet(
+                                context,
+                                title: "Select Venue",
+                                onSearch: (val) {},
+                                onLoadMore: () {},
+                                items: teamMatches.obs,
+                                isLoading: false.obs,
+                                isMoreLoading: false.obs,
+                                itemLabel: (match) => match.venueName,
+                                itemSubLabel: (match) => match.matchDate != null ? DateFormat('MMM dd, yyyy').format(match.matchDate!) : "TBA",
+                                onSelect: (match) => controller.updateVenue(match.id, "${match.venueName} (${match.matchDate != null ? DateFormat('MMM dd').format(match.matchDate!) : "TBA"})"),
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -85,8 +98,8 @@ class TeamSheetScreen extends StatelessWidget {
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
                           color: Colors.black87,
+                          bottom: 8,
                         ),
-                        SizedBox(height: 8.h),
                         _buildFormationDropdown(controller),
                       ],
                     ),
@@ -178,82 +191,6 @@ class TeamSheetScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildTeamDropdown(TeamSheetController controller) {
-    // Extract unique teams from matches
-    final Map<String, String> teamMap = {};
-    for (var m in controller.upcomingMatches) {
-      teamMap[m.homeTeam.id] = m.homeTeam.teamName;
-      teamMap[m.awayTeam.id] = m.awayTeam.teamName;
-    }
-
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: controller.selectedTeamId.value,
-          isExpanded: true,
-          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black),
-          items: teamMap.entries.map((e) {
-            return DropdownMenuItem<String>(
-              value: e.key,
-              child: Text(
-                e.value,
-                style: TextStyle(fontSize: 13.sp, color: Colors.black, fontWeight: FontWeight.w600),
-                overflow: TextOverflow.ellipsis,
-              ),
-            );
-          }).toList(),
-          onChanged: (val) {
-            if (val != null) {
-              controller.updateTeam(val);
-            }
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildVenueDropdown(TeamSheetController controller) {
-    final teamMatches = controller.upcomingMatches.where(
-      (m) => m.homeTeam.id == controller.selectedTeamId.value || m.awayTeam.id == controller.selectedTeamId.value
-    ).toList();
-
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: controller.selectedMatchId.value,
-          isExpanded: true,
-          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black),
-          items: teamMatches.map((match) {
-            final date = match.matchDate != null ? DateFormat('MMM dd').format(match.matchDate!) : "TBA";
-            return DropdownMenuItem<String>(
-              value: match.id,
-              child: Text(
-                "${match.venueName} ($date)",
-                style: TextStyle(fontSize: 13.sp, color: Colors.black, fontWeight: FontWeight.w600),
-                overflow: TextOverflow.ellipsis,
-              ),
-            );
-          }).toList(),
-          onChanged: (val) {
-            if (val != null) {
-              controller.updateVenue(val);
-            }
-          },
-        ),
       ),
     );
   }

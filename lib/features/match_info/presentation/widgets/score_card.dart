@@ -237,12 +237,12 @@ class ScoreCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    CommonText(
-                      text: AppString.attendance,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.colorEABB00,
-                    ),
+                    // CommonText(
+                    //   text: AppString.attendance,
+                    //   fontSize: 12,
+                    //   fontWeight: FontWeight.w500,
+                    //   color: AppColors.colorEABB00,
+                    // ),
                   ],
                 ),
               ),

@@ -1,10 +1,10 @@
 class ApiEndPoint {
-  // static const baseUrl = 'http://10.10.26.224:5005/api/v1';
-  // static const imageUrl = 'http://10.10.26.224:5005';
-  // static const videoUrl = 'http://10.10.26.224:5005';
-  static const baseUrl = 'https://api.engsportsevents.co.uk/api/v1';
-  static const imageUrl = 'https://api.engsportsevents.co.uk';
-  static const videoUrl = 'https://api.engsportsevents.co.uk';
+  static const baseUrl = 'http://10.10.26.195:5005/api/v1';
+  static const imageUrl = 'http://10.10.26.195:5005';
+  static const videoUrl = 'http://10.10.26.195:5005';
+  // static const baseUrl = 'https://api.engsportsevents.co.uk/api/v1';
+  // static const imageUrl = 'https://api.engsportsevents.co.uk';
+  // static const videoUrl = 'https://api.engsportsevents.co.uk';
 
 
 
@@ -58,5 +58,8 @@ class ApiEndPoint {
   static const video = '/video/public';
   static const videoDetails = '/video/';
   static const packages = '/package';
+  static const leagues = '/league';
   static const playerFilter = '/player/filter';
+  static const socialMedia = '/social-media/';
+  static const gallery = '/gallery/';
 }

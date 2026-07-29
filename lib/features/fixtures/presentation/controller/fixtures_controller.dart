@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../../services/api/api_client.dart';
 import '../../../../services/api/api_service.dart';
+import '../../../../services/storage/storage_services.dart';
 import '../../../home/data/match_model.dart';
 
 class FixturesController extends GetxController {
@@ -16,45 +17,173 @@ class FixturesController extends GetxController {
   final List<String> tabs = ['All', 'Today', 'Upcoming', 'Live', 'Finished', 'Cancelled'];
 
   // ── Filter Sheet ──
-  int teamTab = 0; // 0 = All Teams, 1 = Specific
-  String? selectedTeam;
+  var filterTab = 0.obs; // 0 = All, 1 = Specific
+  var selectedLeague = RxnString();
+  var selectedTeam = RxnString();
   int dateRangeTab = 0; // 0 = All, 1 = Today, 2 = This Month
   DateTime focusedMonth = DateTime.now();
   DateTime? startDate;
   DateTime? endDate;
 
-  // ── Fixtures ──
+  // ── Data ──
   List<MatchModel> allMatches = [];
   List<MatchModel> filteredFixtures = [];
 
-  List<String> teams = [];
+  // ── Paginated Leagues ──
+  final RxList<dynamic> leaguesList = <dynamic>[].obs;
+  var isLeaguesLoading = false.obs;
+  var isMoreLeaguesLoading = false.obs;
+  int leaguePage = 1;
+  bool hasMoreLeagues = true;
+  String leagueSearch = "";
+
+  // ── Paginated Teams ──
+  final RxList<dynamic> teamsList = <dynamic>[].obs;
+  var isTeamsLoading = false.obs;
+  var isMoreTeamsLoading = false.obs;
+  int teamPage = 1;
+  bool hasMoreTeams = true;
+  String teamSearch = "";
 
   @override
   void onInit() {
     super.onInit();
     fetchMatches();
+    fetchLeagues();
+    fetchTeams();
   }
 
-  Future<void> fetchMatches() async {
+  // ── Leagues Fetching ──
+  Future<void> fetchLeagues({bool isLoadMore = false, String? search}) async {
+    if (isLoadMore && !hasMoreLeagues) return;
+    
+    try {
+      if (isLoadMore) {
+        isMoreLeaguesLoading.value = true;
+      } else {
+        isLeaguesLoading.value = true;
+        leaguePage = 1;
+        leaguesList.clear();
+      }
+      update();
+
+      if (search != null) leagueSearch = search;
+      
+      String url = "${ApiEndPoint.leagues}?page=$leaguePage&limit=10";
+      if (leagueSearch.isNotEmpty) url += "&searchTerm=$leagueSearch";
+
+      final response = await apiClient.get(
+        url,
+        headers: LocalStorage.token.isNotEmpty ? {'Authorization': 'Bearer ${LocalStorage.token}'} : null,
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['data'] ?? [];
+        final pagination = response.data['pagination'];
+        
+        if (isLoadMore) {
+          leaguesList.addAll(data);
+        } else {
+          leaguesList.assignAll(data);
+        }
+
+        if (pagination != null) {
+          int totalPage = pagination['totalPage'] ?? 1;
+          hasMoreLeagues = leaguePage < totalPage;
+        } else {
+          hasMoreLeagues = false;
+        }
+      }
+    } catch (e) {
+      debugPrint('❌ fetchLeagues error: $e');
+    } finally {
+      isLeaguesLoading.value = false;
+      isMoreLeaguesLoading.value = false;
+      update();
+    }
+  }
+
+  Future<void> loadMoreLeagues() async {
+    if (!isMoreLeaguesLoading.value && hasMoreLeagues) {
+      leaguePage++;
+      await fetchLeagues(isLoadMore: true);
+    }
+  }
+
+  // ── Teams Fetching ──
+  Future<void> fetchTeams({bool isLoadMore = false, String? search}) async {
+    if (isLoadMore && !hasMoreTeams) return;
+
+    try {
+      if (isLoadMore) {
+        isMoreTeamsLoading.value = true;
+      } else {
+        isTeamsLoading.value = true;
+        teamPage = 1;
+        teamsList.clear();
+      }
+      update();
+
+      if (search != null) teamSearch = search;
+
+      String url = "${ApiEndPoint.teams}?page=$teamPage&limit=10";
+      if (teamSearch.isNotEmpty) url += "&searchTerm=$teamSearch";
+
+      final response = await apiClient.get(
+        url,
+        headers: LocalStorage.token.isNotEmpty ? {'Authorization': 'Bearer ${LocalStorage.token}'} : null,
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['data'] ?? [];
+        final pagination = response.data['pagination'];
+
+        if (isLoadMore) {
+          teamsList.addAll(data);
+        } else {
+          teamsList.assignAll(data);
+        }
+
+        if (pagination != null) {
+          int totalPage = pagination['totalPage'] ?? 1;
+          hasMoreTeams = teamPage < totalPage;
+        } else {
+          hasMoreTeams = false;
+        }
+      }
+    } catch (e) {
+      debugPrint('❌ fetchTeams error: $e');
+    } finally {
+      isTeamsLoading.value = false;
+      isMoreTeamsLoading.value = false;
+      update();
+    }
+  }
+
+  Future<void> loadMoreTeams() async {
+    if (!isMoreTeamsLoading.value && hasMoreTeams) {
+      teamPage++;
+      await fetchTeams(isLoadMore: true);
+    }
+  }
+
+  // ── Matches Fetching ──
+  Future<void> fetchMatches({String? leagueName, String? teamName}) async {
     try {
       isLoading.value = true;
       update();
 
-      final response = await apiClient.get(ApiEndPoint.match);
+      String url = ApiEndPoint.match;
+      Map<String, String> queryParams = {};
+      if (leagueName != null && leagueName.isNotEmpty) queryParams['leagueName'] = leagueName;
+      if (teamName != null && teamName.isNotEmpty) queryParams['teamName'] = teamName;
+
+      final response = await apiClient.get(url, query: queryParams.isNotEmpty ? queryParams : null);
 
       if (response.statusCode == 200) {
         final matchResponse = MatchResponse.fromJson(response.data);
         allMatches = matchResponse.data;
-        
-        // Extract unique teams
-        final teamSet = <String>{};
-        for (var match in allMatches) {
-          teamSet.add(match.homeTeam.teamName);
-          teamSet.add(match.awayTeam.teamName);
-        }
-        teams = teamSet.toList()..sort();
-        
-        applyFilters(isFromSheet: false);
+        _applyLocalTabFilters();
       }
     } catch (e) {
       debugPrint('❌ fetchMatches error: $e');
@@ -66,19 +195,27 @@ class FixturesController extends GetxController {
 
   void selectTab(int index) {
     selectedTab = index;
-    applyFilters(isFromSheet: false);
+    _applyLocalTabFilters();
     update();
   }
 
   // ── Filter Sheet Methods ──
-  void selectTeamTab(int index) {
-    teamTab = index;
-    if (index == 0) selectedTeam = null;
+  void selectFilterTab(int index) {
+    filterTab.value = index;
+    if (index == 0) {
+      selectedLeague.value = null;
+      selectedTeam.value = null;
+    }
+    update();
+  }
+
+  void selectLeague(String? league) {
+    selectedLeague.value = league;
     update();
   }
 
   void selectTeam(String? team) {
-    selectedTeam = team;
+    selectedTeam.value = team;
     update();
   }
 
@@ -102,8 +239,6 @@ class FixturesController extends GetxController {
     } else {
       endDate = date;
     }
-    
-    // When a date is picked, we deselect the general chips
     dateRangeTab = -1; 
     update();
   }
@@ -118,12 +253,19 @@ class FixturesController extends GetxController {
     update();
   }
 
-  void applyFilters({bool isFromSheet = true}) {
+  Future<void> applyFilters() async {
+    await fetchMatches(
+      leagueName: filterTab.value == 1 ? selectedLeague.value : null,
+      teamName: filterTab.value == 1 ? selectedTeam.value : null,
+    );
+    Get.back();
+  }
+
+  void _applyLocalTabFilters() {
     List<MatchModel> results = List.from(allMatches);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
 
-    // 1. Apply Status/Special Tab Filter (Top Tabs)
     if (selectedTab == 1) { // Today Tab
       results = results.where((m) => _isSameDay(m.matchDate, today)).toList();
     } else if (selectedTab > 1) { // Status Tabs (Upcoming, Live, etc.)
@@ -131,20 +273,10 @@ class FixturesController extends GetxController {
       results = results.where((m) => m.status.toLowerCase() == status).toList();
     }
 
-    // 2. Apply Team Filter (From Sheet)
-    if (teamTab == 1 && selectedTeam != null) {
-      results = results.where((m) => 
-        m.homeTeam.teamName == selectedTeam || m.awayTeam.teamName == selectedTeam
-      ).toList();
-    }
-
-    // 3. Apply Date Filter (From Sheet)
     if (startDate != null) {
       if (endDate == null) {
-        // Only one date selected, treat as single day
         results = results.where((m) => _isSameDay(m.matchDate, startDate!)).toList();
       } else {
-        // Range selected
         results = results.where((m) => _isInRange(m.matchDate, startDate!, endDate!)).toList();
       }
     } else {
@@ -153,24 +285,21 @@ class FixturesController extends GetxController {
       } else if (dateRangeTab == 2) { // This Month
         results = results.where((m) => _isThisMonth(m.matchDate)).toList();
       }
-      // Note: dateRangeTab == 0 (All) requires no additional filtering
     }
 
     filteredFixtures = results;
-    if (isFromSheet) {
-      Get.back();
-    }
     update();
   }
 
   void resetFilters() {
-    teamTab = 0;
-    selectedTeam = null;
+    filterTab.value = 0;
+    selectedLeague.value = null;
+    selectedTeam.value = null;
     dateRangeTab = 0;
     startDate = null;
     endDate = null;
     focusedMonth = DateTime.now();
-    applyFilters(isFromSheet: false);
+    fetchMatches();
     update();
   }
 
@@ -181,13 +310,10 @@ class FixturesController extends GetxController {
 
   bool _isInRange(DateTime? date, DateTime start, DateTime end) {
     if (date == null) return false;
-    // Normalize to date only (midnight)
     final d = DateTime(date.year, date.month, date.day);
     final s = DateTime(start.year, start.month, start.day);
     final e = DateTime(end.year, end.month, end.day);
-    
-    return (d.isAtSameMomentAs(s) || d.isAfter(s)) && 
-           (d.isAtSameMomentAs(e) || d.isBefore(e));
+    return (d.isAtSameMomentAs(s) || d.isAfter(s)) && (d.isAtSameMomentAs(e) || d.isBefore(e));
   }
 
   bool _isThisMonth(DateTime? date) {

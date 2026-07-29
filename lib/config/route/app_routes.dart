@@ -52,6 +52,7 @@ import '../../features/transferms/presentation/screen/transferm_screen.dart';
 import '../../features/transferms_history/presentation/screens/transfers_history_screen.dart';
 
 import '../../features/home/presentation/screens/all_events_screen.dart';
+import '../../features/home/presentation/screens/all_gallery_screen.dart';
 import '../../features/home/presentation/screens/all_results_screen.dart';
 import '../../features/home/presentation/screens/all_videos_screen.dart';
 import '../../features/news/presentation/screens/all_news_screen.dart';
@@ -63,6 +64,7 @@ class AppRoutes {
   static const String allEvents = "/allEvents";
   static const String allResults = "/allResults";
   static const String allVideos = "/allVideos";
+  static const String allGallery = "/allGallery";
   static const String transferFormScreen = '/transferFormScreen.dart';
   static const String seasonStatsScreen = '/seasonStatsScreen.dart';
   static const String addPlayerScreen = '/addPlayerScreen.dart';
@@ -125,6 +127,7 @@ class AppRoutes {
     GetPage(name: allEvents, page: () => const AllEventsScreen()),
     GetPage(name: allResults, page: () => const AllResultsScreen()),
     GetPage(name: allVideos, page: () => const AllVideosScreen()),
+    GetPage(name: allGallery, page: () => const AllGalleryScreen()),
     GetPage(name: splash, page: () => const SplashScreen()),
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: signUp, page: () => SignUpScreen()),

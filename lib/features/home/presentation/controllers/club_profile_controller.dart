@@ -5,6 +5,8 @@ import '../../../../services/api/api_client.dart';
 import '../../../../services/api/api_service.dart';
 import '../../data/match_model.dart';
 import '../../data/point_table_model.dart';
+import '../../data/social_media_model.dart';
+import '../../data/gallery_model.dart';
 
 class ClubProfileController extends GetxController {
   static ClubProfileController get to => Get.find();
@@ -19,6 +21,9 @@ class ClubProfileController extends GetxController {
   int selectedLeagueIndex = 0;
   List<PointTableModel> pointTable = [];
   String pointTableMessage = '';
+
+  List<SocialMediaModel> socialMediaList = [];
+  List<GalleryModel> galleryList = [];
 
   // Team Dashboard Data
   Map<String, dynamic>? teamData;
@@ -37,6 +42,8 @@ class ClubProfileController extends GetxController {
     } else {
       fetchMatches();
       fetchPointTable();
+      fetchSocialMedia();
+      fetchGallery();
     }
   }
 
@@ -139,6 +146,34 @@ class ClubProfileController extends GetxController {
     } finally {
       isLoading.value = false;
       update();
+    }
+  }
+
+  Future<void> fetchSocialMedia() async {
+    try {
+      final response = await apiClient.get(ApiEndPoint.socialMedia);
+
+      if (response.statusCode == 200) {
+        final socialMediaResponse = SocialMediaResponse.fromJson(response.data);
+        socialMediaList = socialMediaResponse.data;
+        update();
+      }
+    } catch (e) {
+      debugPrint('❌ fetchSocialMedia error: $e');
+    }
+  }
+
+  Future<void> fetchGallery() async {
+    try {
+      final response = await apiClient.get(ApiEndPoint.gallery);
+
+      if (response.statusCode == 200) {
+        final galleryResponse = GalleryResponse.fromJson(response.data);
+        galleryList = galleryResponse.data;
+        update();
+      }
+    } catch (e) {
+      debugPrint('❌ fetchGallery error: $e');
     }
   }
 }

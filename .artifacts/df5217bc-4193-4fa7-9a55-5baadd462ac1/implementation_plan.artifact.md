@@ -1,38 +1,33 @@
-# Implementation Plan - Policy Compliance for Play Store
+# Implementation Plan - Dynamic Stats & Typography Alignment
 
-Refine app content and subscription terms to avoid rejection due to the use of external payments (Stripe). The goal is to rebrand "Premium Features" into "Academy Membership Benefits" and ensure all legal text aligns with physical service delivery.
+Update the Stats Screen to use dynamic leagues from the API, apply Title Case to all buttons/labels, and synchronize typography with the Home Screen's title style.
 
 ## Proposed Changes
 
-### [UI Components]
+### [Stats Feature]
 
-#### [MODIFY] [Manager Subscription Screen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/auth/sign%20up/presentation/screen/manager_subscription_screen.dart)
-- Change "unlock premium features" to "access advanced team management tools".
+#### [MODIFY] [StatsController](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/stats_flow/presentation/controller/stats_controller.dart)
+- Fetch the list of real leagues from `ApiEndPoint.leagues` on initialization.
+- Store the league names in a dynamic list.
+- Update `selectedAge` (rename to `selectedLeagueName`) to default to the first available league from the API.
+- Ensure `fetchLeagueSummary` correctly uses the selected league name as a query parameter.
 
-### [Legal Content - Safe Version]
+#### [MODIFY] [StatsScreen](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/stats_flow/presentation/screen/stats_screen.dart)
+- **Label Update**: Change the filter label from "Under" to **"Filter By League"** (Title Case).
+- **Button Update**: Use **"Season Stats"** and **"Player Comparison"** (Title Case, not All Caps).
+- **Typography Sync**: Apply `PlayfairDisplay` font family to:
+    - The "Statistics" title.
+    - The "2026/27 Top Stats" subtitle.
+    - The "Filter By League" dropdown value (size 16).
+    - The "Season Stats" and "Player Comparison" buttons.
 
-I recommend using the following text for your **Subscription Terms & Conditions** on your dashboard/API:
-
-> **Academy Membership Terms**
->
-> **Membership Subscription:** By registering for an academy plan, you agree to the applicable recurring payment for access to physical academy events, training sessions, and grassroots league participation.
->
-> **Auto-Renewal:** Your membership automatically renews to ensure continuous participation in the upcoming season unless canceled before the renewal date.
->
-> **Billing:** Payments are processed securely via our partner provider (Stripe) and charged at the start of each membership period.
->
-> **Cancellation:** You may cancel your membership at any time through your account settings within the app. Cancellation takes effect at the end of the current cycle.
->
-> **Refund Policy:** Membership fees are dedicated to ground bookings and event scheduling and are non-refundable, except where required by UK consumer law.
->
-> **Membership Benefits:** All benefits, including match participation and reward credit earning (ENG Coins), are available only during an active membership period.
->
-> **Service Availability:** Access to the platform may occasionally be affected by maintenance or technical updates required for match reporting and stats tracking.
->
-> **Contact:** For support regarding your membership, email us at contact@engsportsevents.com.
+#### [MODIFY] [SeasonStatsButton](file:///D:/Ajijul/spot_football_merketplace_app/lib/features/stats_flow/presentation/widget/season_stats_button.dart)
+- Explicitly set `fontFamily: 'PlayfairDisplay'` for the button text to match the new brand direction for large text elements.
 
 ## Verification Plan
 
 ### Manual Verification
-- **Code Audit**: Search the entire project for the word "Premium" and ensure it is not used in the context of paid features.
-- **UI Check**: Verify that the Manager Subscription screen no longer uses the word "premium".
+- **Dynamic Data**: Open the Stats screen and verify that the dropdown contains real league names (e.g., "Under 19", "Under 20") instead of hardcoded numbers.
+- **Title Case**: Ensure all buttons and the filter label use Title Case ("Season Stats", not "SEASON STATS").
+- **Typography**: Check that all text size 14 and above in this screen uses the serif `PlayfairDisplay` font.
+- **API Call**: Change a league in the dropdown and verify that the player stats grid (Top Scorer, Assists, etc.) updates accordingly.

@@ -1,3 +1,4 @@
+import 'package:eng_sports/utils/constants/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -56,13 +57,14 @@ class BookScoutSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(24.r),
               child: Stack(
                 children: [
+
                   /// Background Image
                   Positioned.fill(
                     child: CommonImage(
-                      imageSrc: TempImage.playerProfile2,
+                      imageSrc: AppImages.scoutBooking,
                       width: double.infinity,
                       height: double.infinity,
-                      fill: BoxFit.fitHeight,
+                      fill: BoxFit.cover,
                     ),
                   ),
 
@@ -91,22 +93,6 @@ class BookScoutSection extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        /// Badge
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                          decoration: BoxDecoration(
-                            color: AppColors.colorEABB00,
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                          child: const CommonText(
-                            text: "Professional scouting",
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: 12.h),
-
                         /// Headline
                         const CommonText(
                           text: "Showcase Your Talent To The Pros",
@@ -116,7 +102,7 @@ class BookScoutSection extends StatelessWidget {
                           fontFamily: 'PlayfairDisplay',
                           maxLines: 2,
                           textAlign: TextAlign.start,
-                          bottom: 12,
+                          bottom: 5,
                         ),
 
                         /// Description
@@ -127,7 +113,7 @@ class BookScoutSection extends StatelessWidget {
                           color: Colors.white.withValues(alpha: 0.8),
                           maxLines: 3,
                           textAlign: TextAlign.start,
-                          bottom: 24.h,
+                          bottom: 16,
                         ),
 
                         /// Book Button
@@ -153,6 +139,23 @@ class BookScoutSection extends StatelessWidget {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    left: 10,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                      decoration: BoxDecoration(
+                        color: AppColors.colorEABB00,
+                        borderRadius: BorderRadius.circular(20.r),
+                      ),
+                      child: const CommonText(
+                        text: "Professional scouting",
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ],

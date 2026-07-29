@@ -82,13 +82,15 @@ class CommonTextField extends StatelessWidget {
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonText(
-            text: title ?? "",
-            fontWeight: fontWeight ?? FontWeight.w500,
-            fontSize: fontSize ?? 16,
-            color: titleColor ?? AppColors.primaryColor,
-          ),
-          SizedBox(height: 12.h),
+          if (title != null && title!.isNotEmpty) ...[
+            CommonText(
+              text: title ?? "",
+              fontWeight: fontWeight ?? FontWeight.w500,
+              fontSize: fontSize ?? 16,
+              color: titleColor ?? AppColors.primaryColor,
+            ),
+            SizedBox(height: 12.h),
+          ],
 
           TextFormField(
             readOnly: readOnly ?? false,
@@ -109,9 +111,9 @@ class CommonTextField extends StatelessWidget {
               errorMaxLines: 2,
               isDense: isDense,
               filled: true,
-              prefixIconConstraints: const BoxConstraints(
-                maxWidth: 30,
-                maxHeight: 30,
+              prefixIconConstraints: BoxConstraints(
+                maxWidth: 48.w,
+                maxHeight: 48.h,
               ),
               prefixIcon: prefixIcon,
               fillColor: fillColor,

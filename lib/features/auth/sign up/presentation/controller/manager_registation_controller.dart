@@ -23,13 +23,19 @@ class ManagerRegistationController extends GetxController {
   // Selected values
   String? selectedDob;
   String? selectedTeam;
+  String? selectedTeamName;
 
   // File variables
   File? pickedDobFile;
   File? pickedMedicalFile;
 
   // Data Lists
-  List<Map<String, dynamic>> teams = [];
+  final RxList<dynamic> teamsList = <dynamic>[].obs;
+  var isTeamsLoading = false.obs;
+  var isMoreTeamsLoading = false.obs;
+  int teamPage = 1;
+  bool hasMoreTeams = true;
+  String teamSearch = "";
 
   @override
   void onInit() {
@@ -37,24 +43,65 @@ class ManagerRegistationController extends GetxController {
     fetchTeams();
   }
 
-  Future<void> fetchTeams() async {
+  Future<void> fetchTeams({bool isLoadMore = false, String? search}) async {
+    if (isLoadMore && !hasMoreTeams) return;
+
     try {
-      final response = await apiClient.get(ApiEndPoint.teams);
+      if (isLoadMore) {
+        isMoreTeamsLoading.value = true;
+      } else {
+        isTeamsLoading.value = true;
+        teamPage = 1;
+        teamsList.clear();
+      }
+      update();
+
+      if (search != null) teamSearch = search;
+
+      String url = "${ApiEndPoint.teams}?page=$teamPage&limit=10";
+      if (teamSearch.isNotEmpty) url += "&searchTerm=$teamSearch";
+
+      final response = await apiClient.get(
+        url,
+        headers: LocalStorage.token.isNotEmpty ? {'Authorization': 'Bearer ${LocalStorage.token}'} : null,
+      );
+
       if (response.statusCode == 200) {
-        if (response.data['data'] != null) {
-          teams = List<Map<String, dynamic>>.from(response.data['data']);
-        } else if (response.data is List) {
-          teams = List<Map<String, dynamic>>.from(response.data["data"]);
+        final List<dynamic> data = response.data['data'] ?? [];
+        final pagination = response.data['pagination'];
+
+        if (isLoadMore) {
+          teamsList.addAll(data);
+        } else {
+          teamsList.assignAll(data);
         }
-        update();
+
+        if (pagination != null) {
+          int totalPage = pagination['totalPage'] ?? 1;
+          hasMoreTeams = teamPage < totalPage;
+        } else {
+          hasMoreTeams = false;
+        }
       }
     } catch (e) {
       debugPrint('❌ fetchTeams error: $e');
+    } finally {
+      isTeamsLoading.value = false;
+      isMoreTeamsLoading.value = false;
+      update();
     }
   }
 
-  void setTeam(String value) {
-    selectedTeam = value;
+  Future<void> loadMoreTeams() async {
+    if (!isMoreTeamsLoading.value && hasMoreTeams) {
+      teamPage++;
+      await fetchTeams(isLoadMore: true);
+    }
+  }
+
+  void setTeam(String id, String name) {
+    selectedTeam = id;
+    selectedTeamName = name;
     update();
   }
 

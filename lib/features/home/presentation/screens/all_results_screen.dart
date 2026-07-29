@@ -42,7 +42,7 @@ class AllResultsScreen extends StatelessWidget {
               final match = controller.recentMatches[index];
               String formattedDate = match.matchDate != null 
                   ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()
-                  : 'TBA';
+                  : '';
               String formattedTime = match.matchDate != null 
                   ? DateFormat('HH:mm a').format(match.matchDate!)
                   : '';

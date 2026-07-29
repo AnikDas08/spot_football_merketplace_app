@@ -255,6 +255,8 @@ class AppString {
   static const String duration7m = "7m";
   static const String skipForNow = "Skip For Now";
   static const String all = "All";
+  static const String leagues = "Leagues";
+  static const String selectLeague = "Select League";
   static const String trialListAvailable = "Trial List";
   static const String reasonForDeletion = "Reason For Deletion";
   static const String accountDeletionInstructions = "Please provide the reason why you want to delete your account. This request will be sent to our support team for verification.";
