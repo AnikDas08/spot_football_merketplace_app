@@ -1,3 +1,5 @@
+import '../../../../utils/extensions/extension.dart';
+
 import 'package:eng_sports/features/home/presentation/widgets/recent_result_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,7 +45,7 @@ class LiveMatches extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Live matches",
+            "Live matches".toTitleCase(),
             style: GoogleFonts.playfairDisplay(
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,

@@ -62,4 +62,5 @@ class ApiEndPoint {
   static const playerFilter = '/player/filter';
   static const socialMedia = '/social-media/';
   static const gallery = '/gallery/';
+  static const engTvCategory = '/eng-tv-category';
 }

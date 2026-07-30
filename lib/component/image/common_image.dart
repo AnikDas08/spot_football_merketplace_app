@@ -10,6 +10,7 @@ class CommonImage extends StatelessWidget {
   final String imageSrc;
   final String defaultImage;
   final Color? imageColor;
+  final Color? placeholderColor;
   final double? height;
   final double? width;
   final double borderRadius;
@@ -20,6 +21,7 @@ class CommonImage extends StatelessWidget {
   const CommonImage({
     required this.imageSrc,
     this.imageColor,
+    this.placeholderColor,
     this.height,
     this.borderRadius = 0,
     this.width,
@@ -67,7 +69,7 @@ class CommonImage extends StatelessWidget {
           width: size?.sp ?? width?.w,
           height: size?.sp ?? height?.h,
           decoration: BoxDecoration(
-            color: Colors.grey[200],
+            color: placeholderColor ?? Colors.grey[200],
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),

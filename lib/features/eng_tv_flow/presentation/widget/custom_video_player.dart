@@ -15,6 +15,7 @@ class CustomVideoPlayer extends StatefulWidget {
 class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   late VideoPlayerController _controller;
   bool _isInitialized = false;
+  bool _isFit = false;
 
   @override
   void initState() {
@@ -59,12 +60,18 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   }
 
   void _toggleFullScreen() {
+    bool isPortraitVideo = _controller.value.aspectRatio < 1.0;
+    
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+      if (isPortraitVideo) {
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+      } else {
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight,
+        ]);
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+      }
     } else {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -82,14 +89,16 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     if (!_isInitialized) {
-      return Container(
-        height: 200.h,
-        width: double.infinity,
-        color: Colors.black,
-        child: Shimmer.fromColors(
-          baseColor: Color(0xFFD2D2D2),
-          highlightColor: Color(0xFFE5E5E5),
-          child: Container(color: Colors.white),
+      return AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          width: double.infinity,
+          color: Colors.black,
+          child: Shimmer.fromColors(
+            baseColor: const Color(0xFFD2D2D2),
+            highlightColor: const Color(0xFFE5E5E5),
+            child: Container(color: Colors.white),
+          ),
         ),
       );
     }
@@ -102,13 +111,15 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         child: AspectRatio(
           aspectRatio: isLandscape
               ? MediaQuery.of(context).size.aspectRatio
-              : _controller.value.aspectRatio,
+              : 16 / 9,
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
               SizedBox.expand(
                 child: FittedBox(
-                  fit: BoxFit.fill,
+                  fit: isLandscape 
+                      ? (_isFit ? BoxFit.cover : BoxFit.contain) 
+                      : BoxFit.cover,
                   child: SizedBox(
                     width: _controller.value.size.width,
                     height: _controller.value.size.height,
@@ -180,6 +191,16 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
                   Icon(Icons.replay, color: Colors.white, size: 22.sp),
                 ),
               const Spacer(),
+              if (isLandscape)
+                GestureDetector(
+                  onTap: () => setState(() => _isFit = !_isFit),
+                  child: Icon(
+                    _isFit ? Icons.fit_screen : Icons.fit_screen_outlined,
+                    color: Colors.white,
+                    size: 22.sp,
+                  ),
+                ),
+              if (isLandscape) SizedBox(width: 15.w),
               Text(
                 "${_formatDuration(_controller.value.position)} / ${_formatDuration(_controller.value.duration)}",
                 style: TextStyle(color: Colors.white, fontSize: 12.sp),

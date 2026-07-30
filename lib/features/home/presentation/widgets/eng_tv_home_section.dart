@@ -1,3 +1,5 @@
+import '../../../../utils/extensions/extension.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,15 +25,15 @@ class EngTvHomeSection extends StatelessWidget {
     final navBarController = Get.find<NavBarController>();
 
     return Obx(() {
-      if (bannerController.isLoading.value && bannerController.bannerVideos.isEmpty) {
+      if (bannerController.isLoading.value && bannerController.featuredVideos.isEmpty) {
         return const SizedBox.shrink();
       }
 
-      if (bannerController.bannerVideos.isEmpty) {
+      if (bannerController.featuredVideos.isEmpty) {
         return const SizedBox.shrink();
       }
 
-      final firstVideo = bannerController.bannerVideos.first;
+      final firstVideo = bannerController.featuredVideos.first;
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +45,7 @@ class EngTvHomeSection extends StatelessWidget {
 
               children: [
                 Text(
-                  "Eng TV",
+                  "Eng TV".toTitleCase(),
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,

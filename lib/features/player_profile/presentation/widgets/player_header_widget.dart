@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
-import '../../../../utils/constants/temp_image.dart';
+import '../../../../utils/constants/app_images.dart';
 class PlayerHeaderWidget extends StatelessWidget {
   final String playerName;
   final String position;
@@ -26,8 +26,19 @@ class PlayerHeaderWidget extends StatelessWidget {
           width: double.infinity,
           padding: EdgeInsets.all(16.w),
           decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AppImages.playerSeason),
+              fit: BoxFit.cover,
+            ),
+          ),
+          foregroundDecoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xff8E7BFF), Color(0xffFF6EC7)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black.withValues(alpha: 0.0),
+                Colors.black.withValues(alpha: 0.6),
+              ],
             ),
           ),
           child: Row(

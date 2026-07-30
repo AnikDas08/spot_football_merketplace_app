@@ -1,3 +1,4 @@
+import '../../../../utils/extensions/extension.dart';
 import 'package:eng_sports/utils/constants/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +30,7 @@ class BookScoutSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Book a Scout",
+            "Book a Scout".toTitleCase(),
             style: GoogleFonts.playfairDisplay(
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,

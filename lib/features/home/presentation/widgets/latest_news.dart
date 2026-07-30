@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../utils/extensions/extension.dart';
+
 import '../../../../component/blur_reveal/blur_reveal.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
@@ -98,7 +100,7 @@ class _LatestNewsState extends State<LatestNews> {
                     children: [
                       Expanded(
                         child: Text(
-                          AppString.latestNews,
+                          AppString.latestNews.toTitleCase(),
                           style: GoogleFonts.playfairDisplay(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w500,

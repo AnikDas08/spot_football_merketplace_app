@@ -65,6 +65,16 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                       image: AssetImage(AppImages.banner),
                     ),
                   ),
+                  foregroundDecoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withValues(alpha: 0.1),
+                        Colors.black.withValues(alpha: 0.7),
+                      ],
+                    ),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

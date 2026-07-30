@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../utils/extensions/extension.dart';
+
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../config/route/app_routes.dart';
@@ -57,7 +59,7 @@ class RecentResult extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Recent results",
+                "Recent results".toTitleCase(),
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w500,

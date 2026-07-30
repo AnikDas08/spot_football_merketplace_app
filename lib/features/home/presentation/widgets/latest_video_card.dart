@@ -10,6 +10,8 @@ import '../../../../utils/constants/app_string.dart';
 import '../../../../utils/helpers/video_metadata_helper.dart';
 import '../../../../component/video/dynamic_video_thumbnail.dart';
 
+import 'package:intl/intl.dart';
+
 class LatestVideoCard extends StatelessWidget {
   final String imagePath;
   final String title;
@@ -55,6 +57,11 @@ class LatestVideoCard extends StatelessWidget {
     }
 
     final String formattedCategory = VideoMetadataHelper.formatCategory(category);
+    String formattedDate = time;
+    try {
+      DateTime dt = DateTime.parse(time);
+      formattedDate = DateFormat('MMM dd, yyyy').format(dt);
+    } catch (_) {}
 
     return Container(
       width: width ?? double.infinity,
@@ -129,7 +136,7 @@ class LatestVideoCard extends StatelessWidget {
                 children: [
                   /// Info Row (Category & Time)
                   CommonText(
-                    text: time.isNotEmpty ? "$formattedCategory  •  $time" : formattedCategory,
+                    text: formattedDate.isNotEmpty ? "$formattedCategory  •  $formattedDate" : formattedCategory,
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: Colors.white,

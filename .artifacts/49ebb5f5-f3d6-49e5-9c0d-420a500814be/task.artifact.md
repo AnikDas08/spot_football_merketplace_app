@@ -1,0 +1,6 @@
+- `[x]` Standardize player heights and shimmers to 16:9 aspect ratio.
+- `[x]` Implement smart fullscreen orientation in `CustomVideoPlayer` (Portrait for vertical videos, Landscape for others).
+- `[x]` Improve orientation handling in `YouTubeVideoPlayer` to prevent auto-reverting to portrait.
+- `[x]` Redesign `VideoNewsCard` for better alignment (Thumbnail on left, content on right).
+- `[x]` Implement human-readable date formatting in `VideoNewsCard`.
+- `[ ]` Verify all fixes on device (Landscape/Portrait transitions).

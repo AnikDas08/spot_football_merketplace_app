@@ -19,6 +19,8 @@ import '../controllers/banner_controller.dart';
 import '../../data/video_model.dart';
 import 'latest_video_card.dart';
 
+import '../../../../utils/extensions/extension.dart';
+
 class LatestVideos extends StatefulWidget {
   final String? title;
   final Color? titleColor;
@@ -108,9 +110,9 @@ class _LatestVideosState extends State<LatestVideos> {
 
                   Expanded(
                     child: Text(
-                      widget.title != null
+                      (widget.title != null
                           ? widget.title.toString()
-                          : AppString.latestVideos,
+                          : AppString.latestVideos).toTitleCase(),
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500,
@@ -186,10 +188,8 @@ class _LatestVideosState extends State<LatestVideos> {
                     },
                     child: LatestVideoCard(
                       videoId: video.id,
-                      videoUrl: "${ApiEndPoint.videoUrl}${video.videoUrl}",
-                      imagePath: video.thumbnail.isNotEmpty
-                          ? "${ApiEndPoint.imageUrl}${video.thumbnail}"
-                          : '',
+                      videoUrl: video.effectiveVideoUrl,
+                      imagePath: video.fullThumbnailUrl,
                       title: video.title,
                       category: video.category,
                       description: video.description,

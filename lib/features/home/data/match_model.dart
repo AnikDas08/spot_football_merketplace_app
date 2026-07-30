@@ -50,18 +50,26 @@ class MatchModel {
   });
 
   factory MatchModel.fromJson(Map<String, dynamic> json) {
+    int toInt(dynamic value) {
+      if (value == null) return 0;
+      if (value is int) return value;
+      if (value is double) return value.toInt();
+      if (value is String) return int.tryParse(value) ?? 0;
+      return 0;
+    }
+
     return MatchModel(
       id: json['_id'] ?? '',
       league: json['league'] is String ? json['league'] : json['league']?['_id'],
       homeTeam: TeamModel.fromJson(json['homeTeam'] ?? {}),
       awayTeam: TeamModel.fromJson(json['awayTeam'] ?? {}),
       matchDate: json['matchDate'] != null ? DateTime.parse(json['matchDate']) : null,
-      durationMinutes: json['durationMinutes'] ?? 0,
+      durationMinutes: toInt(json['durationMinutes']),
       venueName: json['venueName'] ?? '',
       referee: json['referee'] != null ? RefereeModel.fromJson(json['referee']) : null,
       status: json['status'] ?? '',
-      homeScore: json['homeScore'] ?? 0,
-      awayScore: json['awayScore'] ?? 0,
+      homeScore: toInt(json['homeScore']),
+      awayScore: toInt(json['awayScore']),
       notes: json['notes'],
     );
   }

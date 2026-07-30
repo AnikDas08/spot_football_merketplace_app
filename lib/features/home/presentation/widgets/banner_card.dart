@@ -48,10 +48,8 @@ class BannerCard extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               DynamicVideoThumbnail(
-                videoUrl: "${ApiEndPoint.videoUrl}${videoModel.videoUrl}",
-                thumbnailUrl: videoModel.thumbnail.isNotEmpty
-                    ? "${ApiEndPoint.imageUrl}${videoModel.thumbnail}"
-                    : '',
+                videoUrl: videoModel.effectiveVideoUrl,
+                thumbnailUrl: videoModel.fullThumbnailUrl,
                 fit: BoxFit.cover,
               ),
 

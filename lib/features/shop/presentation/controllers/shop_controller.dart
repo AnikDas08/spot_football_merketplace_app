@@ -18,7 +18,7 @@ class ShopController extends GetxController {
   var selectedTab = 0.obs;
   var isLoading = false.obs;
   var isMoreLoading = false.obs;
-  var isRedeeming = false.obs;
+  var redeemingProductId = "".obs;
 
   List<RewardProduct> productList = [];
   List<dynamic> myOrdersList = [];
@@ -161,8 +161,7 @@ class ShopController extends GetxController {
 
   Future<void> redeemProduct(String productId) async {
     try {
-      isRedeeming.value = true;
-      update();
+      redeemingProductId.value = productId;
 
       final response = await apiClient.post(
         ApiEndPoint.rewardOrder,
@@ -180,8 +179,7 @@ class ShopController extends GetxController {
     } catch (e) {
       AppSnackbar.error(title: 'Error', message: e.toString());
     } finally {
-      isRedeeming.value = false;
-      update();
+      redeemingProductId.value = "";
     }
   }
 

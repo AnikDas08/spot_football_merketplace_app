@@ -1,15 +1,19 @@
+import 'package:eng_sports/utils/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../component/common_dropdown_field/common_dropdown_field.dart';
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/image/common_image.dart';
+import '../../../../component/sheet/common_selection_sheet.dart';
+import '../../../../component/sheet/year_picker_sheet.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../component/widget/selection_trigger_widget.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../../../../utils/constants/app_string.dart';
 import '../../../home/data/point_table_model.dart';
-import '../../../home/presentation/controllers/club_profile_controller.dart';
+import '../controller/league_tables_controller.dart';
 
 class LeagueTablesScreen extends StatefulWidget {
   final bool fromBottomNav;
@@ -22,133 +26,135 @@ class LeagueTablesScreen extends StatefulWidget {
 class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ClubProfileController());
+    final controller = Get.put(LeagueTablesController());
 
     return SafeArea(
       child: RefreshIndicator(
-        onRefresh: () => controller.fetchPointTable(),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: GetBuilder<ClubProfileController>(
-                  builder: (controller) {
-                    final currentLeague = controller.allLeagues.isNotEmpty 
-                        ? controller.allLeagues[controller.selectedLeagueIndex].league 
-                        : null;
-                    
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 100.h),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: CommonDropdownField<int>(
-                                    hintText: currentLeague?.leagueName ?? 'Select League',
-                                    borderColor: Colors.transparent,
-                                    fillColor: AppColors.white,
-                                    borderRadius: 8,
-                                    paddingVertical: 12,
-                                    value: controller.allLeagues.isNotEmpty ? controller.selectedLeagueIndex : null,
-                                    items: List.generate(
-                                      controller.allLeagues.length,
-                                      (index) => DropdownMenuItem<int>(
-                                        value: index,
-                                        child: Text(
-                                          controller.allLeagues[index].league.leagueName,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        ),
-                                      ),
-                                    ),
-                                    onChanged: (value) {
-                                      if (value != null) {
-                                        controller.selectLeague(value);
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(width: 12.w),
-                                Expanded(
-                                  child: CommonDropdownField<String>(
-                                    hintText: currentLeague?.season ?? 'Season',
-                                    borderColor: Colors.transparent,
-                                    fillColor: AppColors.white,
-                                    borderRadius: 8,
-                                    paddingVertical: 12,
-                                    value: currentLeague?.season,
-                                    items: controller.allLeagues.isNotEmpty 
-                                        ? [DropdownMenuItem<String>(
-                                            value: currentLeague?.season,
-                                            child: Text(
-                                              currentLeague?.season ?? "",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                            ),
-                                          )]
-                                        : [],
-                                    onChanged: (value) {},
-                                  ),
-                                ),
-                              ],
-                            ),
+        onRefresh: () async {
+          await controller.fetchPointTable();
+          await controller.fetchLeagues();
+        },
+        child: GetBuilder<LeagueTablesController>(
+          builder: (controller) {
+            return Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(16.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: SelectionTriggerWidget(
+                          value: controller.selectedLeagueName.value,
+                          onTap: () => showCommonSelectionSheet(
+                            context,
+                            title: "Select League",
+                            onSearch: (val) {}, 
+                            onLoadMore: () {},
+                            items: [
+                              {'_id': '', 'leagueName': AppString.all},
+                              ...controller.leaguesList,
+                            ].obs,
+                            isLoading: controller.isLeaguesLoading,
+                            isMoreLoading: false.obs,
+                            itemLabel: (item) => item['leagueName'],
+                            onSelect: (val) => controller.selectLeague(val['_id'], val['leagueName']),
                           ),
-                          
-                          if (currentLeague != null)
+                        ),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        flex: 2,
+                        child: SelectionTriggerWidget(
+                          prefixIcon: Icon(
+                            Icons.calendar_today_outlined,
+                            color: AppColors.primaryColor,
+                            size: 18.sp,
+                          ),
+                          value: controller.selectedYear.value,
+                          onTap: () => showYearPickerSheet(
+                            context,
+                            title: "Select Year",
+                            selectedYear: controller.selectedYear.value,
+                            onSelect: (val) => controller.selectYear(val),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
+                Expanded(
+                  child: Obx(() {
+                    if (controller.isLoading.value && controller.allLeagues.isEmpty) {
+                      return const TableShimmer();
+                    }
+
+                    final visibleLeagues = controller.allLeagues.where((l) => l.standings.isNotEmpty).toList();
+
+                    if (visibleLeagues.isEmpty) {
+                      return _buildNoData("No league tables found for ${controller.selectedYear.value}");
+                    }
+
+                    return ListView.separated(
+                      controller: controller.scrollController,
+                      padding: EdgeInsets.only(bottom: 100.h),
+                      itemCount: visibleLeagues.length + (controller.isMoreLoading.value ? 1 : 0),
+                      separatorBuilder: (context, index) => SizedBox(height: 24.h),
+                      itemBuilder: (context, index) {
+                        if (index == visibleLeagues.length) {
+                          return const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Center(child: CircularProgressIndicator(color: AppColors.primaryColor)),
+                          );
+                        }
+
+                        final leagueData = visibleLeagues[index];
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: CommonText(
-                                  text: '${currentLeague.leagueName} ${currentLeague.season}',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.color6B6B6B,
-                                ),
+                              child: CommonText(
+                                text: '${leagueData.league.leagueName} ${leagueData.league.season}',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.primaryColor,
                               ),
                             ),
-
-                          SizedBox(height: 12.h),
-
-                          if (controller.isLoading.value)
-                            const TableShimmer()
-                          else if (controller.pointTable.isEmpty)
-                            _buildNoData(controller.pointTableMessage)
-                          else
-                            _buildStandingsTable(controller.pointTable),
-                        ],
-                      ),
+                            _buildStandingsTable(leagueData.standings),
+                          ],
+                        );
+                      },
                     );
-                  },
+                  }),
                 ),
-              ),
+              ],
             );
-          }
+          },
         ),
       ),
     );
   }
 
   Widget _buildNoData(String message) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-      padding: EdgeInsets.symmetric(vertical: 24.h),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Center(
-        child: CommonText(
-          text: message.isNotEmpty ? message : "No data available",
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          color: AppColors.color6B6B6B,
+    return Center(
+      child: Container(
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(vertical: 40.h),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(12.r),
+          border: Border.all(color: AppColors.colorEABB00.withValues(alpha: 0.3)),
+        ),
+        child: Center(
+          child: CommonText(
+            text: message,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: AppColors.color6B6B6B,
+          ),
         ),
       ),
     );
@@ -196,12 +202,6 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
                               fontWeight: FontWeight.w500,
                               color: AppColors.white,
                             ),
-                          ),
-                          const Spacer(),
-                          Image.asset(
-                            'assets/images/white.png',
-                            width: 50.w,
-                            fit: BoxFit.contain,
                           ),
                           const Spacer(),
                         ],
@@ -334,6 +334,33 @@ class _LeagueTablesScreenState extends State<LeagueTablesScreen> {
               },
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class TableShimmer extends StatelessWidget {
+  const TableShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.all(16.w),
+      child: Column(
+        children: List.generate(
+          3,
+          (index) => Padding(
+            padding: EdgeInsets.only(bottom: 24.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomShimmer.rectangular(height: 24.h, width: 200.w),
+                SizedBox(height: 12.h),
+                CustomShimmer.rectangular(height: 200.h),
+              ],
+            ),
+          ),
         ),
       ),
     );

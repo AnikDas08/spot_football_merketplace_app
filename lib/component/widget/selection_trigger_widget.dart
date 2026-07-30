@@ -10,6 +10,8 @@ class SelectionTriggerWidget extends StatelessWidget {
   final Color? fillColor;
   final Color? borderColor;
   final double? borderRadius;
+  final Widget? prefixIcon;
+  final double? height;
 
   const SelectionTriggerWidget({
     super.key,
@@ -19,6 +21,8 @@ class SelectionTriggerWidget extends StatelessWidget {
     this.fillColor,
     this.borderColor,
     this.borderRadius,
+    this.prefixIcon,
+    this.height,
   });
 
   @override
@@ -37,6 +41,7 @@ class SelectionTriggerWidget extends StatelessWidget {
         InkWell(
           onTap: onTap,
           child: Container(
+            height: height,
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
             decoration: BoxDecoration(
               color: fillColor ?? Colors.white,
@@ -46,6 +51,10 @@ class SelectionTriggerWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                if (prefixIcon != null) ...[
+                  prefixIcon!,
+                  SizedBox(width: 8.w),
+                ],
                 Expanded(
                   child: Text(
                     value,

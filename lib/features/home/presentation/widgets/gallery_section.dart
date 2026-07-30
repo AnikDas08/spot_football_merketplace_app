@@ -13,6 +13,8 @@ import '../../../../utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_string.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../utils/extensions/extension.dart';
+
 import 'slideable_image_viewer.dart';
 
 class GallerySection extends StatelessWidget {
@@ -42,7 +44,7 @@ class GallerySection extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'Pictures Of The Week',
+                      'Gallery Of Week'.toTitleCase(),
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,

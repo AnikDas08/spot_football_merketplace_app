@@ -57,6 +57,7 @@ class SlideableImageViewer extends StatelessWidget {
                         imageSrc: imageUrls[index],
                         width: double.infinity,
                         fill: BoxFit.contain,
+                        placeholderColor: Colors.black,
                       ),
                     ),
                   ),

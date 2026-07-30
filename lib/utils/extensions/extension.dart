@@ -15,6 +15,19 @@ extension Alignments on Widget {
   Widget get center => Align(child: this);
 }
 
+// String Casing Extensions
+extension StringCasingExtension on String {
+  String toTitleCase() {
+    if (isEmpty) return this;
+    return replaceAll(RegExp(' +'), ' ')
+        .split(' ')
+        .map((str) => str.isNotEmpty
+            ? "${str[0].toUpperCase()}${str.substring(1).toLowerCase()}"
+            : "")
+        .join(' ');
+  }
+}
+
 // All Alignments Time Formatter Extensions
 extension TimeFormater on DateTime {
   String get time => DateFormat('h:mm a').format(this);

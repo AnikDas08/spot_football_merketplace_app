@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../component/text/common_text.dart';
-import '../../../../config/api/api_end_point.dart';
-import '../../../../config/route/app_routes.dart';
 import '../../../../utils/constants/app_colors.dart';
-import '../../../../utils/helpers/video_metadata_helper.dart';
-import '../../../home/data/video_model.dart';
 import '../../../home/presentation/controllers/banner_controller.dart';
 import '../../../home/presentation/widgets/latest_videos.dart';
-import '../widget/video_thumbnail_card.dart';
 
 class EngTvScreen extends StatelessWidget {
   const EngTvScreen({super.key});
@@ -19,9 +13,8 @@ class EngTvScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Color> sectionBgColors =  [
-      AppColors.black,
-      const Color(0xFFF9F9F9),
       Colors.white,
+      AppColors.black,
     ];
 
     return SafeArea(
@@ -33,93 +26,57 @@ class EngTvScreen extends StatelessWidget {
             );
           }
 
-          final videos = controller.bannerVideos;
-          if (videos.isEmpty) {
+          final categories = controller.allCategories;
+          if (categories.isEmpty) {
             return RefreshIndicator(
-              onRefresh: () => controller.fetchBannerVideos(),
+              onRefresh: () => controller.fetchEngTvCategories(),
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: SizedBox(
                   height: 0.8.sh,
                   child: const Center(
-                    child: CommonText(text: "No videos available"),
+                    child: CommonText(text: "No categories available"),
                   ),
                 ),
               ),
             );
           }
 
-          final firstVideo = videos.first;
-
-          // Group videos by category
-          Map<String, List<VideoModel>> groupedVideos = {};
-          for (var video in videos) {
-            String cat = VideoMetadataHelper.formatCategory(video.category);
-            if (!groupedVideos.containsKey(cat)) groupedVideos[cat] = [];
-            groupedVideos[cat]!.add(video);
-          }
-
-          final List<String> displayOrder = groupedVideos.keys.toList();
-
           return RefreshIndicator(
-            onRefresh: () => controller.fetchBannerVideos(),
+            onRefresh: () => controller.fetchInitialHomeData(),
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildSection(
-                    backgroundColor: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                          child: Text(
-                            "Featured",
-                            style: GoogleFonts.playfairDisplay(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          child: VideoThumbnailCard(
-                            thumbnail: firstVideo.thumbnail.isNotEmpty
-                                ? "${ApiEndPoint.imageUrl}${firstVideo.thumbnail}"
-                                : '',
-                            videoUrl: "${ApiEndPoint.videoUrl}${firstVideo.videoUrl}",
-                            title: firstVideo.title,
-                            onWatchNow: () {
-                              Get.toNamed(
-                                AppRoutes.videoStreamScreen,
-                                arguments: firstVideo.id,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // Dynamic categories
-                  ...List.generate(displayOrder.length, (index) {
-                    final catName = displayOrder[index];
-                    final videosInCat = groupedVideos[catName]!;
+                  // Dynamic categories from API
+                  ...List.generate(categories.length, (index) {
+                    final category = categories[index];
                     
-                    final bgColor = sectionBgColors[index % sectionBgColors.length];
-                    final titleColor = bgColor == AppColors.black ? Colors.white : null;
+                    return Obx(() {
+                      final videosInCat = controller.categoryVideosMap[category.id] ?? [];
+                      final isCatLoading = controller.categoryLoadingMap[category.id] ?? false;
+                      
+                      if (isCatLoading && videosInCat.isEmpty) {
+                        return const Center(child: CircularProgressIndicator(color: AppColors.yellow));
+                      }
 
-                    return _buildSection(
-                      backgroundColor: bgColor,
-                      child: LatestVideos(
-                        title: catName,
-                        titleColor: titleColor,
-                        videos: videosInCat,
-                      ),
-                    );
+                      if (videosInCat.isEmpty) return const SizedBox.shrink();
+
+                      final bgColor = sectionBgColors[index % sectionBgColors.length];
+                      final titleColor = bgColor == AppColors.black ? Colors.white : null;
+
+                      // Use the first video of the first category as Featured if needed
+                      // Or just show all categories as sections
+                      return _buildSection(
+                        backgroundColor: bgColor,
+                        child: LatestVideos(
+                          title: category.name,
+                          titleColor: titleColor,
+                          videos: videosInCat,
+                        ),
+                      );
+                    });
                   }),
                   
                   SizedBox(height: 20.h),

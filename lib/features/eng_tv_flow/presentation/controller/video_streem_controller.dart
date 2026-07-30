@@ -33,12 +33,7 @@ class VideoStreamController extends GetxController {
       if (response.statusCode == 200) {
         if (response.data['success'] == true) {
           videoDetail.value = VideoModel.fromJson(response.data['data']);
-          
-          String rawPath = videoDetail.value?.videoUrl ?? "";
-          if (rawPath.isNotEmpty) {
-            String cleanPath = rawPath.startsWith('/') ? rawPath : '/$rawPath';
-            videoLink.value = "${ApiEndPoint.videoUrl}${Uri.encodeFull(cleanPath)}";
-          }
+          videoLink.value = videoDetail.value?.effectiveVideoUrl ?? "";
 
           // Fetch related videos based on category
           if (videoDetail.value?.category != null) {

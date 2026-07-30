@@ -13,6 +13,8 @@ import '../../../navbar/controller/navbar_controller.dart';
 import '../../data/match_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../utils/extensions/extension.dart';
+
 class UpcomingFixtures extends StatelessWidget {
   final List<MatchModel> fixtures;
   final bool isLoading;
@@ -68,7 +70,7 @@ class UpcomingFixtures extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Upcoming Fixtures",
+                "Upcoming Fixtures".toTitleCase(),
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w500,

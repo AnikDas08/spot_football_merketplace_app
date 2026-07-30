@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../../../utils/extensions/extension.dart';
+
 import '../../../../component/custom_shimmer/custom_shimmer.dart';
 import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';

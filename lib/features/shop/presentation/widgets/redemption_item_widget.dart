@@ -88,7 +88,7 @@ class RedemptionItemWidget extends StatelessWidget {
           SizedBox(height: 8.h),
           InkWell(
             onTap: () {
-              if (product?.id != null) {
+              if (product?.id != null && controller.redeemingProductId.value.isEmpty) {
                 controller.redeemProduct(product!.id!);
               }
             },
@@ -100,16 +100,28 @@ class RedemptionItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(color: AppColors.colorEABB00, width: 1.w),
               ),
-              child: controller.isRedeeming.value 
-                ? SizedBox(height: 14.h, width: 14.h, child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                : CommonText(
-                    text: AppString.redeem,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.white,
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                  ),
+              child: Obx(() {
+                final isRedeemingThis = controller.redeemingProductId.value == product?.id;
+                return isRedeemingThis
+                    ? Center(
+                        child: SizedBox(
+                          height: 14.h,
+                          width: 14.h,
+                          child: const CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        ),
+                      )
+                    : CommonText(
+                        text: AppString.redeem,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.white,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                      );
+              }),
             ),
           ),
         ],

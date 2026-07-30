@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../utils/extensions/extension.dart';
+
 import '../../../../component/image/common_image.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_images.dart';
@@ -28,7 +30,7 @@ class SocialMediaSection extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Text(
-                'Our Social Platforms',
+                'Our Social Platforms'.toTitleCase(),
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,

@@ -12,6 +12,9 @@ import '../controller/video_streem_controller.dart';
 import '../widget/custom_video_player.dart';
 import '../widget/video_news_card.dart';
 
+import 'package:intl/intl.dart';
+import '../widget/youtube_video_player.dart';
+
 class VideoStreamScreen extends StatelessWidget {
   VideoStreamScreen({super.key});
 
@@ -44,10 +47,27 @@ class VideoStreamScreen extends StatelessWidget {
               return const Center(child: CommonText(text: "Video not found"));
             }
 
+            final String formattedDate = video.publishDateTime.isNotEmpty
+                ? DateFormat('MMMM dd, yyyy').format(DateTime.parse(video.publishDateTime))
+                : video.createdAt;
+
+            // Debug Logs
+            debugPrint("🎬 [Video Stream] Loading Video ID: ${video.id}");
+            debugPrint("🎬 [Video Stream] Final Playback Link: ${video.isYouTube ? video.videoUrl : controller.videoLink.value}");
+            debugPrint("🎬 [Video Stream] Player Selected: ${video.isYouTube ? 'YouTube Player' : 'Standard Player'}");
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomVideoPlayer(videoUrl: controller.videoLink.value),
+                video.isYouTube 
+                    ? YouTubeVideoPlayer(
+                        key: ValueKey(video.id),
+                        videoUrl: video.videoUrl,
+                      )
+                    : CustomVideoPlayer(
+                        key: ValueKey(video.id),
+                        videoUrl: controller.videoLink.value,
+                      ),
                 if (!isLandscape) ...[
                   SizedBox(height: 24.h),
                   Container(
@@ -85,7 +105,7 @@ class VideoStreamScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 12.h),
                         CommonText(
-                          text: video.createdAt,
+                          text: formattedDate,
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
                           color: AppColors.color6B6B6B,
@@ -165,10 +185,8 @@ class VideoStreamScreen extends StatelessWidget {
                     title: video.title,
                     description: video.description,
                     timeAgo: video.publishDateTime,
-                    imageUrl: video.thumbnail.isNotEmpty
-                        ? "${ApiEndPoint.imageUrl}${video.thumbnail}"
-                        : '',
-                    videoUrl: "${ApiEndPoint.videoUrl}${video.videoUrl}",
+                    imageUrl: video.fullThumbnailUrl,
+                    videoUrl: video.effectiveVideoUrl,
                   ),
                 );
               },

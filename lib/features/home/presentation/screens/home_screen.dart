@@ -159,14 +159,23 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: 12.h),
                   ],
 
-                  _buildSection(
-                    backgroundColor: AppColors.black,
-                    child: const EngTvHomeSection(
-                      titleColor: Colors.white,
-                      viewAllColor: AppColors.colorEABB00,
-                    ),
-                  ),
-                  SizedBox(height: 12.h),
+                  Obx(() {
+                    if (bannerController.featuredVideos.isNotEmpty) {
+                      return Column(
+                        children: [
+                          _buildSection(
+                            backgroundColor: AppColors.black,
+                            child: const EngTvHomeSection(
+                              titleColor: Colors.white,
+                              viewAllColor: AppColors.colorEABB00,
+                            ),
+                          ),
+                          SizedBox(height: 12.h),
+                        ],
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  }),
 
                   // 2. Swapped Live Matches to where League Tables were
                   if (controller.isLoading.value ||
@@ -184,14 +193,32 @@ class HomeScreen extends StatelessWidget {
                   GetBuilder<BannerController>(
                     builder: (bannerController) {
                       return Obx(() {
-                        if (bannerController.isLoading.value ||
-                            bannerController.bannerVideos.isNotEmpty) {
-                          return _buildSection(
-                            backgroundColor: AppColors.black,
-                            child: const LatestVideos(titleColor: Colors.white),
-                          );
-                        }
-                        return const SizedBox.shrink();
+                        return Column(
+                          children: [
+                            if (bannerController.goalsOfTheWeekVideos.isNotEmpty) ...[
+                              _buildSection(
+                                backgroundColor: AppColors.black,
+                                child: LatestVideos(
+                                  title: "Goals of the Week",
+                                  titleColor: Colors.white,
+                                  videos: bannerController.goalsOfTheWeekVideos,
+                                ),
+                              ),
+                              SizedBox(height: 12.h),
+                            ],
+                            if (bannerController.refCamVideos.isNotEmpty) ...[
+                              _buildSection(
+                                backgroundColor: AppColors.black,
+                                child: LatestVideos(
+                                  title: "Ref Cam",
+                                  titleColor: Colors.white,
+                                  videos: bannerController.refCamVideos,
+                                ),
+                              ),
+                              SizedBox(height: 12.h),
+                            ],
+                          ],
+                        );
                       });
                     },
                   ),

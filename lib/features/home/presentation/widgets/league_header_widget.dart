@@ -31,6 +31,16 @@ class LeagueHeaderWidget extends StatelessWidget {
           fit: BoxFit.fitWidth,
         ),
       ),
+      foregroundDecoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.leftCenter,
+          end: Alignment.rightCenter,
+          colors: [
+            Colors.black.withValues(alpha: 0.6),
+            Colors.transparent,
+          ],
+        ),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
