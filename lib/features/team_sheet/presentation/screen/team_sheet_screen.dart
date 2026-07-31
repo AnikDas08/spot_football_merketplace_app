@@ -269,7 +269,7 @@ class TeamSheetScreen extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12.r),
                       child: SvgPicture.asset(
-                        AppImages.stadium,
+                        AppImages.stadiumSvg,
                         fit: BoxFit.cover,
                       ),
                     ),

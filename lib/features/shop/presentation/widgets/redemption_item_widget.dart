@@ -44,7 +44,7 @@ class RedemptionItemWidget extends StatelessWidget {
           SizedBox(
             height: 20.h,
             child: CommonText(
-              text: product?.productType ?? '',
+              text: product?.brand ?? '',
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: AppColors.primaryColor,

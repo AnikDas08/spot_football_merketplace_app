@@ -66,6 +66,7 @@ class HomeScreen extends StatelessWidget {
                         isLoading: controller.isLoading.value,
                         titleColor: Colors.white,
                         viewAllColor: AppColors.colorEABB00,
+                        isDark: true,
                       ),
                     ),
                     SizedBox(height: 12.h),

@@ -108,7 +108,7 @@ class ShopScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CommonText(
-                    text: product?['productType'] ?? 'Reward',
+                    text: product?['brand'] ?? 'Reward',
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),

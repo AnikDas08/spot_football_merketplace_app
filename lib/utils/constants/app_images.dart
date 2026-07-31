@@ -25,8 +25,10 @@ class AppImages {
   static const String upcomingEvent = '$baseurl/upcoming_event.png';
   static const String coin = '$baseurl/gold_coin.png';
   static const String stadium = '$baseurl/stadium.png';
+  static const String stadiumSvg = '$baseurl/stadium.svg';
   static const String teamSheetBanner = '$baseurl/team_sheet_banner.png';
   static const String scoutBooking = '$baseurl/scout_booking.png';
+  static const String newsDetailsBanner = '$baseurl/news_details_banner.png';
 
   // Socials
   static const String socialsBase = '$baseurl/socials';

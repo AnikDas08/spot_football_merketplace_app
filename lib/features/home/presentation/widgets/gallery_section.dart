@@ -44,7 +44,7 @@ class GallerySection extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'Gallery Of Week'.toTitleCase(),
+                      'Pictures Of The Week'.toTitleCase(),
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,

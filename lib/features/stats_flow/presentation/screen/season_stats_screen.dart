@@ -6,10 +6,13 @@ import '../../../../component/common_appbar/secondary_appbar.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/temp_image.dart';
+import '../../../../component/sheet/year_picker_sheet.dart';
+import '../../../../component/widget/selection_trigger_widget.dart';
+import '../../../../utils/constants/app_icons.dart';
+import '../../../../utils/extensions/extension.dart';
 import '../controller/seasson_stats_controller.dart';
 import '../model/season_leaderboard_model.dart';
 import '../widget/leader_boad_card.dart';
-import '../widget/season_selector_button.dart';
 
 class SeasonStatsScreen extends StatelessWidget {
   const SeasonStatsScreen({super.key});
@@ -28,10 +31,20 @@ class SeasonStatsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 28.h),
-              Obx(() => SeasonSelectorButton(
-                    seasonValue: controller.selectedSeason.value,
+              Obx(() => SelectionTriggerWidget(
+                    prefixIcon: Icon(
+                      Icons.calendar_today_outlined,
+                      color: AppColors.primaryColor,
+                      size: 18.sp,
+                    ),
+                    value: controller.selectedYear.value,
                     onTap: () {
-                      controller.chooseSeason(context);
+                      showYearPickerSheet(
+                        context,
+                        title: "Select Year",
+                        selectedYear: controller.selectedYear.value,
+                        onSelect: (val) => controller.updateYear(val),
+                      );
                     },
                   )),
               SizedBox(height: 24.h),

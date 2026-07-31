@@ -20,6 +20,7 @@ class UpcomingFixtures extends StatelessWidget {
   final bool isLoading;
   final Color? titleColor;
   final Color? viewAllColor;
+  final bool isDark;
 
   const UpcomingFixtures({
     super.key,
@@ -27,6 +28,7 @@ class UpcomingFixtures extends StatelessWidget {
     this.isLoading = false,
     this.titleColor,
     this.viewAllColor,
+    this.isDark = false,
   });
 
   @override
@@ -38,14 +40,23 @@ class UpcomingFixtures extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomShimmer.rectangular(height: 24.h, width: 180.w),
+            CustomShimmer.rectangular(
+              height: 24.h, 
+              width: 180.w,
+              baseColor: isDark ? Colors.white10 : null,
+              highlightColor: isDark ? Colors.white24 : null,
+            ),
             SizedBox(height: 12.h),
             Column(
               children: List.generate(
                 2,
                 (index) => Padding(
                   padding: EdgeInsets.only(bottom: 12.h),
-                  child: CustomShimmer.rectangular(height: 90.h),
+                  child: CustomShimmer.rectangular(
+                    height: 90.h,
+                    baseColor: isDark ? Colors.white10 : null,
+                    highlightColor: isDark ? Colors.white24 : null,
+                  ),
                 ),
               ),
             ),
@@ -133,6 +144,7 @@ class UpcomingFixtures extends StatelessWidget {
                     awayLogo: fixture.awayTeam.teamLogo,
                     venue: fixture.venueName,
                     width: 320.w,
+                    isDark: isDark,
                   ),
                 );
               },

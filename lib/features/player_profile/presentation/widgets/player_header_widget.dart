@@ -5,6 +5,7 @@ import '../../../../component/image/common_image.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_images.dart';
+
 class PlayerHeaderWidget extends StatelessWidget {
   final String playerName;
   final String position;
@@ -21,43 +22,57 @@ class PlayerHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // 1. Background Image Layer
         Container(
-          height: 262.h,
+          height: 250.h,
           width: double.infinity,
-          padding: EdgeInsets.all(16.w),
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage(AppImages.playerSeason),
               fit: BoxFit.cover,
             ),
           ),
-          foregroundDecoration: BoxDecoration(
+        ),
+
+        // 2. Dark Shadow Overlay (Top to Bottom)
+        Container(
+          height: 250.h,
+          width: double.infinity,
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.black.withValues(alpha: 0.0),
-                Colors.black.withValues(alpha: 0.6),
+                Colors.black.withValues(alpha: 0.8),
+                Colors.transparent,
               ],
             ),
           ),
+        ),
+
+        // 3. Text Content Layer (On Top of Shadow)
+        Container(
+          height: 250.h,
+          width: double.infinity,
+          padding: EdgeInsets.all(16.w),
           child: Row(
             children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 10.h),
                     CommonText(
                       text: playerName,
                       fontSize: 32,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.white,
+                      color: Colors.white,
                     ),
                     SizedBox(height: 4.h),
                     CommonText(
                       text: position,
                       fontSize: 16,
-                      color: AppColors.white,
+                      color: Colors.white.withValues(alpha: 0.9),
                       fontWeight: const FontWeight(500),
                     ),
                     const Spacer(),
@@ -67,6 +82,8 @@ class PlayerHeaderWidget extends StatelessWidget {
             ],
           ),
         ),
+
+        // 4. Player Cutout Profile Image
         Positioned(
           right: 0,
           bottom: 0,
@@ -74,7 +91,7 @@ class PlayerHeaderWidget extends StatelessWidget {
             imageSrc: profileImage ?? "",
             height: 230.h,
             width: 200.w,
-            fill: (profileImage != null && profileImage!.isNotEmpty) ? BoxFit.contain : BoxFit.contain,
+            fill: BoxFit.contain,
           ),
         ),
       ],

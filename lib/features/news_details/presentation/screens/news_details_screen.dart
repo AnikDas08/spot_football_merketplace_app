@@ -53,58 +53,62 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 28.w,
-                    vertical: 32.h,
-                  ),
+                  height: 250.h,
                   width: 1.sw,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       alignment: .topRight,
-                      fit: BoxFit.cover,
-                      image: AssetImage(AppImages.banner),
+                      fit: BoxFit.fill,
+                      image: AssetImage(AppImages.newsDetailsBanner),
                     ),
                   ),
-                  foregroundDecoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withValues(alpha: 0.1),
-                        Colors.black.withValues(alpha: 0.7),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 28.w,
+                      vertical: 32.h,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black.withValues(alpha: 0.85),
+                          Colors.transparent,
+                        ],
+                        stops: const [0.0, 0.7],
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CommonText(
+                          text: news?.category ?? AppString.transfer,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.white,
+                        ),
+                        CommonText(
+                          text:
+                              news?.title ??
+                              AppString.engCommunityAcademyStarOfTheWeek,
+                          fontSize: 32,
+                          fontWeight: FontWeight.w600,
+                          maxLines: 3,
+                          color: AppColors.white,
+                          textAlign: TextAlign.start,
+                        ),
+                        CommonText(
+                          text: news != null
+                              ? DateFormat(
+                                  'dd MMM yyyy',
+                                ).format(news.publishDateTime)
+                              : "04 Jan 2025",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.white,
+                        ),
                       ],
                     ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CommonText(
-                        text: news?.category ?? AppString.transfer,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.white,
-                      ),
-                      CommonText(
-                        text:
-                            news?.title ??
-                            AppString.engCommunityAcademyStarOfTheWeek,
-                        fontSize: 32,
-                        fontWeight: FontWeight.w600,
-                        maxLines: 3,
-                        color: AppColors.white,
-                        textAlign: TextAlign.start,
-                      ),
-                      CommonText(
-                        text: news != null
-                            ? DateFormat(
-                                'dd MMM yyyy',
-                              ).format(news.publishDateTime)
-                            : "04 Jan 2025",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.white,
-                      ),
-                    ],
                   ),
                 ),
                 CommonImage(

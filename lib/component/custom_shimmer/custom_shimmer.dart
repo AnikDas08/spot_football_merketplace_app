@@ -5,11 +5,15 @@ class CustomShimmer extends StatefulWidget {
   final double width;
   final double height;
   final ShapeBorder shapeBorder;
+  final Color? baseColor;
+  final Color? highlightColor;
 
   const CustomShimmer.rectangular({
     super.key,
     this.width = double.infinity,
     required this.height,
+    this.baseColor,
+    this.highlightColor,
   }) : shapeBorder = const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
         );
@@ -19,6 +23,8 @@ class CustomShimmer extends StatefulWidget {
     this.width = double.infinity,
     required this.height,
     this.shapeBorder = const CircleBorder(),
+    this.baseColor,
+    this.highlightColor,
   });
 
   @override
@@ -58,9 +64,9 @@ class _CustomShimmerState extends State<CustomShimmer>
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.grey[300]!,
-                Colors.grey[100]!,
-                Colors.grey[300]!,
+                widget.baseColor ?? Colors.grey[300]!,
+                widget.highlightColor ?? Colors.grey[100]!,
+                widget.baseColor ?? Colors.grey[300]!,
               ],
               stops: [
                 0.0,

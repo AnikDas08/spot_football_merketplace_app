@@ -8,7 +8,7 @@ import '../model/season_leaderboard_model.dart';
 
 class SeassonStatsController extends GetxController {
   final ApiClient apiClient = DioApiClient();
-  var selectedSeason = "2026/27".obs;
+  var selectedYear = DateTime.now().year.toString().obs;
   var isLoading = false.obs;
   var leaderboardData = Rxn<LeaderboardData>();
 
@@ -23,7 +23,7 @@ class SeassonStatsController extends GetxController {
       isLoading.value = true;
       final response = await apiClient.get(
         ApiEndPoint.seasonLeaderboard,
-        query: {'season': selectedSeason.value.split('/').first},
+        query: {'season': selectedYear.value},
       );
 
       if (response.statusCode == 200 && response.data['success'] == true) {
@@ -37,37 +37,8 @@ class SeassonStatsController extends GetxController {
     }
   }
 
-  Future<void> chooseSeason(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2030),
-      initialDatePickerMode: DatePickerMode.year,
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Color(0xFF083E4B),
-              onPrimary: Colors.white,
-              onSurface: Colors.black,
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-
-    if (pickedDate != null) {
-      String nextYearShort = (pickedDate.year + 1).toString().substring(2);
-      selectedSeason.value = "${pickedDate.year}/$nextYearShort";
-
-      updateDataForSeason(selectedSeason.value);
-    }
-  }
-
-  void updateDataForSeason(String season) {
-    log("Data loading for: $season");
+  void updateYear(String year) {
+    selectedYear.value = year;
     fetchSeasonLeaderboard();
   }
 }

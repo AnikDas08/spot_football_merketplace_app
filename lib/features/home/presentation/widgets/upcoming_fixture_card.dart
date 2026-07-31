@@ -19,6 +19,7 @@ class UpcomingFixtureCard extends StatelessWidget {
   final String? awayLogo;
   final String? venue;
   final double? width;
+  final bool isDark;
 
   const UpcomingFixtureCard({
     super.key,
@@ -31,6 +32,7 @@ class UpcomingFixtureCard extends StatelessWidget {
     this.awayLogo,
     this.venue,
     this.width,
+    this.isDark = false,
   });
 
   @override
@@ -45,12 +47,12 @@ class UpcomingFixtureCard extends StatelessWidget {
       child: Container(
         width: width ?? double.infinity,
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: isDark ? AppColors.color2A2A2A : AppColors.white,
           borderRadius: BorderRadius.circular(15.r),
           border: Border.all(color: AppColors.colorEABB00, width: 1.w),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withAlpha(10),
+              color: isDark ? Colors.black.withValues(alpha: 0.3) : AppColors.black.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -61,13 +63,14 @@ class UpcomingFixtureCard extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(16.r),
             child: Column(
+              mainAxisAlignment: .spaceBetween,
             children: [
               /// Date Header
               CommonText(
                 text: date,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: AppColors.black,
+                color: isDark ? Colors.white : AppColors.black,
                 bottom: 16.h,
                 fontFamily: 'Montserrat',
               ),
@@ -91,6 +94,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                          color: isDark ? Colors.white : AppColors.black,
                         ),
                       ],
                     ),
@@ -99,19 +103,19 @@ class UpcomingFixtureCard extends StatelessWidget {
                   /// Time / VS
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
+                      horizontal: 14.w,
                       vertical: 8.h,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF5F5F5),
+                      color: isDark ? Colors.black.withValues(alpha: 0.5) : const Color(0xFFF5F5F5),
                       borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: Colors.grey.shade200),
+                      border: Border.all(color: isDark ? Colors.white10 : Colors.grey.shade200),
                     ),
                     child: CommonText(
                       text: time,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.black,
+                      color: isDark ? Colors.white : AppColors.black,
                       fontFamily: 'Montserrat',
                     ),
                   ),
@@ -133,6 +137,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                          color: isDark ? Colors.white : AppColors.black,
                         ),
                       ],
                     ),
@@ -146,7 +151,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                   text: venue!,
                   fontSize: 11,
                   fontWeight: FontWeight.w400,
-                  color: Colors.grey,
+                  color: isDark ? Colors.white70 : Colors.grey,
                   maxLines: 1,
                 ),
               ],
@@ -159,9 +164,9 @@ class UpcomingFixtureCard extends StatelessWidget {
                   Expanded(
                     child: _buildActionBtn(
                       "Match Info",
-                      AppColors.primaryColor, // Reverted to black
-                      AppColors.white,
-                      true,
+                      isDark ? AppColors.yellow : AppColors.primaryColor,
+                      isDark ? AppColors.black : AppColors.white,
+                      !isDark,
                     ),
                   ),
                 ],
