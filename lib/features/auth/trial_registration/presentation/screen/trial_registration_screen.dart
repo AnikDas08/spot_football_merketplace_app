@@ -8,6 +8,8 @@ import '../../../../../component/sheet/common_selection_sheet.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
 import '../../../../../component/widget/selection_trigger_widget.dart';
+import '../../../../../config/route/app_routes.dart';
+import '../../../../../services/storage/storage_services.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/helpers/validation.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
@@ -25,9 +27,23 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SignupAppbar(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        if (Navigator.canPop(context)) {
+          Get.back();
+        } else {
+          if (LocalStorage.isLogIn) {
+            Get.offAllNamed(AppRoutes.navBarScreen);
+          } else {
+            Get.offAllNamed(AppRoutes.signIn);
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF3F3F3),
+        appBar: const SignupAppbar(),
       body: GetBuilder<TrialRegistrationController>(
         init: TrialRegistrationController(),
         builder: (controller) {
@@ -190,7 +206,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
           );
         },
       ),
-    );
+    ));
   }
 
   Widget _buildStrongFootDropdown(TrialRegistrationController controller) {

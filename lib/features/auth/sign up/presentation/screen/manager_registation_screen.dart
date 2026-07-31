@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../../../config/route/app_routes.dart';
+import '../../../../../../../services/storage/storage_services.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../../../utils/helpers/validation.dart';
 import '../../../../../component/button/common_button.dart';
@@ -20,165 +22,191 @@ class ManagerRegistationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SignupAppbar(),
-      body: GetBuilder<ManagerRegistationController>(
-        init: ManagerRegistationController(),
-        builder: (controller) {
-          return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CommonText(
-                    text: 'Become an Eng\nManager',
-                    fontSize: 40,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black,
-                    bottom: 10,
-                  ),
-                  const CommonText(
-                    text: 'Create your account and start managing your team today!',
-                    fontSize: 16,
-                    maxLines: 5,
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.w400,
-                    bottom: 32,
-                  ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        if (Navigator.canPop(context)) {
+          Get.back();
+        } else {
+          if (LocalStorage.isLogIn) {
+            Get.offAllNamed(AppRoutes.navBarScreen);
+          } else {
+            Get.offAllNamed(AppRoutes.signIn);
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF3F3F3),
+        appBar: const SignupAppbar(),
+        body: GetBuilder<ManagerRegistationController>(
+          init: ManagerRegistationController(),
+          builder: (controller) {
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CommonText(
+                      text: 'Become an Eng\nManager',
+                      fontSize: 40,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.black,
+                      bottom: 10,
+                    ),
+                    const CommonText(
+                      text:
+                          'Create your account and start managing your team today!',
+                      fontSize: 16,
+                      maxLines: 5,
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.w400,
+                      bottom: 32,
+                    ),
 
-                  CommonTextField(
-                    title: "First Name",
-                    controller: controller.firstNameController,
-                    hintText: 'Enter your first name here...',
-                    validator: AppValidation.required,
-                  ),
-                  SizedBox(height: 24.h),
+                    CommonTextField(
+                      title: "First Name",
+                      controller: controller.firstNameController,
+                      hintText: 'Enter your first name here...',
+                      validator: AppValidation.required,
+                    ),
+                    SizedBox(height: 24.h),
 
-                  CommonTextField(
-                    title: "Last Name",
-                    controller: controller.lastNameController,
-                    hintText: 'Enter your last name here...',
-                    validator: AppValidation.required,
-                  ),
-                  SizedBox(height: 24.h),
+                    CommonTextField(
+                      title: "Last Name",
+                      controller: controller.lastNameController,
+                      hintText: 'Enter your last name here...',
+                      validator: AppValidation.required,
+                    ),
+                    SizedBox(height: 24.h),
 
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildDatePickerField(context, controller),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: SelectionTriggerWidget(
-                          label: "Select Team",
-                          value: controller.selectedTeamName ?? "Select team...",
-                          onTap: () => showCommonSelectionSheet(
-                            context,
-                            title: "Select Team",
-                            onSearch: (val) => controller.fetchTeams(search: val),
-                            onLoadMore: controller.loadMoreTeams,
-                            items: controller.teamsList,
-                            isLoading: controller.isTeamsLoading,
-                            isMoreLoading: controller.isMoreTeamsLoading,
-                            itemLabel: (item) => item['teamName'],
-                            onSelect: (val) => controller.setTeam(val['_id'], val['teamName']),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildDatePickerField(context, controller),
+                        ),
+                        SizedBox(width: 12.w),
+                        Expanded(
+                          child: SelectionTriggerWidget(
+                            label: "Select Team",
+                            value:
+                                controller.selectedTeamName ?? "Select team...",
+                            onTap: () => showCommonSelectionSheet(
+                              context,
+                              title: "Select Team",
+                              onSearch: (val) =>
+                                  controller.fetchTeams(search: val),
+                              onLoadMore: controller.loadMoreTeams,
+                              items: controller.teamsList,
+                              isLoading: controller.isTeamsLoading,
+                              isMoreLoading: controller.isMoreTeamsLoading,
+                              itemLabel: (item) => item['teamName'],
+                              onSelect: (val) => controller.setTeam(
+                                val['_id'],
+                                val['teamName'],
+                              ),
+                            ),
                           ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 24.h),
+
+                    CommonTextField(
+                      title: "Phone Number",
+                      controller: controller.phoneController,
+                      hintText: 'Enter your phone number here...',
+                      validator: AppValidation.required,
+                    ),
+
+                    SizedBox(height: 30.h),
+                    const CommonText(
+                      text: "DBS / DOB Document",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primaryColor,
+                      bottom: 10,
+                    ),
+
+                    /// ── DOB Document Upload ──
+                    _buildFileUploadSection(
+                      file: controller.pickedDobFile,
+                      onTap: () => controller.pickDobFile(),
+                    ),
+
+                    SizedBox(height: 24.h),
+                    const CommonText(
+                      text: "Medical Certificate",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primaryColor,
+                      bottom: 10,
+                    ),
+
+                    /// ── Medical Certificate Upload ──
+                    _buildFileUploadSection(
+                      file: controller.pickedMedicalFile,
+                      onTap: () => controller.pickMedicalFile(),
+                    ),
+
+                    if (controller.isLoading) ...[
+                      SizedBox(height: 20.h),
+                      LinearProgressIndicator(
+                        value: controller.uploadProgress,
+                        backgroundColor: Colors.grey.shade200,
+                        color: AppColors.primaryColor,
+                      ),
+                      SizedBox(height: 8.h),
+                      Center(
+                        child: CommonText(
+                          text:
+                              "Uploading: ${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
-                  ),
-                  SizedBox(height: 24.h),
 
-                  CommonTextField(
-                    title: "Phone Number",
-                    controller: controller.phoneController,
-                    hintText: 'Enter your phone number here...',
-                    validator: AppValidation.required,
-                  ),
+                    SizedBox(height: 40.h),
 
-                  SizedBox(height: 30.h),
-                  const CommonText(
-                    text: "DBS / DOB Document",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.primaryColor,
-                    bottom: 10,
-                  ),
-
-                  /// ── DOB Document Upload ──
-                  _buildFileUploadSection(
-                    file: controller.pickedDobFile,
-                    onTap: () => controller.pickDobFile(),
-                  ),
-
-                  SizedBox(height: 24.h),
-                  const CommonText(
-                    text: "Medical Certificate",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.primaryColor,
-                    bottom: 10,
-                  ),
-
-                  /// ── Medical Certificate Upload ──
-                  _buildFileUploadSection(
-                    file: controller.pickedMedicalFile,
-                    onTap: () => controller.pickMedicalFile(),
-                  ),
-
-                  if (controller.isLoading) ...[
-                    SizedBox(height: 20.h),
-                    LinearProgressIndicator(
-                      value: controller.uploadProgress,
-                      backgroundColor: Colors.grey.shade200,
-                      color: AppColors.primaryColor,
+                    CommonButton(
+                      titleText: "Submit Request",
+                      isLoading: controller.isLoading,
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          await controller.submitVerification();
+                        }
+                      },
                     ),
-                    SizedBox(height: 8.h),
-                    Center(
+
+                    SizedBox(height: 32.h),
+                    const Center(
                       child: CommonText(
-                        text: "Uploading: ${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
-                        fontSize: 14,
+                        text:
+                            'By submitting, you agree to the\nAthlete Terms of Service',
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
+                        textAlign: TextAlign.center,
+                        maxLines: 3,
+                        color: Color(0xff373737),
                       ),
                     ),
                   ],
-
-                  SizedBox(height: 40.h),
-
-                  CommonButton(
-                    titleText: "Submit Request",
-                    isLoading: controller.isLoading,
-                    onTap: () async {
-                      if (_formKey.currentState!.validate()) {
-                        await controller.submitVerification();
-                      }
-                    },
-                  ),
-
-                  SizedBox(height: 32.h),
-                  const Center(
-                    child: CommonText(
-                      text: 'By submitting, you agree to the\nAthlete Terms of Service',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      textAlign: TextAlign.center,
-                      maxLines: 3,
-                      color: Color(0xff373737),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 
-  Widget _buildFileUploadSection({required File? file, required VoidCallback onTap}) {
+  Widget _buildFileUploadSection({
+    required File? file,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -193,33 +221,40 @@ class ManagerRegistationScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.r),
           child: file != null
               ? (file.path.toLowerCase().endsWith('.pdf') ||
-                      file.path.toLowerCase().endsWith('.doc') ||
-                      file.path.toLowerCase().endsWith('.docx')
-                  ? Container(
-                      color: Colors.grey.shade50,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            file.path.toLowerCase().endsWith('.pdf') ? Icons.picture_as_pdf : Icons.description,
-                            size: 48.sp,
-                            color: AppColors.primaryColor,
-                          ),
-                          SizedBox(height: 8.h),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            child: Text(
-                              file.path.split(Platform.isWindows ? '\\' : '/').last,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+                        file.path.toLowerCase().endsWith('.doc') ||
+                        file.path.toLowerCase().endsWith('.docx')
+                    ? Container(
+                        color: Colors.grey.shade50,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              file.path.toLowerCase().endsWith('.pdf')
+                                  ? Icons.picture_as_pdf
+                                  : Icons.description,
+                              size: 48.sp,
+                              color: AppColors.primaryColor,
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Image.file(file, fit: BoxFit.cover))
+                            SizedBox(height: 8.h),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: Text(
+                                file.path
+                                    .split(Platform.isWindows ? '\\' : '/')
+                                    .last,
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Image.file(file, fit: BoxFit.cover))
               : Center(
                   child: CommonImage(
                     imageSrc: "assets/images/upload_file_image.png",
@@ -233,18 +268,29 @@ class ManagerRegistationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDatePickerField(BuildContext context, ManagerRegistationController controller) {
+  Widget _buildDatePickerField(
+    BuildContext context,
+    ManagerRegistationController controller,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
+        const CommonText(
+          text: "Date Of Birth",
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          bottom: 8,
+        ),
         InkWell(
           onTap: () => controller.selectDate(context),
           child: InputDecorator(
             decoration: InputDecoration(
               fillColor: Colors.white,
               filled: true,
-              contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 12.w,
+                vertical: 16.h,
+              ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
                 borderSide: BorderSide(color: Colors.grey.shade200),

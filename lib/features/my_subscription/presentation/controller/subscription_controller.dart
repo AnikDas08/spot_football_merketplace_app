@@ -165,6 +165,7 @@ class SubscriptionController extends GetxController {
               title: "Payment",
               onPaymentSuccess: () async {
                 if (isFromRegistration) {
+                  await LocalStorage.removeAllPrefData();
                   Get.offAllNamed(AppRoutes.signIn);
                   AppSnackbar.success(
                     title: "Success",

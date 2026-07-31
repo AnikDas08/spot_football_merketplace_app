@@ -5,6 +5,8 @@ import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
 import '../controller/sign_up_controller.dart';
+import '../../../../../config/route/app_routes.dart';
+import '../../../../../services/storage/storage_services.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../component/text_field/common_pin_code_field.dart';
 
@@ -26,9 +28,23 @@ class _VerifyUserState extends State<VerifyUser> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SignupAppbar(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        if (Navigator.canPop(context)) {
+          Get.back();
+        } else {
+          if (LocalStorage.isLogIn) {
+            Get.offAllNamed(AppRoutes.navBarScreen);
+          } else {
+            Get.offAllNamed(AppRoutes.signIn);
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF3F3F3),
+        appBar: const SignupAppbar(),
 
       /// Body Section starts here
       body: GetBuilder<SignUpController>(
@@ -168,6 +184,6 @@ class _VerifyUserState extends State<VerifyUser> {
           );
         },
       ),
-    );
-  }
+    )
+  );}
 }

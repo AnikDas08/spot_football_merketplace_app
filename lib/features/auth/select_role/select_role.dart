@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../../../config/route/app_routes.dart';
+import '../../../../../../../services/storage/storage_services.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
@@ -17,9 +19,23 @@ class SelectRole extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(RoleSelectController());
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SignupAppbar(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        if (Navigator.canPop(context)) {
+          Get.back();
+        } else {
+          if (LocalStorage.isLogIn) {
+            Get.offAllNamed(AppRoutes.navBarScreen);
+          } else {
+            Get.offAllNamed(AppRoutes.signIn);
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF3F3F3),
+        appBar: const SignupAppbar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -100,6 +116,20 @@ class SelectRole extends StatelessWidget {
                 ),
               ),
 
+              SizedBox(height: 16.h),
+
+              // --- Tournament Player Selection ---
+              Obx(
+                () => _RoleCard(
+                  title: 'Tournament Player',
+                  subtitle: 'Register for upcoming tournaments and track your stats.',
+                  imagePath: AppImages.appLogo,
+                  iconColor: const Color(0xFF9C27B0),
+                  isSelected: controller.selectedRole.value == 5,
+                  onTap: () => controller.selectRole(5),
+                ),
+              ),
+
               SizedBox(height: 40.h),
 
               // --- Continue Button ---
@@ -123,6 +153,9 @@ class SelectRole extends StatelessWidget {
                               break;
                             case 4:
                               role = "REFEREE";
+                              break;
+                            case 5:
+                              role = "TOURNAMENT_PLAYER";
                               break;
                           }
                           signUpController.setSelectedRole(role);
@@ -161,7 +194,7 @@ class SelectRole extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }
 

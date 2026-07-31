@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,7 @@ import '../../../../../services/api/api_service.dart';
 import '../../../../../services/api/multipart_helper.dart';
 import '../../../../../utils/app_snackbar.dart';
 
-class VerifyPlayerController extends GetxController {
+class TournamentPlayerRegisterController extends GetxController {
   final ApiClient apiClient = DioApiClient();
   final playerFirstName = TextEditingController();
   final playerLastName = TextEditingController();
@@ -24,12 +23,8 @@ class VerifyPlayerController extends GetxController {
   // Selected values
   String? selectedDob;
   String? selectedAgeGroup;
-  String? selectedTeam;
-  String? selectedTeamName;
   String? selectedPosition = "Forward";
   String? selectedStrongFoot = "Right";
-  String? selectedGender;
-  String? selectedNationality;
 
   // File Picker variable
   File? pickedImage;
@@ -39,84 +34,8 @@ class VerifyPlayerController extends GetxController {
   final List<String> positions = ["Goalkeeper", "Defender", "Midfielder", "Forward"];
   final List<String> strongFootOptions = ["Right", "Left", "Both"];
 
-  // Paginated Teams
-  final RxList<dynamic> teamsList = <dynamic>[].obs;
-  var isTeamsLoading = false.obs;
-  var isMoreTeamsLoading = false.obs;
-  int teamPage = 1;
-  bool hasMoreTeams = true;
-  String teamSearch = "";
-
-  @override
-  void onInit() {
-    super.onInit();
-    fetchTeams();
-  }
-
-  Future<void> fetchTeams({bool isLoadMore = false, String? search}) async {
-    if (isLoadMore && !hasMoreTeams) return;
-
-    try {
-      if (isLoadMore) {
-        isMoreTeamsLoading.value = true;
-      } else {
-        isTeamsLoading.value = true;
-        teamPage = 1;
-        teamsList.clear();
-      }
-      update();
-
-      if (search != null) teamSearch = search;
-
-      String url = "${ApiEndPoint.teams}?page=$teamPage&limit=10";
-      if (teamSearch.isNotEmpty) url += "&searchTerm=$teamSearch";
-
-      final response = await apiClient.get(
-        url,
-        headers: LocalStorage.token.isNotEmpty ? {'Authorization': 'Bearer ${LocalStorage.token}'} : null,
-      );
-
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['data'] ?? [];
-        final pagination = response.data['pagination'];
-
-        if (isLoadMore) {
-          teamsList.addAll(data);
-        } else {
-          teamsList.assignAll(data);
-        }
-
-        if (pagination != null) {
-          int totalPage = pagination['totalPage'] ?? 1;
-          hasMoreTeams = teamPage < totalPage;
-        } else {
-          hasMoreTeams = false;
-        }
-      }
-    } catch (e) {
-      debugPrint('❌ fetchTeams error: $e');
-    } finally {
-      isTeamsLoading.value = false;
-      isMoreTeamsLoading.value = false;
-      update();
-    }
-  }
-
-  Future<void> loadMoreTeams() async {
-    if (!isMoreTeamsLoading.value && hasMoreTeams) {
-      teamPage++;
-      await fetchTeams(isLoadMore: true);
-    }
-  }
-
   void setAgeGroup(String value) {
     selectedAgeGroup = value;
-    update();
-  }
-
-  void setTeam(String id, String name) {
-    selectedTeam = id;
-    selectedTeamName = name;
     update();
   }
 
@@ -130,7 +49,6 @@ class VerifyPlayerController extends GetxController {
     update();
   }
 
-  // Method to pick file (image, pdf, etc.)
   Future<void> pickIdImage() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -143,7 +61,6 @@ class VerifyPlayerController extends GetxController {
     }
   }
 
-  // Date Picker logic
   Future<void> selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,
@@ -152,13 +69,12 @@ class VerifyPlayerController extends GetxController {
       lastDate: DateTime.now(),
     );
     if (picked != null) {
-      // API expects YYYY-MM-DD
       selectedDob = "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
       update();
     }
   }
 
-  Future<void> submitVerification() async {
+  Future<void> submitRegistration() async {
     if (playerFirstName.text.isEmpty || playerLastName.text.isEmpty || selectedDob == null) {
       AppSnackbar.error(title: 'Error', message: 'Please fill in all required fields');
       return;
@@ -174,7 +90,6 @@ class VerifyPlayerController extends GetxController {
         'lastName': playerLastName.text.trim(),
         'dateOfBirth': selectedDob!,
         'ageGroup': selectedAgeGroup ?? "",
-        'selectTeam': selectedTeam ?? "",
         'position': selectedPosition ?? "",
         'strongFoot': selectedStrongFoot ?? "Right",
         'phone': phoneController.text.trim(),
@@ -211,26 +126,16 @@ class VerifyPlayerController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         AppSnackbar.success(title: 'Success', message: response.message);
-        
-        // Update local status so app knows info is submitted
         await LocalStorage.setString(LocalStorageKeys.profileStatus, "PENDING");
-
-        // After submitting additional info, check payment status
-        // Pass token forward if we are in registration flow
-        if (!LocalStorage.paymentStatus) {
-          Get.toNamed(AppRoutes.mySubscription, arguments: {
-            'isFromRegistration': true,
-            'token': token,
-          });
-        } else {
-          Get.toNamed(AppRoutes.successfulCreateAccount);
-        }
+        
+        // Tournament players don't need to pay, go straight to success
+        Get.toNamed(AppRoutes.successfulCreateAccount);
       } else {
         AppSnackbar.error(title: 'Error', message: response.message);
       }
     } catch (e) {
-      debugPrint('❌ submitVerification error: $e');
-      AppSnackbar.error(title: 'Error', message: 'Failed to submit player details.');
+      debugPrint('❌ submitRegistration error: $e');
+      AppSnackbar.error(title: 'Error', message: 'Failed to submit tournament player details.');
     } finally {
       isLoading = false;
       uploadProgress = 0.0;

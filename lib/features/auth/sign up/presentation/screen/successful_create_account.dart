@@ -15,8 +15,16 @@ class SuccessfulCreateAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        LocalStorage.removeAllPrefData().then((_) {
+          Get.offAllNamed(AppRoutes.signIn);
+        });
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF3F3F3),
         appBar: const SignupAppbar(),
         body: Center(
           child: Padding(
@@ -54,12 +62,12 @@ class SuccessfulCreateAccount extends StatelessWidget {
                 const SizedBox(height: 40,),
                 CommonButton(
                     onTap: () async {
-                      // Mark as logged in
-                      await LocalStorage.setBool(LocalStorageKeys.isLogIn, true);
-                      LocalStorage.isLogIn = true;
-                      Get.offAllNamed(AppRoutes.navBarScreen);
+                      // Clear all temporary registration data
+                      // This ensures the user is not auto-logged in
+                      await LocalStorage.removeAllPrefData();
+                      Get.offAllNamed(AppRoutes.signIn);
                     },
-                    titleText: "Continue To App"
+                    titleText: "Continue To Login"
                 ),
 
                 SizedBox(height: 30.h,),
@@ -67,6 +75,6 @@ class SuccessfulCreateAccount extends StatelessWidget {
             ),
           ),
         )
-    );
-  }
-}
+    )
+  );
+}}

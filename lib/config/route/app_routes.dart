@@ -14,6 +14,7 @@ import '../../features/auth/sign up/presentation/screen/manager_subscription_scr
 import '../../features/auth/sign up/presentation/screen/player_register_screen.dart';
 import '../../features/auth/sign up/presentation/screen/sign_up_screen.dart';
 import '../../features/auth/sign up/presentation/screen/successful_create_account.dart';
+import '../../features/auth/sign up/presentation/screen/tournament_player_register_screen.dart';
 import '../../features/auth/sign up/presentation/screen/verify_player_screen.dart';
 import '../../features/auth/sign up/presentation/screen/verify_user.dart';
 import '../../features/auth/trial_registration/presentation/screen/trial_registration_screen.dart';
@@ -81,6 +82,7 @@ class AppRoutes {
   static const String leagueTable = "/leagueTable";
   static const String newsDetails = "/newsDetails";
   static const String playerProfile = "/playerProfile";
+  static const String tournamentPlayerRegistration = "/tournament_player_registration";
   static const String myChildren = "/myChildren";
   static const String myProfile = "/myProfile";
   static const String transferHistoryScreen = '/transfer_history_screen.dart';
@@ -178,6 +180,7 @@ class AppRoutes {
     GetPage(name: fixtures, page: () => FixturesScreen()),
     GetPage(name: roleSelectScreen, page: () => SelectRole()),
     GetPage(name: playerRegistrationScreen, page: () => PlayerRegisterScreen()),
+    GetPage(name: tournamentPlayerRegistration, page: () => TournamentPlayerRegisterScreen()),
     GetPage(name: successfulCreateAccount, page: () => SuccessfulCreateAccount()),
     GetPage(name: verifyPlayerScreen, page: () => VerifyPlayerScreen()),
     GetPage(name: managerRegistrationScreen, page: () => ManagerRegistationScreen()),

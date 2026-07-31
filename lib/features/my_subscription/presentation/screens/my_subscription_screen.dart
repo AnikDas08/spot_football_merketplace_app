@@ -27,6 +27,7 @@ class MySubscriptionScreen extends StatelessWidget {
     final profileController = Get.find<ProfileController>();
     final bool isFromRegistration =
         Get.arguments?['isFromRegistration'] ?? false;
+    final bool isFromSplash = Get.arguments?['isFromSplash'] ?? false;
 
     // Determine title based on role
     String role = LocalStorage.role;
@@ -40,11 +41,15 @@ class MySubscriptionScreen extends StatelessWidget {
           subscription['package'] != null;
 
       return PopScope(
-        canPop: hasSubscription || controller.isChangingPlan.value,
+        canPop: hasSubscription || controller.isChangingPlan.value || isFromSplash || isFromRegistration,
         onPopInvokedWithResult: (didPop, result) {
           if (didPop) return;
           if (controller.isChangingPlan.value) {
             controller.toggleChangingPlan(false);
+          } else if (isFromSplash) {
+            LocalStorage.removeAllPrefData().then((_) {
+              Get.offAllNamed(AppRoutes.signIn);
+            });
           } else {
             AppSnackbar.error(
               title: "Action Required",
@@ -55,15 +60,25 @@ class MySubscriptionScreen extends StatelessWidget {
         child: Scaffold(
           backgroundColor: const Color(0xFFF3F3F3),
           appBar: SignupAppbar(
-            showBackButton: hasSubscription || controller.isChangingPlan.value,
+            showBackButton: hasSubscription || controller.isChangingPlan.value || isFromSplash || isFromRegistration,
             onBack: () {
               if (controller.isChangingPlan.value) {
                 controller.toggleChangingPlan(false);
+              } else if (isFromSplash) {
+                LocalStorage.removeAllPrefData().then((_) {
+                  Get.offAllNamed(AppRoutes.signIn);
+                });
+              } else if (isFromRegistration) {
+                Get.back();
               } else if (hasSubscription) {
                 if (Navigator.canPop(context)) {
                   Get.back();
                 } else {
-                  Get.offAllNamed(AppRoutes.navBarScreen);
+                  if (LocalStorage.isLogIn) {
+                    Get.offAllNamed(AppRoutes.navBarScreen);
+                  } else {
+                    Get.offAllNamed(AppRoutes.signIn);
+                  }
                 }
               }
             },

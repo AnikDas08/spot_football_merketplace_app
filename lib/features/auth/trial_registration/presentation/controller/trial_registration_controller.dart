@@ -204,7 +204,7 @@ class TrialRegistrationController extends GetxController {
 
         // After submitting additional info, redirect to success screen
         // Subscription is no longer required for Trial users
-        Get.offAllNamed(AppRoutes.successfulCreateAccount);
+        Get.toNamed(AppRoutes.successfulCreateAccount);
       } else {
         AppSnackbar.error(title: 'Error', message: response.message);
       }

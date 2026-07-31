@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
+import '../../../../../config/route/app_routes.dart';
+import '../../../../../services/storage/storage_services.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
 import '../controller/sign_up_controller.dart';
@@ -18,70 +20,84 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
-      appBar: const SignupAppbar(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        if (Navigator.canPop(context)) {
+          Get.back();
+        } else {
+          if (LocalStorage.isLogIn) {
+            Get.offAllNamed(AppRoutes.navBarScreen);
+          } else {
+            Get.offAllNamed(AppRoutes.signIn);
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF3F3F3),
+        appBar: const SignupAppbar(),
 
-      /// Body Section Starts Here
-      body: GetBuilder<SignUpController>(
-        builder: (controller) {
-          return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20.h),
-                  /// Sign UP Instructions here
-                  const CommonText(
-                    text: AppString.createYourAccount,
-                    fontSize: 40,
-                    fontWeight: FontWeight.w500,
-                    textAlign: TextAlign.start,
-                    color: AppColors.black,
-                    bottom: 10,
-                  ),
+        /// Body Section Starts Here
+        body: GetBuilder<SignUpController>(
+          builder: (controller) {
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 20.h),
 
-                  /// ── Subtitle ──
-                  const CommonText(
-                    text: 'Register For the ENG App Today',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    textAlign: TextAlign.start,
-                    maxLines: 3,
-                    color: AppColors.primaryColor,
-                  ),
+                    /// Sign UP Instructions here
+                    const CommonText(
+                      text: AppString.createYourAccount,
+                      fontSize: 40,
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.start,
+                      color: AppColors.black,
+                      bottom: 10,
+                    ),
 
-                  SizedBox(height: 32.h,),
+                    /// ── Subtitle ──
+                    const CommonText(
+                      text: 'Register For the ENG App Today',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
+                      color: AppColors.primaryColor,
+                    ),
 
-                  /// All Text Filed here
-                  SignUpAllField(
-                    controller: controller,
-                  ),
+                    SizedBox(height: 32.h),
 
-                  40.height,
+                    /// All Text Filed here
+                    SignUpAllField(controller: controller),
 
-                  /// Submit Button Here
-                  CommonButton(
-                    titleText: AppString.signUp,
-                    isLoading: controller.isLoading,
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        controller.goToRoleSelection();
-                      }
-                    },
-                  ),
-                  24.height,
+                    40.height,
 
-                  ///  Sign In Instruction here
-                  const AlreadyAccountRichText(),
-                  30.height,
-                ],
+                    /// Submit Button Here
+                    CommonButton(
+                      titleText: AppString.signUp,
+                      isLoading: controller.isLoading,
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          controller.goToRoleSelection();
+                        }
+                      },
+                    ),
+                    24.height,
+
+                    ///  Sign In Instruction here
+                    const AlreadyAccountRichText(),
+                    30.height,
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

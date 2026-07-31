@@ -155,15 +155,17 @@ class SignUpController extends GetxController {
         final args = {'token': token};
         
         if (selectRole.toUpperCase() == 'PLAYER') {
-          Get.offAllNamed(AppRoutes.verifyPlayerScreen, arguments: args);
+          Get.offNamed(AppRoutes.verifyPlayerScreen, arguments: args);
         } else if (selectRole.toUpperCase() == 'MANAGER') {
-          Get.offAllNamed(AppRoutes.managerRegistrationScreen, arguments: args);
+          Get.offNamed(AppRoutes.managerRegistrationScreen, arguments: args);
         } else if (selectRole.toUpperCase() == 'REFEREE') {
-          Get.offAllNamed(AppRoutes.refereeInfoScreen, arguments: args);
+          Get.offNamed(AppRoutes.refereeInfoScreen, arguments: args);
+        } else if (selectRole.toUpperCase() == 'TOURNAMENT_PLAYER') {
+          Get.offNamed(AppRoutes.tournamentPlayerRegistration, arguments: args);
         } else if (selectRole.toUpperCase() == 'OTHER_CLUBS') {
-          Get.offAllNamed(AppRoutes.trialRegistrationScreen, arguments: args);
+          Get.offNamed(AppRoutes.trialRegistrationScreen, arguments: args);
         } else {
-          Get.offAllNamed(AppRoutes.signIn);
+          Get.offNamed(AppRoutes.signIn);
         }
       } else {
         AppSnackbar.error(title: 'Error', message: response.message);

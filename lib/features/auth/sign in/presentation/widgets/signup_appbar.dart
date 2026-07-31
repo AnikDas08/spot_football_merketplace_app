@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../config/route/app_routes.dart';
+import '../../../../../services/storage/storage_services.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../../utils/constants/app_images.dart';
 
@@ -37,7 +38,11 @@ class SignupAppbar extends StatelessWidget implements PreferredSizeWidget {
                 if (Navigator.canPop(context)) {
                   Get.back();
                 } else {
-                  Get.offAllNamed(AppRoutes.navBarScreen);
+                  if (LocalStorage.isLogIn) {
+                    Get.offAllNamed(AppRoutes.navBarScreen);
+                  } else {
+                    Get.offAllNamed(AppRoutes.signIn);
+                  }
                 }
               },
               child: Container(

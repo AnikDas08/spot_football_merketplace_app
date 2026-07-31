@@ -6,15 +6,13 @@ import '../../../../../../../services/storage/storage_services.dart';
 import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/image/common_image.dart';
-import '../../../../../component/sheet/common_selection_sheet.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
-import '../../../../../component/widget/selection_trigger_widget.dart';
 import '../../../sign in/presentation/widgets/signup_appbar.dart';
-import '../controller/verify_player_controller.dart';
+import '../controller/tournament_player_register_controller.dart';
 
-class VerifyPlayerScreen extends StatelessWidget {
-  VerifyPlayerScreen({super.key});
+class TournamentPlayerRegisterScreen extends StatelessWidget {
+  TournamentPlayerRegisterScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
 
@@ -37,8 +35,8 @@ class VerifyPlayerScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: const Color(0xFFF3F3F3),
         appBar: const SignupAppbar(),
-      body: GetBuilder<VerifyPlayerController>(
-        init: VerifyPlayerController(),
+      body: GetBuilder<TournamentPlayerRegisterController>(
+        init: TournamentPlayerRegisterController(),
         builder: (controller) {
           return SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
@@ -48,13 +46,13 @@ class VerifyPlayerScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CommonText(
-                    text: 'Verify Your\nStatus',
+                    text: 'Tournament\nPlayer Details',
                     fontSize: 40,
                     fontWeight: FontWeight.w500,
                     bottom: 10,
                   ),
                   const CommonText(
-                    text: 'Submit your credentials to unlock official league features, player stats tracking, and roster management tools.',
+                    text: 'Complete your profile to participate in upcoming tournaments and track your stats.',
                     fontSize: 16,
                     maxLines: 5,
                     color: AppColors.primaryColor,
@@ -63,16 +61,16 @@ class VerifyPlayerScreen extends StatelessWidget {
                   ),
 
                   CommonTextField(
-                    title: "Player First Name",
+                    title: "First Name",
                     controller: controller.playerFirstName,
-                    hintText: 'Enter your player first name here...',
+                    hintText: 'Enter your first name here...',
                   ),
                   SizedBox(height: 24.h),
 
                   CommonTextField(
-                    title: "Player Last Name",
+                    title: "Last Name",
                     controller: controller.playerLastName,
-                    hintText: 'Enter your player last name here...',
+                    hintText: 'Enter your last name here...',
                   ),
                   SizedBox(height: 24.h),
 
@@ -106,24 +104,6 @@ class VerifyPlayerScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: SelectionTriggerWidget(
-                          label: "Select Team",
-                          value: controller.selectedTeamName ?? "Select team...",
-                          onTap: () => showCommonSelectionSheet(
-                            context,
-                            title: "Select Team",
-                            onSearch: (val) => controller.fetchTeams(search: val),
-                            onLoadMore: controller.loadMoreTeams,
-                            items: controller.teamsList,
-                            isLoading: controller.isTeamsLoading,
-                            isMoreLoading: controller.isMoreTeamsLoading,
-                            itemLabel: (item) => item['teamName'],
-                            onSelect: (val) => controller.setTeam(val['_id'], val['teamName']),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
                         child: _buildDropdownField(
                           title: "Position",
                           hint: "Forward",
@@ -132,16 +112,17 @@ class VerifyPlayerScreen extends StatelessWidget {
                           onChanged: (val) => controller.setPosition(val!),
                         ),
                       ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: _buildDropdownField(
+                          title: "Strong Foot",
+                          hint: "Select",
+                          value: controller.selectedStrongFoot,
+                          items: controller.strongFootOptions,
+                          onChanged: (val) => controller.setStrongFoot(val!),
+                        ),
+                      ),
                     ],
-                  ),
-                  SizedBox(height: 24.h),
-
-                  _buildDropdownField(
-                    title: "Strong Foot",
-                    hint: "Select",
-                    value: controller.selectedStrongFoot,
-                    items: controller.strongFootOptions,
-                    onChanged: (val) => controller.setStrongFoot(val!),
                   ),
 
                   SizedBox(height: 30.h),
@@ -214,11 +195,11 @@ class VerifyPlayerScreen extends StatelessWidget {
                   SizedBox(height: 40.h),
 
                   CommonButton(
-                    titleText: "Submit Request",
+                    titleText: "Submit Registration",
                     isLoading: controller.isLoading,
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
-                        await controller.submitVerification();
+                        await controller.submitRegistration();
                       }
                     },
                   ),
@@ -226,7 +207,7 @@ class VerifyPlayerScreen extends StatelessWidget {
                   SizedBox(height: 32.h),
                   const Center(
                     child: CommonText(
-                      text: 'By submitting, you agree to the\nAthlete Terms of Service',
+                      text: 'By submitting, you agree to the\nTournament Player Terms of Service',
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
@@ -247,7 +228,8 @@ class VerifyPlayerScreen extends StatelessWidget {
   Widget _buildDropdownField({
     required String title,
     required String hint,
-    required String? value,    required List<String> items,
+    required String? value,
+    required List<String> items,
     required Function(String?) onChanged,
   }) {
     return Column(
@@ -255,7 +237,7 @@ class VerifyPlayerScreen extends StatelessWidget {
       children: [
         CommonText(text: title, fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
         DropdownButtonFormField<String>(
-          initialValue: value,
+          value: value,
           isExpanded: true,
           icon: const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
           style: TextStyle(fontSize: 14.sp, color: AppColors.black),
@@ -286,7 +268,7 @@ class VerifyPlayerScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDatePickerField(BuildContext context, VerifyPlayerController controller) {
+  Widget _buildDatePickerField(BuildContext context, TournamentPlayerRegisterController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
