@@ -162,6 +162,8 @@ class _FixtureList extends StatelessWidget {
           homeLogo: match.homeTeam.teamLogo,
           awayLogo: match.awayTeam.teamLogo,
           venue: match.venueName,
+          isLive: match.status.toLowerCase() == 'live' ||
+              match.status.toLowerCase() == 'half_time',
         );
       },
       separatorBuilder: (BuildContext context, int index) {

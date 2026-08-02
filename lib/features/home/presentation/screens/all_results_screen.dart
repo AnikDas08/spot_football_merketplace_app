@@ -19,30 +19,35 @@ class AllResultsScreen extends StatelessWidget {
     final String title = (args is Map && args.containsKey('title')) 
         ? args['title'] 
         : "RECENT RESULTS";
+    final String type = (args is Map && args.containsKey('type')) 
+        ? args['type'] 
+        : "recent";
 
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: SecondaryAppBar(title: title),
       body: Obx(() {
-        if (controller.isLoading.value && controller.recentMatches.isEmpty) {
+        final matches = type == 'live' ? controller.liveMatches : controller.recentMatches;
+
+        if (controller.isLoading.value && matches.isEmpty) {
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor));
         }
 
-        if (controller.recentMatches.isEmpty) {
-          return const Center(child: Text("No results available"));
+        if (matches.isEmpty) {
+          return Center(child: Text("No ${type == 'live' ? 'live ' : ''}results available"));
         }
 
         return RefreshIndicator(
           onRefresh: () => controller.fetchMatches(),
           child: ListView.separated(
             padding: EdgeInsets.all(16.w),
-            itemCount: controller.recentMatches.length,
+            itemCount: matches.length,
             separatorBuilder: (context, index) => SizedBox(height: 12.h),
             itemBuilder: (context, index) {
-              final match = controller.recentMatches[index];
+              final match = matches[index];
               String formattedDate = match.matchDate != null 
                   ? DateFormat('MMM dd').format(match.matchDate!).toUpperCase()
-                  : '';
+                  : (type == 'live' ? 'LIVE' : '');
               String formattedTime = match.matchDate != null 
                   ? DateFormat('HH:mm a').format(match.matchDate!)
                   : '';
@@ -60,6 +65,8 @@ class AllResultsScreen extends StatelessWidget {
                   awayScore: match.awayScore,
                   homeLogo: match.homeTeam.teamLogo,
                   awayLogo: match.awayTeam.teamLogo,
+                  isLive: match.status.toLowerCase() == 'live' ||
+                      match.status.toLowerCase() == 'half_time',
                 ),
               );
             },

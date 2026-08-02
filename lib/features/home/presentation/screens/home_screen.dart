@@ -56,17 +56,16 @@ class HomeScreen extends StatelessWidget {
                   const BannerSlider(),
                   SizedBox(height: 12.h),
 
-                  // 1. Upcoming fixtures needs to be above latest news
+                  // 1. Live Matches Section (Moved to top and made horizontal scroll)
                   if (controller.isLoading.value ||
-                      controller.upcomingMatches.isNotEmpty) ...[
+                      controller.liveMatches.isNotEmpty) ...[
                     _buildSection(
                       backgroundColor: AppColors.primaryColor,
-                      child: UpcomingFixtures(
-                        fixtures: controller.upcomingMatches,
+                      child: LiveMatches(
+                        matches: controller.liveMatches,
                         isLoading: controller.isLoading.value,
                         titleColor: Colors.white,
                         viewAllColor: AppColors.colorEABB00,
-                        isDark: false,
                       ),
                     ),
                     SizedBox(height: 12.h),
@@ -88,6 +87,28 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 12.h),
 
+
+                  // 2. Upcoming Fixtures Section (Moved below Latest News)
+                  if (controller.isLoading.value ||
+                      controller.upcomingMatches.isNotEmpty) ...[
+                    _buildSection(
+                      backgroundColor: AppColors.primaryColor,
+                      child: UpcomingFixtures(
+                        fixtures: controller.upcomingMatches,
+                        isLoading: controller.isLoading.value,
+                        titleColor: Colors.white,
+                        viewAllColor: AppColors.colorEABB00,
+                        isDark: false,
+                      ),
+                    ),
+                    SizedBox(height: 12.h),
+                  ],
+
+
+                  _buildSection(
+                    backgroundColor: Colors.white,
+                    child: const BookScoutSection(titleColor: AppColors.primaryColor),
+                  ),
                   GetBuilder<EventController>(
                     builder: (eventController) {
                       if (eventController.isLoading.value ||
@@ -141,20 +162,18 @@ class HomeScreen extends StatelessWidget {
                     }),
                   ],
 
-                  _buildSection(
-                    backgroundColor: Colors.white,
-                    child: const BookScoutSection(titleColor: AppColors.primaryColor),
-                  ),
+
                   SizedBox(height: 12.h),
 
                   if (controller.isLoading.value ||
                       controller.recentMatches.isNotEmpty) ...[
                     _buildSection(
-                      backgroundColor: Colors.white,
+                      backgroundColor: AppColors.primaryColor,
                       child: RecentResult(
                         matches: controller.recentMatches,
                         isLoading: controller.isLoading.value,
-                        titleColor: AppColors.primaryColor,
+                        titleColor: Colors.white,
+                        viewAllColor: AppColors.colorEABB00,
                       ),
                     ),
                     SizedBox(height: 12.h),
@@ -178,18 +197,8 @@ class HomeScreen extends StatelessWidget {
                     return const SizedBox.shrink();
                   }),
 
-                  // 2. Swapped Live Matches to where League Tables were
-                  if (controller.isLoading.value ||
-                      controller.liveMatches.isNotEmpty) ...[
-                    _buildSection(
-                      backgroundColor: Colors.white,
-                      child: LiveMatches(
-                        matches: controller.liveMatches,
-                        isLoading: controller.isLoading.value,
-                      ),
-                    ),
-                    SizedBox(height: 12.h),
-                  ],
+                  // 2. Removed Live Matches from here (Moved to top)
+                  SizedBox(height: 12.h),
 
                   GetBuilder<BannerController>(
                     builder: (bannerController) {

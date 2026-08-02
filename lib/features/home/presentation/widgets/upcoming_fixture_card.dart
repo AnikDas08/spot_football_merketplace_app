@@ -33,7 +33,10 @@ class UpcomingFixtureCard extends StatelessWidget {
     this.venue,
     this.width,
     this.isDark = false,
+    this.isLive = false,
   });
+
+  final bool isLive;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,11 @@ class UpcomingFixtureCard extends StatelessWidget {
       onTap: () {
         Get.toNamed(
           AppRoutes.matchInfo,
-          arguments: {'id': id, 'isUpcoming': true, 'time': time},
+          arguments: {
+            'id': id,
+            'isUpcoming': true,
+            'time': time,
+          },
         );
       },
       child: Container(
@@ -52,7 +59,9 @@ class UpcomingFixtureCard extends StatelessWidget {
           border: Border.all(color: AppColors.colorEABB00, width: 1.w),
           boxShadow: [
             BoxShadow(
-              color: isDark ? Colors.black.withValues(alpha: 0.3) : AppColors.black.withValues(alpha: 0.1),
+              color: isDark
+                  ? Colors.black.withValues(alpha: 0.3)
+                  : AppColors.black.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -60,122 +69,152 @@ class UpcomingFixtureCard extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(14.r),
-          child: Padding(
-            padding: EdgeInsets.all(16.r),
-            child: Column(
-              mainAxisAlignment: .spaceBetween,
+          child: Stack(
             children: [
-              /// Date Header
-              CommonText(
-                text: date,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: isDark ? Colors.white : AppColors.black,
-                bottom: 16.h,
-                fontFamily: 'Montserrat',
-              ),
-
-              Row(
-                children: [
-                  /// Home Team
-                  Expanded(
-                    child: Column(
-                      children: [
-                        CommonImage(
-                          imageSrc: homeLogo ?? "",
-                          height: 48.h,
-                          width: 48.w,
-                          fill: BoxFit.contain,
-                        ),
-                        SizedBox(height: 8.h),
-                        CommonText(
-                          text: homeTeam,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          color: isDark ? Colors.white : AppColors.black,
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  /// Time / VS
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 4.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isDark ? Colors.black.withValues(alpha: 0.5) : const Color(0xFFF5F5F5),
-                      borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: isDark ? Colors.white10 : Colors.grey.shade200),
-                    ),
-                    child: CommonText(
-                      text: time,
-                      fontSize: 14.sp,
+              Padding(
+                padding: EdgeInsets.all(16.r),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    /// Date Header
+                    CommonText(
+                      text: date,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: isDark ? Colors.white : AppColors.black,
+                      color: isLive
+                          ? AppColors.color19CA77
+                          : (isDark ? Colors.white : AppColors.black),
+                      bottom: 16.h,
                       fontFamily: 'Montserrat',
                     ),
-                  ),
 
-                  /// Away Team
-                  Expanded(
-                    child: Column(
+                    Row(
                       children: [
-                        CommonImage(
-                          imageSrc: awayLogo ?? "",
-                          height: 48.h,
-                          width: 48.w,
-                          fill: BoxFit.contain,
+                        /// Home Team
+                        Expanded(
+                          child: Column(
+                            children: [
+                              CommonImage(
+                                imageSrc: homeLogo ?? "",
+                                height: 48.h,
+                                width: 48.w,
+                                fill: BoxFit.contain,
+                              ),
+                              SizedBox(height: 8.h),
+                              CommonText(
+                                text: homeTeam,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                color: isDark ? Colors.white : AppColors.black,
+                              ),
+                            ],
+                          ),
                         ),
-                        SizedBox(height: 8.h),
-                        CommonText(
-                          text: awayTeam,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          color: isDark ? Colors.white : AppColors.black,
+
+                        /// Time / VS
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isDark
+                                ? Colors.black.withValues(alpha: 0.5)
+                                : const Color(0xFFF5F5F5),
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(
+                                color: isDark ? Colors.white10 : Colors.grey.shade200),
+                          ),
+                          child: CommonText(
+                            text: time,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: isDark ? Colors.white : AppColors.black,
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+
+                        /// Away Team
+                        Expanded(
+                          child: Column(
+                            children: [
+                              CommonImage(
+                                imageSrc: awayLogo ?? "",
+                                height: 48.h,
+                                width: 48.w,
+                                fill: BoxFit.contain,
+                              ),
+                              SizedBox(height: 8.h),
+                              CommonText(
+                                text: awayTeam,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                color: isDark ? Colors.white : AppColors.black,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
 
-              if (venue != null && venue!.isNotEmpty) ...[
-                SizedBox(height: 12.h),
-                CommonText(
-                  text: venue!,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w400,
-                  color: isDark ? Colors.white70 : Colors.grey,
-                  maxLines: 1,
+                    if (venue != null && venue!.isNotEmpty) ...[
+                      SizedBox(height: 12.h),
+                      CommonText(
+                        text: venue!,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w400,
+                        color: isDark ? Colors.white70 : Colors.grey,
+                        maxLines: 1,
+                      ),
+                    ],
+
+                    SizedBox(height: 16.h),
+
+                    /// Buttons
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildActionBtn(
+                            "Match Info",
+                            isDark ? AppColors.yellow : AppColors.primaryColor,
+                            isDark ? AppColors.black : AppColors.white,
+                            !isDark,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-
-              SizedBox(height: 16.h),
-
-              /// Buttons
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildActionBtn(
-                      "Match Info",
-                      isDark ? AppColors.yellow : AppColors.primaryColor,
-                      isDark ? AppColors.black : AppColors.white,
-                      !isDark,
+              ),
+              if (isLive)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                    decoration: BoxDecoration(
+                      color: AppColors.color19CA77,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(8.r),
+                      ),
+                    ),
+                    child: const CommonText(
+                      text: "LIVE",
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
-                ],
-              ),
+                ),
             ],
           ),
         ),
       ),
-    ));
+    );
   }
 
   Widget _buildActionBtn(

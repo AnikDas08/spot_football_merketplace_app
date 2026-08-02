@@ -124,6 +124,8 @@ class RecentResult extends StatelessWidget {
                     homeLogo: match.homeTeam.teamLogo,
                     awayLogo: match.awayTeam.teamLogo,
                     width: 320.w,
+                    isLive: match.status.toLowerCase() == 'live' ||
+                        match.status.toLowerCase() == 'half_time',
                   ),
                 );
               },

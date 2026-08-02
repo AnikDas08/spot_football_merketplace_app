@@ -145,6 +145,8 @@ class UpcomingFixtures extends StatelessWidget {
                     venue: fixture.venueName,
                     width: 320.w,
                     isDark: isDark,
+                    isLive: fixture.status.toLowerCase() == 'live' ||
+                        fixture.status.toLowerCase() == 'half_time',
                   ),
                 );
               },
