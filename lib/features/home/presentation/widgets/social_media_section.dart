@@ -25,12 +25,13 @@ class SocialMediaSection extends StatelessWidget {
         }
 
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Text(
                 'Our Social Platforms'.toTitleCase(),
+                textAlign: TextAlign.center,
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
@@ -39,16 +40,15 @@ class SocialMediaSection extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16.h),
-            SizedBox(
-              height: 110.h,
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                scrollDirection: Axis.horizontal,
-                itemCount: controller.socialMediaList.length,
-                itemBuilder: (context, index) {
-                  final social = controller.socialMediaList[index];
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 12.w,
+                runSpacing: 12.h,
+                children: controller.socialMediaList.map((social) {
                   return _SocialCard(social: social);
-                },
+                }).toList(),
               ),
             ),
           ],
@@ -77,12 +77,11 @@ class _SocialCard extends StatelessWidget {
     return InkWell(
       onTap: _launchUrl,
       child: Container(
-        width: 100.w,
-        margin: EdgeInsets.symmetric(horizontal: 4.w),
+        width: 80.w,
+        height: 80.h,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: AppColors.colorEABB00, width: 1.w),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.05),
@@ -97,17 +96,17 @@ class _SocialCard extends StatelessWidget {
             if (social.icon.isNotEmpty)
               CommonImage(
                 imageSrc: social.icon,
-                width: 44.w,
-                height: 44.h,
+                width: 36.w,
+                height: 36.h,
                 fill: BoxFit.contain,
               )
             else
               _buildPlatformIcon(social.platform),
-            SizedBox(height: 8.h),
+            SizedBox(height: 6.h),
             Text(
               social.platform,
               style: TextStyle(
-                fontSize: 12.sp,
+                fontSize: 10.sp,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
               ),
@@ -156,8 +155,8 @@ class _SocialCard extends StatelessWidget {
     if (assetPath != null) {
       return Image.asset(
         assetPath,
-        width: 44.w,
-        height: 44.h,
+        width: 36.w,
+        height: 36.h,
         fit: BoxFit.contain,
       );
     }
@@ -166,6 +165,6 @@ class _SocialCard extends StatelessWidget {
     IconData iconData = Icons.link;
     Color iconColor = Colors.grey;
 
-    return Icon(iconData, color: iconColor, size: 34.sp);
+    return Icon(iconData, color: iconColor, size: 28.sp);
   }
 }

@@ -99,15 +99,15 @@ class RecentResultCard extends StatelessWidget {
 
                   // Score pill
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    margin: EdgeInsets.symmetric(horizontal: 8.w),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
                       color: AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: CommonText(
                       text: '$homeScore - $awayScore',
-                      fontSize: 18,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColors.white,
                       fontFamily: 'Montserrat',

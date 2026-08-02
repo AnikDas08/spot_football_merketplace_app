@@ -103,8 +103,8 @@ class UpcomingFixtureCard extends StatelessWidget {
                   /// Time / VS
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 14.w,
-                      vertical: 8.h,
+                      horizontal: 10.w,
+                      vertical: 4.h,
                     ),
                     decoration: BoxDecoration(
                       color: isDark ? Colors.black.withValues(alpha: 0.5) : const Color(0xFFF5F5F5),
@@ -113,7 +113,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                     ),
                     child: CommonText(
                       text: time,
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                       color: isDark ? Colors.white : AppColors.black,
                       fontFamily: 'Montserrat',
