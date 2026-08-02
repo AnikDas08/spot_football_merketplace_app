@@ -20,7 +20,7 @@ class TransferTabWidget extends StatelessWidget {
               CommonText(
                 text: 'My Transfers',
                 fontSize: 16,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
               ),
               SizedBox(height: 12.h),
@@ -74,7 +74,7 @@ class _TabItem extends StatelessWidget {
         child: CommonText(
           text: title,
           fontSize: 16,
-          fontWeight: FontWeight(590),
+          fontWeight: FontWeight.w400,
           color: selected ? AppColors.white : AppColors.primaryColor,
         ),
       ),

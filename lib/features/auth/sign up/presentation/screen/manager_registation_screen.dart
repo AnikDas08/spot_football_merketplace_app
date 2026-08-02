@@ -52,7 +52,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                     const CommonText(
                       text: 'Become an Eng\nManager',
                       fontSize: 40,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.black,
                       bottom: 10,
                     ),
@@ -125,7 +125,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                     const CommonText(
                       text: "DBS / DOB Document",
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.primaryColor,
                       bottom: 10,
                     ),
@@ -140,7 +140,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                     const CommonText(
                       text: "Medical Certificate",
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.primaryColor,
                       bottom: 10,
                     ),
@@ -164,7 +164,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                           text:
                               "Uploading: ${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
                           fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
@@ -187,7 +187,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                         text:
                             'By submitting, you agree to the\nAthlete Terms of Service',
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         textAlign: TextAlign.center,
                         maxLines: 3,
                         color: Color(0xff373737),
@@ -247,7 +247,7 @@ class ManagerRegistationScreen extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
@@ -278,7 +278,7 @@ class ManagerRegistationScreen extends StatelessWidget {
         const CommonText(
           text: "Date Of Birth",
           fontSize: 16,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           bottom: 8,
         ),
         InkWell(

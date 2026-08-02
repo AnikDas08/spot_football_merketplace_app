@@ -103,7 +103,7 @@ class _LatestNewsState extends State<LatestNews> {
                           AppString.latestNews.toTitleCase(),
                           style: GoogleFonts.playfairDisplay(
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: widget.titleColor ?? AppColors.primaryColor,
                           ),
                         ),
@@ -118,7 +118,7 @@ class _LatestNewsState extends State<LatestNews> {
                             Text(
                               AppString.viewAll,
                               style: GoogleFonts.playfairDisplay(
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
                                 fontSize: 14.sp,
                                 color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
                               ),

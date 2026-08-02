@@ -50,7 +50,7 @@ class VerifyPlayerScreen extends StatelessWidget {
                   const CommonText(
                     text: 'Verify Your\nStatus',
                     fontSize: 40,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     bottom: 10,
                   ),
                   const CommonText(
@@ -148,7 +148,7 @@ class VerifyPlayerScreen extends StatelessWidget {
                   const CommonText(
                     text: "Proof / Id (Optional)",
                     fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     bottom: 10,
                   ),
 
@@ -206,7 +206,7 @@ class VerifyPlayerScreen extends StatelessWidget {
                       child: CommonText(
                         text: "Uploading: ${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
@@ -228,7 +228,7 @@ class VerifyPlayerScreen extends StatelessWidget {
                     child: CommonText(
                       text: 'By submitting, you agree to the\nAthlete Terms of Service',
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       textAlign: TextAlign.center,
                       maxLines: 3,
                       color: Color(0xff373737),
@@ -253,7 +253,7 @@ class VerifyPlayerScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonText(text: title, fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
+        CommonText(text: title, fontSize: 16, fontWeight: FontWeight.w400, bottom: 8),
         DropdownButtonFormField<String>(
           initialValue: value,
           isExpanded: true,
@@ -290,7 +290,7 @@ class VerifyPlayerScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
+        const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w400, bottom: 8),
         InkWell(
           onTap: () => controller.selectDate(context),
           child: InputDecorator(

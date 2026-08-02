@@ -68,7 +68,7 @@ class MyChildrenScreen extends StatelessWidget {
           CommonText(
             text: AppString.activeAthletes,
             fontSize: 24,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w400,
             color: AppColors.black,
             bottom: 8,
           ),
@@ -122,7 +122,7 @@ class MyChildrenScreen extends StatelessWidget {
                     CommonText(
                       text: name,
                       fontSize: 18,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.black,
                     ),
                     SizedBox(height: 8.h),
@@ -154,13 +154,13 @@ class MyChildrenScreen extends StatelessWidget {
                     CommonText(
                       text: AppString.nextGame,
                       fontSize: 12,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.textSecondaryColor,
                     ),
                     CommonText(
                       text: "TBA",
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.primaryColor,
                     ),
                   ],
@@ -177,7 +177,7 @@ class MyChildrenScreen extends StatelessWidget {
                       CommonText(
                         text: AppString.viewProfile,
                         fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.primaryColor,
                       ),
                       SizedBox(width: 4.w),
@@ -210,7 +210,7 @@ class MyChildrenScreen extends StatelessWidget {
           CommonText(
             text: text,
             fontSize: 12,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             color: isTeam ? const Color(0xFF19CA77) : AppColors.textSecondaryColor,
           ),
         ],

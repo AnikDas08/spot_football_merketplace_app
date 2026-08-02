@@ -105,7 +105,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               AppString.deleteAccount,
               style: GoogleFonts.playfairDisplay(
                 fontSize: 32.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
               ),
             ),
@@ -192,7 +192,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                             supportEmail,
                             style: GoogleFonts.montserrat(
                               fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                               color: AppColors.primaryColor,
                             ),
                           ),

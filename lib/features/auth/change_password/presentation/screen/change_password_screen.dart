@@ -38,7 +38,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   const CommonText(
                     text: 'Update Credentials',
                     fontSize: 32,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     maxLines: 2,
                   ),
                   const CommonText(
@@ -90,7 +90,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       child: CommonText(
                         text: AppString.forgotPassword,
                         color: AppColors.primaryColor,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         fontSize: 18,
                         top: 16.h,
                         bottom: 20.h,

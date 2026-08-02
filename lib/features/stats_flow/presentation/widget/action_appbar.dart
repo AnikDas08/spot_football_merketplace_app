@@ -67,7 +67,7 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
                       style: GoogleFonts.playfairDisplay(
                         color: Colors.white,
                         fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
@@ -82,7 +82,7 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
                       child: CommonText(
                         text: 'Reset',
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.colorEABB00,
                       ),
                     ),
@@ -105,10 +105,10 @@ class ActionAppBar extends StatelessWidget implements PreferredSizeWidget {
               controller: controller.searchController,
               onChanged: onSearchChanged,
               cursorColor: Colors.black,
-              style: TextStyle(color: Colors.black, fontSize: 16.sp),
+              style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'PlayfairDisplay'),
               decoration: InputDecoration(
                 hintText: 'Search for a player',
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 16.sp),
+                hintStyle: TextStyle(color: Colors.grey, fontSize: 16.sp, fontFamily: 'PlayfairDisplay'),
                 prefixIcon: Icon(Icons.search, color: Colors.grey, size: 22.sp),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(vertical: 12.h),

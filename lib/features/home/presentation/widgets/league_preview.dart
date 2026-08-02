@@ -54,7 +54,7 @@ class LeaguePreview extends StatelessWidget {
                   child: Text(
                     AppString.leaguePreview,
                     style: GoogleFonts.playfairDisplay(
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       fontSize: 18.sp,
                       color: titleColor ?? AppColors.primaryColor,
                     ),
@@ -72,7 +72,7 @@ class LeaguePreview extends StatelessWidget {
                       Text(
                         AppString.viewAll,
                         style: GoogleFonts.playfairDisplay(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           fontSize: 14.sp,
                           color: viewAllColor ?? AppColors.primaryColor,
                         ),
@@ -95,7 +95,7 @@ class LeaguePreview extends StatelessWidget {
             CommonText(
               text: '$leagueName ${season ?? ""}',
               fontSize: 14,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
               color: titleColor?.withValues(alpha: 0.7) ?? AppColors.color6B6B6B,
             ),
           ],
@@ -144,7 +144,7 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'Pos',
                       fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.white,
                     ),
                   ),
@@ -156,7 +156,7 @@ class _StandingsTable extends StatelessWidget {
                           child: CommonText(
                             text: 'Club',
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.white,
                           ),
                         ),
@@ -175,7 +175,7 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'PL',
                       fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.white,
                       textAlign: TextAlign.center,
                     ),
@@ -185,7 +185,7 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'GD',
                       fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.white,
                       textAlign: TextAlign.center,
                     ),
@@ -195,7 +195,7 @@ class _StandingsTable extends StatelessWidget {
                     child: CommonText(
                       text: 'PTS',
                       fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.white,
                       textAlign: TextAlign.center,
                     ),
@@ -247,7 +247,7 @@ class _StandingRow extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
-                fontFamily: 'Montserrat',
+                fontFamily: 'PlayfairDisplay',
               ),
             ),
             Expanded(
@@ -281,7 +281,7 @@ class _StandingRow extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,
-                fontFamily: 'Montserrat',
+                fontFamily: 'PlayfairDisplay',
               ),
             ),
             SizedBox(
@@ -292,7 +292,7 @@ class _StandingRow extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,
-                fontFamily: 'Montserrat',
+                fontFamily: 'PlayfairDisplay',
               ),
             ),
             SizedBox(
@@ -303,7 +303,7 @@ class _StandingRow extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
                 textAlign: TextAlign.center,
-                fontFamily: 'Montserrat',
+                fontFamily: 'PlayfairDisplay',
               ),
             ),
           ],

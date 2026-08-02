@@ -47,7 +47,7 @@ class GallerySection extends StatelessWidget {
                       'Pictures Of The Week'.toTitleCase(),
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 18.sp,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         color: titleColor ?? AppColors.white,
                       ),
                     ),
@@ -62,7 +62,7 @@ class GallerySection extends StatelessWidget {
                         Text(
                           AppString.viewAll,
                           style: GoogleFonts.playfairDisplay(
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             fontSize: 14.sp,
                             color: titleColor == AppColors.primaryColor ? AppColors.primaryColor : AppColors.yellow,
                           ),
@@ -140,7 +140,7 @@ class GallerySection extends StatelessWidget {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18.sp,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   Text(
@@ -148,7 +148,7 @@ class GallerySection extends StatelessWidget {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 10.sp,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ],

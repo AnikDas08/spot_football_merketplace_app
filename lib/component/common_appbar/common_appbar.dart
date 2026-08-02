@@ -34,7 +34,7 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
         style: GoogleFonts.playfairDisplay(
           color: AppColors.white,
           fontSize: 22.sp,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
         ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -80,7 +80,7 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
                     style: GoogleFonts.playfairDisplay(
                       color: Colors.white,
                       fontSize: 8.sp,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                     ),
                     textAlign: TextAlign.center,
                   ),

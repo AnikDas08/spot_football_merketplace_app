@@ -138,7 +138,7 @@ class LatestVideoCard extends StatelessWidget {
                   CommonText(
                     text: formattedDate.isNotEmpty ? "$formattedCategory  •  $formattedDate" : formattedCategory,
                     fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                     fontFamily: 'Montserrat',
                   ),
@@ -148,7 +148,7 @@ class LatestVideoCard extends StatelessWidget {
                   CommonText(
                     text: title,
                     fontSize: 22,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                     fontFamily: 'PlayfairDisplay',
                     maxLines: 2,
@@ -187,7 +187,7 @@ class LatestVideoCard extends StatelessWidget {
                         AppString.labelWatchNow,
                         style: GoogleFonts.playfairDisplay(
                           fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
                       ),

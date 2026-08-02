@@ -38,7 +38,12 @@ class AppSnackbar {
       message,
       titleText: Text(
         title,
-        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w400,
+          fontSize: 16,
+          fontFamily: 'PlayfairDisplay',
+        ),
       ),
       messageText: Text(
         message,

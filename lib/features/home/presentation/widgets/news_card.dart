@@ -121,7 +121,7 @@ class NewsCard extends StatelessWidget {
                   CommonText(
                     text: "$displayCategory  •  $formattedDate",
                     fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                     fontFamily: 'Montserrat',
                   ),
@@ -131,7 +131,7 @@ class NewsCard extends StatelessWidget {
                   CommonText(
                     text: displayTitle,
                     fontSize: 22,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                     fontFamily: 'PlayfairDisplay',
                     maxLines: 2,
@@ -166,7 +166,7 @@ class NewsCard extends StatelessWidget {
                         "Read",
                         style: GoogleFonts.playfairDisplay(
                           fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
                       ),

@@ -41,7 +41,7 @@ class TransferScreen extends StatelessWidget {
                     //     text: AppString.trending.toUpperCase(),
                     //     color: AppColors.primaryColor,
                     //     fontSize: 20,
-                    //     fontWeight: FontWeight.w600,
+                    //     fontWeight: FontWeight.w400,
                     //   ),
                     // ),
                     SizedBox(height: 20.h),
@@ -82,7 +82,7 @@ class TransferScreen extends StatelessWidget {
                           style: GoogleFonts.playfairDisplay(
                             color: AppColors.primaryColor,
                             fontSize: 22.sp,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),

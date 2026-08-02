@@ -80,7 +80,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                     CommonText(
                       text: date,
                       fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: isLive
                           ? AppColors.color19CA77
                           : (isDark ? Colors.white : AppColors.black),
@@ -104,7 +104,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                               CommonText(
                                 text: homeTeam,
                                 fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 color: isDark ? Colors.white : AppColors.black,
@@ -130,7 +130,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                           child: CommonText(
                             text: time,
                             fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: isDark ? Colors.white : AppColors.black,
                             fontFamily: 'Montserrat',
                           ),
@@ -150,7 +150,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                               CommonText(
                                 text: awayTeam,
                                 fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 color: isDark ? Colors.white : AppColors.black,
@@ -205,7 +205,7 @@ class UpcomingFixtureCard extends StatelessWidget {
                     child: const CommonText(
                       text: "LIVE",
                       fontSize: 10,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
                   ),
@@ -234,7 +234,7 @@ class UpcomingFixtureCard extends StatelessWidget {
       child: CommonText(
         text: title,
         fontSize: 13,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         color: textCol,
       ),
     );

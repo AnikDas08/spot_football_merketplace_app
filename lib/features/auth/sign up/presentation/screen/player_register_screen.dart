@@ -34,7 +34,7 @@ class PlayerRegisterScreen extends StatelessWidget {
               const CommonText(
                 text: 'Player Registration',
                 fontSize: 24,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w400,
                 textAlign: TextAlign.start,
                 color: AppColors.black,
                 bottom: 8,
@@ -159,7 +159,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                 CommonText(
                   text: plan.title,
                   fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w400,
                   color: AppColors.black,
                 ),
               ],
@@ -216,7 +216,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                         '£${plan.price.toStringAsFixed(2)}',
                         style: TextStyle(
                           fontSize: 26.sp,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w400,
                           color: plan.title == 'AMATEUR'
                               ? const Color(0xFFF44336) // Red for Amateur
                               : plan.title == 'SEMI PRO'
@@ -254,7 +254,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                 child: CommonText(
                   text: plan.buttonText,
                   fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                   color: AppColors.white,
                 ),
               ),

@@ -46,7 +46,7 @@ class SelectRole extends StatelessWidget {
               const CommonText(
                 text: 'Select Your Role',
                 fontSize: 24,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 color: AppColors.black,
                 bottom: 8,
                 fontFamily: 'PlayfairDisplay',
@@ -270,7 +270,7 @@ class _RoleCard extends StatelessWidget {
                   CommonText(
                     text: title,
                     fontSize: 18,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.black,
                     fontFamily: 'PlayfairDisplay',
                   ),

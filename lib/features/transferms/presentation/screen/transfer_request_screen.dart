@@ -81,7 +81,7 @@ class TransferRequestScreen extends StatelessWidget {
           CommonText(
             text: 'Transfer Portal',
             fontSize: 24,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             color: Colors.black,
             fontFamily: 'PlayfairDisplay',
           ),
@@ -91,7 +91,7 @@ class TransferRequestScreen extends StatelessWidget {
             child: CommonText(
               text: 'Manage your roster moves and negotiations.',
               fontSize: 14,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
               color: Colors.black.withValues(alpha: 0.8),
             ),
           ),
@@ -122,7 +122,7 @@ class TransferRequestScreen extends StatelessWidget {
                   child: CommonText(
                     text: 'Incoming',
                     fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: controller.isIncoming ? Colors.white : Colors.black,
                   ),
                 ),
@@ -140,7 +140,7 @@ class TransferRequestScreen extends StatelessWidget {
                   child: CommonText(
                     text: 'Outgoing',
                     fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: !controller.isIncoming ? Colors.white : Colors.black,
                   ),
                 ),
@@ -204,7 +204,7 @@ class TransferRequestScreen extends StatelessWidget {
                             child: CommonText(
                               text: playerName,
                               fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w400,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.start,
@@ -219,7 +219,7 @@ class TransferRequestScreen extends StatelessWidget {
                             child: CommonText(
                               text: status,
                               fontSize: 12,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w400,
                               color: Colors.white,
                             ),
                           ),
@@ -258,7 +258,7 @@ class TransferRequestScreen extends StatelessWidget {
                 CommonText(
                   text: request.transferType.replaceAll('_', ' '),
                   fontSize: 12,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black54,
                 ),
                 SizedBox(height: 4.h),
@@ -272,7 +272,7 @@ class TransferRequestScreen extends StatelessWidget {
                         CommonText(
                           text: request.toTeam?.teamName ?? "",
                           fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w400,
                         ),
                         SizedBox(width: 4.w),
                         CommonText(
@@ -363,7 +363,7 @@ class TransferRequestScreen extends StatelessWidget {
         : CommonText(
             text: text,
             fontSize: 16,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             color: textColor,
           ),
     );

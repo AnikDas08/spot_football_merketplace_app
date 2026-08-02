@@ -53,7 +53,7 @@ class ComparisonStatsTable extends StatelessWidget {
           child: CommonText(
             text: "PERSONAL DETAILS",
             fontSize: 16,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             color: AppColors.primaryColor,
           ),
         ),
@@ -69,7 +69,7 @@ class ComparisonStatsTable extends StatelessWidget {
           child: CommonText(
             text: "OVERVIEW",
             fontSize: 16,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             color: AppColors.primaryColor,
           ),
         ),

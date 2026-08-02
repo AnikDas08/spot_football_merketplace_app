@@ -46,7 +46,7 @@ class RedemptionItemWidget extends StatelessWidget {
             child: CommonText(
               text: product?.brand ?? '',
               fontSize: 14,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w400,
               color: AppColors.primaryColor,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -79,7 +79,7 @@ class RedemptionItemWidget extends StatelessWidget {
               CommonText(
                 text: " ${product?.point ?? 0}",
                 fontSize: 13,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w400,
                 color: AppColors.yellow,
                 fontFamily: 'Montserrat',
               ),
@@ -116,7 +116,7 @@ class RedemptionItemWidget extends StatelessWidget {
                     : CommonText(
                         text: AppString.redeem,
                         fontSize: 13,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                         maxLines: 1,

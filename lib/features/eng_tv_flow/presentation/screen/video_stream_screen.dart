@@ -88,7 +88,7 @@ class VideoStreamScreen extends StatelessWidget {
                         SizedBox(height: 16.h),
                         CommonText(
                           text: video.title,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: AppColors.primaryColor,
                           maxLines: 3,
@@ -160,7 +160,7 @@ class VideoStreamScreen extends StatelessWidget {
               "Related",
               style: GoogleFonts.playfairDisplay(
                 fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
               ),
             ),
             SizedBox(height: 5.h),

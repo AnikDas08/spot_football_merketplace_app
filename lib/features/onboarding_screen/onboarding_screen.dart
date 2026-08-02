@@ -58,8 +58,8 @@ class OnboardingScreen extends StatelessWidget {
                     text: "Play The Game",
                     fontSize: 18,
                     color: AppColors.colorEABB00,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'PlayfairDisplay',
                   ),
                   const Spacer(flex: 12),
 
@@ -67,9 +67,9 @@ class OnboardingScreen extends StatelessWidget {
                   CommonText(
                     text: "Welcome To",
                     fontSize: 24,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
-                    fontFamily: 'Montserrat',
+                    fontFamily: 'PlayfairDisplay',
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10.h),
@@ -127,7 +127,7 @@ class OnboardingScreen extends StatelessWidget {
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         decoration: TextDecoration.underline,
                         decorationColor: Colors.white,
                       ),

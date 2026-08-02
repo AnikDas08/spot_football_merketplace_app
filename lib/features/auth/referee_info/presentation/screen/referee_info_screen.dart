@@ -56,7 +56,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
                 const CommonText(
                   text: 'Referee Info',
                   fontSize: 40,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   color: AppColors.black,
                   bottom: 8,
                 ),
@@ -110,7 +110,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
                 const CommonText(
                   text: "ID Card",
                   fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   color: AppColors.black,
                   bottom: 8,
                 ),
@@ -142,7 +142,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
                             text:
                                 "Uploading: ${(controller.uploadProgress.value * 100).toStringAsFixed(0)}%",
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
@@ -219,7 +219,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
@@ -250,7 +250,7 @@ class _RefereeInfoScreenState extends State<RefereeInfoScreen> {
         const CommonText(
           text: "Date Of Birth",
           fontSize: 16,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           bottom: 8,
         ),
         GetBuilder<RefereeInfoController>(

@@ -101,9 +101,7 @@ class _MatchInfoScreenState extends State<MatchInfoScreen> {
                             child: CommonText(
                               text: tabsController.tabs[index],
                               fontSize: 14,
-                              fontWeight: isSelected
-                                  ? FontWeight.w700
-                                  : const FontWeight(590),
+                              fontWeight: FontWeight.w400,
                               color: isSelected
                                   ? AppColors.white
                                   : AppColors.primaryColor,

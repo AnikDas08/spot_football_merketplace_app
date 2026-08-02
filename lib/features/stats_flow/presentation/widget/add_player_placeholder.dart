@@ -67,7 +67,7 @@ class AddPlayerPlaceholder extends StatelessWidget {
                     CommonText(
                       text: textLeft,
                       fontSize: 13,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.white,
                     ),
                     SizedBox(width: 4.w),
@@ -84,7 +84,7 @@ class AddPlayerPlaceholder extends StatelessWidget {
                     CommonText(
                       text: textRight,
                       fontSize: 13,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.white,
                     ),
                   ],

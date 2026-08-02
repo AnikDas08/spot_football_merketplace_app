@@ -108,7 +108,7 @@ class ClubProfileScreen extends StatelessWidget {
                         'Total squads',
                         style: GoogleFonts.playfairDisplay(
                           fontSize: 22.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: AppColors.primaryColor,
                         ),
                       ),
@@ -131,7 +131,7 @@ class ClubProfileScreen extends StatelessWidget {
                           CommonText(
                             text: pos,
                             fontSize: 18,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w400,
                             color: AppColors.color6B6B6B,
                           ),
                           SizedBox(height: 8.h),
@@ -229,7 +229,7 @@ class _PlayerRow extends StatelessWidget {
                   CommonText(
                     text: name,
                     fontSize: 15,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.primaryColor,
                   ),
                   SizedBox(height: 3),

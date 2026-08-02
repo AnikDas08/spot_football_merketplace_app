@@ -68,7 +68,7 @@ class _TabRow extends StatelessWidget {
               child: CommonText(
                 text: c.tabs[i],
                 fontSize: 12,
-                fontWeight: selected ? FontWeight.w700 : const FontWeight(590),
+                fontWeight: FontWeight.w400,
                 color: selected ? AppColors.white : AppColors.primaryColor,
               ),
             ),
@@ -112,7 +112,7 @@ class _FilterBar extends StatelessWidget {
                   text: AppString.filterByLeague,
                   fontSize: 15,
                   color: AppColors.primaryColor,
-                  fontWeight: const FontWeight(590),
+                  fontWeight: FontWeight.w400,
                 ),
               ],
             ),

@@ -147,8 +147,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                           ? 'John Smith'
                           : LocalStorage.myName,
                       fontSize: 20,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.white,
+                      fontFamily: 'PlayfairDisplay',
                     ),
                     const CommonText(
                       text: 'Referee',
@@ -186,9 +187,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
           CommonText(
             text: value,
             fontSize: 24,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             color: AppColors.white,
-            fontFamily: 'Montserrat',
+            fontFamily: 'PlayfairDisplay',
           ),
           CommonText(
             text: label,
@@ -236,8 +237,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
         child: CommonText(
           text: label,
           fontSize: 16,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w400,
           color: isActive ? AppColors.white : AppColors.black,
+          fontFamily: 'PlayfairDisplay',
         ),
       ),
     );
@@ -286,7 +288,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                   const CommonText(
                     text: 'Live Match',
                     fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.white,
                   ),
                 ],
@@ -303,7 +305,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                     const CommonText(
                       text: 'Vs',
                       fontSize: 20,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: Color(0xFF9E9E9E),
                     ),
                     _buildTeamInfo(match.awayTeam.teamLogo, match.awayTeam.teamName),
@@ -350,8 +352,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                         child: const CommonText(
                           text: 'Match Finished',
                           fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w400,
                           color: Colors.grey,
+                          fontFamily: 'PlayfairDisplay',
                         ),
                       ),
                     );
@@ -377,8 +380,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                                 : const CommonText(
                                     text: 'Start Match',
                                     fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
                                     color: AppColors.white,
+                                    fontFamily: 'PlayfairDisplay',
                                   ),
                           ),
                         ),
@@ -396,8 +400,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                             child: const CommonText(
                               text: 'Manage Match',
                               fontSize: 18,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                               color: AppColors.white,
+                              fontFamily: 'PlayfairDisplay',
                             ),
                           ),
                         ),
@@ -418,8 +423,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                                 : const CommonText(
                                     text: 'Half Time',
                                     fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
                                     color: AppColors.black,
+                                    fontFamily: 'PlayfairDisplay',
                                   ),
                           ),
                         ),
@@ -440,8 +446,9 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
                                 : const CommonText(
                                     text: 'Full Time',
                                     fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
                                     color: AppColors.white,
+                                    fontFamily: 'PlayfairDisplay',
                                   ),
                           ),
                         ),
@@ -476,7 +483,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
           child: CommonText(
             text: name,
             fontSize: 12,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w400,
             maxLines: 2,
             color: AppColors.black,
             textAlign: TextAlign.center,
@@ -505,7 +512,7 @@ class _RefereeDashboardScreenState extends State<RefereeDashboardScreen> {
               ),
               TextSpan(
                 text: value,
-                style: const TextStyle(fontWeight: FontWeight.w500),
+                style: const TextStyle(fontWeight: FontWeight.w400),
               ),
             ],
           ),

@@ -122,7 +122,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                                 child: CommonText(
                                   text: '${leagueData.league.leagueName} ${leagueData.league.season}',
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w400,
                                   color: AppColors.primaryColor,
                                 ),
                               ),
@@ -192,7 +192,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       child: CommonText(
                         text: 'Pos',
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.white,
                       ),
                     ),
@@ -204,7 +204,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                             child: CommonText(
                               text: 'Club',
                               fontSize: 14,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                               color: AppColors.white,
                             ),
                           ),
@@ -217,7 +217,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       child: CommonText(
                         text: 'PL',
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                       ),
@@ -227,7 +227,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       child: CommonText(
                         text: 'GD',
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                       ),
@@ -237,7 +237,7 @@ class _LeaguePreviewScreenState extends State<LeaguePreviewScreen> {
                       child: CommonText(
                         text: 'PTS',
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                       ),

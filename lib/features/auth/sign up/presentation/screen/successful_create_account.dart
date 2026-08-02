@@ -42,7 +42,7 @@ class SuccessfulCreateAccount extends StatelessWidget {
                 const CommonText(
                   text: 'Account\nCreated',
                   fontSize: 40,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   textAlign: TextAlign.center,
                   color: AppColors.black,
                   bottom: 10,

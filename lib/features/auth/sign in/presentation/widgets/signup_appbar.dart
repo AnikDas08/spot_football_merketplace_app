@@ -69,7 +69,8 @@ class SignupAppbar extends StatelessWidget implements PreferredSizeWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'PlayfairDisplay',
                       ),
                     ),
                   ],

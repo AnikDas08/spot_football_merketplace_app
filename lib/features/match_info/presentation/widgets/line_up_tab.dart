@@ -87,7 +87,7 @@ class _LineupsTabState extends State<LineupsTab> {
                         child: CommonText(
                           text: teams[index].toUpperCase(),
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w400,
                           color: isSelected ? AppColors.white : AppColors.primaryColor,
                           textAlign: TextAlign.center,
                           maxLines: 1,
@@ -134,14 +134,16 @@ class _LineupsTabState extends State<LineupsTab> {
                             CommonText(
                               text: 'Tactical Lineup',
                               fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w400,
                               color: AppColors.white,
+                              fontFamily: 'PlayfairDisplay',
                             ),
                             CommonText(
                               text: "$formation aside",
                               fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w400,
                               color: AppColors.white,
+                              fontFamily: 'PlayfairDisplay',
                             ),
                           ],
                         ),
@@ -172,8 +174,9 @@ class _LineupsTabState extends State<LineupsTab> {
                 CommonText(
                   text: 'PLAYER LIST',
                   fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                   color: AppColors.primaryColor,
+                  fontFamily: 'PlayfairDisplay',
                 ),
 
                 if (currentSelection == null || currentSelection.players.isEmpty)
@@ -191,8 +194,9 @@ class _LineupsTabState extends State<LineupsTab> {
                         CommonText(
                           text: pos,
                           fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w400,
                           color: AppColors.color6B6B6B,
+                          fontFamily: 'PlayfairDisplay',
                         ),
                         SizedBox(height: 8.h),
                         Container(
@@ -367,8 +371,9 @@ class _PitchNode extends StatelessWidget {
                         child: CommonText(
                           text: initial,
                           fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w400,
                           color: AppColors.white,
+                          fontFamily: 'PlayfairDisplay',
                         ),
                       ),
               ),
@@ -418,7 +423,7 @@ class _PlayerRow extends StatelessWidget {
                   CommonText(
                     text: name,
                     fontSize: 15,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.primaryColor,
                   ),
                   SizedBox(height: 3),

@@ -34,7 +34,7 @@ class SelectionTriggerWidget extends StatelessWidget {
           CommonText(
             text: label!,
             fontSize: 16,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             bottom: 8,
           ),
         ],

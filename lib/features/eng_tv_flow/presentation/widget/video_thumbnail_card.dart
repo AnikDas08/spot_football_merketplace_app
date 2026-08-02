@@ -70,7 +70,7 @@ class VideoThumbnailCard extends StatelessWidget {
                   CommonText(
                     text: title,
                     fontSize: 28,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                     fontFamily: 'PlayfairDisplay',
                   ),
@@ -82,7 +82,7 @@ class VideoThumbnailCard extends StatelessWidget {
                         text: AppString.labelVideo,
                         fontSize: 16,
                         color: Colors.white70,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
                     ],
                   ),
@@ -90,7 +90,7 @@ class VideoThumbnailCard extends StatelessWidget {
                   CommonButton(
                     onTap: onWatchNow,
                     titleText: AppString.labelWatchNow,
-                    titleWeight: FontWeight.w700,
+                    titleWeight: FontWeight.w400,
                     titleSize: 14,
                     buttonHeight: 50,
                     buttonRadius: 16,

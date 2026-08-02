@@ -50,10 +50,10 @@ class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                   SizedBox(width: 8.w),
                   Text(
                     'Back',
-                    style: TextStyle(
+                    style: GoogleFonts.playfairDisplay(
                       color: Colors.white,
                       fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -71,7 +71,7 @@ class SecondaryAppBar extends StatelessWidget implements PreferredSizeWidget {
                   style: GoogleFonts.playfairDisplay(
                     color: Colors.white,
                     fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     letterSpacing: 0.5,
                   ),
                 ),

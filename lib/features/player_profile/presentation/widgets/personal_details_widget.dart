@@ -63,7 +63,7 @@ class PersonalDetailsWidget extends StatelessWidget {
                 'Personal details',
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 22.sp,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   color: AppColors.primaryColor,
                 ),
               ),
@@ -114,7 +114,7 @@ class PersonalDetailsWidget extends StatelessWidget {
             child: CommonText(
               text: title,
               fontSize: 15,
-              fontWeight: const FontWeight(510),
+              fontWeight: FontWeight.w400,
               color: AppColors.color373737,
               textAlign: TextAlign.start,
             ),
@@ -129,7 +129,7 @@ class PersonalDetailsWidget extends StatelessWidget {
               CommonText(
                 text: value,
                 fontSize: 15,
-                fontWeight: const FontWeight(510),
+                fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
               ),
             ],

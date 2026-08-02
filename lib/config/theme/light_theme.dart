@@ -26,7 +26,8 @@ ThemeData themeData = ThemeData(
         filledFillColor: AppColors.white,
         textStyle: const TextStyle(
           fontSize: 24,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w400,
+          fontFamily: 'PlayfairDisplay',
           color: AppColors.black,
         ),
       ),
@@ -40,9 +41,9 @@ ThemeData themeData = ThemeData(
     backgroundColor: AppColors.background,
     centerTitle: true,
     titleTextStyle: TextStyle(
-      fontFamily: 'SFProDisplay',     // ✅ SF Pro AppBar Title
+      fontFamily: 'PlayfairDisplay',     // ✅ SF Pro AppBar Title
       fontSize: 18,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
       color: AppColors.black,
     ),
   ),
@@ -60,9 +61,9 @@ ThemeData themeData = ThemeData(
         side: const BorderSide(color: AppColors.colorEABB00, width: 1.0),
       ),
       textStyle: const TextStyle(
-        fontFamily: 'SFProDisplay',     // ✅ Button Text
+        fontFamily: 'PlayfairDisplay',     // ✅ Button Text
         fontSize: 16,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w400,
       ),
     ),
   ),
@@ -78,19 +79,19 @@ ThemeData themeData = ThemeData(
     bodyMedium: TextStyle(
       fontFamily: 'SFProDisplay',
       fontSize: 14,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       color: AppColors.black,
     ),
     bodyLarge: TextStyle(
-      fontFamily: 'SFProDisplay',
+      fontFamily: 'PlayfairDisplay',
       fontSize: 16,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
       color: AppColors.black,
     ),
     titleMedium: TextStyle(
-      fontFamily: 'SFProDisplay',
+      fontFamily: 'PlayfairDisplay',
       fontSize: 18,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
       color: AppColors.black,
     ),
   ),

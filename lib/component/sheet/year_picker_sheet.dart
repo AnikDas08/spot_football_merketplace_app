@@ -48,7 +48,7 @@ void showYearPickerSheet(
                   style: GoogleFonts.playfairDisplay(
                     color: Colors.white,
                     fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(width: 44), 
@@ -73,7 +73,7 @@ void showYearPickerSheet(
                   title: CommonText(
                     text: year,
                     fontSize: 16,
-                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                    fontWeight: isSelected ? FontWeight.w400 : FontWeight.w400,
                     color: isSelected ? AppColors.primaryColor : Colors.black,
                     textAlign: TextAlign.start,
                   ),

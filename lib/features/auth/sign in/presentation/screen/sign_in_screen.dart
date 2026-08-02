@@ -36,7 +36,7 @@ class SignInScreen extends StatelessWidget {
                   const CommonText(
                     text: 'Login',
                     fontSize: 40,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w400,
                     textAlign: TextAlign.start,
                     color: AppColors.black,
                     bottom: 10,
@@ -78,7 +78,7 @@ class SignInScreen extends StatelessWidget {
                         'Forget Password?',
                         style: TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: AppColors.primaryColor, // Changed from Red to Primary Black
                           decoration: TextDecoration.underline, // Underline
                           decorationColor: AppColors.primaryColor, // Underline color
@@ -206,7 +206,7 @@ class _SocialButton extends StatelessWidget {
             CommonText(
               text: label,
               fontSize: 16,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
               color: AppColors.black,
             ),
           ],

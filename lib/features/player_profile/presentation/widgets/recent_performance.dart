@@ -27,7 +27,7 @@ class RecentPerformance extends StatelessWidget {
             AppString.recentPerformance,
             style: GoogleFonts.playfairDisplay(
               fontSize: 22.sp,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
               color: AppColors.primaryColor,
             ),
           ),

@@ -67,7 +67,7 @@ class SeasonStatsScreen extends StatelessWidget {
                       CommonText(
                         text: "Goals",
                         fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.primaryColor,
                         fontFamily: 'PlayfairDisplay',
                       ),
@@ -79,7 +79,7 @@ class SeasonStatsScreen extends StatelessWidget {
                       CommonText(
                         text: "Most Assists",
                         fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.primaryColor,
                         fontFamily: 'PlayfairDisplay',
                       ),

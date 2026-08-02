@@ -79,14 +79,14 @@ class LeaderboardCard extends StatelessWidget {
                         CommonText(
                           text: "1",
                           fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
                         SizedBox(height: 4.h),
                         CommonText(
                           text: topPlayerName,
                           fontSize: 24,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
                         Row(
@@ -108,7 +108,7 @@ class LeaderboardCard extends StatelessWidget {
                             CommonText(
                               text: topPlayerAcademy,
                               fontSize: 14,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                               color: Colors.white, // AppColors.white
                             ),
                           ],
@@ -117,7 +117,7 @@ class LeaderboardCard extends StatelessWidget {
                         CommonText(
                           text: topPlayerScore,
                           fontSize: 48,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
                           fontFamily: 'Montserrat',
                         ),
@@ -165,7 +165,7 @@ class LeaderboardCard extends StatelessWidget {
               child: CommonText(
                 text: strViewFullList,
                 fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w400,
                 color: Colors.black,
               ),
             ),
@@ -183,7 +183,7 @@ class LeaderboardCard extends StatelessWidget {
           CommonText(
             text: player.rank,
             fontSize: 16,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
           ),
           SizedBox(width: 12.w),
           ClipRRect(
@@ -203,7 +203,7 @@ class LeaderboardCard extends StatelessWidget {
                 CommonText(
                   text: player.name,
                   fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                 ),
                 CommonText(
                   text: player.academy,
@@ -216,8 +216,8 @@ class LeaderboardCard extends StatelessWidget {
           CommonText(
             text: player.score,
             fontSize: 24,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w400,
+            fontFamily: 'PlayfairDisplay',
           ),
         ],
       ),

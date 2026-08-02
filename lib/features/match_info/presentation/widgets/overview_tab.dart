@@ -61,7 +61,7 @@ class OverviewTab extends StatelessWidget {
                         child: CommonText(
                           text: teams[index].toUpperCase(),
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w400,
                           color: isSelected ? AppColors.white : AppColors.primaryColor,
                           textAlign: TextAlign.center,
                           maxLines: 1,
@@ -84,8 +84,9 @@ class OverviewTab extends StatelessWidget {
                   CommonText(
                     text: "MATCH INFO",
                     fontSize: 17,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.primaryColor,
+                    fontFamily: 'PlayfairDisplay',
                   ),
                   SizedBox(height: 12.h),
                   _InfoRow(
@@ -114,8 +115,9 @@ class OverviewTab extends StatelessWidget {
                   CommonText(
                     text: AppString.keyEvents,
                     fontSize: 17,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.primaryColor,
+                    fontFamily: 'PlayfairDisplay',
                   ),
                   SizedBox(height: 12.h),
                   _KeyEventRow(
@@ -154,14 +156,16 @@ class OverviewTab extends StatelessWidget {
                         CommonText(
                           text: 'Formation Setup',
                           fontSize: 18,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w400,
                           color: AppColors.white,
+                          fontFamily: 'PlayfairDisplay',
                         ),
                         CommonText(
                           text: '${currentSelection?.teamFormation ?? "9"} aside',
                           fontSize: 18,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w400,
                           color: AppColors.white,
+                          fontFamily: 'PlayfairDisplay',
                         ),
                       ],
                     ),
@@ -304,7 +308,7 @@ class _InfoRow extends StatelessWidget {
               CommonText(
                 text: value,
                 fontSize: 14,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
               ),
             ],
@@ -375,7 +379,7 @@ class _KeyEventRow extends StatelessWidget {
               CommonText(
                 text: playerName,
                 fontSize: 14,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w400,
                 color: AppColors.primaryColor,
               ),
               CommonText(
@@ -389,7 +393,7 @@ class _KeyEventRow extends StatelessWidget {
         CommonText(
           text: minute,
           fontSize: 14,
-          fontWeight: const FontWeight(590),
+          fontWeight: FontWeight.w400,
           color: AppColors.primaryColor,
         ),
       ],
@@ -437,8 +441,9 @@ class _PlayerNode extends StatelessWidget {
                       child: CommonText(
                         text: initial,
                         fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.white,
+                        fontFamily: 'PlayfairDisplay',
                       ),
                     ),
             ),

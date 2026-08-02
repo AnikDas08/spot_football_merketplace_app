@@ -46,7 +46,7 @@ class FilterSelectorCard extends StatelessWidget {
                   text: value,
                   fontSize: 13,
                   color: AppColors.primaryColor,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                 ),
               ],
             ),

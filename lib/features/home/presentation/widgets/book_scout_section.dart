@@ -33,7 +33,7 @@ class BookScoutSection extends StatelessWidget {
             "Book a Scout".toTitleCase(),
             style: GoogleFonts.playfairDisplay(
               fontSize: 18.sp,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
               color: titleColor ?? AppColors.primaryColor,
             ),
           ),
@@ -98,7 +98,7 @@ class BookScoutSection extends StatelessWidget {
                         const CommonText(
                           text: "Showcase Your Talent To The Pros",
                           fontSize: 22,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
                           fontFamily: 'PlayfairDisplay',
                           maxLines: 2,
@@ -133,7 +133,7 @@ class BookScoutSection extends StatelessWidget {
                               "Book Now",
                               style: GoogleFonts.playfairDisplay(
                                 fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.white,
                               ),
                             ),
@@ -154,7 +154,7 @@ class BookScoutSection extends StatelessWidget {
                       child: const CommonText(
                         text: "Professional scouting",
                         fontSize: 12,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         color: Colors.black,
                       ),
                     ),

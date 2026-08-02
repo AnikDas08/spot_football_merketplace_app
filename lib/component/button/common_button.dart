@@ -29,7 +29,7 @@ class CommonButton extends StatelessWidget {
     this.buttonColor = AppColors.primaryColor, // Reverted to black (primary)
     this.titleSize = 14,
     this.buttonRadius = 12,
-    this.titleWeight = FontWeight.w500, // Changed from w700
+    this.titleWeight = FontWeight.w400, // Changed from w700
     this.buttonHeight = 52, 
     this.borderWidth = 1.0,
     this.isLoading = false,
@@ -47,7 +47,7 @@ class CommonButton extends StatelessWidget {
       fontWeight: titleWeight,
     );
 
-    if (fontFamily == 'Montserrat') {
+    if (fontFamily == 'Montserrat' && titleSize < 16) {
       textStyle = GoogleFonts.montserrat(textStyle: textStyle);
     } else {
       textStyle = GoogleFonts.playfairDisplay(textStyle: textStyle);

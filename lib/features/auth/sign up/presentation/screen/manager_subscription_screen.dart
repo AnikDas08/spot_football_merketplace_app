@@ -32,7 +32,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
               const CommonText(
                 text: 'Become an Eng\nManager',
                 fontSize: 40,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 bottom: 10,
               ),
               const CommonText(
@@ -115,7 +115,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                 child: CommonText(
                   text: title,
                   fontSize: 18,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],
@@ -138,7 +138,7 @@ class ManagerSubscriptionScreen extends StatelessWidget {
                     style: TextStyle(
                       color: AppColors.yellow,
                       fontSize: 32.sp,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                   TextSpan(

@@ -168,7 +168,7 @@ class EditProfileAllFiled extends StatelessWidget {
     return CommonText(
       text: text,
       fontSize: 16,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
       bottom: 8,
     );
   }

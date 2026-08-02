@@ -32,7 +32,7 @@ class ShopScreen extends StatelessWidget {
             child: Obx(() => CommonText(
               text: controller.selectedTab.value == 2 ? "My Order History" : AppString.prizeRedemptionFeed,
               fontSize: 20,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w400,
             )),
           ),
           SizedBox(height: 16.h),
@@ -110,7 +110,7 @@ class ShopScreen extends StatelessWidget {
                   CommonText(
                     text: product?['brand'] ?? 'Reward',
                     fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w400,
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
@@ -121,7 +121,7 @@ class ShopScreen extends StatelessWidget {
                     child: CommonText(
                       text: order['status']?.toString().toUpperCase() ?? 'PENDING',
                       fontSize: 10,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.primaryColor,
                     ),
                   ),
@@ -153,7 +153,7 @@ class ShopScreen extends StatelessWidget {
                   CommonText(
                     text: "${product?['point'] ?? 0} Coins",
                     fontSize: 15,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.yellow,
                   ),
                 ],

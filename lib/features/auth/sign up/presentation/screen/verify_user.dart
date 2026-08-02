@@ -62,7 +62,7 @@ class _VerifyUserState extends State<VerifyUser> {
                   const CommonText(
                     text: "Verify Account",
                     fontSize: 40,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     textAlign: TextAlign.start,
                     color: AppColors.black,
                     bottom: 10,
@@ -123,7 +123,7 @@ class _VerifyUserState extends State<VerifyUser> {
                               CommonText(
                                 text: controller.time,
                                 fontSize: 14,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
                                 color: AppColors.black,
                               ),
                             ],
@@ -148,7 +148,7 @@ class _VerifyUserState extends State<VerifyUser> {
                                   text: "Didn't receive a code? ",
                                   style: TextStyle(
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w400,
                                     color: AppColors.textSecondaryColor,
                                   ),
                                 ),
@@ -156,7 +156,7 @@ class _VerifyUserState extends State<VerifyUser> {
                                   text: "Resend Code",
                                   style: TextStyle(
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w400,
                                     color: AppColors.black,
                                   ),
                                 ),

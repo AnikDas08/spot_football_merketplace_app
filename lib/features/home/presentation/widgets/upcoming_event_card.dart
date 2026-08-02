@@ -102,7 +102,7 @@ class UpcomingEventCard extends StatelessWidget {
                     child: const CommonText(
                       text: "Upcoming event",
                       fontSize: 12,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                   ),
@@ -112,7 +112,7 @@ class UpcomingEventCard extends StatelessWidget {
                   CommonText(
                     text: event!.title,
                     fontSize: 22,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: Colors.white,
                     fontFamily: 'PlayfairDisplay',
                     maxLines: 2,
@@ -160,7 +160,7 @@ class UpcomingEventCard extends StatelessWidget {
                         AppString.viewDetails,
                         style: GoogleFonts.playfairDisplay(
                           fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
                       ),

@@ -63,7 +63,7 @@ class PlayerListWidget extends StatelessWidget {
                 CommonText(
                   text: player.name,
                   fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
                 CommonText(

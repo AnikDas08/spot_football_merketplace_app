@@ -235,7 +235,7 @@ class AppDrawer extends StatelessWidget {
         CommonText(
           text: name.isEmpty ? 'User Name' : name,
           fontSize: isGuest ? 16 : 20,
-          fontWeight: isGuest ? FontWeight.w400 : FontWeight.w500,
+          fontWeight: isGuest ? FontWeight.w400 : FontWeight.w400,
           color: AppColors.primaryColor,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -279,7 +279,7 @@ class AppDrawer extends StatelessWidget {
                   child: CommonText(
                     text: label,
                     fontSize: 15,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: backgroundColor != null ? Colors.red.shade700 : AppColors.primaryColor,
                     textAlign: centerText ? TextAlign.center : TextAlign.start,
                     maxLines: 1,
@@ -362,7 +362,7 @@ class AppDrawer extends StatelessWidget {
         label: CommonText(
           text: isGuest ? "Login" : AppString.logout,
           fontSize: 16,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           color: AppColors.white,
         ),
       ),

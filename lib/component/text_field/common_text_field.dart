@@ -85,7 +85,7 @@ class CommonTextField extends StatelessWidget {
           if (title != null && title!.isNotEmpty) ...[
             CommonText(
               text: title ?? "",
-              fontWeight: fontWeight ?? FontWeight.w500,
+              fontWeight: fontWeight ?? FontWeight.w400,
               fontSize: fontSize ?? 16,
               color: titleColor ?? AppColors.primaryColor,
             ),

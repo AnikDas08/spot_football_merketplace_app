@@ -257,7 +257,7 @@ class _SplashScreenState extends State<SplashScreen>
                                 const CommonText(
                                   text: "Welcome",
                                   fontSize: 28,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w400,
                                   color: Colors.white,
                                   fontFamily: 'PlayfairDisplay',
                                 ),

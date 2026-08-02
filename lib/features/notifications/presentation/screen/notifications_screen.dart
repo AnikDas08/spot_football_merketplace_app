@@ -49,7 +49,7 @@ class NotificationsScreen extends StatelessWidget {
                       child: const CommonText(
                         text: "Mark All As Read",
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.yellow,
                       ),
                     ),

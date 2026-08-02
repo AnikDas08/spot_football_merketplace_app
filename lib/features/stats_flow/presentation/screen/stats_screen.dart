@@ -38,7 +38,7 @@ class StatsScreen extends StatelessWidget {
                       "Statistics",
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 24.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.primaryColor,
                       ),
                     ),
@@ -47,7 +47,7 @@ class StatsScreen extends StatelessWidget {
                       "2026/27 Top Stats",
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.color373737,
                       ),
                     ),
@@ -90,7 +90,7 @@ class StatsScreen extends StatelessWidget {
                               CommonText(
                                 text: "Filter By League",
                                 fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.black54,
                               ),
                               CommonText(
@@ -98,7 +98,7 @@ class StatsScreen extends StatelessWidget {
                                     ? "Select" 
                                     : controller.selectedAge.value,
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.black,
                                 fontFamily: 'PlayfairDisplay',
                               ),

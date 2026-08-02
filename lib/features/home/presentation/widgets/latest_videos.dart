@@ -115,7 +115,7 @@ class _LatestVideosState extends State<LatestVideos> {
                           : AppString.latestVideos).toTitleCase(),
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: widget.titleColor ?? AppColors.primaryColor,
                       ),
                     ),
@@ -133,7 +133,7 @@ class _LatestVideosState extends State<LatestVideos> {
                         Text(
                           AppString.viewAll,
                           style: GoogleFonts.playfairDisplay(
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             fontSize: 14.sp,
                             color: widget.titleColor == AppColors.white ? AppColors.yellow : AppColors.primaryColor,
                           ),

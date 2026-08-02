@@ -34,7 +34,7 @@ class SocialMediaSection extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                   color: titleColor ?? AppColors.primaryColor,
                 ),
               ),
@@ -107,7 +107,7 @@ class _SocialCard extends StatelessWidget {
               social.platform,
               style: TextStyle(
                 fontSize: 10.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 color: Colors.black,
               ),
               textAlign: TextAlign.center,

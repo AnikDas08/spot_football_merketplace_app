@@ -23,7 +23,8 @@ class LeagueContextWidget extends StatelessWidget {
         CommonText(
           text: 'League Context',
           fontSize: 20,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
+          fontFamily: 'PlayfairDisplay',
           color: AppColors.primaryColor,
         ),
         SizedBox(height: 6.h),
@@ -79,14 +80,14 @@ class LeagueContextWidget extends StatelessWidget {
         CommonText(
           text: value,
           fontSize: 32,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           color: const Color(0xFFEABB00),
-          fontFamily: 'Montserrat',
+          fontFamily: 'PlayfairDisplay',
         ),
         CommonText(
           text: label,
           fontSize: 12,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           color: Colors.grey.shade600,
         ),
       ],

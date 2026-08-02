@@ -101,7 +101,7 @@ class EditProfile extends StatelessWidget {
                   CommonText(
                     text: AppString.updateAvatar.toUpperCase(),
                     fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.primaryColor,
                   ),
                   
@@ -120,7 +120,7 @@ class EditProfile extends StatelessWidget {
                     CommonText(
                       text: "${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
                       fontSize: 12,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.primaryColor,
                     ),
                   ],

@@ -80,7 +80,7 @@ class VideoNewsCard extends StatelessWidget {
                       title,
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         color: Colors.black,
                       ),
                       maxLines: 2,
@@ -105,7 +105,7 @@ class VideoNewsCard extends StatelessWidget {
                         CommonText(
                           text: formattedDate,
                           fontSize: 11,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: AppColors.color6B6B6B,
                         ),
                       ],

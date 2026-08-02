@@ -84,7 +84,7 @@ class UpcomingFixtures extends StatelessWidget {
                 "Upcoming Fixtures".toTitleCase(),
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   color: titleColor ?? AppColors.primaryColor,
                 ),
               ),
@@ -98,7 +98,7 @@ class UpcomingFixtures extends StatelessWidget {
                     Text(
                       AppString.viewAll,
                       style: GoogleFonts.playfairDisplay(
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         fontSize: 14.sp,
                         color: viewAllColor ?? AppColors.primaryColor,
                       ),

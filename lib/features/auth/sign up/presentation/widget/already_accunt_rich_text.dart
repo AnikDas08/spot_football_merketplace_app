@@ -19,10 +19,10 @@ class AlreadyAccountRichText extends StatelessWidget {
           children: [
             TextSpan(
               text: AppString.alreadyHaveAccount,
-              style: GoogleFonts.plusJakartaSans(
+              style: GoogleFonts.playfairDisplay(
                 color: const Color(0xff373737),
                 fontSize: 16,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
               ),
             ),
 
@@ -33,10 +33,10 @@ class AlreadyAccountRichText extends StatelessWidget {
                 ..onTap = () {
                   Get.toNamed(AppRoutes.signIn);
                 },
-              style: GoogleFonts.plusJakartaSans(
+              style: GoogleFonts.playfairDisplay(
                 color: AppColors.primaryColor,
                 fontSize: 16,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 decoration: TextDecoration.underline,      // underline
                 decorationColor: AppColors.primaryColor,   // underline color
                 decorationThickness: 2,                    // optional thickness

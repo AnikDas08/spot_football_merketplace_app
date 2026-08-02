@@ -105,7 +105,7 @@ class MySubscriptionScreen extends StatelessWidget {
                                 CommonText(
                                   text: '$titleRole Membership',
                                   fontSize: 32,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w400,
                                   textAlign: TextAlign.start,
                                   color: AppColors.black,
                                   bottom: 10.h,
@@ -159,7 +159,7 @@ class MySubscriptionScreen extends StatelessWidget {
                                         text:
                                             "You are currently subscribed to this plan",
                                         color: AppColors.primaryColor,
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.w400,
                                         fontSize: 14,
                                       ),
                                     ),
@@ -223,7 +223,7 @@ class MySubscriptionScreen extends StatelessWidget {
         CommonText(
           text: AppString.subcriptionDetails,
           fontSize: 24,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           color: AppColors.black,
           bottom: 32.h,
           fontFamily: 'PlayfairDisplay',
@@ -251,7 +251,7 @@ class MySubscriptionScreen extends StatelessWidget {
                     CommonText(
                       text: title,
                       fontSize: 22,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.black,
                       fontFamily: 'PlayfairDisplay',
                     ),
@@ -282,7 +282,7 @@ class MySubscriptionScreen extends StatelessWidget {
                           '£$price',
                           style: GoogleFonts.playfairDisplay(
                             fontSize: 32.sp,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: const Color(0xFFEABB00),
                           ),
                         ),
@@ -364,7 +364,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                 CommonText(
                   text: package.title ?? "",
                   fontSize: 18,
-                  fontWeight: FontWeight.w500, 
+                  fontWeight: FontWeight.w400, 
                   color: AppColors.black,
                   fontFamily: 'PlayfairDisplay',
                 ),
@@ -405,7 +405,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                         '£${package.price}',
                         style: GoogleFonts.playfairDisplay(
                           fontSize: 26.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: priceColor,
                         ),
                       ),
@@ -438,7 +438,7 @@ class _RegistrationPlanCard extends StatelessWidget {
                       ? 'Current Plan' 
                       : 'Select ${package.title ?? ""}',
                   fontSize: 14,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   color: isCurrentPlan ? Colors.grey.shade600 : AppColors.white,
                 ),
               ),

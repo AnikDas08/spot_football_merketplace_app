@@ -65,7 +65,7 @@ class PlayerHeaderWidget extends StatelessWidget {
                     CommonText(
                       text: playerName,
                       fontSize: 32,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
                     SizedBox(height: 4.h),
@@ -73,7 +73,7 @@ class PlayerHeaderWidget extends StatelessWidget {
                       text: position,
                       fontSize: 16,
                       color: Colors.white.withValues(alpha: 0.9),
-                      fontWeight: const FontWeight(500),
+                      fontWeight: FontWeight.w400,
                     ),
                     const Spacer(),
                   ],

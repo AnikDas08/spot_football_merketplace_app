@@ -14,7 +14,7 @@ class CommonText extends StatelessWidget {
     this.top = 0,
     this.bottom = 0,
     this.fontSize = 14,
-    this.fontWeight = FontWeight.w500,
+    this.fontWeight = FontWeight.w400,
     this.color,
     required this.text,
     this.overflow = TextOverflow.ellipsis,
@@ -45,14 +45,7 @@ class CommonText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 1. Normalize FontWeight (No bold text allowed)
-    FontWeight normalizedWeight = fontWeight;
-    if (fontWeight == FontWeight.bold || 
-        fontWeight == FontWeight.w600 || 
-        fontWeight == FontWeight.w700 || 
-        fontWeight == FontWeight.w800 || 
-        fontWeight == FontWeight.w900) {
-      normalizedWeight = FontWeight.w500;
-    }
+    FontWeight normalizedWeight = FontWeight.w400;
 
     TextStyle textStyle = TextStyle(
       letterSpacing: letterSpacing,
@@ -64,8 +57,8 @@ class CommonText extends StatelessWidget {
     );
 
     // 2. Apply Font Style
-    // Use Playfair Display for headers/big text (>= 18) unless another font is explicitly requested
-    if (fontFamily == 'PlayfairDisplay' || (fontSize >= 18 && fontFamily == null)) {
+    // Use Playfair Display for headers/big text (>= 16) unless another font is explicitly requested
+    if (fontFamily == 'PlayfairDisplay' || (fontSize >= 16 && fontFamily == null)) {
       textStyle = GoogleFonts.playfairDisplay(textStyle: textStyle);
     } else if (fontFamily == 'Montserrat') {
       textStyle = GoogleFonts.montserrat(textStyle: textStyle);

@@ -35,7 +35,7 @@ class CommonDropdownField<T> extends StatelessWidget {
     this.paddingHorizontal = 16,
     this.paddingVertical = 10,
     this.fontSize = 16,
-    this.fontWeight = FontWeight.w500,
+    this.fontWeight = FontWeight.w400,
     this.titleColor,
   });
 

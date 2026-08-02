@@ -33,7 +33,7 @@ class CreatePassword extends StatelessWidget {
                 const CommonText(
                   text: 'Reset Password',
                   fontSize: 40,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   textAlign: TextAlign.start,
                   color: AppColors.black,
                   bottom: 10,

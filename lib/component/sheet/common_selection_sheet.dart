@@ -59,7 +59,7 @@ void showCommonSelectionSheet<T>(
                   style: GoogleFonts.playfairDisplay(
                     color: Colors.white,
                     fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(width: 44), 
@@ -119,7 +119,7 @@ void showCommonSelectionSheet<T>(
                     title: CommonText(
                       text: itemLabel(item),
                       fontSize: 15,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       textAlign: TextAlign.start,
                     ),
                     subtitle: itemSubLabel != null && itemSubLabel(item) != null

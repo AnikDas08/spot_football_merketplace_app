@@ -57,8 +57,9 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                   const CommonText(
                     text: "Get Discovered\nBy Clubs",
                     fontSize: 40,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     bottom: 10,
+                    fontFamily: 'PlayfairDisplay',
                   ),
                   const CommonText(
                     text: "Create your profile and get trial opportunities to unlock official league features and tracking tools.",
@@ -67,6 +68,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                     color: AppColors.primaryColor,
                     fontWeight: FontWeight.w400,
                     bottom: 32,
+                    fontFamily: 'PlayfairDisplay',
                   ),
 
                   /// First Name
@@ -143,9 +145,10 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                    const CommonText(
                     text: "Document / ID Card",
                     fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.primaryColor,
                     bottom: 10,
+                    fontFamily: 'PlayfairDisplay',
                   ),
 
                   /// File Upload Section
@@ -169,7 +172,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                           child: CommonText(
                             text: "Uploading: ${(controller.uploadProgress * 100).toStringAsFixed(0)}%",
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
@@ -193,10 +196,11 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                     child: CommonText(
                       text: "By submitting, you agree to the\nAthlete Terms of Service",
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       textAlign: TextAlign.center,
                       maxLines: 3,
                       color: Color(0xff373737),
+                      fontFamily: 'PlayfairDisplay',
                     ),
                   ),
                   SizedBox(height: 24.h),
@@ -216,8 +220,9 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
          const CommonText(
           text: "Strong Foot",
           fontSize: 16,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           bottom: 8,
+          fontFamily: 'PlayfairDisplay',
         ),
         DropdownButtonFormField<String>(
           initialValue: controller.selectedStrongFoot,
@@ -245,8 +250,9 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
         const CommonText(
           text: "Position",
           fontSize: 16,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w400,
           bottom: 8,
+          fontFamily: 'PlayfairDisplay',
         ),
         DropdownButtonFormField<String>(
           initialValue: controller.selectedPosition,
@@ -320,7 +326,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
                   ),
                 ),
               ],
@@ -344,7 +350,7 @@ class _TrialRegistrationScreenState extends State<TrialRegistrationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w500, bottom: 8),
+         const CommonText(text: "Date Of Birth", fontSize: 16, fontWeight: FontWeight.w400, bottom: 8, fontFamily: 'PlayfairDisplay'),
         InkWell(
           onTap: () => controller.selectDate(context),
           child: InputDecorator(

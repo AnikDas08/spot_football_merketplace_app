@@ -119,9 +119,7 @@ class NavBarScreen extends StatelessWidget {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontWeight: isActive
-                                          ? FontWeight.w600
-                                          : FontWeight.w500,
+                                      fontWeight: FontWeight.w400,
                                       fontSize: 10.sp,
                                       color: isActive
                                           ? AppColors.primaryColor

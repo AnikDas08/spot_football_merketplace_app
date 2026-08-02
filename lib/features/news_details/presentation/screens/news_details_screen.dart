@@ -84,7 +84,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                         CommonText(
                           text: news?.category ?? AppString.transfer,
                           fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: AppColors.white,
                         ),
                         CommonText(
@@ -92,7 +92,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                               news?.title ??
                               AppString.engCommunityAcademyStarOfTheWeek,
                           fontSize: 32,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w400,
                           maxLines: 3,
                           color: AppColors.white,
                           textAlign: TextAlign.start,
@@ -104,7 +104,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                                 ).format(news.publishDateTime)
                               : "04 Jan 2025",
                           fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: AppColors.white,
                         ),
                       ],
@@ -138,7 +138,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                                   AppString
                                       .thisWeekWereProudToCelebrateLeoAsOurStarOfTheWeek,
                               fontSize: 16,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                               color: AppColors.color373737,
                               textAlign: TextAlign.start,
                               letterSpacing: 1.sp,

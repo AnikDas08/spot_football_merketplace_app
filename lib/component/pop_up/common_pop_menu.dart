@@ -112,7 +112,7 @@ void logOutPopUp() {
                 title: const CommonText(
                   text: AppString.youSureWantToLogout,
                   maxLines: 2,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                 ),
                 actions: [
                   Row(
@@ -169,7 +169,7 @@ void deletePopUp({
                   child: CommonText(
                     text: AppString.areYouSure,
                     fontSize: 20,
-                    fontWeight: .w700,
+                    fontWeight: FontWeight.w400,
                     bottom: 24.h,
                   ),
                 ),

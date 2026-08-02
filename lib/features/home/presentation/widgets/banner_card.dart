@@ -80,14 +80,14 @@ class BannerCard extends StatelessWidget {
                       text: videoModel.title,
                       fontSize: 14,
                       color: AppColors.white,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                     ),
                     SizedBox(height: 2.h),
                     CommonText(
                       text: formattedCategory,
                       color: AppColors.white,
                       fontSize: 12,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                     ),
                     SizedBox(height: 12.h),
                     InkWell(
@@ -113,7 +113,7 @@ class BannerCard extends StatelessWidget {
                           style: GoogleFonts.montserrat(
                             color: AppColors.white,
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),

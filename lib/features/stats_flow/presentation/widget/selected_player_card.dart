@@ -39,7 +39,7 @@ class SelectedPlayerCard extends StatelessWidget {
               child: Text(
                 player.name,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.w600),
+                style: TextStyle(color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.w400),
               ),
             ),
           ],

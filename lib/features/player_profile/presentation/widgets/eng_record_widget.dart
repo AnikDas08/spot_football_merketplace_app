@@ -33,7 +33,7 @@ class EngRecordWidget extends StatelessWidget {
             AppString.engRecord,
             style: GoogleFonts.playfairDisplay(
               fontSize: 22.sp,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
               color: AppColors.primaryColor,
             ),
           ),
@@ -136,13 +136,13 @@ class _RecordCard extends StatelessWidget {
                 text: title,
                 fontSize: 10,
                 color: AppColors.textSecondaryColor,
-                fontWeight: const FontWeight(590),
+                fontWeight: FontWeight.w400,
               ),
               SizedBox(height: 6.h),
               CommonText(
                 text: value,
                 fontSize: 32,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 color: textColor ?? AppColors.primaryColor,
                 fontFamily: 'Montserrat',
               ),
@@ -150,7 +150,7 @@ class _RecordCard extends StatelessWidget {
               CommonText(
                 text: sub,
                 fontSize: 12,
-                fontWeight: const FontWeight(590),
+                fontWeight: FontWeight.w400,
                 color: color,
               ),
             ],

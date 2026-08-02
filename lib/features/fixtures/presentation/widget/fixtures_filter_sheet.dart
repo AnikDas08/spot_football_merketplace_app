@@ -54,7 +54,7 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                     style: GoogleFonts.playfairDisplay(
                       color: Colors.white,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                   TextButton(
@@ -64,7 +64,7 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                       style: GoogleFonts.playfairDisplay(
                         color: AppColors.yellow,
                         fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
@@ -82,7 +82,7 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                       AppString.leagues,
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.primaryColor,
                       ),
                     ),
@@ -155,7 +155,7 @@ void showFilterSheet(BuildContext context, FixturesController c) {
                       AppString.dateRange,
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.primaryColor,
                       ),
                     ),
@@ -227,7 +227,7 @@ class _SheetTab extends StatelessWidget {
             label,
             style: TextStyle(
               fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
               color: selected ? AppColors.white : AppColors.primaryColor,
             ),
           ),
@@ -261,7 +261,7 @@ class _DateChip extends StatelessWidget {
           label,
           style: TextStyle(
             fontSize: 14.sp,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             color: selected ? AppColors.white : AppColors.primaryColor,
           ),
         ),
@@ -295,7 +295,7 @@ class _CalendarWidget extends StatelessWidget {
             children: [
               Text(
                 '$monthName ${c.focusedMonth.year}',
-                style: GoogleFonts.playfairDisplay(fontSize: 18.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),
+                style: GoogleFonts.playfairDisplay(fontSize: 18.sp, fontWeight: FontWeight.w400, color: AppColors.primaryColor),
               ),
               Row(
                 children: [
@@ -381,18 +381,17 @@ class _DayCell extends StatelessWidget {
   Widget build(BuildContext context) {
     Color bg = Colors.transparent;
     Color textColor = isCurrentMonth ? AppColors.primaryColor : AppColors.background;
-    FontWeight fw = FontWeight.w500;
-
+    FontWeight fw = FontWeight.w400;
     if (isSelected) {
       bg = AppColors.primaryColor;
       textColor = AppColors.white;
-      fw = FontWeight.w700;
+      fw = FontWeight.w400;
     } else if (isInRange) {
       bg = AppColors.primaryColor.withAlpha(50);
       textColor = AppColors.primaryColor;
     } else if (isToday) {
       bg = AppColors.textSecondaryColor.withAlpha(51);
-      fw = FontWeight.w700;
+      fw = FontWeight.w400;
     }
 
     return GestureDetector(

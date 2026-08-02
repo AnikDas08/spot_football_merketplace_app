@@ -78,7 +78,7 @@ class LeagueHeaderWidget extends StatelessWidget {
                         teamName ?? 'Phoenix Utds',
                         style: GoogleFonts.playfairDisplay(
                           fontSize: 24.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
                         maxLines: 1,

@@ -38,7 +38,7 @@ class TransferPendingApproval extends StatelessWidget {
                     CommonText(
                       text: AppString.offerSubmitted,
                       fontSize: 32,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       fontFamily: 'PlayfairDisplay',
                     ),
                     SizedBox(height: 8.h),
@@ -85,7 +85,7 @@ class TransferPendingApproval extends StatelessWidget {
                 borderColor: AppColors.color6B6B6B,
                 titleColor: AppColors.primaryColor,
                 titleSize: 18,
-                titleWeight: FontWeight.w500,
+                titleWeight: FontWeight.w400,
               ),
               SizedBox(height: 160),
             ],

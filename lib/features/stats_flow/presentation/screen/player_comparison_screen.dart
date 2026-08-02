@@ -34,7 +34,7 @@ class PlayerComparisonScreen extends StatelessWidget {
                 child: CommonText(
                   text: "Select Two Players To Compare Their Stats",
                   fontSize: 18,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   fontFamily: 'PlayfairDisplay',
